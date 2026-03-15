@@ -6,28 +6,40 @@
 <title>Daffel</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif
+}
 
 body{
-background:#ffffff;
-color:#111;
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
+background:linear-gradient(135deg,#eef2ff,#ffffff,#ecfeff);
+color:#111;
 }
 
 .container{
 text-align:center;
 max-width:600px;
-padding:40px;
+padding:50px;
+background:white;
+border-radius:24px;
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
 }
 
 h1{
 font-size:64px;
-font-weight:600;
+font-weight:700;
 letter-spacing:-1px;
 margin-bottom:10px;
+background:linear-gradient(90deg,#6366f1,#06b6d4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .tagline{
@@ -38,39 +50,48 @@ margin-bottom:40px;
 
 .countdown{
 font-size:28px;
-font-weight:500;
+font-weight:600;
 letter-spacing:2px;
 margin-bottom:40px;
+color:#111;
 }
 
 .email-box{
 display:flex;
 justify-content:center;
-gap:10px;
+gap:12px;
 }
 
 input{
-padding:14px 16px;
+padding:15px 18px;
 font-size:16px;
-border:1px solid #d2d2d7;
-border-radius:12px;
+border:1px solid #e5e5e7;
+border-radius:14px;
 width:260px;
 outline:none;
-}
-
-button{
-padding:14px 20px;
-font-size:16px;
-border:none;
-border-radius:12px;
-background:#000;
-color:white;
-cursor:pointer;
 transition:0.2s;
 }
 
+input:focus{
+border-color:#6366f1;
+box-shadow:0 0 0 3px rgba(99,102,241,0.15);
+}
+
+button{
+padding:15px 22px;
+font-size:16px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#6366f1,#06b6d4);
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:0.25s;
+}
+
 button:hover{
-opacity:0.85;
+transform:translateY(-2px);
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
 footer{
@@ -78,6 +99,7 @@ margin-top:40px;
 font-size:13px;
 color:#8e8e93;
 }
+
 </style>
 
 </head>
@@ -96,12 +118,13 @@ color:#8e8e93;
 </div>
 
 <footer>
-Launch soon
+Launching soon
 </footer>
 
 </div>
 
 <script>
+
 const targetDate = new Date();
 targetDate.setMonth(targetDate.getMonth() + 1);
 
@@ -120,6 +143,7 @@ days+"d "+hours+"h "+minutes+"m "+seconds+"s";
 
 setInterval(updateTimer,1000);
 updateTimer();
+
 </script>
 
 </body>
