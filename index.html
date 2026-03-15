@@ -4,61 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daffel</title>
-
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif
 }
-
 body{
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-
-background:
-radial-gradient(circle at 20% 30%, #2563eb 0%, transparent 40%),
-radial-gradient(circle at 80% 20%, #60a5fa 0%, transparent 40%),
-radial-gradient(circle at 70% 80%, #1e3a8a 0%, transparent 40%),
-radial-gradient(circle at 10% 80%, #3b82f6 0%, transparent 40%),
-#0f172a;
-
 color:#111;
+overflow:hidden;
 }
-
+video.bg{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+object-fit:cover;
+z-index:-1;
+}
 .container{
 text-align:center;
 max-width:600px;
 padding:60px;
-
 background:rgba(255,255,255,0.85);
 backdrop-filter:blur(20px);
-
 border-radius:26px;
 box-shadow:0 25px 70px rgba(0,0,0,0.15);
 }
-
 h1{
 font-size:70px;
 font-weight:700;
 letter-spacing:-1px;
 margin-bottom:10px;
-
 background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
-
 .tagline{
 font-size:20px;
 color:#475569;
 margin-bottom:40px;
 }
-
 .countdown{
 font-size:28px;
 font-weight:600;
@@ -66,14 +56,12 @@ letter-spacing:2px;
 margin-bottom:40px;
 color:#0f172a;
 }
-
 .email-box{
 display:flex;
 justify-content:center;
 gap:12px;
 flex-wrap:wrap;
 }
-
 input{
 padding:15px 18px;
 font-size:16px;
@@ -84,82 +72,63 @@ outline:none;
 transition:0.2s;
 background:white;
 }
-
 input:focus{
 border-color:#2563eb;
 box-shadow:0 0 0 3px rgba(37,99,235,0.15);
 }
-
 button{
 padding:15px 24px;
 font-size:16px;
 border:none;
 border-radius:14px;
-
 background:linear-gradient(90deg,#1d4ed8,#3b82f6);
-
 color:white;
 cursor:pointer;
 font-weight:600;
 transition:0.25s;
 }
-
 button:hover{
 transform:translateY(-2px);
 box-shadow:0 10px 25px rgba(0,0,0,0.18);
 }
-
 footer{
 margin-top:40px;
 font-size:13px;
 color:#64748b;
 }
-
 </style>
-
 </head>
 <body>
-
+<video class="bg" autoplay muted loop playsinline>
+  <source src="horse.mp4" type="video/mp4">
+</video>
 <div class="container">
-
 <h1>Daffel</h1>
 <p class="tagline">Hogar y personas</p>
-
 <div class="countdown" id="timer"></div>
-
 <div class="email-box">
 <input type="email" placeholder="Tu correo">
 <button>Unirme</button>
 </div>
-
 <footer>
 Launching soon
 </footer>
-
 </div>
-
 <script>
-
 const targetDate = new Date();
 targetDate.setMonth(targetDate.getMonth() + 1);
-
 function updateTimer(){
 const now = new Date();
 const diff = targetDate - now;
-
 const days = Math.floor(diff/(1000*60*60*24));
 const hours = Math.floor((diff/(1000*60*60))%24);
 const minutes = Math.floor((diff/(1000*60))%60);
 const seconds = Math.floor((diff/1000)%60);
-
 document.getElementById("timer").innerHTML =
 days+"d "+hours+"h "+minutes+"m "+seconds+"s";
 }
-
 setInterval(updateTimer,1000);
 updateTimer();
-
 </script>
-
 </body>
 </html>
