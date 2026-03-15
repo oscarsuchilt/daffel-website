@@ -30,31 +30,30 @@ z-index:-1;
 text-align:center;
 max-width:600px;
 padding:60px;
-background:rgba(255,255,255,0.85);
-backdrop-filter:blur(20px);
-border-radius:26px;
-box-shadow:0 25px 70px rgba(0,0,0,0.15);
 }
 h1{
 font-size:70px;
 font-weight:700;
 letter-spacing:-1px;
 margin-bottom:10px;
-background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa);
+background:linear-gradient(90deg,#60a5fa,#93c5fd,#ffffff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+filter:drop-shadow(0 2px 16px rgba(0,0,0,0.3));
 }
 .tagline{
 font-size:20px;
-color:#475569;
+color:rgba(255,255,255,0.85);
 margin-bottom:40px;
+text-shadow:0 1px 8px rgba(0,0,0,0.4);
 }
 .countdown{
 font-size:28px;
 font-weight:600;
 letter-spacing:2px;
 margin-bottom:40px;
-color:#0f172a;
+color:#ffffff;
+text-shadow:0 2px 12px rgba(0,0,0,0.4);
 }
 .email-box{
 display:flex;
@@ -65,16 +64,19 @@ flex-wrap:wrap;
 input{
 padding:15px 18px;
 font-size:16px;
-border:1px solid #e2e8f0;
+border:1px solid rgba(255,255,255,0.3);
 border-radius:14px;
 width:260px;
 outline:none;
 transition:0.2s;
-background:white;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+color:white;
 }
+input::placeholder{color:rgba(255,255,255,0.6);}
 input:focus{
-border-color:#2563eb;
-box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+border-color:rgba(255,255,255,0.7);
+box-shadow:0 0 0 3px rgba(255,255,255,0.1);
 }
 button{
 padding:15px 24px;
@@ -94,7 +96,7 @@ box-shadow:0 10px 25px rgba(0,0,0,0.18);
 footer{
 margin-top:40px;
 font-size:13px;
-color:#64748b;
+color:rgba(255,255,255,0.5);
 }
 </style>
 </head>
@@ -132,3 +134,4 @@ updateTimer();
 </script>
 </body>
 </html>
+ 
