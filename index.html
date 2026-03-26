@@ -3,146 +3,525 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daffel</title>
+<title>Belong × Nowo — Flujo de Renta Garantizada</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #111;
-  overflow: hidden;
-}
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #fff;
+    color: #111;
+  }
 
-video.bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
+  .shell {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
 
-.container {
-  text-align: center;
-  max-width: 600px;
-  padding: 60px;
-}
+  /* ── HEADER ── */
+  header {
+    border-bottom: 2px solid #111;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+  header span { font-size: 11px; color: #777; letter-spacing: 0.06em; text-transform: uppercase; }
 
-h1 {
-  font-size: 70px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-  background: linear-gradient(90deg, #1d4ed8, #3b82f6, #60a5fa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  /* ── PROGRESS ── */
+  .progress-bar { height: 3px; background: #e8e8e8; }
+  .progress-fill { height: 3px; background: #111; transition: width 0.35s ease; }
 
-.tagline {
-  font-size: 20px;
-  color: #475569;
-  margin-bottom: 40px;
-}
+  /* ── STEP COUNTER ── */
+  .step-counter {
+    text-align: center;
+    padding: 8px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    border-bottom: 1px solid #e8e8e8;
+  }
 
-.countdown {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 40px;
-  color: #0f172a;
-}
+  /* ── MAIN ── */
+  main {
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+  }
 
-.email-box {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+  /* ── STEPS ── */
+  .step {
+    display: none;
+    height: 100%;
+    padding: 20px 32px 16px;
+    animation: fadeIn 0.25s ease;
+    overflow: hidden;
+  }
+  .step.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes fadeBack { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+  .step.back { animation: fadeBack 0.25s ease; }
 
-input {
-  padding: 15px 18px;
-  font-size: 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  width: 260px;
-  outline: none;
-  transition: 0.2s;
-  background: white;
-}
+  /* ── STEP TOP ── */
+  .step-top { flex-shrink: 0; margin-bottom: 14px; }
+  .step-tag {
+    display: inline-block;
+    border: 1px solid #111;
+    padding: 2px 9px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .step-tag.host { background: #111; color: #fff; }
+  .step-tag.roomie { border-style: solid; }
+  .step-tag.nowo { background: #555; color: #fff; }
+  .step-tag.decision { border-style: dashed; }
+  .step-tag.escenario-a { background: #111; color: #fff; }
+  .step-tag.escenario-b { background: #666; color: #fff; }
+  .step-tag.escenario-c { border-style: solid; }
+  .step-tag.exito { background: #000; color: #fff; }
 
-input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
+  h2 { font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+  .subtitle {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.55;
+    border-left: 2px solid #111;
+    padding-left: 10px;
+    font-style: italic;
+  }
 
-button {
-  padding: 15px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.25s;
-}
+  /* ── STEP BODY ── */
+  .step-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-}
+  /* ── CARDS ── */
+  .card {
+    border: 1px solid #ddd;
+    padding: 12px 14px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .card h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: #777; margin-bottom: 5px; }
+  .card p { font-size: 12px; line-height: 1.55; color: #333; }
+  .card.filled { background: #111; border-color: #111; }
+  .card.filled h3 { color: #888; }
+  .card.filled p { color: #ddd; }
+  .card.gray { background: #f6f6f6; border-color: #e8e8e8; }
+  .card.dashed { border-style: dashed; }
+  .card.alert-card { border: 2px solid #111; display: flex; gap: 12px; align-items: flex-start; }
+  .alert-icon { font-size: 15px; font-weight: 900; flex-shrink: 0; padding-top: 1px; }
+  .alert-body h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .alert-body p { font-size: 12px; line-height: 1.5; color: #333; }
 
-footer {
-  margin-top: 40px;
-  font-size: 13px;
-  color: #64748b;
-}
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-shrink: 0; }
+  .stat { border: 1px solid #ddd; border-radius: 6px; padding: 12px; text-align: center; }
+  .stat-value { font-size: 24px; font-weight: 800; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #888; }
+
+  /* ── STEP LIST ── */
+  .step-list { list-style: none; flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: space-evenly; }
+  .step-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .step-list li::before {
+    content: attr(data-n);
+    min-width: 22px; height: 22px;
+    border: 1px solid #111;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    flex-shrink: 0;
+    border-radius: 50%;
+    margin-top: 1px;
+  }
+  .step-list li.filled::before { background: #111; color: #fff; }
+  .step-list li span { font-size: 12px; line-height: 1.5; color: #333; }
+  .step-list li strong { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #111; margin-bottom: 1px; }
+
+  /* ── PATHS ── */
+  .paths { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 8px; }
+  .path-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    flex-shrink: 0;
+  }
+  .path-item:hover { border-color: #111; background: #f8f8f8; transform: translateY(-1px); }
+  .path-arrow { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .path-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .path-desc { font-size: 11px; color: #666; line-height: 1.45; }
+
+  /* ── FOOTER NAV ── */
+  footer {
+    border-top: 2px solid #111;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: #fff;
+  }
+  .nav-btn {
+    border: 1.5px solid #111;
+    background: #fff;
+    padding: 10px 22px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .nav-btn:hover { background: #111; color: #fff; }
+  .nav-btn:disabled { border-color: #ddd; color: #ccc; cursor: default; }
+  .nav-btn:disabled:hover { background: #fff; color: #ccc; }
+  .nav-btn.primary { background: #111; color: #fff; }
+  .nav-btn.primary:hover { background: #333; }
+
+  .breadcrumb { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; text-align: center; max-width: 180px; }
+  .breadcrumb span { color: #111; font-weight: 700; }
+
+  .divider { height: 1px; background: #e8e8e8; flex-shrink: 0; }
+  .spacer { flex: 1; }
 </style>
 </head>
 <body>
+<div class="shell">
 
-<video class="bg" autoplay muted loop playsinline>
-  <source src="penguin.mp4" type="video/mp4">
-</video>
+  <header>
+    <h1>Belong × Nowo</h1>
+    <span>Flujo de Renta Garantizada</span>
+  </header>
 
-<div class="container">
-  <h1>Daffel</h1>
-  <p class="tagline">Oscar Suchilt</p>
-  <div class="countdown" id="timer"></div>
-  <div class="email-box">
-    <input type="email" placeholder="Tu correo">
-    <button>Unirme</button>
-  </div>
-  <footer>Launching soon</footer>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div class="step-counter" id="stepCounter">Paso 1 de 12</div>
+
+  <main>
+
+    <!-- PASO 1 -->
+    <div class="step active" id="step-1">
+      <div class="step-top">
+        <div class="step-tag host">Punto de partida</div>
+        <h2>Flujo de Renta Garantizada</h2>
+        <p class="subtitle">Integración Belong × Nowo para garantizar renta segura sin riesgos para host ni roomie.</p>
+      </div>
+      <div class="step-body">
+        <div class="card alert-card">
+          <div class="alert-icon">!</div>
+          <div class="alert-body">
+            <h4>Regla de oro</h4>
+            <p>El Seguro Nowo se paga adelantado, pero <strong>solo cuando la renta ya está confirmada</strong>. El roomie nunca pierde dinero si el host rechaza.</p>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="stat"><span class="stat-value">3</span><span class="stat-label">Escenarios</span></div>
+          <div class="stat"><span class="stat-value">AAA</span><span class="stat-label">Nivel Nowo</span></div>
+        </div>
+        <div class="card gray">
+          <h3>Los tres caminos</h3>
+          <p><strong>A.</strong> Aprobación automática — renta directa<br><strong>B.</strong> Host acepta la reserva manualmente<br><strong>C.</strong> Host rechaza la reserva</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="step" id="step-2">
+      <div class="step-top">
+        <div class="step-tag host">Acción del Host</div>
+        <h2>El host publica con nivel AAA</h2>
+        <p class="subtitle">Completa el formulario de Belong y activa el Seguro Nowo para su propiedad.</p>
+      </div>
+      <div class="step-body">
+        <ul class="step-list">
+          <li class="filled" data-n="1"><div><strong>Tipo de espacio</strong><span>Departamento, casa o loft. Privado, entero o compartido.</span></div></li>
+          <li class="filled" data-n="2"><div><strong>Nivel AAA</strong><span>Seguro Nowo + primer mes de renta + depósito en garantía.</span></div></li>
+          <li class="filled" data-n="3"><div><strong>Datos para Nowo</strong><span>Tipo de contrato, disponibilidad, cuenta bancaria y RFC del administrador.</span></div></li>
+          <li class="filled" data-n="4"><div><strong>Modo de aprobación</strong><span>Automática o por aprobar manualmente. Define qué escenario se activará.</span></div></li>
+        </ul>
+        <div class="card filled">
+          <h3>Resultado</h3>
+          <p>Propiedad publicada con badge <strong>Nowo Garantizado • AAA</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="step" id="step-3">
+      <div class="step-top">
+        <div class="step-tag decision">Decisión del Host</div>
+        <h2>¿Cómo gestiona sus reservas?</h2>
+        <p class="subtitle">Esta decisión define cuál escenario se activa cuando un roomie aplique.</p>
+      </div>
+      <div class="step-body">
+        <div class="paths">
+          <div class="path-item" onclick="goToStep(4)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Aprobación automática</div><div class="path-desc">Cualquier roomie aprobado por Nowo renta sin intervención del host. Máxima velocidad. Lleva al <strong>Escenario A</strong>.</div></div>
+          </div>
+          <div class="path-item" onclick="goToStep(4)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Por aprobar manualmente</div><div class="path-desc">El host revisa y decide por cada reserva. Lleva al <strong>Escenario B</strong> (acepta) o <strong>C</strong> (rechaza).</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="step" id="step-4">
+      <div class="step-top">
+        <div class="step-tag roomie">Acción del Roomie</div>
+        <h2>El roomie encuentra la propiedad</h2>
+        <p class="subtitle">Navega el catálogo de Belong, ve el badge AAA y aplica solo o en pool.</p>
+      </div>
+      <div class="step-body">
+        <ul class="step-list">
+          <li data-n="1"><div><strong>Explora el catálogo</strong><span>Vista lista o mapa. Filtra por ciudad y precio. Ve el badge Nowo Garantizado.</span></div></li>
+          <li data-n="2"><div><strong>Aplica o crea un pool</strong><span>Solo o con otros roomies. Belong verifica que el perfil tenga CURP, ocupación y domicilio.</span></div></li>
+          <li data-n="3"><div><strong>Datos enviados a Nowo</strong><span>CURP · Ocupación · Domicilio · m² · Monto de renta — automático vía API.</span></div></li>
+        </ul>
+        <div class="card dashed">
+          <h3>Nota sobre pools</h3>
+          <p>Queda pendiente definir con Nowo si evalúa a todos los integrantes del pool o solo al titular.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 5 -->
+    <div class="step" id="step-5">
+      <div class="step-top">
+        <div class="step-tag nowo">Evaluación Nowo</div>
+        <h2>Nowo evalúa al roomie vía API</h2>
+        <p class="subtitle">Evaluación con IA y acceso a 2,000+ fuentes. Resultado en minutos.</p>
+      </div>
+      <div class="step-body">
+        <div class="card filled">
+          <h3>Datos que Belong envía a Nowo</h3>
+          <p>CURP · Ocupación · Domicilio · m² · Monto de renta</p>
+        </div>
+        <div class="paths">
+          <div class="path-item" onclick="goToStep(6)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Aprobado</div><div class="path-desc">El roomie califica. El flujo continúa según el modo de aprobación de la propiedad.</div></div>
+          </div>
+          <div class="path-item" onclick="goToStep(6)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Con obligado solidario</div><div class="path-desc">No califica solo, presenta un obligado solidario. Nowo reevalúa. Si aprueba, continúa el flujo.</div></div>
+          </div>
+          <div class="path-item">
+            <div class="path-arrow">✕</div>
+            <div><div class="path-label">No aprobado</div><div class="path-desc">Flujo termina. Sin cargo al roomie. Belong lo notifica con el resultado.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 6 -->
+    <div class="step" id="step-6">
+      <div class="step-top">
+        <div class="step-tag decision">Bifurcación</div>
+        <h2>Roomie aprobado — ¿qué escenario?</h2>
+        <p class="subtitle">El flujo se divide según el modo que el host configuró en su propiedad.</p>
+      </div>
+      <div class="step-body">
+        <div class="paths">
+          <div class="path-item" onclick="goToStep(7)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Escenario A — Aprobación automática</div><div class="path-desc">El roomie puede rentar de inmediato. Sin intervención del host.</div></div>
+          </div>
+          <div class="path-item" onclick="goToStep(9)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Escenario B — Host acepta</div><div class="path-desc">La propiedad requiere aprobación manual. El host acepta la reserva.</div></div>
+          </div>
+          <div class="path-item" onclick="goToStep(11)">
+            <div class="path-arrow">→</div>
+            <div><div class="path-label">Escenario C — Host rechaza</div><div class="path-desc">La propiedad requiere aprobación manual. El host decide no aceptar.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 7 — ESC A -->
+    <div class="step" id="step-7">
+      <div class="step-top">
+        <div class="step-tag escenario-a">Escenario A</div>
+        <h2>Roomie aprobado — renta directa</h2>
+        <p class="subtitle">Modo automático. El roomie renta sin que el host intervenga.</p>
+      </div>
+      <div class="step-body">
+        <ul class="step-list">
+          <li class="filled" data-n="1"><div><strong>Notificación al roomie</strong><span>Nowo te aprobó. Puedes rentar ahora. Se muestra el costo del seguro (~$6,000 MXN / 12 meses).</span></div></li>
+          <li class="filled" data-n="2"><div><strong>Roomie confirma la renta</strong><span>Toca "Rentar propiedad". En este momento la renta queda confirmada y la propiedad reservada.</span></div></li>
+          <li class="filled" data-n="3"><div><strong>Pago del Seguro Nowo</strong><span>Pago adelantado inmediato a través del motor de pagos de Nowo.</span></div></li>
+          <li class="filled" data-n="4"><div><strong>Póliza emitida</strong><span>Cobertura 100%: renta mensual garantizada + cobertura jurídica + garantía de servicios.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO 8 — ESC A CIERRE -->
+    <div class="step" id="step-8">
+      <div class="step-top">
+        <div class="step-tag exito">Escenario A — Renta confirmada</div>
+        <h2>Propiedad rentada</h2>
+        <p class="subtitle">Renta garantizada activa. Cero intervención del host. Cero riesgo para el roomie.</p>
+      </div>
+      <div class="step-body">
+        <div class="two-col">
+          <div class="stat"><span class="stat-value">0</span><span class="stat-label">Intervención del host</span></div>
+          <div class="stat"><span class="stat-value">min</span><span class="stat-label">Tiempo total</span></div>
+        </div>
+        <ul class="step-list">
+          <li data-n="5"><div><strong>Reserva transferida al host</strong><span>Primer mes + depósito llegan a la cuenta del host automáticamente.</span></div></li>
+          <li data-n="6"><div><strong>Propiedad marcada Ocupada</strong><span>Otros roomies ya no pueden aplicar. Contrato digital firmado en Belong.</span></div></li>
+          <li data-n="7"><div><strong>Renta mes a mes</strong><span>El host recibe su renta garantizada mensualmente con respaldo de Nowo y Aseguradora Insurgentes.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO 9 — ESC B -->
+    <div class="step" id="step-9">
+      <div class="step-top">
+        <div class="step-tag escenario-b">Escenario B</div>
+        <h2>El host acepta la reserva</h2>
+        <p class="subtitle">Nowo aprobó al roomie. El host revisa y acepta. El roomie no ha pagado nada todavía.</p>
+      </div>
+      <div class="step-body">
+        <ul class="step-list">
+          <li class="filled" data-n="1"><div><strong>Notificación al host</strong><span>Ve el perfil del roomie: foto, compatibilidad, hobbies, ocupación y confirmación Nowo.</span></div></li>
+          <li class="filled" data-n="2"><div><strong>Host acepta la reserva</strong><span>Toca "Aceptar reserva". Renta confirmada. Belong notifica al roomie.</span></div></li>
+          <li class="filled" data-n="3"><div><strong>Roomie paga el Seguro Nowo</strong><span>Solo en este momento — tras la aceptación — se realiza el pago adelantado. Tiempo límite: 24-48 h.</span></div></li>
+          <li class="filled" data-n="4"><div><strong>Póliza emitida + propiedad rentada</strong><span>Host recibe primer mes + depósito. Contrato digital firmado. Renta garantizada activa.</span></div></li>
+        </ul>
+        <div class="card dashed">
+          <h3>Si el roomie no paga en el tiempo límite</h3>
+          <p>La reserva se cancela automáticamente. La propiedad vuelve a estar disponible. El host no tiene perjuicio alguno.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 10 — ESC B CIERRE -->
+    <div class="step" id="step-10">
+      <div class="step-top">
+        <div class="step-tag exito">Escenario B — Renta confirmada</div>
+        <h2>Póliza emitida — Propiedad rentada</h2>
+        <p class="subtitle">El roomie pagó el seguro tras la aceptación del host. Renta garantizada activa.</p>
+      </div>
+      <div class="step-body">
+        <div class="two-col">
+          <div class="card gray"><h3>Riesgo para el roomie</h3><p>Ninguno antes de la aceptación. El pago solo ocurre cuando la renta ya es un hecho.</p></div>
+          <div class="card gray"><h3>Riesgo para el host</h3><p>Ninguno. El seguro Nowo garantiza el pago mensual aunque el inquilino incumpla.</p></div>
+        </div>
+        <ul class="step-list">
+          <li data-n="5"><div><strong>Propiedad marcada Ocupada</strong><span>Otros roomies ya no pueden aplicar a esa habitación.</span></div></li>
+          <li data-n="6"><div><strong>Contrato digital firmado</strong><span>Dentro de la plataforma Belong.</span></div></li>
+          <li data-n="7"><div><strong>Renta activa mes a mes</strong><span>Con respaldo de Nowo y Aseguradora Insurgentes.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO 11 — ESC C -->
+    <div class="step" id="step-11">
+      <div class="step-top">
+        <div class="step-tag escenario-c">Escenario C</div>
+        <h2>El host rechaza la reserva</h2>
+        <p class="subtitle">Nowo aprobó al roomie, pero el host no acepta. El roomie no pierde nada.</p>
+      </div>
+      <div class="step-body">
+        <div class="card alert-card">
+          <div class="alert-icon">0</div>
+          <div class="alert-body">
+            <h4>Ningún cargo económico al roomie</h4>
+            <p>El seguro se paga solo si hay aceptación confirmada. Sin perder nada.</p>
+          </div>
+        </div>
+        <ul class="step-list">
+          <li class="filled" data-n="1"><div><strong>Host registra motivo de rechazo</strong><span>Selecciona una razón. Queda registrado en Belong.</span></div></li>
+          <li class="filled" data-n="2"><div><strong>Aprobación Nowo sigue vigente</strong><span>El roomie puede aplicar a otra propiedad AAA sin nueva evaluación. Vigencia: 30-60 días (a definir).</span></div></li>
+          <li class="filled" data-n="3"><div><strong>Belong sugiere propiedades similares</strong><span>El roomie recibe recomendaciones de otras propiedades disponibles.</span></div></li>
+          <li class="filled" data-n="4"><div><strong>Posible penalización al host</strong><span>Si rechaza recurrentemente sin justificación: advertencia, reducción de visibilidad o suspensión del badge Nowo.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO 12 — RESUMEN -->
+    <div class="step" id="step-12">
+      <div class="step-top">
+        <div class="step-tag host">Resumen</div>
+        <h2>Los tres escenarios</h2>
+        <p class="subtitle">Vista comparativa de los tres caminos posibles y sus resultados.</p>
+      </div>
+      <div class="step-body">
+        <div class="card gray"><h3>A — Automático</h3><p>Sin intervención del host. El roomie confirma, paga el seguro y renta en minutos. Riesgo cero para ambos.</p></div>
+        <div class="card gray"><h3>B — Host acepta</h3><p>El host revisa y acepta. Solo tras la aceptación el roomie paga el seguro. Riesgo cero antes de aceptar.</p></div>
+        <div class="card gray"><h3>C — Host rechaza</h3><p>El roomie no paga nada. Su aprobación Nowo sigue vigente. El host puede ser penalizado si rechaza sin justificación.</p></div>
+        <div class="card dashed">
+          <h3>Puntos pendientes con Nowo</h3>
+          <p>Carga de docs in-house · Vigencia de aprobación (30-60 d) · Tiempo límite de pago (24-48 h) · Manejo de pools · Criterios de penalización al host · Datos visibles para el host</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <button class="nav-btn" id="btnPrev" onclick="prevStep()" disabled>← Anterior</button>
+    <div class="breadcrumb" id="breadcrumb"><span>Introducción</span></div>
+    <button class="nav-btn primary" id="btnNext" onclick="nextStep()">Siguiente →</button>
+  </footer>
+
 </div>
 
 <script>
-  const targetDate = new Date();
-  targetDate.setMonth(targetDate.getMonth() + 1);
+  const totalSteps = 12;
+  let current = 1;
+  let isBack = false;
 
-  function updateTimer() {
-    const now = new Date();
-    const diff = targetDate - now;
-    const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    document.getElementById("timer").innerHTML =
-      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+  const breadcrumbs = {
+    1:'Introducción', 2:'Host publica', 3:'Modo de aprobación',
+    4:'Roomie aplica', 5:'Evaluación Nowo', 6:'Bifurcación',
+    7:'Escenario A', 8:'A — Cierre', 9:'Escenario B',
+    10:'B — Cierre', 11:'Escenario C', 12:'Resumen'
+  };
+
+  function updateUI() {
+    document.querySelectorAll('.step').forEach(s => {
+      s.classList.remove('active','back');
+    });
+    const el = document.getElementById('step-' + current);
+    if (isBack) el.classList.add('back');
+    el.classList.add('active');
+    document.getElementById('progress').style.width = ((current / totalSteps) * 100) + '%';
+    document.getElementById('stepCounter').textContent = 'Paso ' + current + ' de ' + totalSteps;
+    document.getElementById('breadcrumb').innerHTML = '<span>' + breadcrumbs[current] + '</span>';
+    document.getElementById('btnPrev').disabled = current === 1;
+    const next = document.getElementById('btnNext');
+    next.disabled = current === totalSteps;
+    next.textContent = current === totalSteps ? '✓ Fin' : 'Siguiente →';
   }
 
-  setInterval(updateTimer, 1000);
-  updateTimer();
-</script>
+  function nextStep() { if (current < totalSteps) { isBack = false; current++; updateUI(); } }
+  function prevStep() { if (current > 1) { isBack = true; current--; updateUI(); } }
+  function goToStep(n) { isBack = n < current; current = n; updateUI(); }
 
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') nextStep();
+    if (e.key === 'ArrowLeft') prevStep();
+  });
+</script>
 </body>
 </html>
