@@ -20,6 +20,80 @@
     0%, 100% { opacity: 0.2; transform: scaleY(0.6); transform-origin: top; }
     50% { opacity: 0.8; transform: scaleY(1); }
   }
+
+  /* ── RESPONSIVE GRID OVERRIDES ── */
+  .grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .grid-2col-text { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .grid-map { display: grid; grid-template-columns: 1fr 280px; gap: 40px; align-items: start; }
+  .grid-footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .amenities-inner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .hero-search-bar { background: #fff; border-radius: 99px; display: flex; align-items: center; box-shadow: 0 8px 40px rgba(0,0,0,0.25); max-width: 720px; margin: 0 auto; overflow: hidden; }
+  .hero-search-bar-mobile { display: none; }
+  .section-pad { padding: 96px 40px; }
+  .nav-inner { padding: 0 40px; }
+
+  @media (max-width: 768px) {
+    /* Nav */
+    .nav-inner { padding: 0 20px; }
+    .nav-links { gap: 0; }
+    .nav-links a { display: none; }
+    .nav-reserve-btn { padding: 8px 16px !important; font-size: 12px !important; }
+
+    /* Section padding */
+    .section-pad { padding: 64px 20px; }
+
+    /* Hero search bar — stack vertically on mobile */
+    .hero-search-bar { display: none; }
+    .hero-search-bar-mobile {
+      display: flex; flex-direction: column; gap: 0;
+      background: #fff; border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+      max-width: 480px; margin: 0 auto; overflow: hidden;
+    }
+    .hero-mobile-field {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 14px 18px; border-bottom: 1px solid rgba(26,42,74,0.08);
+    }
+    .hero-mobile-field:last-of-type { border-bottom: none; }
+    .hero-mobile-btn { margin: 12px; }
+    .hero-mobile-btn button {
+      width: 100%; background: #4ec9c9; color: #1a2a4a; border: none; cursor: pointer;
+      border-radius: 99px; padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px;
+    }
+
+    /* Why section — 2 cols on mobile */
+    .grid-4col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+    /* Locations — 1 col on mobile */
+    .grid-2col { grid-template-columns: 1fr; gap: 20px; }
+
+    /* Amenities — text+grid stack */
+    .grid-2col-text { grid-template-columns: 1fr; gap: 40px; }
+    .amenities-inner-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+    /* Map — stack */
+    .grid-map { grid-template-columns: 1fr; gap: 24px; }
+
+    /* Footer — stack */
+    .grid-footer { grid-template-columns: 1fr; gap: 32px; }
+
+    /* Location tabs — allow scroll */
+    .location-tabs { flex-wrap: nowrap !important; overflow-x: auto; justify-content: flex-start !important; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+    .location-tabs::-webkit-scrollbar { display: none; }
+    .location-tab-btn { flex-shrink: 0; }
+
+    /* Check-in/out cards */
+    .checkinout-row { gap: 12px !important; }
+  }
+
+  @media (max-width: 480px) {
+    .grid-4col { grid-template-columns: 1fr 1fr; }
+    .amenities-inner-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* Tweaks panel */
   #tweaks-panel {
     position: fixed; bottom: 24px; right: 24px; z-index: 9999;
@@ -30,25 +104,15 @@
     border: 1px solid rgba(26,42,74,0.08);
   }
   #tweaks-panel.visible { display: flex; }
-  .tweak-label {
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
-    color: #6b7a8d; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
-  }
+  .tweak-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; color: #6b7a8d; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   .tweak-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tweak-chip {
-    padding: 6px 14px; border-radius: 99px; border: 1.5px solid rgba(26,42,74,0.12);
-    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
-    color: #1a2a4a; cursor: pointer; background: #fff; transition: all 0.15s;
-  }
+  .tweak-chip { padding: 6px 14px; border-radius: 99px; border: 1.5px solid rgba(26,42,74,0.12); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: #1a2a4a; cursor: pointer; background: #fff; transition: all 0.15s; }
   .tweak-chip.active { background: #1a2a4a; color: #fff; border-color: #1a2a4a; }
-  .tweak-title {
-    font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #1a2a4a;
-    display: flex; justify-content: space-between; align-items: center;
-  }
+  .tweak-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #1a2a4a; display: flex; justify-content: space-between; align-items: center; }
   .tweak-close { background: none; border: none; cursor: pointer; font-size: 18px; color: #6b7a8d; line-height: 1; }
   .color-swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2.5px solid transparent; transition: border-color 0.15s; }
   .color-swatch.active { border-color: #1a2a4a; }
- 
+
   /* Floating WA button */
   #wa-float {
     position: fixed; bottom: 24px; left: 24px; z-index: 9998;
@@ -62,7 +126,7 @@
 </head>
 <body>
 <div id="root"></div>
- 
+
 <!-- Floating WhatsApp -->
 <a id="wa-float" href="https://wa.me/521XXXXXXXXXX" target="_blank" rel="noreferrer" title="Contáctanos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
@@ -70,7 +134,7 @@
     <path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
   </svg>
 </a>
- 
+
 <!-- Tweaks Panel -->
 <div id="tweaks-panel">
   <div class="tweak-title">
@@ -104,22 +168,20 @@
     </div>
   </div>
 </div>
- 
+
 <script type="text/babel">
-// ── Barrio Inn — All Components Inlined ──────────────────────────────────────
- 
 const NAVY   = '#1a2a4a';
 const CREAM  = '#faf8f4';
 const TEAL   = '#4ec9c9';
 const MUTED  = '#6b7a8d';
 const CARD_BG= '#ffffff';
 const WA_NUM = '521XXXXXXXXXX';
- 
+
 function waLink(room, location) {
   const msg = encodeURIComponent(`Hola, quiero reservar ${room} en ${location}. ¿Tienen disponibilidad?`);
   return `https://wa.me/${WA_NUM}?text=${msg}`;
 }
- 
+
 function PlaceholderImg({ label, color1 = '#c8d5e8', color2 = '#b0bfd4', style = {} }) {
   const id = `p${Math.random().toString(36).slice(2,7)}`;
   return (
@@ -142,7 +204,7 @@ function PlaceholderImg({ label, color1 = '#c8d5e8', color2 = '#b0bfd4', style =
     </div>
   );
 }
- 
+
 // ── NAV ──────────────────────────────────────────────────────────────────────
 function Nav() {
   const [scrolled, setScrolled] = React.useState(false);
@@ -157,10 +219,10 @@ function Nav() {
       background: scrolled ? 'rgba(250,248,244,0.97)' : 'transparent',
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
       borderBottom: scrolled ? '1px solid rgba(26,42,74,0.08)' : 'none',
-      transition: 'all 0.3s', padding: '0 40px',
+      transition: 'all 0.3s',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       height: 68,
-    }}>
+    }} className="nav-inner">
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
           <ellipse cx="16" cy="18" rx="9" ry="7" fill={scrolled ? NAVY : '#fff'} opacity="0.15"/>
@@ -173,11 +235,11 @@ function Nav() {
           <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, color: scrolled ? MUTED : 'rgba(255,255,255,0.7)', letterSpacing: '0.15em', textTransform: 'uppercase', lineHeight: 1, marginTop: 2 }}>Hostelería</div>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+      <div className="nav-links">
         {['Ubicaciones','Amenidades','FAQ'].map(l => (
           <a key={l} href={`#${l.toLowerCase()}`} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: scrolled ? NAVY : 'rgba(255,255,255,0.9)', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>{l}</a>
         ))}
-        <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" style={{
+        <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" className="nav-reserve-btn" style={{
           background: TEAL, color: NAVY, padding: '8px 20px', borderRadius: 99,
           fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
           textDecoration: 'none', transition: 'opacity 0.2s',
@@ -186,7 +248,7 @@ function Nav() {
     </nav>
   );
 }
- 
+
 // ── HERO ─────────────────────────────────────────────────────────────────────
 function Hero() {
   const [checkIn, setCheckIn] = React.useState('');
@@ -203,7 +265,8 @@ function Hero() {
   const dividerStyle = { width: 1, height: 36, background: 'rgba(26,42,74,0.12)', flexShrink: 0 };
   const fieldStyle = { display: 'flex', flexDirection: 'column', gap: 2, flex: 1, padding: '12px 20px', cursor: 'pointer' };
   const labelStyle = { fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, color: NAVY, letterSpacing: '0.05em', textTransform: 'uppercase' };
- 
+  const mobileFieldStyle = { display: 'flex', flexDirection: 'column', gap: 2, padding: '14px 18px', borderBottom: '1px solid rgba(26,42,74,0.08)' };
+
   return (
     <section style={{ position: 'relative', height: '100vh', minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
@@ -214,17 +277,15 @@ function Hero() {
         <div style={{ display: 'inline-block', background: 'rgba(78,201,201,0.18)', border: '1px solid rgba(78,201,201,0.4)', borderRadius: 99, padding: '5px 16px', marginBottom: 24 }}>
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: TEAL, fontWeight: 500, letterSpacing: '0.05em' }}>Barrio Antiguo · Monterrey, México</span>
         </div>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 7vw, 82px)', fontWeight: 700, color: '#fff', margin: '0 0 16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 7vw, 82px)', fontWeight: 700, color: '#fff', margin: '0 0 16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
           No visites Monterrey,<br /><em style={{ fontStyle: 'italic', color: TEAL }}>vívelo.</em>
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: 'rgba(255,255,255,0.8)', margin: '0 0 44px', fontWeight: 300, lineHeight: 1.6 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(15px, 2vw, 18px)', color: 'rgba(255,255,255,0.8)', margin: '0 0 44px', fontWeight: 300, lineHeight: 1.6 }}>
           Hospedajes boutique en el corazón del centro histórico.<br />Tu hogar lejos de casa.
         </p>
-        <div style={{
-          background: '#fff', borderRadius: 99, display: 'flex', alignItems: 'center',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.25)', maxWidth: 720, margin: '0 auto',
-          overflow: 'hidden',
-        }}>
+
+        {/* Desktop search bar */}
+        <div className="hero-search-bar">
           <div style={fieldStyle}>
             <span style={labelStyle}>Ubicación</span>
             <select value={location} onChange={e => setLocation(e.target.value)} style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
@@ -258,6 +319,37 @@ function Hero() {
             </button>
           </div>
         </div>
+
+        {/* Mobile search bar — stacked */}
+        <div className="hero-search-bar-mobile">
+          <div style={mobileFieldStyle}>
+            <span style={labelStyle}>Ubicación</span>
+            <select value={location} onChange={e => setLocation(e.target.value)} style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
+              <option value="">Cualquier ubicación</option>
+              <option value="abasolo">Abasolo — Barrio Antiguo</option>
+              <option value="morelos">Morelos — Fonda &amp; Aldea</option>
+              <option value="padremier">Padre Mier</option>
+              <option value="edison">Edison</option>
+            </select>
+          </div>
+          <div style={mobileFieldStyle}>
+            <span style={labelStyle}>Llegada</span>
+            <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} style={inputStyle} />
+          </div>
+          <div style={{ ...mobileFieldStyle, borderBottom: 'none' }}>
+            <span style={labelStyle}>Salida</span>
+            <input type="date" value={checkOut} onChange={e => setCheckOut(e.target.value)} style={inputStyle} />
+          </div>
+          <div style={{ padding: '12px' }}>
+            <button onClick={handleSearch} style={{
+              width: '100%', background: TEAL, color: NAVY, border: 'none', cursor: 'pointer',
+              borderRadius: 99, padding: '14px 28px',
+              fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14,
+            }}>
+              Ver disponibilidad
+            </button>
+          </div>
+        </div>
       </div>
       <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
         <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Explora</span>
@@ -266,7 +358,7 @@ function Hero() {
     </section>
   );
 }
- 
+
 // ── WHY BARRIO INN ───────────────────────────────────────────────────────────
 function WhySection() {
   const features = [
@@ -276,24 +368,24 @@ function WhySection() {
     { icon: '🧾', title: 'Facturación', desc: 'Factura fiscal disponible para viajeros de negocio. Sin complicaciones.' },
   ];
   return (
-    <section style={{ background: CREAM, padding: '96px 40px' }}>
+    <section className="section-pad" style={{ background: CREAM }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>¿Por qué elegirnos?</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>La experiencia Barrio Inn</h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>La experiencia Barrio Inn</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+        <div className="grid-4col">
           {features.map((f, i) => (
             <div key={i} style={{
-              background: CARD_BG, borderRadius: 20, padding: '36px 28px',
+              background: CARD_BG, borderRadius: 20, padding: '28px 22px',
               boxShadow: '0 2px 20px rgba(26,42,74,0.07)',
               transition: 'transform 0.25s, box-shadow 0.25s', cursor: 'default',
             }}
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(26,42,74,0.14)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 20px rgba(26,42,74,0.07)'; }}>
-              <div style={{ fontSize: 32, marginBottom: 16 }}>{f.icon}</div>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: NAVY, margin: '0 0 10px', fontWeight: 700 }}>{f.title}</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: MUTED, lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+              <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: NAVY, margin: '0 0 8px', fontWeight: 700 }}>{f.title}</h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: MUTED, lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -301,7 +393,7 @@ function WhySection() {
     </section>
   );
 }
- 
+
 // ── LOCATIONS ────────────────────────────────────────────────────────────────
 const LOCATIONS = [
   { id: 'abasolo', label: 'Abasolo', sub: 'Barrio Antiguo', properties: [
@@ -322,7 +414,7 @@ const LOCATIONS = [
   ]},
   { id: 'soon', label: 'Próximamente', sub: '5ª ubicación', comingSoon: true, properties: [] },
 ];
- 
+
 function PropertyCard({ prop, locationLabel }) {
   const [hovered, setHovered] = React.useState(false);
   return (
@@ -342,7 +434,7 @@ function PropertyCard({ prop, locationLabel }) {
             <span key={a} style={{ background: '#f0f4fa', color: NAVY, fontSize: 11, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.03em' }}>{a}</span>
           ))}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4, flexWrap: 'wrap', gap: 12 }}>
           <div>
             <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: NAVY }}>MXN ${prop.price.toLocaleString()}</span>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: MUTED, marginLeft: 4 }}>/ noche</span>
@@ -352,7 +444,7 @@ function PropertyCard({ prop, locationLabel }) {
             padding: '10px 18px', borderRadius: 99,
             fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700,
             display: 'flex', alignItems: 'center', gap: 6,
-            transition: 'opacity 0.2s',
+            transition: 'opacity 0.2s', whiteSpace: 'nowrap',
           }}
           onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
           onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
@@ -364,26 +456,26 @@ function PropertyCard({ prop, locationLabel }) {
     </div>
   );
 }
- 
+
 function LocationsSection() {
   const [active, setActive] = React.useState('abasolo');
   const loc = LOCATIONS.find(l => l.id === active);
   return (
-    <section id="ubicaciones" style={{ background: '#f3efe8', padding: '96px 40px' }}>
+    <section id="ubicaciones" className="section-pad" style={{ background: '#f3efe8' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Nuestras propiedades</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>Elige tu ubicación</h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>Elige tu ubicación</h2>
         </div>
-        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 48, flexWrap: 'wrap' }}>
+        <div className="location-tabs" style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 48, flexWrap: 'wrap' }}>
           {LOCATIONS.map(l => (
-            <button key={l.id} onClick={() => setActive(l.id)} style={{
+            <button key={l.id} onClick={() => setActive(l.id)} className="location-tab-btn" style={{
               padding: '10px 22px', borderRadius: 99, border: 'none', cursor: 'pointer',
               fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
               background: active === l.id ? NAVY : CARD_BG,
               color: active === l.id ? '#fff' : NAVY,
               boxShadow: active === l.id ? '0 4px 16px rgba(26,42,74,0.25)' : '0 1px 4px rgba(26,42,74,0.08)',
-              transition: 'all 0.2s',
+              transition: 'all 0.2s', whiteSpace: 'nowrap',
             }}>
               {l.label}
               {l.sub && <span style={{ fontWeight: 400, opacity: 0.65, fontSize: 12, marginLeft: 6 }}>{l.sub}</span>}
@@ -397,7 +489,7 @@ function LocationsSection() {
             <p style={{ fontSize: 16 }}>Estamos preparando nuestra 5ª ubicación. ¡Síguenos para enterarte primero!</p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 28 }}>
+          <div className="grid-2col">
             {loc?.properties.map((p, i) => <PropertyCard key={i} prop={p} locationLabel={loc.label} />)}
           </div>
         )}
@@ -405,7 +497,7 @@ function LocationsSection() {
     </section>
   );
 }
- 
+
 // ── AMENITIES ────────────────────────────────────────────────────────────────
 function AmenitiesSection() {
   const items = [
@@ -417,16 +509,16 @@ function AmenitiesSection() {
     { icon: '🔑', label: 'Smart lock access' },
   ];
   return (
-    <section id="amenidades" style={{ background: CREAM, padding: '96px 40px' }}>
+    <section id="amenidades" className="section-pad" style={{ background: CREAM }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div className="grid-2col-text">
           <div>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Todo incluido</p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3.5vw, 44px)', color: NAVY, margin: '0 0 20px', fontWeight: 700, lineHeight: 1.2 }}>Lo que encontrarás en cada espacio</h2>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: '0 0 20px', fontWeight: 700, lineHeight: 1.2 }}>Lo que encontrarás en cada espacio</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: MUTED, lineHeight: 1.8, margin: '0 0 36px' }}>
               Cada habitación está equipada para que te concentres en lo que importa: disfrutar Monterrey.
             </p>
-            <div style={{ display: 'flex', gap: 20 }}>
+            <div className="checkinout-row" style={{ display: 'flex', gap: 20 }}>
               {[['Check-in','3:00 PM'],['Check-out','11:00 AM']].map(([lbl, time]) => (
                 <div key={lbl} style={{ background: NAVY, borderRadius: 16, padding: '20px 24px', flex: 1 }}>
                   <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>{lbl}</div>
@@ -435,16 +527,16 @@ function AmenitiesSection() {
               ))}
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="amenities-inner-grid">
             {items.map((item, i) => (
               <div key={i} style={{
-                background: CARD_BG, borderRadius: 16, padding: '24px 16px', textAlign: 'center',
+                background: CARD_BG, borderRadius: 16, padding: '20px 12px', textAlign: 'center',
                 boxShadow: '0 2px 16px rgba(26,42,74,0.06)', transition: 'transform 0.2s',
               }}
               onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
               onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                <div style={{ fontSize: 28, marginBottom: 10 }}>{item.icon}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: NAVY, fontWeight: 600, lineHeight: 1.4 }}>{item.label}</div>
+                <div style={{ fontSize: 26, marginBottom: 8 }}>{item.icon}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: NAVY, fontWeight: 600, lineHeight: 1.4 }}>{item.label}</div>
               </div>
             ))}
           </div>
@@ -453,7 +545,7 @@ function AmenitiesSection() {
     </section>
   );
 }
- 
+
 // ── MAP SECTION ───────────────────────────────────────────────────────────────
 function MapSection() {
   const pins = [
@@ -470,13 +562,13 @@ function MapSection() {
     { place: 'OXXO', dist: '<100m' },
   ];
   return (
-    <section style={{ background: NAVY, padding: '96px 40px' }}>
+    <section className="section-pad" style={{ background: NAVY }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Ubicación estratégica</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 48px)', color: '#fff', margin: 0, fontWeight: 700 }}>En el corazón de Monterrey</h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: '#fff', margin: 0, fontWeight: 700 }}>En el corazón de Monterrey</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: 40, alignItems: 'start' }}>
+        <div className="grid-map">
           <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
             <svg viewBox="0 0 700 360" width="100%" style={{ display: 'block' }}>
               <rect width="700" height="360" fill="#0f1d35"/>
@@ -519,16 +611,16 @@ function MapSection() {
     </section>
   );
 }
- 
+
 // ── TOUR CTA ─────────────────────────────────────────────────────────────────
 function TourCTA() {
   const msg = encodeURIComponent('Hola, me gustaría agendar un tour para conocer Barrio Inn. ¿Cuándo tienen disponibilidad?');
   return (
-    <section style={{ background: '#e8e0d4', padding: '96px 40px', textAlign: 'center' }}>
+    <section className="section-pad" style={{ background: '#e8e0d4', textAlign: 'center' }}>
       <div style={{ maxWidth: 640, margin: '0 auto' }}>
         <div style={{ fontSize: 40, marginBottom: 20 }}>🏡</div>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3.5vw, 44px)', color: NAVY, margin: '0 0 16px', fontWeight: 700 }}>¿Quieres conocer el espacio antes de reservar?</h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: MUTED, lineHeight: 1.8, margin: '0 0 40px' }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: '0 0 16px', fontWeight: 700 }}>¿Quieres conocer el espacio antes de reservar?</h2>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(15px, 2vw, 17px)', color: MUTED, lineHeight: 1.8, margin: '0 0 40px' }}>
           Agenda un tour virtual o presencial. Te mostramos la propiedad y te contamos todo lo que necesitas saber.
         </p>
         <a href={`https://wa.me/${WA_NUM}?text=${msg}`} target="_blank" rel="noreferrer" style={{
@@ -548,7 +640,7 @@ function TourCTA() {
     </section>
   );
 }
- 
+
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 const FAQS = [
   { q: '¿Cuáles son los horarios de check-in y check-out?', a: 'El check-in es a partir de las 3:00 PM y el check-out es antes de las 11:00 AM. Recibirás las instrucciones de acceso vía WhatsApp el día de tu llegada.' },
@@ -558,15 +650,15 @@ const FAQS = [
   { q: '¿Cómo funciona el acceso con smart lock?', a: 'No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp. El acceso es completamente autónomo, disponible las 24 horas.' },
   { q: '¿Hay estacionamiento?', a: 'No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.' },
 ];
- 
+
 function FAQ() {
   const [open, setOpen] = React.useState(null);
   return (
-    <section id="faq" style={{ background: CREAM, padding: '96px 40px' }}>
+    <section id="faq" className="section-pad" style={{ background: CREAM }}>
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 56 }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Preguntas frecuentes</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3.5vw, 44px)', color: NAVY, margin: 0, fontWeight: 700 }}>Resolvemos tus dudas</h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: 0, fontWeight: 700 }}>Resolvemos tus dudas</h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {FAQS.map((faq, i) => (
@@ -594,55 +686,57 @@ function FAQ() {
     </section>
   );
 }
- 
+
 // ── FOOTER ────────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ background: NAVY, padding: '60px 40px 40px', color: 'rgba(255,255,255,0.6)' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-              <path d="M8 20 Q16 10 26 14 Q20 8 12 10 Q6 12 8 20Z" fill="white"/>
-              <path d="M24 14 Q28 10 30 8 Q26 12 22 13Z" fill={TEAL}/>
-              <circle cx="22" cy="13" r="1.2" fill={TEAL}/>
-            </svg>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 15, color: '#fff' }}>BARRIO INN</div>
-              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Hostelería</div>
+    <footer style={{ background: NAVY, padding: '60px 20px 40px', color: 'rgba(255,255,255,0.6)' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <div className="grid-footer">
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M8 20 Q16 10 26 14 Q20 8 12 10 Q6 12 8 20Z" fill="white"/>
+                <path d="M24 14 Q28 10 30 8 Q26 12 22 13Z" fill={TEAL}/>
+                <circle cx="22" cy="13" r="1.2" fill={TEAL}/>
+              </svg>
+              <div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 15, color: '#fff' }}>BARRIO INN</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Hostelería</div>
+              </div>
             </div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.8, margin: 0, maxWidth: 220 }}>Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey.</p>
           </div>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.8, margin: 0, maxWidth: 220 }}>Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey.</p>
+          <div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Navegación</p>
+            {['Ubicaciones','Amenidades','FAQ','Agendar tour'].map(l => (
+              <div key={l} style={{ marginBottom: 10 }}>
+                <a href={`#${l.toLowerCase().replace(' ','')}`} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>{l}</a>
+              </div>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Contacto</p>
+            <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#25D366', textDecoration: 'none', marginBottom: 10 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              WhatsApp
+            </a>
+            <a href="https://instagram.com/barrioinn" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+              @barrioinn
+            </a>
+          </div>
         </div>
-        <div>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Navegación</p>
-          {['Ubicaciones','Amenidades','FAQ','Agendar tour'].map(l => (
-            <div key={l} style={{ marginBottom: 10 }}>
-              <a href={`#${l.toLowerCase().replace(' ','')}`} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>{l}</a>
-            </div>
-          ))}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 28, textAlign: 'center' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, margin: 0, color: 'rgba(255,255,255,0.3)' }}>
+            © 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.
+          </p>
         </div>
-        <div>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Contacto</p>
-          <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#25D366', textDecoration: 'none', marginBottom: 10 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            WhatsApp
-          </a>
-          <a href="https://instagram.com/barrioinn" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-            @barrioinn
-          </a>
-        </div>
-      </div>
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 28, textAlign: 'center' }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, margin: 0, color: 'rgba(255,255,255,0.3)' }}>
-          © 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.
-        </p>
       </div>
     </footer>
   );
 }
- 
+
 // ── APP ───────────────────────────────────────────────────────────────────────
 function App() {
   return (
@@ -659,26 +753,26 @@ function App() {
     </div>
   );
 }
- 
+
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
- 
+
 <script>
 (function() {
   const panel = document.getElementById('tweaks-panel');
- 
+
   window.addEventListener('message', e => {
     if (e.data?.type === '__activate_edit_mode') panel.classList.add('visible');
     else if (e.data?.type === '__deactivate_edit_mode') panel.classList.remove('visible');
   });
- 
+
   window.parent.postMessage({ type: '__edit_mode_available' }, '*');
- 
+
   document.getElementById('tweaks-close').addEventListener('click', () => {
     panel.classList.remove('visible');
     window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
   });
- 
+
   document.getElementById('accent-swatches').addEventListener('click', e => {
     const sw = e.target.closest('.color-swatch');
     if (!sw) return;
@@ -687,7 +781,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     sw.classList.add('active');
     window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: color } }, '*');
   });
- 
+
   document.getElementById('bg-chips').addEventListener('click', e => {
     const chip = e.target.closest('.tweak-chip');
     if (!chip) return;
@@ -696,7 +790,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     document.body.style.background = chip.dataset.bg;
     window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { bgColor: chip.dataset.bg } }, '*');
   });
- 
+
   document.getElementById('font-chips').addEventListener('click', e => {
     const chip = e.target.closest('.tweak-chip');
     if (!chip) return;
