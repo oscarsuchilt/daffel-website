@@ -1,805 +1,1422 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Barrio Inn — Hostelería · Monterrey</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: #faf8f4; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
-  input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.4; cursor: pointer; }
-  select { background: transparent; }
-  @keyframes fadeUpDown {
-    0%, 100% { opacity: 0.2; transform: scaleY(0.6); transform-origin: top; }
-    50% { opacity: 0.8; transform: scaleY(1); }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#FAFAF7;color:#1C1C1A;overflow-x:hidden}
 
-  /* ── RESPONSIVE GRID OVERRIDES ── */
-  .grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
-  .grid-2col-text { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .grid-map { display: grid; grid-template-columns: 1fr 280px; gap: 40px; align-items: start; }
-  .grid-footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-  .amenities-inner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
-  .hero-search-bar { background: #fff; border-radius: 99px; display: flex; align-items: center; box-shadow: 0 8px 40px rgba(0,0,0,0.25); max-width: 720px; margin: 0 auto; overflow: hidden; }
-  .hero-search-bar-mobile { display: none; }
-  .section-pad { padding: 96px 40px; }
-  .nav-inner { padding: 0 40px; }
+/* ── VARIABLES ── */
+:root{
+  --cream:#FAFAF7;
+  --cream2:#F2EDE4;
+  --navy:#1A2744;
+  --navy2:#111B35;
+  --green:#3D6B4F;
+  --green2:#2E5240;
+  --sand:#C9A96E;
+  --coral:#FF6B6B;
+  --white:#FFFFFF;
+  --text:#1C1C1A;
+  --text2:#5A5A55;
+  --text3:#9A9A90;
+  --r-sm:12px;
+  --r-md:20px;
+  --r-lg:28px;
+  --r-xl:40px;
+  --shadow-sm:0 2px 12px rgba(28,28,26,.07);
+  --shadow-md:0 8px 32px rgba(28,28,26,.10);
+  --shadow-lg:0 20px 60px rgba(28,28,26,.14);
+}
 
-  @media (max-width: 768px) {
-    /* Nav */
-    .nav-inner { padding: 0 20px; }
-    .nav-links { gap: 0; }
-    .nav-links a { display: none; }
-    .nav-reserve-btn { padding: 8px 16px !important; font-size: 12px !important; }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:0 5%;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,250,247,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(28,28,26,.06);
+  transition:all .3s ease;
+}
+nav.scrolled{
+  height:64px;
+  background:rgba(250,250,247,.97);
+  box-shadow:var(--shadow-sm);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-img{
+  width:38px;height:38px;
+  background:var(--navy);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cream);
+  font-family:'Fraunces',serif;
+  font-size:16px;font-weight:600;
+  letter-spacing:-0.5px;
+}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1}
+.nav-logo-text strong{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--navy);letter-spacing:.02em}
+.nav-logo-text span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);font-weight:400;margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--navy)}
+.nav-cta{
+  background:var(--green);color:var(--white) !important;
+  padding:.55rem 1.4rem;border-radius:50px;
+  font-size:13px !important;font-weight:600 !important;
+  transition:background .2s,transform .15s !important;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-cta:hover{background:var(--green2) !important;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border-radius:8px;border:none;background:transparent}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s}
+.mobile-menu{
+  display:none;
+  position:fixed;top:72px;left:0;right:0;
+  background:var(--cream);
+  border-bottom:1px solid rgba(28,28,26,.08);
+  padding:1.5rem 5% 2rem;
+  flex-direction:column;gap:1.2rem;
+  z-index:999;
+  box-shadow:var(--shadow-md);
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--text);text-decoration:none;font-size:16px;font-weight:500;padding:.5rem 0;border-bottom:1px solid rgba(28,28,26,.06)}
+.mobile-menu .nav-cta{border:none;width:fit-content;margin-top:.5rem}
 
-    /* Section padding */
-    .section-pad { padding: 64px 20px; }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+  padding:120px 5% 80px;
+  position:relative;overflow:hidden;
+  background:var(--navy2);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(61,107,79,.25) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-dots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(61,107,79,.2);
+  border:1px solid rgba(61,107,79,.4);
+  color:#7EC89A;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  padding:.45rem 1.1rem;border-radius:50px;
+  margin-bottom:2rem;
+  animation:fadeUp .7s ease both;
+}
+.hero-badge::before{content:'●';font-size:6px;opacity:.8}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.8rem,7vw,6.5rem);
+  font-weight:600;line-height:1.05;
+  color:var(--cream);
+  margin-bottom:1.25rem;
+  animation:fadeUp .7s .1s ease both;
+  max-width:900px;
+}
+.hero h1 em{font-style:italic;color:#7EC89A}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);
+  color:rgba(250,250,247,.6);
+  font-weight:400;line-height:1.7;
+  max-width:520px;margin:0 auto 3rem;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .7s .3s ease both;
+}
+.btn-primary{
+  background:var(--green);color:var(--white);
+  padding:.85rem 2.2rem;border-radius:50px;
+  font-weight:600;font-size:15px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,107,79,.35)}
+.btn-ghost{
+  background:transparent;color:var(--cream);
+  padding:.85rem 2.2rem;border-radius:50px;
+  font-weight:500;font-size:15px;
+  text-decoration:none;
+  border:1.5px solid rgba(250,250,247,.25);
+  cursor:pointer;
+  transition:border-color .2s,transform .15s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-ghost:hover{border-color:rgba(250,250,247,.6);transform:translateY(-2px)}
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(250,250,247,.3);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  animation:fadeUp .7s .5s ease both;
+}
+.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(250,250,247,.3),transparent);animation:scrollPulse 2s ease-in-out infinite}
 
-    /* Hero search bar — stack vertically on mobile */
-    .hero-search-bar { display: none; }
-    .hero-search-bar-mobile {
-      display: flex; flex-direction: column; gap: 0;
-      background: #fff; border-radius: 20px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
-      max-width: 480px; margin: 0 auto; overflow: hidden;
-    }
-    .hero-mobile-field {
-      display: flex; flex-direction: column; gap: 2px;
-      padding: 14px 18px; border-bottom: 1px solid rgba(26,42,74,0.08);
-    }
-    .hero-mobile-field:last-of-type { border-bottom: none; }
-    .hero-mobile-btn { margin: 12px; }
-    .hero-mobile-btn button {
-      width: 100%; background: #4ec9c9; color: #1a2a4a; border: none; cursor: pointer;
-      border-radius: 99px; padding: 14px 28px;
-      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px;
-    }
+/* ── STATS ── */
+.stats{
+  background:var(--white);
+  padding:2.5rem 5%;
+  display:flex;justify-content:center;gap:0;
+  border-bottom:1px solid rgba(28,28,26,.07);
+}
+.stat-item{
+  display:flex;flex-direction:column;align-items:center;
+  padding:1rem 3rem;
+  border-right:1px solid rgba(28,28,26,.08);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;color:var(--navy);line-height:1}
+.stat-label{font-size:12px;color:var(--text3);font-weight:500;letter-spacing:.04em;margin-top:4px}
 
-    /* Why section — 2 cols on mobile */
-    .grid-4col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+/* ── SECTION SHELL ── */
+section{padding:6rem 5%}
+.container{max-width:1280px;margin:0 auto}
+.section-eyebrow{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--green);font-weight:600;margin-bottom:.75rem;
+  display:flex;align-items:center;gap:8px;
+}
+.section-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--green);border-radius:2px}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.9rem,4vw,3rem);
+  font-weight:600;line-height:1.15;
+  color:var(--navy);margin-bottom:1rem;
+}
+.section-sub{font-size:16px;color:var(--text2);line-height:1.7;max-width:560px;font-weight:400}
 
-    /* Locations — 1 col on mobile */
-    .grid-2col { grid-template-columns: 1fr; gap: 20px; }
+/* ── WHY ── */
+.why{background:var(--cream2)}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;margin-top:3.5rem;
+}
+.why-card{
+  background:var(--white);
+  border-radius:var(--r-lg);
+  padding:2rem;
+  border:1px solid rgba(28,28,26,.06);
+  transition:transform .25s,box-shadow .25s;
+}
+.why-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.why-icon{
+  width:52px;height:52px;border-radius:16px;
+  background:rgba(61,107,79,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:1.25rem;
+}
+.why-card h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.why-card p{font-size:14px;color:var(--text2);line-height:1.65}
 
-    /* Amenities — text+grid stack */
-    .grid-2col-text { grid-template-columns: 1fr; gap: 40px; }
-    .amenities-inner-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+/* ── PROPIEDADES ── */
+.propiedades{background:var(--cream)}
+.props-header{margin-bottom:3.5rem}
+.props-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:2rem;
+}
+.prop-card{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  border:1px solid rgba(28,28,26,.07);
+  cursor:pointer;
+  transition:transform .3s,box-shadow .3s;
+  position:relative;
+}
+.prop-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
 
-    /* Map — stack */
-    .grid-map { grid-template-columns: 1fr; gap: 24px; }
+/* Carrusel */
+.carousel{position:relative;height:260px;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.carousel-track{display:flex;height:100%;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.carousel-slide{
+  min-width:100%;height:100%;
+  background:var(--cream2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  font-size:13px;color:var(--text3);font-family:monospace;
+  flex-direction:column;gap:8px;
+}
+.carousel-slide img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:0;
+  transition:transform .4s ease;
+}
+.prop-card:hover .carousel-slide img{transform:scale(1.03)}
+.carousel-slide .slide-placeholder{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  color:var(--text3);
+}
+.carousel-slide .slide-placeholder .ph-icon{font-size:40px;opacity:.4}
+.carousel-slide .slide-placeholder .ph-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;opacity:.6}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--navy);
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+  transition:all .2s;z-index:10;
+  opacity:0;
+}
+.prop-card:hover .carousel-btn{opacity:1}
+.carousel-btn:hover{background:var(--white);transform:translateY(-50%) scale(1.08)}
+.carousel-btn.prev{left:12px}
+.carousel-btn.next{right:12px}
+.carousel-dots{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  display:flex;gap:5px;
+}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.5);
+  transition:all .2s;cursor:pointer;
+}
+.carousel-dot.active{width:18px;border-radius:3px;background:var(--white)}
+.prop-badge{
+  position:absolute;top:14px;left:14px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  color:var(--navy);font-size:11px;font-weight:600;
+  padding:.3rem .75rem;border-radius:50px;
+  letter-spacing:.04em;z-index:5;
+}
+.prop-rating{
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  color:var(--navy);font-size:12px;font-weight:600;
+  padding:.3rem .75rem;border-radius:50px;
+  display:flex;align-items:center;gap:4px;z-index:5;
+}
+.prop-rating::before{content:'★';color:#F59E0B;font-size:11px}
 
-    /* Footer — stack */
-    .grid-footer { grid-template-columns: 1fr; gap: 32px; }
+/* Card body */
+.prop-body{padding:1.5rem}
+.prop-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;color:var(--navy);margin-bottom:.4rem}
+.prop-address{font-size:13px;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:5px}
+.prop-address::before{content:'📍';font-size:12px}
+.prop-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+.prop-tag{
+  background:rgba(61,107,79,.08);color:var(--green2);
+  font-size:12px;font-weight:500;
+  padding:.3rem .8rem;border-radius:50px;
+}
+.prop-highlights{margin-bottom:1.5rem}
+.prop-highlights-title{font-size:12px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem}
+.prop-highlights-list{display:flex;flex-direction:column;gap:4px}
+.prop-highlight{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.prop-highlight::before{content:'→';color:var(--green);font-size:11px;font-weight:700}
+.prop-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.book-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:.6rem 1.1rem;border-radius:50px;
+  font-size:13px;font-weight:600;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all .2s;flex:1;justify-content:center;
+  min-width:0;
+}
+.book-btn.airbnb{background:#FF5A5F;color:var(--white)}
+.book-btn.airbnb:hover{background:#e04a4f;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,90,95,.3)}
+.book-btn.belong{background:#A31635;color:var(--white)}
+.book-btn.belong:hover{background:#8a1229;transform:translateY(-1px);box-shadow:0 4px 16px rgba(163,22,53,.3)}
+.book-btn.whatsapp{background:#25D366;color:var(--white)}
+.book-btn.whatsapp:hover{background:#1da851;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.book-btn-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.prop-card.coming-soon{opacity:.7;cursor:default}
+.prop-card.coming-soon:hover{transform:none;box-shadow:none}
+.coming-soon-overlay{
+  position:absolute;inset:0;z-index:20;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(26,39,68,.6);backdrop-filter:blur(4px);
+  border-radius:var(--r-xl);
+}
+.coming-soon-badge{
+  background:var(--white);color:var(--navy);
+  font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;
+  padding:1rem 2rem;border-radius:50px;
+  display:flex;align-items:center;gap:10px;
+}
 
-    /* Location tabs — allow scroll */
-    .location-tabs { flex-wrap: nowrap !important; overflow-x: auto; justify-content: flex-start !important; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
-    .location-tabs::-webkit-scrollbar { display: none; }
-    .location-tab-btn { flex-shrink: 0; }
+/* ── REVIEWS ── */
+.reviews{background:var(--navy2);overflow:hidden}
+.reviews .section-eyebrow{color:#7EC89A}
+.reviews .section-eyebrow::before{background:#7EC89A}
+.reviews .section-title{color:var(--cream)}
+.reviews .section-sub{color:rgba(250,250,247,.6)}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3.5rem;
+}
+.review-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r-lg);
+  padding:1.75rem;
+  transition:background .2s,transform .2s;
+}
+.review-card:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+.review-stars{color:#F59E0B;font-size:13px;margin-bottom:.75rem;letter-spacing:2px}
+.review-text{font-size:14px;color:rgba(250,250,247,.8);line-height:1.7;margin-bottom:1.25rem;font-style:italic}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(61,107,79,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:600;color:#7EC89A;
+  font-family:'Fraunces',serif;flex-shrink:0;
+}
+.review-info{}
+.review-name{font-size:14px;font-weight:600;color:var(--cream)}
+.review-meta{font-size:12px;color:rgba(250,250,247,.4);margin-top:1px}
+.review-platform{
+  margin-left:auto;
+  font-size:11px;font-weight:600;
+  padding:.25rem .7rem;border-radius:50px;
+  background:rgba(255,90,95,.15);color:#FF8A8E;
+}
 
-    /* Check-in/out cards */
-    .checkinout-row { gap: 12px !important; }
-  }
+/* ── AMENIDADES ── */
+.amenidades{background:var(--cream2)}
+.amenidades-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:1rem;margin-top:3rem;
+}
+.amenidad-item{
+  background:var(--white);
+  border-radius:var(--r-md);
+  padding:1.5rem 1.25rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:.75rem;
+  border:1px solid rgba(28,28,26,.06);
+  transition:transform .2s,box-shadow .2s;
+}
+.amenidad-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+.amenidad-icon{font-size:28px}
+.amenidad-name{font-size:14px;font-weight:600;color:var(--navy)}
+.amenidad-desc{font-size:12px;color:var(--text3);line-height:1.5}
 
-  @media (max-width: 480px) {
-    .grid-4col { grid-template-columns: 1fr 1fr; }
-    .amenities-inner-grid { grid-template-columns: repeat(2, 1fr); }
-  }
+/* ── FAQ ── */
+.faq{background:var(--cream)}
+.faq-list{margin-top:3rem;display:flex;flex-direction:column;gap:.75rem;max-width:760px}
+.faq-item{
+  background:var(--white);
+  border-radius:var(--r-md);
+  border:1px solid rgba(28,28,26,.07);
+  overflow:hidden;
+}
+.faq-q{
+  padding:1.25rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;font-size:15px;font-weight:600;color:var(--navy);
+  gap:1rem;user-select:none;
+  transition:background .2s;
+}
+.faq-q:hover{background:rgba(28,28,26,.02)}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(61,107,79,.1);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--green);font-size:16px;font-weight:300;
+  transition:transform .3s,background .2s;flex-shrink:0;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--green);color:var(--white)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .35s;
+  font-size:14px;color:var(--text2);line-height:1.7;
+  padding:0 1.5rem;
+}
+.faq-item.open .faq-a{max-height:400px;padding:.25rem 1.5rem 1.5rem}
 
-  /* Tweaks panel */
-  #tweaks-panel {
-    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-    background: #fff; border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(26,42,74,0.18);
-    width: 280px; padding: 24px;
-    display: none; flex-direction: column; gap: 18px;
-    border: 1px solid rgba(26,42,74,0.08);
-  }
-  #tweaks-panel.visible { display: flex; }
-  .tweak-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; color: #6b7a8d; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-  .tweak-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tweak-chip { padding: 6px 14px; border-radius: 99px; border: 1.5px solid rgba(26,42,74,0.12); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: #1a2a4a; cursor: pointer; background: #fff; transition: all 0.15s; }
-  .tweak-chip.active { background: #1a2a4a; color: #fff; border-color: #1a2a4a; }
-  .tweak-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #1a2a4a; display: flex; justify-content: space-between; align-items: center; }
-  .tweak-close { background: none; border: none; cursor: pointer; font-size: 18px; color: #6b7a8d; line-height: 1; }
-  .color-swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2.5px solid transparent; transition: border-color 0.15s; }
-  .color-swatch.active { border-color: #1a2a4a; }
+/* ── CTA ── */
+.cta-section{
+  background:var(--green);
+  padding:6rem 5%;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-section h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:600;color:var(--white);
+  margin-bottom:1rem;position:relative;
+}
+.cta-section p{font-size:17px;color:rgba(255,255,255,.8);margin-bottom:2.5rem;position:relative}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-white{
+  background:var(--white);color:var(--green2);
+  padding:.9rem 2.2rem;border-radius:50px;
+  font-weight:700;font-size:15px;text-decoration:none;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.btn-white-outline{
+  background:transparent;color:var(--white);
+  padding:.9rem 2.2rem;border-radius:50px;
+  font-weight:600;font-size:15px;text-decoration:none;
+  border:2px solid rgba(255,255,255,.5);
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-white-outline:hover{border-color:var(--white);transform:translateY(-2px)}
 
-  /* Floating WA button */
-  #wa-float {
-    position: fixed; bottom: 24px; left: 24px; z-index: 9998;
-    background: #25D366; border-radius: 50%; width: 56px; height: 56px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
-  }
-  #wa-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,211,102,0.5); }
+/* ── FOOTER ── */
+footer{
+  background:var(--navy2);
+  padding:4rem 5% 2.5rem;
+  color:rgba(250,250,247,.6);
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:1rem;text-decoration:none}
+.footer-logo .nav-logo-img{background:rgba(255,255,255,.1)}
+.footer-logo strong{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--cream)}
+.footer-logo span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,247,.4);font-weight:400;margin-top:2px;display:block}
+.footer-tagline{font-size:14px;line-height:1.7;margin-bottom:1.5rem;max-width:280px}
+.footer-social{display:flex;gap:.75rem}
+.social-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:16px;
+  transition:background .2s,transform .2s;
+}
+.social-btn:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.footer-col h4{font-size:13px;font-weight:600;color:var(--cream);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.25rem}
+.footer-col a{display:block;color:rgba(250,250,247,.5);text-decoration:none;font-size:14px;margin-bottom:.6rem;transition:color .2s}
+.footer-col a:hover{color:var(--cream)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{font-size:13px}
+.footer-bottom .patito{font-size:14px}
+
+/* ── LIGHTBOX ── */
+.lightbox{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(12px);
+  display:none;align-items:center;justify-content:center;
+  padding:2rem;
+}
+.lightbox.open{display:flex}
+.lightbox-inner{position:relative;max-width:1100px;width:100%;max-height:90vh}
+.lightbox-img{
+  width:100%;height:auto;max-height:80vh;
+  object-fit:contain;border-radius:var(--r-lg);
+  display:block;
+}
+.lightbox-img-placeholder{
+  width:100%;height:60vh;
+  background:rgba(255,255,255,.05);
+  border-radius:var(--r-lg);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:12px;
+  color:rgba(255,255,255,.4);font-size:14px;
+}
+.lightbox-close{
+  position:absolute;top:-16px;right:-16px;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--white);color:var(--navy);
+  border:none;cursor:pointer;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;box-shadow:var(--shadow-md);
+}
+.lightbox-close:hover{background:var(--cream2);transform:scale(1.08)}
+.lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);
+  color:var(--white);cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.lightbox-nav:hover{background:rgba(255,255,255,.22)}
+.lightbox-nav.prev{left:-70px}
+.lightbox-nav.next{right:-70px}
+.lightbox-counter{
+  text-align:center;margin-top:1rem;
+  font-size:13px;color:rgba(255,255,255,.5);
+}
+
+/* ── WHATSAPP FLOAT ── */
+.wa-float{
+  position:fixed;bottom:1.75rem;right:1.75rem;z-index:500;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:26px;
+  box-shadow:0 4px 20px rgba(37,211,102,.4);
+  transition:all .25s;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:.3;transform:scaleY(1)}
+  50%{opacity:.7;transform:scaleY(1.15)}
+}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .props-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1/-1}
+  .lightbox-nav.prev{left:-50px}
+  .lightbox-nav.next{right:-50px}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .stats{flex-wrap:wrap}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(28,28,26,.08);padding:1rem 2rem;min-width:50%}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(28,28,26,.08)}
+  .stat-item:last-child{border-bottom:none}
+  .props-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .footer-brand{grid-column:auto}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .lightbox-nav{display:none}
+  .lightbox{padding:1rem}
+}
+@media(max-width:480px){
+  section{padding:4rem 4%}
+  .hero{padding:100px 4% 60px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-primary,.btn-ghost{width:100%;max-width:320px;justify-content:center}
+  .prop-actions{flex-direction:column}
+  .book-btn{flex:none;width:100%}
+  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item{min-width:100%;border-right:none}
+  .cta-btns{flex-direction:column;align-items:center}
+  .btn-white,.btn-white-outline{width:100%;max-width:320px;justify-content:center}
+}
 </style>
 </head>
 <body>
-<div id="root"></div>
 
-<!-- Floating WhatsApp -->
-<a id="wa-float" href="https://wa.me/521XXXXXXXXXX" target="_blank" rel="noreferrer" title="Contáctanos por WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-  </svg>
-</a>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-img">🦆</div>
+    <div class="nav-logo-text">
+      <strong>Barrio Inn</strong>
+      <span>Hostelería</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#propiedades">Propiedades</a>
+    <a href="#amenidades">Amenidades</a>
+    <a href="#resenas">Reseñas</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://wa.me/5218110645136" target="_blank" class="nav-cta">📲 Reservar</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<!-- Tweaks Panel -->
-<div id="tweaks-panel">
-  <div class="tweak-title">
-    Tweaks
-    <button class="tweak-close" id="tweaks-close">×</button>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#propiedades" onclick="closeMobile()">Propiedades</a>
+  <a href="#amenidades" onclick="closeMobile()">Amenidades</a>
+  <a href="#resenas" onclick="closeMobile()">Reseñas</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a href="https://wa.me/5218110645136" target="_blank" class="nav-cta" style="color:#fff">📲 Reservar</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-badge">Barrio Antiguo · Monterrey, México</div>
+  <h1>No visites Monterrey,<br><em>vívelo.</em></h1>
+  <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Tu hogar lejos de casa.</p>
+  <div class="hero-btns">
+    <a href="#propiedades" class="btn-primary">🏠 Ver propiedades</a>
+    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Hablar con Rulo</a>
   </div>
-  <div>
-    <div class="tweak-label">Acento de color</div>
-    <div class="tweak-row" id="accent-swatches">
-      <div class="color-swatch active" data-color="#4ec9c9" style="background:#4ec9c9"></div>
-      <div class="color-swatch" data-color="#f4845f" style="background:#f4845f"></div>
-      <div class="color-swatch" data-color="#a78bfa" style="background:#a78bfa"></div>
-      <div class="color-swatch" data-color="#f9c74f" style="background:#f9c74f"></div>
-      <div class="color-swatch" data-color="#90be6d" style="background:#90be6d"></div>
-    </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    explora
   </div>
-  <div>
-    <div class="tweak-label">Fondo del sitio</div>
-    <div class="tweak-row" id="bg-chips">
-      <div class="tweak-chip active" data-bg="#faf8f4">Crema</div>
-      <div class="tweak-chip" data-bg="#ffffff">Blanco</div>
-      <div class="tweak-chip" data-bg="#f0f4f8">Frío</div>
-    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">4+</span>
+    <span class="stat-label">Propiedades</span>
   </div>
-  <div>
-    <div class="tweak-label">Tipografía heading</div>
-    <div class="tweak-row" id="font-chips">
-      <div class="tweak-chip active" data-font="'Playfair Display', serif">Playfair</div>
-      <div class="tweak-chip" data-font="'Georgia', serif">Georgia</div>
-      <div class="tweak-chip" data-font="'DM Sans', sans-serif">DM Sans</div>
-    </div>
+  <div class="stat-item">
+    <span class="stat-num">4.82</span>
+    <span class="stat-label">Rating Airbnb</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">250+</span>
+    <span class="stat-label">Reseñas</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">3 años</span>
+    <span class="stat-label">SuperAnfitrión</span>
   </div>
 </div>
 
-<script type="text/babel">
-const NAVY   = '#1a2a4a';
-const CREAM  = '#faf8f4';
-const TEAL   = '#4ec9c9';
-const MUTED  = '#6b7a8d';
-const CARD_BG= '#ffffff';
-const WA_NUM = '521XXXXXXXXXX';
-
-function waLink(room, location) {
-  const msg = encodeURIComponent(`Hola, quiero reservar ${room} en ${location}. ¿Tienen disponibilidad?`);
-  return `https://wa.me/${WA_NUM}?text=${msg}`;
-}
-
-function PlaceholderImg({ label, color1 = '#c8d5e8', color2 = '#b0bfd4', style = {} }) {
-  const id = `p${Math.random().toString(36).slice(2,7)}`;
-  return (
-    <div style={{ position: 'relative', overflow: 'hidden', ...style }}>
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', inset: 0 }}>
-        <defs>
-          <pattern id={id} patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
-            <rect width="20" height="20" fill={color1} />
-            <rect width="10" height="20" fill={color2} />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill={`url(#${id})`} />
-      </svg>
-      <div style={{
-        position: 'absolute', inset: 0, display: 'flex',
-        alignItems: 'center', justifyContent: 'center',
-        fontFamily: 'monospace', fontSize: 11, color: 'rgba(26,42,74,0.45)',
-        textAlign: 'center', padding: 8, lineHeight: 1.4
-      }}>{label}</div>
-    </div>
-  );
-}
-
-// ── NAV ──────────────────────────────────────────────────────────────────────
-function Nav() {
-  const [scrolled, setScrolled] = React.useState(false);
-  React.useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
-  return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? 'rgba(250,248,244,0.97)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(12px)' : 'none',
-      borderBottom: scrolled ? '1px solid rgba(26,42,74,0.08)' : 'none',
-      transition: 'all 0.3s',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      height: 68,
-    }} className="nav-inner">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <ellipse cx="16" cy="18" rx="9" ry="7" fill={scrolled ? NAVY : '#fff'} opacity="0.15"/>
-          <path d="M8 20 Q16 10 26 14 Q20 8 12 10 Q6 12 8 20Z" fill={scrolled ? NAVY : '#fff'}/>
-          <path d="M24 14 Q28 10 30 8 Q26 12 22 13Z" fill={TEAL}/>
-          <circle cx="22" cy="13" r="1.2" fill={TEAL}/>
-        </svg>
-        <div>
-          <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 16, color: scrolled ? NAVY : '#fff', letterSpacing: '0.04em', lineHeight: 1 }}>BARRIO INN</div>
-          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, color: scrolled ? MUTED : 'rgba(255,255,255,0.7)', letterSpacing: '0.15em', textTransform: 'uppercase', lineHeight: 1, marginTop: 2 }}>Hostelería</div>
-        </div>
+<!-- WHY -->
+<section class="why reveal">
+  <div class="container">
+    <div class="section-eyebrow">¿Por qué Barrio Inn?</div>
+    <h2 class="section-title">La experiencia que mereces</h2>
+    <p class="section-sub">Cada detalle pensado para que tu estadía en Monterrey sea memorable, cómoda y auténtica.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🔐</div>
+        <h3>Smart Lock 24h</h3>
+        <p>Sin recepción. Llega a cualquier hora con tu código único. Acceso completamente autónomo.</p>
       </div>
-      <div className="nav-links">
-        {['Ubicaciones','Amenidades','FAQ'].map(l => (
-          <a key={l} href={`#${l.toLowerCase()}`} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: scrolled ? NAVY : 'rgba(255,255,255,0.9)', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>{l}</a>
-        ))}
-        <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" className="nav-reserve-btn" style={{
-          background: TEAL, color: NAVY, padding: '8px 20px', borderRadius: 99,
-          fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
-          textDecoration: 'none', transition: 'opacity 0.2s',
-        }}>Reservar</a>
+      <div class="why-card">
+        <div class="why-icon">📶</div>
+        <h3>WiFi 100+ Mbps</h3>
+        <p>Fibra óptica dedicada para trabajo remoto, videollamadas y streaming sin interrupciones.</p>
       </div>
-    </nav>
-  );
-}
-
-// ── HERO ─────────────────────────────────────────────────────────────────────
-function Hero() {
-  const [checkIn, setCheckIn] = React.useState('');
-  const [checkOut, setCheckOut] = React.useState('');
-  const [location, setLocation] = React.useState('');
-  const handleSearch = () => {
-    document.getElementById('ubicaciones')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  const inputStyle = {
-    border: 'none', outline: 'none', background: 'transparent',
-    fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: NAVY,
-    width: '100%', padding: 0,
-  };
-  const dividerStyle = { width: 1, height: 36, background: 'rgba(26,42,74,0.12)', flexShrink: 0 };
-  const fieldStyle = { display: 'flex', flexDirection: 'column', gap: 2, flex: 1, padding: '12px 20px', cursor: 'pointer' };
-  const labelStyle = { fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, color: NAVY, letterSpacing: '0.05em', textTransform: 'uppercase' };
-  const mobileFieldStyle = { display: 'flex', flexDirection: 'column', gap: 2, padding: '14px 18px', borderBottom: '1px solid rgba(26,42,74,0.08)' };
-
-  return (
-    <section style={{ position: 'relative', height: '100vh', minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-        <PlaceholderImg label="foto barrio antiguo / centro histórico de monterrey" color1="#1a2a4a" color2="#243660" style={{ width: '100%', height: '100%' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(10,18,35,0.72) 0%, rgba(26,42,74,0.55) 50%, rgba(10,18,35,0.8) 100%)' }} />
+      <div class="why-card">
+        <div class="why-icon">📍</div>
+        <h3>Ubicación perfecta</h3>
+        <p>En el corazón del Barrio Antiguo. Museos, restaurantes y vida nocturna a pasos de tu puerta.</p>
       </div>
-      <div style={{ position: 'relative', textAlign: 'center', padding: '0 24px', maxWidth: 860, width: '100%' }}>
-        <div style={{ display: 'inline-block', background: 'rgba(78,201,201,0.18)', border: '1px solid rgba(78,201,201,0.4)', borderRadius: 99, padding: '5px 16px', marginBottom: 24 }}>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: TEAL, fontWeight: 500, letterSpacing: '0.05em' }}>Barrio Antiguo · Monterrey, México</span>
-        </div>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 7vw, 82px)', fontWeight: 700, color: '#fff', margin: '0 0 16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-          No visites Monterrey,<br /><em style={{ fontStyle: 'italic', color: TEAL }}>vívelo.</em>
-        </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(15px, 2vw, 18px)', color: 'rgba(255,255,255,0.8)', margin: '0 0 44px', fontWeight: 300, lineHeight: 1.6 }}>
-          Hospedajes boutique en el corazón del centro histórico.<br />Tu hogar lejos de casa.
-        </p>
-
-        {/* Desktop search bar */}
-        <div className="hero-search-bar">
-          <div style={fieldStyle}>
-            <span style={labelStyle}>Ubicación</span>
-            <select value={location} onChange={e => setLocation(e.target.value)} style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
-              <option value="">Cualquier ubicación</option>
-              <option value="abasolo">Abasolo — Barrio Antiguo</option>
-              <option value="morelos">Morelos — Fonda &amp; Aldea</option>
-              <option value="padremier">Padre Mier</option>
-              <option value="edison">Edison</option>
-            </select>
-          </div>
-          <div style={dividerStyle} />
-          <div style={fieldStyle}>
-            <span style={labelStyle}>Llegada</span>
-            <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} style={inputStyle} />
-          </div>
-          <div style={dividerStyle} />
-          <div style={fieldStyle}>
-            <span style={labelStyle}>Salida</span>
-            <input type="date" value={checkOut} onChange={e => setCheckOut(e.target.value)} style={inputStyle} />
-          </div>
-          <div style={{ padding: '8px 8px 8px 4px', flexShrink: 0 }}>
-            <button onClick={handleSearch} style={{
-              background: TEAL, color: NAVY, border: 'none', cursor: 'pointer',
-              borderRadius: 99, padding: '14px 28px',
-              fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14,
-              whiteSpace: 'nowrap', transition: 'background 0.2s',
-            }}
-            onMouseEnter={e => e.target.style.background = '#3ab5b5'}
-            onMouseLeave={e => e.target.style.background = TEAL}>
-              Ver disponibilidad
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile search bar — stacked */}
-        <div className="hero-search-bar-mobile">
-          <div style={mobileFieldStyle}>
-            <span style={labelStyle}>Ubicación</span>
-            <select value={location} onChange={e => setLocation(e.target.value)} style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
-              <option value="">Cualquier ubicación</option>
-              <option value="abasolo">Abasolo — Barrio Antiguo</option>
-              <option value="morelos">Morelos — Fonda &amp; Aldea</option>
-              <option value="padremier">Padre Mier</option>
-              <option value="edison">Edison</option>
-            </select>
-          </div>
-          <div style={mobileFieldStyle}>
-            <span style={labelStyle}>Llegada</span>
-            <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} style={inputStyle} />
-          </div>
-          <div style={{ ...mobileFieldStyle, borderBottom: 'none' }}>
-            <span style={labelStyle}>Salida</span>
-            <input type="date" value={checkOut} onChange={e => setCheckOut(e.target.value)} style={inputStyle} />
-          </div>
-          <div style={{ padding: '12px' }}>
-            <button onClick={handleSearch} style={{
-              width: '100%', background: TEAL, color: NAVY, border: 'none', cursor: 'pointer',
-              borderRadius: 99, padding: '14px 28px',
-              fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14,
-            }}>
-              Ver disponibilidad
-            </button>
-          </div>
-        </div>
+      <div class="why-card">
+        <div class="why-icon">📄</div>
+        <h3>Facturación CFDI</h3>
+        <p>Factura fiscal disponible para viajeros de negocios. Sin complicaciones, sin trámites.</p>
       </div>
-      <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Explora</span>
-        <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.25)', animation: 'fadeUpDown 2s infinite' }} />
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <h3>Seguridad total</h3>
+        <p>Cámaras de alta seguridad, extintores y acceso controlado en todas las propiedades.</p>
       </div>
-    </section>
-  );
-}
-
-// ── WHY BARRIO INN ───────────────────────────────────────────────────────────
-function WhySection() {
-  const features = [
-    { icon: '📶', title: 'WiFi 100 Mbps', desc: 'Fibra óptica dedicada para trabajo remoto o streaming sin interrupciones.' },
-    { icon: '🔐', title: 'Smart Locks', desc: 'Acceso sin recepción. Check-in 100% digital, llega a cualquier hora.' },
-    { icon: '📺', title: 'Smart TV', desc: 'Conecta tu cuenta de Netflix, Disney+ o Spotify. Tu entretenimiento, tu regla.' },
-    { icon: '🧾', title: 'Facturación', desc: 'Factura fiscal disponible para viajeros de negocio. Sin complicaciones.' },
-  ];
-  return (
-    <section className="section-pad" style={{ background: CREAM }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 60 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>¿Por qué elegirnos?</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>La experiencia Barrio Inn</h2>
-        </div>
-        <div className="grid-4col">
-          {features.map((f, i) => (
-            <div key={i} style={{
-              background: CARD_BG, borderRadius: 20, padding: '28px 22px',
-              boxShadow: '0 2px 20px rgba(26,42,74,0.07)',
-              transition: 'transform 0.25s, box-shadow 0.25s', cursor: 'default',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(26,42,74,0.14)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 20px rgba(26,42,74,0.07)'; }}>
-              <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: NAVY, margin: '0 0 8px', fontWeight: 700 }}>{f.title}</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: MUTED, lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── LOCATIONS ────────────────────────────────────────────────────────────────
-const LOCATIONS = [
-  { id: 'abasolo', label: 'Abasolo', sub: 'Barrio Antiguo', properties: [
-    { name: 'Mini Comfort Suite', amenities: ['WiFi','AC','Smart TV','Escritorio','Baño privado'], price: 650, c1: '#c8d5e8', c2: '#a8b8d0' },
-    { name: 'Comfort Suite', amenities: ['WiFi','AC','Smart TV','Escritorio','Baño privado','Frigobar'], price: 850, c1: '#b8c8de', c2: '#98a8c0' },
-  ]},
-  { id: 'morelos', label: 'Morelos', sub: 'Fonda & Aldea', properties: [
-    { name: 'Fonda Suite', amenities: ['WiFi','AC','Smart TV','Cocina','Baño privado'], price: 750, c1: '#d4c8b8', c2: '#b8a890' },
-    { name: 'Aldea / Hostal', amenities: ['WiFi','AC','Smart TV','Cocina compartida'], price: 480, c1: '#c8b8a0', c2: '#a89880' },
-  ]},
-  { id: 'padremier', label: 'Padre Mier', sub: '', properties: [
-    { name: 'Suite Padre Mier A', amenities: ['WiFi','AC','Smart TV','Escritorio','Baño privado'], price: 700, c1: '#b8d0c8', c2: '#98b0a8' },
-    { name: 'Suite Padre Mier B', amenities: ['WiFi','AC','Smart TV','Baño privado'], price: 700, c1: '#a8c0b8', c2: '#88a098' },
-  ]},
-  { id: 'edison', label: 'Edison', sub: '', properties: [
-    { name: 'Edison Room A', amenities: ['WiFi','AC','Smart TV','Escritorio','Baño privado'], price: 720, c1: '#c8c0d8', c2: '#a8a0b8' },
-    { name: 'Edison Room B', amenities: ['WiFi','AC','Smart TV','Baño privado'], price: 680, c1: '#b8b0c8', c2: '#9890a8' },
-  ]},
-  { id: 'soon', label: 'Próximamente', sub: '5ª ubicación', comingSoon: true, properties: [] },
-];
-
-function PropertyCard({ prop, locationLabel }) {
-  const [hovered, setHovered] = React.useState(false);
-  return (
-    <div style={{
-      background: CARD_BG, borderRadius: 20, overflow: 'hidden',
-      boxShadow: hovered ? '0 16px 48px rgba(26,42,74,0.16)' : '0 2px 20px rgba(26,42,74,0.08)',
-      transform: hovered ? 'translateY(-6px)' : 'none',
-      transition: 'all 0.25s',
-    }}
-    onMouseEnter={() => setHovered(true)}
-    onMouseLeave={() => setHovered(false)}>
-      <PlaceholderImg label={`foto habitación\n${prop.name}`} color1={prop.c1} color2={prop.c2} style={{ height: 220, width: '100%' }} />
-      <div style={{ padding: '20px 22px 22px' }}>
-        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: NAVY, margin: '0 0 12px', fontWeight: 700 }}>{prop.name}</h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
-          {prop.amenities.map(a => (
-            <span key={a} style={{ background: '#f0f4fa', color: NAVY, fontSize: 11, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.03em' }}>{a}</span>
-          ))}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4, flexWrap: 'wrap', gap: 12 }}>
-          <div>
-            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: NAVY }}>MXN ${prop.price.toLocaleString()}</span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: MUTED, marginLeft: 4 }}>/ noche</span>
-          </div>
-          <a href={waLink(prop.name, locationLabel)} target="_blank" rel="noreferrer" style={{
-            background: '#25D366', color: '#fff', textDecoration: 'none',
-            padding: '10px 18px', borderRadius: 99,
-            fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700,
-            display: 'flex', alignItems: 'center', gap: 6,
-            transition: 'opacity 0.2s', whiteSpace: 'nowrap',
-          }}
-          onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
-          onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Reservar por WhatsApp
-          </a>
-        </div>
+      <div class="why-card">
+        <div class="why-icon">☕</div>
+        <h3>Café de cortesía</h3>
+        <p>Café incluido en cada propiedad. Empieza tu día en Monterrey como se debe.</p>
       </div>
     </div>
-  );
-}
+  </div>
+</section>
 
-function LocationsSection() {
-  const [active, setActive] = React.useState('abasolo');
-  const loc = LOCATIONS.find(l => l.id === active);
-  return (
-    <section id="ubicaciones" className="section-pad" style={{ background: '#f3efe8' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Nuestras propiedades</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: NAVY, margin: 0, fontWeight: 700 }}>Elige tu ubicación</h2>
-        </div>
-        <div className="location-tabs" style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 48, flexWrap: 'wrap' }}>
-          {LOCATIONS.map(l => (
-            <button key={l.id} onClick={() => setActive(l.id)} className="location-tab-btn" style={{
-              padding: '10px 22px', borderRadius: 99, border: 'none', cursor: 'pointer',
-              fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
-              background: active === l.id ? NAVY : CARD_BG,
-              color: active === l.id ? '#fff' : NAVY,
-              boxShadow: active === l.id ? '0 4px 16px rgba(26,42,74,0.25)' : '0 1px 4px rgba(26,42,74,0.08)',
-              transition: 'all 0.2s', whiteSpace: 'nowrap',
-            }}>
-              {l.label}
-              {l.sub && <span style={{ fontWeight: 400, opacity: 0.65, fontSize: 12, marginLeft: 6 }}>{l.sub}</span>}
-            </button>
-          ))}
-        </div>
-        {loc?.comingSoon ? (
-          <div style={{ textAlign: 'center', padding: '80px 0', color: MUTED, fontFamily: "'DM Sans', sans-serif" }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>🏗️</div>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: NAVY, margin: '0 0 12px' }}>Próximamente</h3>
-            <p style={{ fontSize: 16 }}>Estamos preparando nuestra 5ª ubicación. ¡Síguenos para enterarte primero!</p>
-          </div>
-        ) : (
-          <div className="grid-2col">
-            {loc?.properties.map((p, i) => <PropertyCard key={i} prop={p} locationLabel={loc.label} />)}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
+<!-- PROPIEDADES -->
+<section class="propiedades reveal" id="propiedades">
+  <div class="container">
+    <div class="props-header">
+      <div class="section-eyebrow">Nuestras propiedades</div>
+      <h2 class="section-title">Elige tu espacio</h2>
+      <p class="section-sub">Cuatro complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
+    </div>
+    <div class="props-grid" id="propsGrid">
 
-// ── AMENITIES ────────────────────────────────────────────────────────────────
-function AmenitiesSection() {
-  const items = [
-    { icon: '📶', label: 'WiFi 100+ Mbps' },
-    { icon: '📺', label: 'Smart TV' },
-    { icon: '❄️', label: 'Mini AC / Calefacción' },
-    { icon: '☕', label: 'Café de cortesía' },
-    { icon: '🍳', label: 'Cocina comunal' },
-    { icon: '🔑', label: 'Smart lock access' },
-  ];
-  return (
-    <section id="amenidades" className="section-pad" style={{ background: CREAM }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div className="grid-2col-text">
-          <div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Todo incluido</p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: '0 0 20px', fontWeight: 700, lineHeight: 1.2 }}>Lo que encontrarás en cada espacio</h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: MUTED, lineHeight: 1.8, margin: '0 0 36px' }}>
-              Cada habitación está equipada para que te concentres en lo que importa: disfrutar Monterrey.
-            </p>
-            <div className="checkinout-row" style={{ display: 'flex', gap: 20 }}>
-              {[['Check-in','3:00 PM'],['Check-out','11:00 AM']].map(([lbl, time]) => (
-                <div key={lbl} style={{ background: NAVY, borderRadius: 16, padding: '20px 24px', flex: 1 }}>
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>{lbl}</div>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: TEAL, fontWeight: 700 }}>{time}</div>
-                </div>
-              ))}
+      <!-- ABASOLO -->
+      <div class="prop-card" data-prop="abasolo">
+        <div class="carousel" id="carousel-abasolo">
+          <div class="carousel-track" id="track-abasolo">
+            <div class="carousel-slide" onclick="openLightbox('abasolo',0)">
+              <img src="ABASOLO_1" alt="Abasolo - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>ABASOLO_1</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('abasolo',1)">
+              <img src="ABASOLO_2" alt="Abasolo - Corredor" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚪</span><span class=ph-label>ABASOLO_2</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('abasolo',2)">
+              <img src="ABASOLO_3" alt="Abasolo - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>ABASOLO_3</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('abasolo',3)">
+              <img src="ABASOLO_4" alt="Abasolo - Lavabo" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🪥</span><span class=ph-label>ABASOLO_4</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('abasolo',4)">
+              <img src="ABASOLO_5" alt="Abasolo - Vista" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏙</span><span class=ph-label>ABASOLO_5</span></div>'"/>
             </div>
           </div>
-          <div className="amenities-inner-grid">
-            {items.map((item, i) => (
-              <div key={i} style={{
-                background: CARD_BG, borderRadius: 16, padding: '20px 12px', textAlign: 'center',
-                boxShadow: '0 2px 16px rgba(26,42,74,0.06)', transition: 'transform 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                <div style={{ fontSize: 26, marginBottom: 8 }}>{item.icon}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: NAVY, fontWeight: 600, lineHeight: 1.4 }}>{item.label}</div>
-              </div>
-            ))}
+          <button class="carousel-btn prev" onclick="slide('abasolo',-1)">‹</button>
+          <button class="carousel-btn next" onclick="slide('abasolo',1)">›</button>
+          <div class="carousel-dots" id="dots-abasolo">
+            <div class="carousel-dot active" onclick="goTo('abasolo',0)"></div>
+            <div class="carousel-dot" onclick="goTo('abasolo',1)"></div>
+            <div class="carousel-dot" onclick="goTo('abasolo',2)"></div>
+            <div class="carousel-dot" onclick="goTo('abasolo',3)"></div>
+            <div class="carousel-dot" onclick="goTo('abasolo',4)"></div>
+          </div>
+          <div class="prop-badge">Barrio Antiguo</div>
+          <div class="prop-rating">4.83 · 103</div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">Casa Abasolo</h3>
+          <p class="prop-address">José Abasolo, Centro Histórico</p>
+          <div class="prop-tags">
+            <span class="prop-tag">Cama King</span>
+            <span class="prop-tag">Baño privado</span>
+            <span class="prop-tag">Smart Lock</span>
+            <span class="prop-tag">WiFi 109 Mbps</span>
+            <span class="prop-tag">Escritorio</span>
+          </div>
+          <div class="prop-highlights">
+            <p class="prop-highlights-title">Cerca de ti</p>
+            <div class="prop-highlights-list">
+              <span class="prop-highlight">Macroplaza a 600m</span>
+              <span class="prop-highlight">Museo MARCO a 500m</span>
+              <span class="prop-highlight">7-Eleven a 10m</span>
+              <span class="prop-highlight">Parque Fundidora 4km</span>
+            </div>
+          </div>
+          <div class="prop-actions">
+            <a href="https://www.airbnb.mx/rooms/865916915126616151" target="_blank" class="book-btn airbnb">
+              <span class="book-btn-icon">🏠</span> Airbnb
+            </a>
+            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Casa%20Abasolo" target="_blank" class="book-btn whatsapp">
+              <span class="book-btn-icon">💬</span> WhatsApp
+            </a>
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-// ── MAP SECTION ───────────────────────────────────────────────────────────────
-function MapSection() {
-  const pins = [
-    { x: 200, y: 180, label: 'Abasolo', sub: 'Barrio Antiguo' },
-    { x: 310, y: 210, label: 'Morelos', sub: 'Fonda & Aldea' },
-    { x: 380, y: 165, label: 'Padre Mier', sub: '' },
-    { x: 480, y: 200, label: 'Edison', sub: '' },
-    { x: 550, y: 150, label: '¿?', sub: 'Próximamente' },
-  ];
-  const distances = [
-    { place: 'Macroplaza', dist: '600m' },
-    { place: 'Museo MARCO', dist: '500m' },
-    { place: 'Santa Lucía', dist: '3.3km' },
-    { place: 'OXXO', dist: '<100m' },
-  ];
-  return (
-    <section className="section-pad" style={{ background: NAVY }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 60 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Ubicación estratégica</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 48px)', color: '#fff', margin: 0, fontWeight: 700 }}>En el corazón de Monterrey</h2>
-        </div>
-        <div className="grid-map">
-          <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <svg viewBox="0 0 700 360" width="100%" style={{ display: 'block' }}>
-              <rect width="700" height="360" fill="#0f1d35"/>
-              {[80,160,240,320,400,480,560,640].map(x => <line key={x} x1={x} y1="0" x2={x} y2="360" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>)}
-              {[60,120,180,240,300].map(y => <line key={y} x1="0" y1={y} x2="700" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>)}
-              <line x1="0" y1="200" x2="700" y2="200" stroke="rgba(78,201,201,0.15)" strokeWidth="3"/>
-              <line x1="0" y1="240" x2="700" y2="240" stroke="rgba(78,201,201,0.1)" strokeWidth="2"/>
-              <line x1="340" y1="0" x2="340" y2="360" stroke="rgba(78,201,201,0.12)" strokeWidth="2.5"/>
-              <line x1="440" y1="0" x2="440" y2="360" stroke="rgba(78,201,201,0.08)" strokeWidth="1.5"/>
-              <text x="30" y="290" fontFamily="monospace" fontSize="10" fill="rgba(255,255,255,0.2)" letterSpacing="3">CENTRO HISTÓRICO · MONTERREY</text>
-              {pins.map((p, i) => (
-                <g key={i}>
-                  <circle cx={p.x} cy={p.y} r="18" fill={i === 4 ? 'rgba(78,201,201,0.15)' : 'rgba(78,201,201,0.2)'} />
-                  <circle cx={p.x} cy={p.y} r="8" fill={i === 4 ? 'rgba(78,201,201,0.4)' : TEAL} />
-                  <circle cx={p.x} cy={p.y} r="4" fill={i === 4 ? 'rgba(255,255,255,0.3)' : '#fff'} />
-                  <text x={p.x} y={p.y - 26} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="11" fill="#fff" fontWeight="600">{p.label}</text>
-                  {p.sub && <text x={p.x} y={p.y - 14} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" fill="rgba(255,255,255,0.5)">{p.sub}</text>}
-                </g>
-              ))}
-              {pins.slice(0,-1).map((p, i) => (
-                <line key={i} x1={p.x} y1={p.y} x2={pins[i+1].x} y2={pins[i+1].y} stroke="rgba(78,201,201,0.2)" strokeWidth="1" strokeDasharray="4,4"/>
-              ))}
-            </svg>
+      <!-- ALDEA -->
+      <div class="prop-card" data-prop="aldea">
+        <div class="carousel" id="carousel-aldea">
+          <div class="carousel-track" id="track-aldea">
+            <div class="carousel-slide" onclick="openLightbox('aldea',0)">
+              <img src="ALDEA_1" alt="Aldea - Área común" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🍽</span><span class=ph-label>ALDEA_1</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',1)">
+              <img src="ALDEA_2" alt="Aldea - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>ALDEA_2</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',2)">
+              <img src="ALDEA_3" alt="Aldea - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>ALDEA_3</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',3)">
+              <img src="ALDEA_4" alt="Aldea - Patio noche" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌙</span><span class=ph-label>ALDEA_4</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',4)">
+              <img src="ALDEA_5" alt="Aldea - Fachada" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏠</span><span class=ph-label>ALDEA_5</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',5)">
+              <img src="ALDEA_6" alt="Aldea - Alberca" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏊</span><span class=ph-label>ALDEA_6</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',6)">
+              <img src="ALDEA_7" alt="Aldea - Jardín" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌿</span><span class=ph-label>ALDEA_7</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('aldea',7)">
+              <img src="ALDEA_8" alt="Aldea - Corredor noche" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>✨</span><span class=ph-label>ALDEA_8</span></div>'"/>
+            </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.5)', margin: '0 0 8px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600 }}>Distancias desde Barrio Inn</p>
-            {distances.map(d => (
-              <div key={d.place} style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                background: 'rgba(255,255,255,0.06)', borderRadius: 12, padding: '16px 20px',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.8)' }}>{d.place}</span>
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: TEAL, fontWeight: 700 }}>{d.dist}</span>
-              </div>
-            ))}
+          <button class="carousel-btn prev" onclick="slide('aldea',-1)">‹</button>
+          <button class="carousel-btn next" onclick="slide('aldea',1)">›</button>
+          <div class="carousel-dots" id="dots-aldea">
+            <div class="carousel-dot active" onclick="goTo('aldea',0)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',1)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',2)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',3)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',4)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',5)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',6)"></div>
+            <div class="carousel-dot" onclick="goTo('aldea',7)"></div>
+          </div>
+          <div class="prop-badge">Barrio Antiguo</div>
+          <div class="prop-rating">4.81 · 16</div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">Aldea Morelos</h3>
+          <p class="prop-address">Fonda & Aldea, Centro Histórico</p>
+          <div class="prop-tags">
+            <span class="prop-tag">Cama individual</span>
+            <span class="prop-tag">Baño compartido</span>
+            <span class="prop-tag">Alberca</span>
+            <span class="prop-tag">Cocina comunal</span>
+            <span class="prop-tag">Smart TV</span>
+          </div>
+          <div class="prop-highlights">
+            <p class="prop-highlights-title">Cerca de ti</p>
+            <div class="prop-highlights-list">
+              <span class="prop-highlight">Restaurantes en la puerta</span>
+              <span class="prop-highlight">Museo MARCO 500m</span>
+              <span class="prop-highlight">Macroplaza 600m</span>
+              <span class="prop-highlight">7-Eleven 100m</span>
+            </div>
+          </div>
+          <div class="prop-actions">
+            <a href="https://www.airbnb.mx/rooms/1376405838885906661" target="_blank" class="book-btn airbnb">
+              <span class="book-btn-icon">🏠</span> Airbnb
+            </a>
+            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Aldea%20Morelos" target="_blank" class="book-btn whatsapp">
+              <span class="book-btn-icon">💬</span> WhatsApp
+            </a>
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-// ── TOUR CTA ─────────────────────────────────────────────────────────────────
-function TourCTA() {
-  const msg = encodeURIComponent('Hola, me gustaría agendar un tour para conocer Barrio Inn. ¿Cuándo tienen disponibilidad?');
-  return (
-    <section className="section-pad" style={{ background: '#e8e0d4', textAlign: 'center' }}>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
-        <div style={{ fontSize: 40, marginBottom: 20 }}>🏡</div>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: '0 0 16px', fontWeight: 700 }}>¿Quieres conocer el espacio antes de reservar?</h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(15px, 2vw, 17px)', color: MUTED, lineHeight: 1.8, margin: '0 0 40px' }}>
-          Agenda un tour virtual o presencial. Te mostramos la propiedad y te contamos todo lo que necesitas saber.
-        </p>
-        <a href={`https://wa.me/${WA_NUM}?text=${msg}`} target="_blank" rel="noreferrer" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 10,
-          background: '#25D366', color: '#fff', textDecoration: 'none',
-          padding: '16px 36px', borderRadius: 99,
-          fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 16,
-          boxShadow: '0 6px 24px rgba(37,211,102,0.35)',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(37,211,102,0.4)'; }}
-        onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(37,211,102,0.35)'; }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Agendar tour por WhatsApp
+      <!-- MORELOS -->
+      <div class="prop-card" data-prop="morelos">
+        <div class="carousel" id="carousel-morelos">
+          <div class="carousel-track" id="track-morelos">
+            <div class="carousel-slide" onclick="openLightbox('morelos',0)">
+              <img src="MORELOS_1" alt="Morelos - Suite" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>MORELOS_1</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('morelos',1)">
+              <img src="MORELOS_2" alt="Morelos - Corredor floral" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌸</span><span class=ph-label>MORELOS_2</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('morelos',2)">
+              <img src="MORELOS_3" alt="Morelos - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>MORELOS_3</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('morelos',3)">
+              <img src="MORELOS_4" alt="Morelos - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>MORELOS_4</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('morelos',4)">
+              <img src="MORELOS_5" alt="Morelos - Lavabo" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🪥</span><span class=ph-label>MORELOS_5</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('morelos',5)">
+              <img src="MORELOS_6" alt="Morelos - Puerta numerada" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🔑</span><span class=ph-label>MORELOS_6</span></div>'"/>
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('morelos',-1)">‹</button>
+          <button class="carousel-btn next" onclick="slide('morelos',1)">›</button>
+          <div class="carousel-dots" id="dots-morelos">
+            <div class="carousel-dot active" onclick="goTo('morelos',0)"></div>
+            <div class="carousel-dot" onclick="goTo('morelos',1)"></div>
+            <div class="carousel-dot" onclick="goTo('morelos',2)"></div>
+            <div class="carousel-dot" onclick="goTo('morelos',3)"></div>
+            <div class="carousel-dot" onclick="goTo('morelos',4)"></div>
+            <div class="carousel-dot" onclick="goTo('morelos',5)"></div>
+          </div>
+          <div class="prop-badge">Barrio Antiguo</div>
+          <div class="prop-rating">4.82 · 130 ⭐</div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">Barrio Inn Morelos</h3>
+          <p class="prop-address">Calle Morelos, Centro Histórico</p>
+          <div class="prop-tags">
+            <span class="prop-tag">Cama matrimonial</span>
+            <span class="prop-tag">Baño privado</span>
+            <span class="prop-tag">Smart TV</span>
+            <span class="prop-tag">Microondas</span>
+            <span class="prop-tag">Frigobar</span>
+          </div>
+          <div class="prop-highlights">
+            <p class="prop-highlights-title">Cerca de ti</p>
+            <div class="prop-highlights-list">
+              <span class="prop-highlight">Calle principal de Barrio</span>
+              <span class="prop-highlight">Bares y restaurantes al paso</span>
+              <span class="prop-highlight">Macroplaza 600m</span>
+              <span class="prop-highlight">Museo MARCO 500m</span>
+            </div>
+          </div>
+          <div class="prop-actions">
+            <a href="https://www.airbnb.mx/rooms/957511127263086841" target="_blank" class="book-btn airbnb">
+              <span class="book-btn-icon">🏠</span> Airbnb
+            </a>
+            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Morelos" target="_blank" class="book-btn whatsapp">
+              <span class="book-btn-icon">💬</span> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PIRINEOS -->
+      <div class="prop-card" data-prop="pirineos">
+        <div class="carousel" id="carousel-pirineos">
+          <div class="carousel-track" id="track-pirineos">
+            <div class="carousel-slide" onclick="openLightbox('pirineos',0)">
+              <img src="PIRINEOS_1" alt="Pirineos - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>PIRINEOS_1</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('pirineos',1)">
+              <img src="PIRINEOS_2" alt="Pirineos - Clóset" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>👔</span><span class=ph-label>PIRINEOS_2</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('pirineos',2)">
+              <img src="PIRINEOS_3" alt="Pirineos - Vista" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏙</span><span class=ph-label>PIRINEOS_3</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('pirineos',3)">
+              <img src="PIRINEOS_4" alt="Pirineos - Kitchenette" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🍳</span><span class=ph-label>PIRINEOS_4</span></div>'"/>
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('pirineos',4)">
+              <img src="PIRINEOS_5" alt="Pirineos - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>PIRINEOS_5</span></div>'"/>
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('pirineos',-1)">‹</button>
+          <button class="carousel-btn next" onclick="slide('pirineos',1)">›</button>
+          <div class="carousel-dots" id="dots-pirineos">
+            <div class="carousel-dot active" onclick="goTo('pirineos',0)"></div>
+            <div class="carousel-dot" onclick="goTo('pirineos',1)"></div>
+            <div class="carousel-dot" onclick="goTo('pirineos',2)"></div>
+            <div class="carousel-dot" onclick="goTo('pirineos',3)"></div>
+            <div class="carousel-dot" onclick="goTo('pirineos',4)"></div>
+          </div>
+          <div class="prop-badge">Roma Sur</div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">Loft Pirineos</h3>
+          <p class="prop-address">Pirineos 1012, Roma Sur</p>
+          <div class="prop-tags">
+            <span class="prop-tag">Loft tipo estudio</span>
+            <span class="prop-tag">Baño privado</span>
+            <span class="prop-tag">Walking closet</span>
+            <span class="prop-tag">Kitchenette</span>
+            <span class="prop-tag">Pet-friendly 🐾</span>
+          </div>
+          <div class="prop-highlights">
+            <p class="prop-highlights-title">Cerca de ti</p>
+            <div class="prop-highlights-list">
+              <span class="prop-highlight">Zona residencial tranquila</span>
+              <span class="prop-highlight">Vista al skyline de Monterrey</span>
+              <span class="prop-highlight">A 10 min del Centro Histórico</span>
+              <span class="prop-highlight">Restaurantes en la zona</span>
+            </div>
+          </div>
+          <div class="prop-actions">
+            <a href="https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78" target="_blank" class="book-btn belong">
+              <span class="book-btn-icon">🏡</span> Belong
+            </a>
+            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Loft%20Pirineos" target="_blank" class="book-btn whatsapp">
+              <span class="book-btn-icon">💬</span> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRÓXIMAMENTE -->
+      <div class="prop-card coming-soon">
+        <div class="coming-soon-overlay">
+          <div class="coming-soon-badge">🦆 Próximamente</div>
+        </div>
+        <div class="carousel">
+          <div class="carousel-slide">
+            <div class="slide-placeholder">
+              <span class="ph-icon">🏗️</span>
+              <span class="ph-label">Nueva propiedad</span>
+            </div>
+          </div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">Nueva ubicación</h3>
+          <p class="prop-address">Centro Histórico, Monterrey</p>
+          <div class="prop-tags">
+            <span class="prop-tag">Muy pronto</span>
+          </div>
+          <div class="prop-highlights">
+            <div class="prop-highlights-list">
+              <span class="prop-highlight">Siguiendo el estilo Barrio Inn</span>
+              <span class="prop-highlight">Notifícate por WhatsApp</span>
+            </div>
+          </div>
+          <div class="prop-actions">
+            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20saber%20de%20la%20nueva%20propiedad" target="_blank" class="book-btn whatsapp" style="flex:1">
+              <span class="book-btn-icon">🔔</span> Notifícame
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews reveal" id="resenas">
+  <div class="container">
+    <div class="section-eyebrow">Lo que dicen</div>
+    <h2 class="section-title" style="color:var(--cream)">Reseñas reales</h2>
+    <p class="section-sub">Más de 250 evaluaciones en Airbnb con calificación promedio de 4.82.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Excelente lugar para conocer Monterrey y su barrio antiguo, está bien ubicado y con restaurantes cercanos para tener diferentes opciones para comer."</p>
+        <div class="review-author">
+          <div class="review-avatar">C</div>
+          <div class="review-info">
+            <p class="review-name">Carlos</p>
+            <p class="review-meta">Tizimín, México · febrero 2026</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Barrio Inn siempre nos ha agradado por la ubicación y por toda la facilidad y atención que nos dan los hosts. Ya van varias noches que nos hospedamos en distintas propiedades."</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div class="review-info">
+            <p class="review-name">Juan Angel</p>
+            <p class="review-meta">Monterrey, México · hace 3 semanas</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Amo este lugar, tienen una excelente atención y lo mejor de todo es que puedes tener comida muy rica con solo salir de tu habitación. Está en el centro de Barrio Antiguo."</p>
+        <div class="review-author">
+          <div class="review-avatar">N</div>
+          <div class="review-info">
+            <p class="review-name">Nathaly</p>
+            <p class="review-meta">San Salvador, El Salvador · nov 2025</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ubicación perfecta, calle principal de Barrio, con todo cerca a escasos pasos. Muy cómodo, agua súper caliente en regadera y A/C funcionando perfecto."</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div class="review-info">
+            <p class="review-name">Juan Angel</p>
+            <p class="review-meta">Monterrey, México · feb 2026</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Me gustó mucho el lugar y la ubicación está perfecta, un lugar seguro y céntrico. Si vuelvo a Monterrey sin duda regreso aquí."</p>
+        <div class="review-author">
+          <div class="review-avatar">O</div>
+          <div class="review-info">
+            <p class="review-name">Oscar</p>
+            <p class="review-meta">León, México · febrero 2026</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Excelente ubicacion, servicios, privacidad y accesibilidad. Lugar muy lindo y excelentes instalaciones, todo muy limpio."</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div class="review-info">
+            <p class="review-name">Misael &amp; Maria Fernanda</p>
+            <p class="review-meta">Ciudad Juárez · marzo 2026</p>
+          </div>
+          <span class="review-platform">Airbnb</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENIDADES -->
+<section class="amenidades reveal" id="amenidades">
+  <div class="container">
+    <div class="section-eyebrow">Incluido en tu estadía</div>
+    <h2 class="section-title">Todo lo que necesitas</h2>
+    <p class="section-sub">Cada habitación equipada para que solo te concentres en disfrutar Monterrey.</p>
+    <div class="amenidades-grid">
+      <div class="amenidad-item"><div class="amenidad-icon">📶</div><p class="amenidad-name">WiFi 100+ Mbps</p><p class="amenidad-desc">Fibra óptica dedicada</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">❄️</div><p class="amenidad-name">Mini Split</p><p class="amenidad-desc">Frío y calefacción</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">📺</div><p class="amenidad-name">Smart TV</p><p class="amenidad-desc">Netflix, Disney+</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">🔐</div><p class="amenidad-name">Smart Lock</p><p class="amenidad-desc">Acceso 24 horas</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">☕</div><p class="amenidad-name">Café cortesía</p><p class="amenidad-desc">Incluido siempre</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">🍳</div><p class="amenidad-name">Cocina comunal</p><p class="amenidad-desc">Disponible para huéspedes</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">🧴</div><p class="amenidad-name">Amenidades baño</p><p class="amenidad-desc">Shampoo, jabón, gel</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">📄</div><p class="amenidad-name">Factura CFDI</p><p class="amenidad-desc">Para viajes de negocio</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">🛡️</div><p class="amenidad-name">Cámaras HD</p><p class="amenidad-desc">Seguridad 24/7</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon">🧺</div><p class="amenidad-name">Ropa de cama</p><p class="amenidad-desc">Incluida y limpia</p></div>
+    </div>
+    <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:var(--white);border-radius:var(--r-lg);padding:1.5rem 2rem;border:1px solid rgba(28,28,26,.07)">
+      <div>
+        <p style="font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">Check-in</p>
+        <p style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:600;color:var(--green)">3:00 PM</p>
+      </div>
+      <div style="width:1px;height:48px;background:rgba(28,28,26,.1)"></div>
+      <div>
+        <p style="font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">Check-out</p>
+        <p style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:600;color:var(--navy)">11:00 AM</p>
+      </div>
+      <div style="width:1px;height:48px;background:rgba(28,28,26,.1)"></div>
+      <div>
+        <p style="font-size:13px;color:var(--text2);max-width:320px;line-height:1.6">Instrucciones de acceso enviadas el día de tu llegada vía WhatsApp. Sin recepción, sin filas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq reveal" id="faq">
+  <div class="container">
+    <div class="section-eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-title">Resolvemos tus dudas</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Cómo funciona el acceso con smart lock?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp el día de tu llegada a las 2 PM. El acceso es completamente autónomo, disponible las 24 horas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuáles son los horarios de check-in y check-out?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">El check-in es a partir de las 3:00 PM y el check-out antes de las 11:00 AM. No realizamos early check-in ni late check-out sin reserva adicional.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Ofrecen factura fiscal?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por WhatsApp. Las facturas se generan días después de terminar la estancia.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Hay estacionamiento?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Puedo hacer check-in anticipado?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">El check-in anticipado no está disponible actualmente. Nuestro sistema de limpieza y preparación de habitaciones necesita el tiempo completo entre huéspedes para garantizar la mejor experiencia.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Hay guardado de equipaje?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">Por el momento no contamos con servicio de guardado de equipaje. Te recomendamos coordinar tu llegada con el horario de check-in.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Se permiten mascotas?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">El Loft Pirineos es pet-friendly. Las demás propiedades no permiten mascotas por políticas de convivencia. Consulta al momento de reservar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <div class="container">
+    <h2>¿Listo para vivir Monterrey?</h2>
+    <p>Escríbele a Rulo directamente. Responde rápido y te ayuda a elegir la mejor opción para ti.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20reservar%20en%20Barrio%20Inn" target="_blank" class="btn-white">
+        💬 Escribir por WhatsApp
+      </a>
+      <a href="#propiedades" class="btn-white-outline">
+        🏠 Ver propiedades
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <div class="nav-logo-img" style="background:rgba(255,255,255,.1);font-size:18px">🦆</div>
+          <div class="nav-logo-text">
+            <strong>Barrio Inn</strong>
+            <span>Hostelería</span>
+          </div>
         </a>
-      </div>
-    </section>
-  );
-}
-
-// ── FAQ ───────────────────────────────────────────────────────────────────────
-const FAQS = [
-  { q: '¿Cuáles son los horarios de check-in y check-out?', a: 'El check-in es a partir de las 3:00 PM y el check-out es antes de las 11:00 AM. Recibirás las instrucciones de acceso vía WhatsApp el día de tu llegada.' },
-  { q: '¿Puedo hacer check-in anticipado?', a: 'El check-in anticipado no está disponible actualmente. Nuestro sistema de limpieza y preparación de habitaciones necesita el tiempo completo entre huéspedes para garantizar la mejor experiencia.' },
-  { q: '¿Hay guardado de equipaje?', a: 'Por el momento no contamos con servicio de guardado de equipaje. Te recomendamos coordinar tu llegada con el horario de check-in.' },
-  { q: '¿Ofrecen factura fiscal?', a: 'Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por WhatsApp.' },
-  { q: '¿Cómo funciona el acceso con smart lock?', a: 'No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp. El acceso es completamente autónomo, disponible las 24 horas.' },
-  { q: '¿Hay estacionamiento?', a: 'No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.' },
-];
-
-function FAQ() {
-  const [open, setOpen] = React.useState(null);
-  return (
-    <section id="faq" className="section-pad" style={{ background: CREAM }}>
-      <div style={{ maxWidth: 760, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: TEAL, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Preguntas frecuentes</p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 44px)', color: NAVY, margin: 0, fontWeight: 700 }}>Resolvemos tus dudas</h2>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {FAQS.map((faq, i) => (
-            <div key={i} style={{
-              background: CARD_BG, borderRadius: 16, overflow: 'hidden',
-              boxShadow: '0 2px 12px rgba(26,42,74,0.06)',
-              border: open === i ? `1px solid ${TEAL}` : '1px solid transparent',
-              transition: 'border-color 0.2s',
-            }}>
-              <button onClick={() => setOpen(open === i ? null : i)} style={{
-                width: '100%', background: 'none', border: 'none', cursor: 'pointer',
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '20px 24px', textAlign: 'left',
-              }}>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, color: NAVY, paddingRight: 16 }}>{faq.q}</span>
-                <span style={{ color: TEAL, fontSize: 20, flexShrink: 0, transition: 'transform 0.2s', transform: open === i ? 'rotate(45deg)' : 'none', fontWeight: 300 }}>+</span>
-              </button>
-              {open === i && (
-                <div style={{ padding: '0 24px 20px', fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: MUTED, lineHeight: 1.8 }}>{faq.a}</div>
-              )}
-            </div>
-          ))}
+        <p class="footer-tagline">Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/barrioinn" target="_blank" class="social-btn">📷</a>
+          <a href="https://www.facebook.com/Barrio-Inn-61553063681506" target="_blank" class="social-btn">📘</a>
+          <a href="https://wa.me/5218110645136" target="_blank" class="social-btn">💬</a>
         </div>
       </div>
-    </section>
-  );
-}
-
-// ── FOOTER ────────────────────────────────────────────────────────────────────
-function Footer() {
-  return (
-    <footer style={{ background: NAVY, padding: '60px 20px 40px', color: 'rgba(255,255,255,0.6)' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div className="grid-footer">
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                <path d="M8 20 Q16 10 26 14 Q20 8 12 10 Q6 12 8 20Z" fill="white"/>
-                <path d="M24 14 Q28 10 30 8 Q26 12 22 13Z" fill={TEAL}/>
-                <circle cx="22" cy="13" r="1.2" fill={TEAL}/>
-              </svg>
-              <div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 15, color: '#fff' }}>BARRIO INN</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Hostelería</div>
-              </div>
-            </div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.8, margin: 0, maxWidth: 220 }}>Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey.</p>
-          </div>
-          <div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Navegación</p>
-            {['Ubicaciones','Amenidades','FAQ','Agendar tour'].map(l => (
-              <div key={l} style={{ marginBottom: 10 }}>
-                <a href={`#${l.toLowerCase().replace(' ','')}`} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>{l}</a>
-              </div>
-            ))}
-          </div>
-          <div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>Contacto</p>
-            <a href={`https://wa.me/${WA_NUM}`} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#25D366', textDecoration: 'none', marginBottom: 10 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.55 4.112 1.512 5.843L0 24l6.335-1.493A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.668-.522-5.183-1.43L3 21.5l.943-3.755A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-              WhatsApp
-            </a>
-            <a href="https://instagram.com/barrioinn" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-              @barrioinn
-            </a>
-          </div>
-        </div>
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 28, textAlign: 'center' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, margin: 0, color: 'rgba(255,255,255,0.3)' }}>
-            © 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.
-          </p>
-        </div>
+      <div class="footer-col">
+        <h4>Propiedades</h4>
+        <a href="#propiedades">Casa Abasolo</a>
+        <a href="#propiedades">Aldea Morelos</a>
+        <a href="#propiedades">Barrio Inn Morelos</a>
+        <a href="#propiedades">Loft Pirineos</a>
       </div>
-    </footer>
-  );
-}
-
-// ── APP ───────────────────────────────────────────────────────────────────────
-function App() {
-  return (
-    <div>
-      <Nav />
-      <Hero />
-      <WhySection />
-      <LocationsSection />
-      <AmenitiesSection />
-      <MapSection />
-      <TourCTA />
-      <FAQ />
-      <Footer />
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#amenidades">Amenidades</a>
+        <a href="#resenas">Reseñas</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://wa.me/5218110645136" target="_blank">Contacto</a>
+      </div>
     </div>
-  );
-}
+    <div class="footer-bottom">
+      <p>© 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
+      <p class="patito">Hecho con 🦆 por Barrio Inn</p>
+    </div>
+  </div>
+</footer>
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <button class="lightbox-nav prev" onclick="lightboxNav(-1)">‹</button>
+    <button class="lightbox-nav next" onclick="lightboxNav(1)">›</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" style="display:none"/>
+    <div class="lightbox-img-placeholder" id="lightboxPlaceholder">
+      <span style="font-size:48px">🖼</span>
+      <span id="lightboxVarName"></span>
+    </div>
+    <p class="lightbox-counter" id="lightboxCounter"></p>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20vi%20Barrio%20Inn%20y%20me%20interesa" target="_blank" class="wa-float" aria-label="WhatsApp">💬</a>
 
 <script>
-(function() {
-  const panel = document.getElementById('tweaks-panel');
+// ── NAV ──
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>60);
+});
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{
+  mobileMenu.classList.toggle('open');
+});
+function closeMobile(){mobileMenu.classList.remove('open')}
 
-  window.addEventListener('message', e => {
-    if (e.data?.type === '__activate_edit_mode') panel.classList.add('visible');
-    else if (e.data?.type === '__deactivate_edit_mode') panel.classList.remove('visible');
+// ── CAROUSEL ──
+const carouselState={};
+function initCarousel(id,count){
+  carouselState[id]={current:0,count};
+}
+initCarousel('abasolo',5);
+initCarousel('aldea',8);
+initCarousel('morelos',6);
+initCarousel('pirineos',5);
+
+function slide(id,dir){
+  const s=carouselState[id];
+  s.current=(s.current+dir+s.count)%s.count;
+  updateCarousel(id);
+}
+function goTo(id,idx){
+  carouselState[id].current=idx;
+  updateCarousel(id);
+}
+function updateCarousel(id){
+  const s=carouselState[id];
+  const track=document.getElementById('track-'+id);
+  if(track) track.style.transform=`translateX(-${s.current*100}%)`;
+  const dots=document.querySelectorAll(`#dots-${id} .carousel-dot`);
+  dots.forEach((d,i)=>d.classList.toggle('active',i===s.current));
+}
+
+// Touch/swipe support
+document.querySelectorAll('.carousel').forEach(el=>{
+  let startX=0;
+  el.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+  el.addEventListener('touchend',e=>{
+    const diff=startX-e.changedTouches[0].clientX;
+    const id=el.id.replace('carousel-','');
+    if(Math.abs(diff)>40) slide(id,diff>0?1:-1);
+  },{passive:true});
+});
+
+// ── LIGHTBOX ──
+let lbProp='',lbIdx=0;
+const lbImages={
+  abasolo:['ABASOLO_1','ABASOLO_2','ABASOLO_3','ABASOLO_4','ABASOLO_5'],
+  aldea:['ALDEA_1','ALDEA_2','ALDEA_3','ALDEA_4','ALDEA_5','ALDEA_6','ALDEA_7','ALDEA_8'],
+  morelos:['MORELOS_1','MORELOS_2','MORELOS_3','MORELOS_4','MORELOS_5','MORELOS_6'],
+  pirineos:['PIRINEOS_1','PIRINEOS_2','PIRINEOS_3','PIRINEOS_4','PIRINEOS_5']
+};
+function openLightbox(prop,idx){
+  lbProp=prop;lbIdx=idx;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function renderLightbox(){
+  const imgs=lbImages[lbProp];
+  const src=imgs[lbIdx];
+  const img=document.getElementById('lightboxImg');
+  const ph=document.getElementById('lightboxPlaceholder');
+  const vn=document.getElementById('lightboxVarName');
+  const counter=document.getElementById('lightboxCounter');
+  img.src=src;
+  img.style.display='block';
+  ph.style.display='none';
+  img.onerror=()=>{
+    img.style.display='none';
+    ph.style.display='flex';
+    vn.textContent=src;
+  };
+  counter.textContent=`${lbIdx+1} / ${imgs.length}`;
+}
+function lightboxNav(dir){
+  const imgs=lbImages[lbProp];
+  lbIdx=(lbIdx+dir+imgs.length)%imgs.length;
+  renderLightbox();
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLightboxOutside(e){
+  if(e.target===document.getElementById('lightbox')) closeLightbox();
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowLeft') lightboxNav(-1);
+  if(e.key==='ArrowRight') lightboxNav(1);
+});
+
+// ── FAQ ──
+function toggleFaq(el){
+  const item=el.parentElement;
+  item.classList.toggle('open');
+}
+
+// ── REVEAL ON SCROLL ──
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
   });
-
-  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-
-  document.getElementById('tweaks-close').addEventListener('click', () => {
-    panel.classList.remove('visible');
-    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
-  });
-
-  document.getElementById('accent-swatches').addEventListener('click', e => {
-    const sw = e.target.closest('.color-swatch');
-    if (!sw) return;
-    const color = sw.dataset.color;
-    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-    sw.classList.add('active');
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: color } }, '*');
-  });
-
-  document.getElementById('bg-chips').addEventListener('click', e => {
-    const chip = e.target.closest('.tweak-chip');
-    if (!chip) return;
-    document.querySelectorAll('#bg-chips .tweak-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    document.body.style.background = chip.dataset.bg;
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { bgColor: chip.dataset.bg } }, '*');
-  });
-
-  document.getElementById('font-chips').addEventListener('click', e => {
-    const chip = e.target.closest('.tweak-chip');
-    if (!chip) return;
-    document.querySelectorAll('#font-chips .tweak-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    document.querySelectorAll('h1,h2,h3').forEach(el => el.style.fontFamily = chip.dataset.font);
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { headingFont: chip.dataset.font } }, '*');
-  });
-})();
+},{threshold:.08});
+reveals.forEach(r=>observer.observe(r));
 </script>
 </body>
 </html>
