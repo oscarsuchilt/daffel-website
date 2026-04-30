@@ -2019,10 +2019,8 @@ function actualizarMapa(){
 // INIT
 // ═══════════════════════════════════════════════
 renderizarPropiedades();
-
-
-
 renderMarquee();
+window.addEventListener('load', renderMarquee);
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onload="initMap()"></script>
 </body>
