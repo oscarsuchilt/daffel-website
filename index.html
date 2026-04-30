@@ -182,7 +182,7 @@ nav.scrolled{
   border-right:1px solid rgba(28,28,26,.08);
 }
 .stat-item:last-child{border-right:none}
-.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;color:var(--navy);line-height:1}
+.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:800;color:var(--navy);line-height:1}
 .stat-label{font-size:12px;color:var(--text3);font-weight:500;letter-spacing:.04em;margin-top:4px}
 
 /* ── SECTION SHELL ── */
@@ -231,8 +231,8 @@ section{padding:6rem 5%}
 .props-header{margin-bottom:3.5rem}
 .props-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
-  gap:2rem;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
 }
 .prop-card{
   background:var(--white);
@@ -280,6 +280,7 @@ section{padding:6rem 5%}
   opacity:0;
 }
 .prop-card:hover .carousel-btn{opacity:1}
+@media(hover:none){.carousel-btn{opacity:1 !important}}
 .carousel-btn:hover{background:var(--white);transform:translateY(-50%) scale(1.08)}
 .carousel-btn.prev{left:12px}
 .carousel-btn.next{right:12px}
@@ -594,7 +595,7 @@ footer{
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .props-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .props-grid{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:1/-1}
   .lightbox-nav.prev{left:-50px}
@@ -670,7 +671,7 @@ footer{
   <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Tu hogar lejos de casa.</p>
   <div class="hero-btns">
     <a href="#propiedades" class="btn-primary">🏠 Ver propiedades</a>
-    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Hablar con Rulo</a>
+    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Contactar</a>
   </div>
   <div class="hero-scroll">
     <div class="hero-scroll-line"></div>
@@ -804,7 +805,7 @@ footer{
             <a href="https://www.airbnb.mx/rooms/865916915126616151" target="_blank" class="book-btn airbnb">
               <span class="book-btn-icon">🏠</span> Airbnb
             </a>
-            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Casa%20Abasolo" target="_blank" class="book-btn whatsapp">
+            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Casa%20Abasolo%20en%20barrioinn.com%20y%20me%20interesa%20reservar.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
               <span class="book-btn-icon">💬</span> WhatsApp
             </a>
           </div>
@@ -878,7 +879,7 @@ footer{
             <a href="https://www.airbnb.mx/rooms/1376405838885906661" target="_blank" class="book-btn airbnb">
               <span class="book-btn-icon">🏠</span> Airbnb
             </a>
-            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Aldea%20Morelos" target="_blank" class="book-btn whatsapp">
+            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Aldea%20Morelos%20en%20barrioinn.com%20y%20me%20interesa%20conocer%20m%C3%A1s.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
               <span class="book-btn-icon">💬</span> WhatsApp
             </a>
           </div>
@@ -944,7 +945,7 @@ footer{
             <a href="https://www.airbnb.mx/rooms/957511127263086841" target="_blank" class="book-btn airbnb">
               <span class="book-btn-icon">🏠</span> Airbnb
             </a>
-            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Morelos" target="_blank" class="book-btn whatsapp">
+            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Barrio%20Inn%20Morelos%20en%20barrioinn.com%2C%20me%20interesa%20reservar%20una%20suite.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
               <span class="book-btn-icon">💬</span> WhatsApp
             </a>
           </div>
@@ -1005,7 +1006,7 @@ footer{
             <a href="https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78" target="_blank" class="book-btn belong">
               <span class="book-btn-icon">🏡</span> Belong
             </a>
-            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20me%20interesa%20Loft%20Pirineos" target="_blank" class="book-btn whatsapp">
+            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20el%20Loft%20Pirineos%20en%20barrioinn.com%20y%20me%20interesa.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
               <span class="book-btn-icon">💬</span> WhatsApp
             </a>
           </div>
@@ -1038,7 +1039,7 @@ footer{
             </div>
           </div>
           <div class="prop-actions">
-            <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20saber%20de%20la%20nueva%20propiedad" target="_blank" class="book-btn whatsapp" style="flex:1">
+            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20en%20barrioinn.com%20que%20tienen%20una%20nueva%20propiedad%20pr%C3%B3ximamente.%20%C2%BFMe%20pueden%20avisar%20cuando%20est%C3%A9%20disponible%3F" target="_blank" class="book-btn whatsapp" style="flex:1">
               <span class="book-btn-icon">🔔</span> Notifícame
             </a>
           </div>
@@ -1231,9 +1232,9 @@ footer{
 <section class="cta-section reveal">
   <div class="container">
     <h2>¿Listo para vivir Monterrey?</h2>
-    <p>Escríbele a Rulo directamente. Responde rápido y te ayuda a elegir la mejor opción para ti.</p>
+    <p>Escríbenos directamente. Respondemos rápido y te ayudamos a elegir la mejor opción para ti.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20reservar%20en%20Barrio%20Inn" target="_blank" class="btn-white">
+      <a href="https://wa.me/5218110645136?text=Hola!%20Visit%C3%A9%20barrioinn.com%20y%20me%20interesa%20hospedarme%20en%20Barrio%20Inn.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" class="btn-white">
         💬 Escribir por WhatsApp
       </a>
       <a href="#propiedades" class="btn-white-outline">
@@ -1279,7 +1280,7 @@ footer{
     </div>
     <div class="footer-bottom">
       <p>© 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
-      <p class="patito">Hecho con 🦆 por Barrio Inn</p>
+      <p class="patito">© Barrio Inn Hostelería 🦆</p>
     </div>
   </div>
 </footer>
@@ -1300,7 +1301,7 @@ footer{
 </div>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20vi%20Barrio%20Inn%20y%20me%20interesa" target="_blank" class="wa-float" aria-label="WhatsApp">💬</a>
+<a href="https://wa.me/5218110645136?text=Hola!%20Visit%C3%A9%20barrioinn.com%20y%20me%20interesa%20hospedarme%20en%20Barrio%20Inn.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" class="wa-float" aria-label="WhatsApp">💬</a>
 
 <script>
 // ── NAV ──
