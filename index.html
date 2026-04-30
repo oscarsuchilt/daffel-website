@@ -1643,25 +1643,46 @@ function cerrarDashboard(){
 // ═══════════════════════════════════════════════
 let fotosBase64 = [];
 
-document.getElementById('fotos').addEventListener('change', function(){
+document.getElementById('fotos').addEventListener('change', async function(){
   const files = Array.from(this.files).slice(0, 5);
   fotosBase64 = [];
-  const preview = document.getElementById('fotos-preview');
-  if(!files.length){ preview.textContent = ''; return; }
-  preview.textContent = 'Procesando imágenes...';
-  let loaded = 0;
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      fotosBase64.push(e.target.result);
-      loaded++;
-      if(loaded === files.length)
-        preview.textContent = `✓ ${fotosBase64.length} foto(s) lista(s) para cargar`;
-    };
-    reader.readAsDataURL(file);
-  });
-});
 
+  const preview = document.getElementById('fotos-preview');
+  if(!files.length){ 
+    preview.textContent = ''; 
+    return; 
+  }
+
+  preview.textContent = 'Subiendo imágenes...';
+
+  let uploaded = 0;
+
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'TU_UPLOAD_PRESET');
+
+    try {
+      const res = await fetch('https://api.cloudinary.com/v1_1/TU_CLOUD_NAME/image/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+
+      fotosBase64.push(
+        data.secure_url.replace('/upload/', '/upload/f_auto,q_auto/')
+      );
+
+      uploaded++;
+      preview.textContent = `✓ ${uploaded}/${files.length} imágenes subidas`;
+
+    } catch (err) {
+      console.error(err);
+      preview.textContent = 'Error al subir imágenes';
+    }
+  }
+});
 // ═══════════════════════════════════════════════
 // DASHBOARD — CRUD + EDICIÓN
 // ═══════════════════════════════════════════════
