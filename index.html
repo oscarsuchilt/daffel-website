@@ -1906,37 +1906,40 @@ function renderGaleriaAdmin(){
 function renderMarquee(){
   const track = document.getElementById('marqueeTrack');
   if(!track) return;
+
   const galeria = cargarGaleria();
 
-  // Si no hay galería, tomar primera foto de cada propiedad como fallback
-  let items = galeria.length
-    ? galeria.map(f => ({ src: f.src, label: '' }))
-    : propiedades
-        .filter(p => p.fotos && p.fotos.length)
-        .map(p => ({ src: p.fotos[0], label: p.nombre }));
+  // 🔥 SIEMPRE usar propiedades + galería
+  let items = [];
+
+  // fotos de propiedades (fallback)
+  propiedades.forEach(p => {
+    if(p.fotos && p.fotos.length){
+      items.push({ src: p.fotos[0], label: p.nombre });
+    }
+  });
+
+  // fotos que subas
+  galeria.forEach(f => {
+    items.push({ src: f.src, label: '' });
+  });
 
   if(!items.length){
-    track.innerHTML = '<div style="color:rgba(255,255,255,.3);padding:2rem 5%;font-size:14px">Sube fotos desde el panel de administración para activar este carrusel.</div>';
+    track.innerHTML = '<div style="color:rgba(255,255,255,.3);padding:2rem">Sin imágenes</div>';
     return;
   }
 
-  const genItem = (item, i) => {
-    const isBase64 = item.src && item.src.startsWith('data:');
-    const imgTag = `<img src="${item.src}" alt="${item.label||'Barrio Antiguo'}" loading="lazy" onerror="this.parentElement.querySelector('.marquee-item-ph').style.display='flex';this.style.display='none'"/>`;
-    return `<div class="marquee-item">
-      ${imgTag}
-      <div class="marquee-item-ph" style="display:none">🏙️</div>
+  const html = [...items, ...items].map(item => `
+    <div class="marquee-item">
+      <img src="${item.src}" loading="lazy"/>
       ${item.label ? `<div class="marquee-item-label">${item.label}</div>` : ''}
-    </div>`;
-  };
+    </div>
+  `).join('');
 
-  // Duplicar para loop infinito seamless
-  const html = [...items, ...items].map(genItem).join('');
   track.innerHTML = html;
 
-  // Ajustar velocidad según cantidad de fotos
   const speed = Math.max(30, items.length * 8);
-  track.style.animationDuration = `${speed}s`;
+  track.style.animationDuration = speed + 's';
 }
 
 // ═══════════════════════════════════════════════
@@ -2016,6 +2019,7 @@ function actualizarMapa(){
 // INIT
 // ═══════════════════════════════════════════════
 renderizarPropiedades();
+
 
 
 renderMarquee();
