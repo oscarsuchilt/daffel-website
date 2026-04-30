@@ -182,7 +182,7 @@ nav.scrolled{
   border-right:1px solid rgba(28,28,26,.08);
 }
 .stat-item:last-child{border-right:none}
-.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:800;color:var(--navy);line-height:1}
+.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;color:var(--navy);line-height:1}
 .stat-label{font-size:12px;color:var(--text3);font-weight:500;letter-spacing:.04em;margin-top:4px}
 
 /* ── SECTION SHELL ── */
@@ -232,7 +232,7 @@ section{padding:6rem 5%}
 .props-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
+  gap:2rem;
 }
 .prop-card{
   background:var(--white);
@@ -280,7 +280,6 @@ section{padding:6rem 5%}
   opacity:0;
 }
 .prop-card:hover .carousel-btn{opacity:1}
-@media(hover:none){.carousel-btn{opacity:1 !important}}
 .carousel-btn:hover{background:var(--white);transform:translateY(-50%) scale(1.08)}
 .carousel-btn.prev{left:12px}
 .carousel-btn.next{right:12px}
@@ -313,8 +312,9 @@ section{padding:6rem 5%}
 /* Card body */
 .prop-body{padding:1.5rem}
 .prop-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;color:var(--navy);margin-bottom:.4rem}
-.prop-address{font-size:13px;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:5px}
+.prop-address{font-size:13px;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:5px;text-decoration:none;transition:color .2s}
 .prop-address::before{content:'📍';font-size:12px}
+a.prop-address:hover{color:var(--green)}
 .prop-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
 .prop-tag{
   background:rgba(61,107,79,.08);color:var(--green2);
@@ -326,22 +326,33 @@ section{padding:6rem 5%}
 .prop-highlights-list{display:flex;flex-direction:column;gap:4px}
 .prop-highlight{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
 .prop-highlight::before{content:'→';color:var(--green);font-size:11px;font-weight:700}
-.prop-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.prop-actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.55rem;
+}
 .book-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:.6rem 1.1rem;border-radius:50px;
-  font-size:13px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:.58rem .8rem;border-radius:50px;
+  font-size:12.5px;font-weight:600;
   text-decoration:none;border:none;cursor:pointer;
-  transition:all .2s;flex:1;justify-content:center;
+  transition:all .2s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   min-width:0;
 }
 .book-btn.airbnb{background:#FF5A5F;color:var(--white)}
 .book-btn.airbnb:hover{background:#e04a4f;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,90,95,.3)}
-.book-btn.belong{background:#A31635;color:var(--white)}
-.book-btn.belong:hover{background:#8a1229;transform:translateY(-1px);box-shadow:0 4px 16px rgba(163,22,53,.3)}
+.book-btn.belong{background:linear-gradient(135deg,#A31635 0%,#C4203F 100%);color:var(--white);font-weight:700;letter-spacing:.02em}
+.book-btn.belong:hover{background:linear-gradient(135deg,#8a1229 0%,#a8192f 100%);transform:translateY(-1px);box-shadow:0 4px 18px rgba(163,22,53,.4)}
+.book-btn.expedia{background:#003580;color:var(--white)}
+.book-btn.expedia:hover{background:#002a66;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,53,128,.35)}
 .book-btn.whatsapp{background:#25D366;color:var(--white)}
 .book-btn.whatsapp:hover{background:#1da851;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,211,102,.3)}
-.book-btn-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.book-btn.tel{background:var(--navy);color:var(--white)}
+.book-btn.tel:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,39,68,.35)}
+.book-btn.maps{background:var(--navy);color:var(--white)}
+.book-btn.maps:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,39,68,.35)}
+.book-btn-icon{width:16px;height:16px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .prop-card.coming-soon{opacity:.7;cursor:default}
 .prop-card.coming-soon:hover{transform:none;box-shadow:none}
 .coming-soon-overlay{
@@ -594,13 +605,23 @@ footer{
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ── RESPONSIVE ── */
+
+/* Tablets landscape / laptops pequeños */
+@media(max-width:1280px){
+  .props-grid{gap:1.5rem}
+}
+
+/* Tablets portrait / iPad */
 @media(max-width:1024px){
-  .props-grid{grid-template-columns:repeat(2,1fr)}
+  .props-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .footer-top{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:1/-1}
   .lightbox-nav.prev{left:-50px}
   .lightbox-nav.next{right:-50px}
+  .carousel{height:240px}
 }
+
+/* Móviles grandes / iPad mini */
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:flex}
@@ -608,7 +629,7 @@ footer{
   .stat-item{border-right:none;border-bottom:1px solid rgba(28,28,26,.08);padding:1rem 2rem;min-width:50%}
   .stat-item:nth-child(odd){border-right:1px solid rgba(28,28,26,.08)}
   .stat-item:last-child{border-bottom:none}
-  .props-grid{grid-template-columns:1fr}
+  .props-grid{grid-template-columns:1fr;gap:1.25rem}
   .reviews-grid{grid-template-columns:1fr}
   .amenidades-grid{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
@@ -616,19 +637,113 @@ footer{
   .footer-bottom{flex-direction:column;text-align:center}
   .lightbox-nav{display:none}
   .lightbox{padding:1rem}
+  .prop-body{padding:1.25rem}
+  .book-btn{font-size:12px;padding:.55rem .7rem}
 }
+
+/* Móviles medianos */
 @media(max-width:480px){
-  section{padding:4rem 4%}
-  .hero{padding:100px 4% 60px}
+  section{padding:3.5rem 4%}
+  .hero{padding:90px 4% 56px}
   .hero-btns{flex-direction:column;align-items:center}
-  .btn-primary,.btn-ghost{width:100%;max-width:320px;justify-content:center}
-  .prop-actions{flex-direction:column}
-  .book-btn{flex:none;width:100%}
+  .btn-primary,.btn-ghost{width:100%;max-width:300px;justify-content:center}
+  .prop-actions{grid-template-columns:1fr}
   .amenidades-grid{grid-template-columns:repeat(2,1fr)}
   .stat-item{min-width:100%;border-right:none}
   .cta-btns{flex-direction:column;align-items:center}
-  .btn-white,.btn-white-outline{width:100%;max-width:320px;justify-content:center}
+  .btn-white,.btn-white-outline{width:100%;max-width:300px;justify-content:center}
+  .carousel{height:220px}
+  .prop-body{padding:1rem}
+  .prop-title{font-size:1.2rem}
 }
+
+/* Móviles pequeños (iPhone SE, Galaxy A) */
+@media(max-width:390px){
+  :root{font-size:15px}
+  .hero h1{font-size:clamp(2rem,10vw,3rem)}
+  .hero-sub{font-size:14px}
+  .carousel{height:200px}
+  .prop-body{padding:.875rem}
+  .prop-title{font-size:1.1rem}
+  .prop-tag{font-size:11px;padding:.25rem .6rem}
+  .stat-num{font-size:1.9rem}
+  section{padding:3rem 3.5%}
+  .book-btn{font-size:11.5px;padding:.5rem .6rem}
+}
+
+/* Muy pequeños (iPhone SE 1ª gen, <360px) */
+@media(max-width:360px){
+  .stats{flex-direction:column}
+  .stat-item{width:100%;border-right:none;border-bottom:1px solid rgba(28,28,26,.08)}
+  .why-grid{grid-template-columns:1fr}
+  .amenidades-grid{grid-template-columns:1fr}
+  nav{padding:0 3%}
+  .prop-actions{grid-template-columns:1fr}
+}
+
+/* Pantallas grandes (≥1440px) */
+@media(min-width:1440px){
+  .props-grid{gap:2.5rem}
+  .container{max-width:1380px}
+}
+
+/* Monitores 4K (≥2560px) */
+@media(min-width:2560px){
+  :root{font-size:19px}
+  nav{height:84px}
+  .props-grid{grid-template-columns:repeat(3,1fr);gap:3rem}
+  .carousel{height:300px}
+  .container{max-width:1600px}
+  .lightbox-inner{max-width:1400px}
+}
+
+/* ── ADMIN BTN ── */
+.nav-admin-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:6px 8px;opacity:.22;transition:opacity .2s,background .2s;border-radius:8px;line-height:1}
+.nav-admin-btn:hover{opacity:1;background:rgba(28,28,26,.06)}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;background:var(--navy2);color:var(--cream);padding:5rem 5%}
+#dashboard.visible{display:block}
+.dash-container{max-width:900px;margin:0 auto}
+.dash-title{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;color:var(--cream);margin-bottom:.35rem}
+.dash-subtitle{font-size:13px;color:rgba(250,250,247,.4);margin-bottom:3rem;letter-spacing:.02em}
+.dash-panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:2rem;margin-bottom:2rem}
+.dash-panel-title{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7EC89A;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.dash-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.dash-field{display:flex;flex-direction:column;gap:.4rem}
+.dash-field.full{grid-column:1/-1}
+.dash-label{font-size:11px;font-weight:600;color:rgba(250,250,247,.45);letter-spacing:.1em;text-transform:uppercase}
+.dash-input{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-sm);padding:.65rem 1rem;color:var(--cream);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;transition:border-color .2s,background .2s;width:100%}
+.dash-input:focus{outline:none;border-color:rgba(61,107,79,.7);background:rgba(255,255,255,.1)}
+.dash-input::placeholder{color:rgba(250,250,247,.2)}
+.dash-file-area{background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:var(--r-sm);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.dash-file-area:hover{border-color:rgba(61,107,79,.5);background:rgba(61,107,79,.06)}
+.dash-file-input{display:none}
+.dash-file-label{font-size:13px;color:rgba(250,250,247,.45);cursor:pointer;pointer-events:none}
+.dash-file-label strong{color:#7EC89A}
+.dash-preview{font-size:12px;color:#7EC89A;margin-top:.5rem;min-height:16px}
+.dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
+.dash-btn{padding:.65rem 1.4rem;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.dash-btn.primary{background:var(--green);color:var(--white)}
+.dash-btn.primary:hover{background:var(--green2);transform:translateY(-1px)}
+.dash-btn.ghost{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid rgba(255,255,255,.12)}
+.dash-btn.ghost:hover{background:rgba(255,255,255,.14)}
+.dash-btn.danger{background:rgba(255,107,107,.12);color:#FF9A9A;border:1px solid rgba(255,107,107,.22);padding:.5rem 1rem;font-size:12px}
+.dash-btn.danger:hover{background:rgba(255,107,107,.25)}
+.dash-btn.edit{background:rgba(61,107,79,.15);color:#7EC89A;border:1px solid rgba(61,107,79,.3);padding:.5rem 1rem;font-size:12px}
+.dash-btn.edit:hover{background:rgba(61,107,79,.28)}
+.dash-editing-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(61,107,79,.2);border:1px solid rgba(61,107,79,.4);color:#7EC89A;font-size:11px;font-weight:600;padding:.3rem .8rem;border-radius:50px;margin-bottom:1rem;letter-spacing:.06em}
+.dash-props-list{display:flex;flex-direction:column;gap:.75rem}
+.dash-prop-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-md);padding:1rem 1.25rem;transition:background .2s}
+.dash-prop-item:hover{background:rgba(255,255,255,.07)}
+.dash-prop-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.07);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
+.dash-prop-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.dash-prop-info{flex:1;min-width:0}
+.dash-prop-name{font-weight:600;font-size:15px;color:var(--cream)}
+.dash-prop-addr{font-size:12px;color:rgba(250,250,247,.4);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-prop-meta{font-size:11px;color:rgba(250,250,247,.28);margin-top:3px}
+.dash-empty{text-align:center;padding:2rem;color:rgba(250,250,247,.3);font-size:14px}
+@media(max-width:768px){.dash-form-grid{grid-template-columns:1fr}.dash-field.full{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -649,6 +764,7 @@ footer{
     <a href="#faq">FAQ</a>
     <a href="https://wa.me/5218110645136" target="_blank" class="nav-cta">📲 Reservar</a>
   </div>
+  <button onclick="abrirAdmin()" class="nav-admin-btn" title="Administrador" aria-label="Admin">🔐</button>
   <button class="hamburger" id="hamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -671,7 +787,7 @@ footer{
   <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Tu hogar lejos de casa.</p>
   <div class="hero-btns">
     <a href="#propiedades" class="btn-primary">🏠 Ver propiedades</a>
-    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Contactar</a>
+    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Hablar con Rulo</a>
   </div>
   <div class="hero-scroll">
     <div class="hero-scroll-line"></div>
@@ -749,303 +865,7 @@ footer{
       <p class="section-sub">Cuatro complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
     </div>
     <div class="props-grid" id="propsGrid">
-
-      <!-- ABASOLO -->
-      <div class="prop-card" data-prop="abasolo">
-        <div class="carousel" id="carousel-abasolo">
-          <div class="carousel-track" id="track-abasolo">
-            <div class="carousel-slide" onclick="openLightbox('abasolo',0)">
-              <img src="ABASOLO_1" alt="Abasolo - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>ABASOLO_1</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('abasolo',1)">
-              <img src="ABASOLO_2" alt="Abasolo - Corredor" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚪</span><span class=ph-label>ABASOLO_2</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('abasolo',2)">
-              <img src="ABASOLO_3" alt="Abasolo - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>ABASOLO_3</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('abasolo',3)">
-              <img src="ABASOLO_4" alt="Abasolo - Lavabo" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🪥</span><span class=ph-label>ABASOLO_4</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('abasolo',4)">
-              <img src="ABASOLO_5" alt="Abasolo - Vista" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏙</span><span class=ph-label>ABASOLO_5</span></div>'"/>
-            </div>
-          </div>
-          <button class="carousel-btn prev" onclick="slide('abasolo',-1)">‹</button>
-          <button class="carousel-btn next" onclick="slide('abasolo',1)">›</button>
-          <div class="carousel-dots" id="dots-abasolo">
-            <div class="carousel-dot active" onclick="goTo('abasolo',0)"></div>
-            <div class="carousel-dot" onclick="goTo('abasolo',1)"></div>
-            <div class="carousel-dot" onclick="goTo('abasolo',2)"></div>
-            <div class="carousel-dot" onclick="goTo('abasolo',3)"></div>
-            <div class="carousel-dot" onclick="goTo('abasolo',4)"></div>
-          </div>
-          <div class="prop-badge">Barrio Antiguo</div>
-          <div class="prop-rating">4.83 · 103</div>
-        </div>
-        <div class="prop-body">
-          <h3 class="prop-title">Casa Abasolo</h3>
-          <p class="prop-address">José Abasolo, Centro Histórico</p>
-          <div class="prop-tags">
-            <span class="prop-tag">Cama King</span>
-            <span class="prop-tag">Baño privado</span>
-            <span class="prop-tag">Smart Lock</span>
-            <span class="prop-tag">WiFi 109 Mbps</span>
-            <span class="prop-tag">Escritorio</span>
-          </div>
-          <div class="prop-highlights">
-            <p class="prop-highlights-title">Cerca de ti</p>
-            <div class="prop-highlights-list">
-              <span class="prop-highlight">Macroplaza a 600m</span>
-              <span class="prop-highlight">Museo MARCO a 500m</span>
-              <span class="prop-highlight">7-Eleven a 10m</span>
-              <span class="prop-highlight">Parque Fundidora 4km</span>
-            </div>
-          </div>
-          <div class="prop-actions">
-            <a href="https://www.airbnb.mx/rooms/865916915126616151" target="_blank" class="book-btn airbnb">
-              <span class="book-btn-icon">🏠</span> Airbnb
-            </a>
-            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Casa%20Abasolo%20en%20barrioinn.com%20y%20me%20interesa%20reservar.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
-              <span class="book-btn-icon">💬</span> WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALDEA -->
-      <div class="prop-card" data-prop="aldea">
-        <div class="carousel" id="carousel-aldea">
-          <div class="carousel-track" id="track-aldea">
-            <div class="carousel-slide" onclick="openLightbox('aldea',0)">
-              <img src="ALDEA_1" alt="Aldea - Área común" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🍽</span><span class=ph-label>ALDEA_1</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',1)">
-              <img src="ALDEA_2" alt="Aldea - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>ALDEA_2</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',2)">
-              <img src="ALDEA_3" alt="Aldea - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>ALDEA_3</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',3)">
-              <img src="ALDEA_4" alt="Aldea - Patio noche" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌙</span><span class=ph-label>ALDEA_4</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',4)">
-              <img src="ALDEA_5" alt="Aldea - Fachada" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏠</span><span class=ph-label>ALDEA_5</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',5)">
-              <img src="ALDEA_6" alt="Aldea - Alberca" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏊</span><span class=ph-label>ALDEA_6</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',6)">
-              <img src="ALDEA_7" alt="Aldea - Jardín" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌿</span><span class=ph-label>ALDEA_7</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('aldea',7)">
-              <img src="ALDEA_8" alt="Aldea - Corredor noche" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>✨</span><span class=ph-label>ALDEA_8</span></div>'"/>
-            </div>
-          </div>
-          <button class="carousel-btn prev" onclick="slide('aldea',-1)">‹</button>
-          <button class="carousel-btn next" onclick="slide('aldea',1)">›</button>
-          <div class="carousel-dots" id="dots-aldea">
-            <div class="carousel-dot active" onclick="goTo('aldea',0)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',1)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',2)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',3)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',4)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',5)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',6)"></div>
-            <div class="carousel-dot" onclick="goTo('aldea',7)"></div>
-          </div>
-          <div class="prop-badge">Barrio Antiguo</div>
-          <div class="prop-rating">4.81 · 16</div>
-        </div>
-        <div class="prop-body">
-          <h3 class="prop-title">Aldea Morelos</h3>
-          <p class="prop-address">Fonda & Aldea, Centro Histórico</p>
-          <div class="prop-tags">
-            <span class="prop-tag">Cama individual</span>
-            <span class="prop-tag">Baño compartido</span>
-            <span class="prop-tag">Alberca</span>
-            <span class="prop-tag">Cocina comunal</span>
-            <span class="prop-tag">Smart TV</span>
-          </div>
-          <div class="prop-highlights">
-            <p class="prop-highlights-title">Cerca de ti</p>
-            <div class="prop-highlights-list">
-              <span class="prop-highlight">Restaurantes en la puerta</span>
-              <span class="prop-highlight">Museo MARCO 500m</span>
-              <span class="prop-highlight">Macroplaza 600m</span>
-              <span class="prop-highlight">7-Eleven 100m</span>
-            </div>
-          </div>
-          <div class="prop-actions">
-            <a href="https://www.airbnb.mx/rooms/1376405838885906661" target="_blank" class="book-btn airbnb">
-              <span class="book-btn-icon">🏠</span> Airbnb
-            </a>
-            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Aldea%20Morelos%20en%20barrioinn.com%20y%20me%20interesa%20conocer%20m%C3%A1s.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
-              <span class="book-btn-icon">💬</span> WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- MORELOS -->
-      <div class="prop-card" data-prop="morelos">
-        <div class="carousel" id="carousel-morelos">
-          <div class="carousel-track" id="track-morelos">
-            <div class="carousel-slide" onclick="openLightbox('morelos',0)">
-              <img src="MORELOS_1" alt="Morelos - Suite" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>MORELOS_1</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('morelos',1)">
-              <img src="MORELOS_2" alt="Morelos - Corredor floral" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🌸</span><span class=ph-label>MORELOS_2</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('morelos',2)">
-              <img src="MORELOS_3" alt="Morelos - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>MORELOS_3</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('morelos',3)">
-              <img src="MORELOS_4" alt="Morelos - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>MORELOS_4</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('morelos',4)">
-              <img src="MORELOS_5" alt="Morelos - Lavabo" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🪥</span><span class=ph-label>MORELOS_5</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('morelos',5)">
-              <img src="MORELOS_6" alt="Morelos - Puerta numerada" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🔑</span><span class=ph-label>MORELOS_6</span></div>'"/>
-            </div>
-          </div>
-          <button class="carousel-btn prev" onclick="slide('morelos',-1)">‹</button>
-          <button class="carousel-btn next" onclick="slide('morelos',1)">›</button>
-          <div class="carousel-dots" id="dots-morelos">
-            <div class="carousel-dot active" onclick="goTo('morelos',0)"></div>
-            <div class="carousel-dot" onclick="goTo('morelos',1)"></div>
-            <div class="carousel-dot" onclick="goTo('morelos',2)"></div>
-            <div class="carousel-dot" onclick="goTo('morelos',3)"></div>
-            <div class="carousel-dot" onclick="goTo('morelos',4)"></div>
-            <div class="carousel-dot" onclick="goTo('morelos',5)"></div>
-          </div>
-          <div class="prop-badge">Barrio Antiguo</div>
-          <div class="prop-rating">4.82 · 130 ⭐</div>
-        </div>
-        <div class="prop-body">
-          <h3 class="prop-title">Barrio Inn Morelos</h3>
-          <p class="prop-address">Calle Morelos, Centro Histórico</p>
-          <div class="prop-tags">
-            <span class="prop-tag">Cama matrimonial</span>
-            <span class="prop-tag">Baño privado</span>
-            <span class="prop-tag">Smart TV</span>
-            <span class="prop-tag">Microondas</span>
-            <span class="prop-tag">Frigobar</span>
-          </div>
-          <div class="prop-highlights">
-            <p class="prop-highlights-title">Cerca de ti</p>
-            <div class="prop-highlights-list">
-              <span class="prop-highlight">Calle principal de Barrio</span>
-              <span class="prop-highlight">Bares y restaurantes al paso</span>
-              <span class="prop-highlight">Macroplaza 600m</span>
-              <span class="prop-highlight">Museo MARCO 500m</span>
-            </div>
-          </div>
-          <div class="prop-actions">
-            <a href="https://www.airbnb.mx/rooms/957511127263086841" target="_blank" class="book-btn airbnb">
-              <span class="book-btn-icon">🏠</span> Airbnb
-            </a>
-            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20Barrio%20Inn%20Morelos%20en%20barrioinn.com%2C%20me%20interesa%20reservar%20una%20suite.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
-              <span class="book-btn-icon">💬</span> WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PIRINEOS -->
-      <div class="prop-card" data-prop="pirineos">
-        <div class="carousel" id="carousel-pirineos">
-          <div class="carousel-track" id="track-pirineos">
-            <div class="carousel-slide" onclick="openLightbox('pirineos',0)">
-              <img src="PIRINEOS_1" alt="Pirineos - Habitación" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🛏</span><span class=ph-label>PIRINEOS_1</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('pirineos',1)">
-              <img src="PIRINEOS_2" alt="Pirineos - Clóset" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>👔</span><span class=ph-label>PIRINEOS_2</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('pirineos',2)">
-              <img src="PIRINEOS_3" alt="Pirineos - Vista" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏙</span><span class=ph-label>PIRINEOS_3</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('pirineos',3)">
-              <img src="PIRINEOS_4" alt="Pirineos - Kitchenette" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🍳</span><span class=ph-label>PIRINEOS_4</span></div>'"/>
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('pirineos',4)">
-              <img src="PIRINEOS_5" alt="Pirineos - Baño" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🚿</span><span class=ph-label>PIRINEOS_5</span></div>'"/>
-            </div>
-          </div>
-          <button class="carousel-btn prev" onclick="slide('pirineos',-1)">‹</button>
-          <button class="carousel-btn next" onclick="slide('pirineos',1)">›</button>
-          <div class="carousel-dots" id="dots-pirineos">
-            <div class="carousel-dot active" onclick="goTo('pirineos',0)"></div>
-            <div class="carousel-dot" onclick="goTo('pirineos',1)"></div>
-            <div class="carousel-dot" onclick="goTo('pirineos',2)"></div>
-            <div class="carousel-dot" onclick="goTo('pirineos',3)"></div>
-            <div class="carousel-dot" onclick="goTo('pirineos',4)"></div>
-          </div>
-          <div class="prop-badge">Roma Sur</div>
-        </div>
-        <div class="prop-body">
-          <h3 class="prop-title">Loft Pirineos</h3>
-          <p class="prop-address">Pirineos 1012, Roma Sur</p>
-          <div class="prop-tags">
-            <span class="prop-tag">Loft tipo estudio</span>
-            <span class="prop-tag">Baño privado</span>
-            <span class="prop-tag">Walking closet</span>
-            <span class="prop-tag">Kitchenette</span>
-            <span class="prop-tag">Pet-friendly 🐾</span>
-          </div>
-          <div class="prop-highlights">
-            <p class="prop-highlights-title">Cerca de ti</p>
-            <div class="prop-highlights-list">
-              <span class="prop-highlight">Zona residencial tranquila</span>
-              <span class="prop-highlight">Vista al skyline de Monterrey</span>
-              <span class="prop-highlight">A 10 min del Centro Histórico</span>
-              <span class="prop-highlight">Restaurantes en la zona</span>
-            </div>
-          </div>
-          <div class="prop-actions">
-            <a href="https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78" target="_blank" class="book-btn belong">
-              <span class="book-btn-icon">🏡</span> Belong
-            </a>
-            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20el%20Loft%20Pirineos%20en%20barrioinn.com%20y%20me%20interesa.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="book-btn whatsapp">
-              <span class="book-btn-icon">💬</span> WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRÓXIMAMENTE -->
-      <div class="prop-card coming-soon">
-        <div class="coming-soon-overlay">
-          <div class="coming-soon-badge">🦆 Próximamente</div>
-        </div>
-        <div class="carousel">
-          <div class="carousel-slide">
-            <div class="slide-placeholder">
-              <span class="ph-icon">🏗️</span>
-              <span class="ph-label">Nueva propiedad</span>
-            </div>
-          </div>
-        </div>
-        <div class="prop-body">
-          <h3 class="prop-title">Nueva ubicación</h3>
-          <p class="prop-address">Centro Histórico, Monterrey</p>
-          <div class="prop-tags">
-            <span class="prop-tag">Muy pronto</span>
-          </div>
-          <div class="prop-highlights">
-            <div class="prop-highlights-list">
-              <span class="prop-highlight">Siguiendo el estilo Barrio Inn</span>
-              <span class="prop-highlight">Notifícate por WhatsApp</span>
-            </div>
-          </div>
-          <div class="prop-actions">
-            <a href="https://wa.me/5218110645136?text=Hola!%20Vi%20en%20barrioinn.com%20que%20tienen%20una%20nueva%20propiedad%20pr%C3%B3ximamente.%20%C2%BFMe%20pueden%20avisar%20cuando%20est%C3%A9%20disponible%3F" target="_blank" class="book-btn whatsapp" style="flex:1">
-              <span class="book-btn-icon">🔔</span> Notifícame
-            </a>
-          </div>
-        </div>
-      </div>
-
+      <!-- Renderizado dinámicamente por JavaScript -->
     </div>
   </div>
 </section>
@@ -1232,9 +1052,9 @@ footer{
 <section class="cta-section reveal">
   <div class="container">
     <h2>¿Listo para vivir Monterrey?</h2>
-    <p>Escríbenos directamente. Respondemos rápido y te ayudamos a elegir la mejor opción para ti.</p>
+    <p>Escríbele a Rulo directamente. Responde rápido y te ayuda a elegir la mejor opción para ti.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5218110645136?text=Hola!%20Visit%C3%A9%20barrioinn.com%20y%20me%20interesa%20hospedarme%20en%20Barrio%20Inn.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" class="btn-white">
+      <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20reservar%20en%20Barrio%20Inn" target="_blank" class="btn-white">
         💬 Escribir por WhatsApp
       </a>
       <a href="#propiedades" class="btn-white-outline">
@@ -1280,10 +1100,96 @@ footer{
     </div>
     <div class="footer-bottom">
       <p>© 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
-      <p class="patito">© Barrio Inn Hostelería 🦆</p>
+      <p class="patito">Hecho con 🦆 por Barrio Inn</p>
     </div>
   </div>
 </footer>
+
+<!-- DASHBOARD ADMIN -->
+<section id="dashboard">
+  <div class="dash-container">
+    <div class="dash-title">Panel de Administración</div>
+    <p class="dash-subtitle">Solo visible para administradores · Los cambios se guardan en este navegador automáticamente.</p>
+
+    <div class="dash-panel">
+      <div class="dash-panel-title" id="dash-form-title">✦ Agregar nueva propiedad</div>
+      <div id="dash-editing-badge" style="display:none" class="dash-editing-badge">✏ Modo edición activo — modifica los campos y guarda</div>
+      <div class="dash-form-grid">
+        <div class="dash-field">
+          <label class="dash-label">Nombre *</label>
+          <input class="dash-input" id="dash-nombre" type="text" placeholder="Casa Abasolo"/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Badge (zona)</label>
+          <input class="dash-input" id="dash-badge" type="text" placeholder="Barrio Antiguo"/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Dirección (texto visible)</label>
+          <input class="dash-input" id="dash-direccion" type="text" placeholder="Calle Morelos, Centro Histórico"/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Link Google Maps</label>
+          <input class="dash-input" id="dash-direccion-url" type="url" placeholder="https://maps.app.goo.gl/..."/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Rating (ej. 4.82 · 130)</label>
+          <input class="dash-input" id="dash-rating" type="text" placeholder="4.82 · 130"/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Teléfono (10 dígitos, sin lada)</label>
+          <input class="dash-input" id="dash-telefono" type="tel" maxlength="10" placeholder="8110645136" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
+        </div>
+        <div class="dash-field full">
+          <label class="dash-label">Tags (separados por comas)</label>
+          <input class="dash-input" id="dash-tags" type="text" placeholder="Cama King, Baño privado, Smart Lock, WiFi"/>
+        </div>
+        <div class="dash-field full">
+          <label class="dash-label">Lugares cercanos (separados por comas)</label>
+          <input class="dash-input" id="dash-cercanos" type="text" placeholder="Macroplaza a 600m, MARCO 500m, 7-Eleven 10m"/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Link Belong</label>
+          <input class="dash-input" id="dash-belong" type="url" placeholder="https://belongmx.com/..."/>
+        </div>
+        <div class="dash-field">
+          <label class="dash-label">Link Airbnb</label>
+          <input class="dash-input" id="dash-airbnb" type="url" placeholder="https://airbnb.mx/rooms/..."/>
+        </div>
+        <div class="dash-field full">
+          <label class="dash-label">Link Expedia</label>
+          <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
+        </div>
+        <div class="dash-field full">
+          <label class="dash-label">Fotos (máximo 5 imágenes)</label>
+          <div class="dash-file-area" onclick="document.getElementById('fotos').click()">
+            <label class="dash-file-label">
+              <strong>📷 Seleccionar imágenes</strong><br/>
+              JPG, PNG, WebP · Máximo 5 archivos
+            </label>
+          </div>
+          <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*"/>
+          <p class="dash-preview" id="fotos-preview"></p>
+        </div>
+      </div>
+      <div class="dash-actions">
+        <button class="dash-btn primary" id="dash-save-btn" onclick="guardarPropiedad()">＋ Agregar propiedad</button>
+        <button class="dash-btn ghost" onclick="limpiarFormulario()">✕ Cancelar</button>
+      </div>
+    </div>
+
+    <div class="dash-panel">
+      <div class="dash-panel-title">🏠 Propiedades actuales</div>
+      <div class="dash-props-list" id="dashPropsList">
+        <p class="dash-empty">Cargando...</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+      <button class="dash-btn danger" onclick="resetearDatos()">↺ Restaurar datos originales</button>
+      <button class="dash-btn ghost" onclick="cerrarDashboard()">✕ Cerrar panel</button>
+    </div>
+  </div>
+</section>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
@@ -1301,123 +1207,498 @@ footer{
 </div>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5218110645136?text=Hola!%20Visit%C3%A9%20barrioinn.com%20y%20me%20interesa%20hospedarme%20en%20Barrio%20Inn.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" class="wa-float" aria-label="WhatsApp">💬</a>
+<a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20vi%20Barrio%20Inn%20y%20me%20interesa" target="_blank" class="wa-float" aria-label="WhatsApp">💬</a>
 
 <script>
-// ── NAV ──
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{
-  navbar.classList.toggle('scrolled',window.scrollY>60);
-});
-const hamburger=document.getElementById('hamburger');
-const mobileMenu=document.getElementById('mobileMenu');
-hamburger.addEventListener('click',()=>{
-  mobileMenu.classList.toggle('open');
-});
-function closeMobile(){mobileMenu.classList.remove('open')}
+// ═══════════════════════════════════════════════
+// DATOS Y PERSISTENCIA
+// ═══════════════════════════════════════════════
+const PROPIEDADES_DEFAULT = [
+  {
+    id:'abasolo',
+    nombre:'Casa Abasolo',
+    badge:'Barrio Antiguo',
+    direccion:'José Abasolo, Centro Histórico',
+    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Abasolo+424+Barrio+Antiguo+Monterrey+NL',
+    rating:'4.83 · 103',
+    precio:'',
+    telefono:'8110645136',
+    tags:['Cama King','Baño privado','Smart Lock','WiFi 109 Mbps','Escritorio'],
+    cercanos:['Macroplaza a 600m','Museo MARCO a 500m','7-Eleven a 10m','Parque Fundidora 4km'],
+    belong:'',
+    airbnb:'https://www.airbnb.mx/rooms/865916915126616151',
+    expedia:'',
+    fotos:['ABASOLO_1','ABASOLO_2','ABASOLO_3','ABASOLO_4','ABASOLO_5']
+  },
+  {
+    id:'aldea',
+    nombre:'Aldea Morelos',
+    badge:'Barrio Antiguo',
+    direccion:'Fonda & Aldea, Centro Histórico',
+    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Aldea+Morelos+Barrio+Antiguo+Monterrey+NL',
+    rating:'4.81 · 16',
+    precio:'',
+    telefono:'8110645136',
+    tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'],
+    cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'],
+    belong:'',
+    airbnb:'https://www.airbnb.mx/rooms/1376405838885906661',
+    expedia:'',
+    fotos:['ALDEA_1','ALDEA_2','ALDEA_3','ALDEA_4','ALDEA_5','ALDEA_6','ALDEA_7','ALDEA_8']
+  },
+  {
+    id:'morelos',
+    nombre:'Barrio Inn Morelos',
+    badge:'Barrio Antiguo',
+    direccion:'Calle Morelos, Centro Histórico',
+    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Morelos+Barrio+Antiguo+Monterrey+NL',
+    rating:'4.82 · 130',
+    precio:'',
+    telefono:'8110645136',
+    tags:['Cama matrimonial','Baño privado','Smart TV','Microondas','Frigobar'],
+    cercanos:['Calle principal de Barrio','Bares y restaurantes al paso','Macroplaza 600m','Museo MARCO 500m'],
+    belong:'',
+    airbnb:'https://www.airbnb.mx/rooms/957511127263086841',
+    expedia:'',
+    fotos:['MORELOS_1','MORELOS_2','MORELOS_3','MORELOS_4','MORELOS_5','MORELOS_6']
+  },
+  {
+    id:'pirineos',
+    nombre:'Loft Pirineos',
+    badge:'Roma Sur',
+    direccion:'Pirineos 1012, Roma Sur',
+    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+Monterrey+NL',
+    rating:'',
+    precio:'',
+    telefono:'8110645136',
+    tags:['Loft tipo estudio','Baño privado','Walking closet','Kitchenette','Pet-friendly 🐾'],
+    cercanos:['Zona residencial tranquila','Vista al skyline de Monterrey','A 10 min del Centro Histórico','Restaurantes en la zona'],
+    belong:'https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78',
+    airbnb:'',
+    expedia:'',
+    fotos:['PIRINEOS_1','PIRINEOS_2','PIRINEOS_3','PIRINEOS_4','PIRINEOS_5']
+  }
+];
 
-// ── CAROUSEL ──
-const carouselState={};
-function initCarousel(id,count){
-  carouselState[id]={current:0,count};
+const LS_KEY = 'barrioinn_propiedades_v2';
+
+function cargarLS(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
+  } catch(e) {
+    return JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
+  }
 }
-initCarousel('abasolo',5);
-initCarousel('aldea',8);
-initCarousel('morelos',6);
-initCarousel('pirineos',5);
+function guardarLS(){
+  localStorage.setItem(LS_KEY, JSON.stringify(propiedades));
+}
 
-function slide(id,dir){
-  const s=carouselState[id];
-  s.current=(s.current+dir+s.count)%s.count;
+let propiedades = cargarLS();
+
+// ═══════════════════════════════════════════════
+// RENDER DE PROPIEDADES
+// ═══════════════════════════════════════════════
+function generarTarjeta(prop){
+  const id = prop.id;
+  const fotos = (prop.fotos && prop.fotos.length) ? prop.fotos : [];
+
+  const slidesHTML = fotos.length
+    ? fotos.map((f,i) => `<div class="carousel-slide" onclick="openLightbox('${id}',${i})"><img src="${f}" alt="${prop.nombre} ${i+1}" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏠</span><span class=ph-label>${prop.nombre}</span></div>'"/></div>`).join('')
+    : `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏠</span><span class="ph-label">${prop.nombre}</span></div></div>`;
+
+  const dotsHTML = fotos.map((_,i) =>
+    `<div class="carousel-dot${i===0?' active':''}" onclick="goTo('${id}',${i})"></div>`
+  ).join('');
+
+  const tagsHTML  = (prop.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
+  const cercaHTML = (prop.cercanos||[]).map(c=>`<span class="prop-highlight">${c}</span>`).join('');
+
+  // Dirección: link si tiene URL de Maps, texto plano si no
+  const addrHTML = prop.direccionUrl
+    ? `<a href="${prop.direccionUrl}" target="_blank" class="prop-address">${prop.direccion||'Ver en Maps'}</a>`
+    : prop.direccion
+      ? `<p class="prop-address">${prop.direccion}</p>`
+      : '';
+
+  // Botones de plataforma — SOLO se renderizan si el link existe (sin fallback)
+  const belongBtn  = prop.belong      ? `<a href="${prop.belong}"      target="_blank" class="book-btn belong"><span class="book-btn-icon">🏡</span> Belong</a>`   : '';
+  const airbnbBtn  = prop.airbnb      ? `<a href="${prop.airbnb}"      target="_blank" class="book-btn airbnb"><span class="book-btn-icon">🏠</span> Airbnb</a>`   : '';
+  const expediaBtn = prop.expedia     ? `<a href="${prop.expedia}"     target="_blank" class="book-btn expedia"><span class="book-btn-icon">✈</span> Expedia</a>` : '';
+  const mapsBtn    = prop.direccionUrl? `<a href="${prop.direccionUrl}" target="_blank" class="book-btn maps"><span class="book-btn-icon">📍</span> Maps</a>`      : '';
+
+  // WhatsApp y Teléfono generados desde `telefono` — solo si existe
+  const tel = prop.telefono || '';
+  const waBtn = tel
+    ? `<a href="https://wa.me/52${tel}?text=${encodeURIComponent('Hola, los vi en su web y me interesa: '+prop.nombre)}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon">💬</span> WhatsApp</a>`
+    : '';
+  const telBtn = tel
+    ? `<a href="tel:+52${tel}" class="book-btn tel"><span class="book-btn-icon">📞</span> Llamar</a>`
+    : '';
+
+  const ratingBadge = prop.rating ? `<div class="prop-rating">${prop.rating}</div>` : '';
+
+  return `<div class="prop-card" data-prop="${id}">
+    <div class="carousel" id="carousel-${id}">
+      <div class="carousel-track" id="track-${id}">${slidesHTML}</div>
+      <button class="carousel-btn prev" onclick="slide('${id}',-1)">‹</button>
+      <button class="carousel-btn next" onclick="slide('${id}',1)">›</button>
+      <div class="carousel-dots" id="dots-${id}">${dotsHTML}</div>
+      <div class="prop-badge">${prop.badge||'Barrio Inn'}</div>
+      ${ratingBadge}
+    </div>
+    <div class="prop-body">
+      <h3 class="prop-title">${prop.nombre}</h3>
+      ${addrHTML}
+      <div class="prop-tags">${tagsHTML}</div>
+      <div class="prop-highlights">
+        <p class="prop-highlights-title">Cerca de ti</p>
+        <div class="prop-highlights-list">${cercaHTML}</div>
+      </div>
+      <div class="prop-actions">${belongBtn}${airbnbBtn}${expediaBtn}${waBtn}${telBtn}${mapsBtn}</div>
+    </div>
+  </div>`;
+}
+
+function renderizarPropiedades(){
+  const grid = document.getElementById('propsGrid');
+
+  const comingSoon = `<div class="prop-card coming-soon">
+    <div class="coming-soon-overlay"><div class="coming-soon-badge">🦆 Próximamente</div></div>
+    <div class="carousel"><div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏗️</span><span class="ph-label">Nueva propiedad</span></div></div></div>
+    <div class="prop-body">
+      <h3 class="prop-title">Nueva ubicación</h3>
+      <p class="prop-address">Centro Histórico, Monterrey</p>
+      <div class="prop-tags"><span class="prop-tag">Muy pronto</span></div>
+      <div class="prop-highlights"><div class="prop-highlights-list">
+        <span class="prop-highlight">Siguiendo el estilo Barrio Inn</span>
+        <span class="prop-highlight">Notifícate por WhatsApp</span>
+      </div></div>
+      <div class="prop-actions"><a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20saber%20de%20la%20nueva%20propiedad" target="_blank" class="book-btn whatsapp" style="flex:1"><span class="book-btn-icon">🔔</span> Notifícame</a></div>
+    </div>
+  </div>`;
+
+  grid.innerHTML = propiedades.map(generarTarjeta).join('') + comingSoon;
+
+  // Re-inicializar estado de carruseles
+  carouselState = {};
+  propiedades.forEach(p => {
+    carouselState[p.id] = { current: 0, count: (p.fotos||[]).length || 1 };
+  });
+
+  // Re-aplicar swipe táctil
+  grid.querySelectorAll('.carousel').forEach(el => {
+    let startX = 0;
+    el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      const id = el.id.replace('carousel-','');
+      if (Math.abs(diff) > 40 && carouselState[id]) slide(id, diff > 0 ? 1 : -1);
+    }, { passive: true });
+  });
+
+  // Sincronizar lightbox con los datos actuales
+  lbImages = {};
+  propiedades.forEach(p => { lbImages[p.id] = p.fotos || []; });
+}
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+function closeMobile(){ mobileMenu.classList.remove('open'); }
+
+// ═══════════════════════════════════════════════
+// CAROUSEL
+// ═══════════════════════════════════════════════
+let carouselState = {};
+
+function slide(id, dir){
+  const s = carouselState[id];
+  if(!s) return;
+  s.current = (s.current + dir + s.count) % s.count;
   updateCarousel(id);
 }
-function goTo(id,idx){
-  carouselState[id].current=idx;
+function goTo(id, idx){
+  if(!carouselState[id]) return;
+  carouselState[id].current = idx;
   updateCarousel(id);
 }
 function updateCarousel(id){
-  const s=carouselState[id];
-  const track=document.getElementById('track-'+id);
-  if(track) track.style.transform=`translateX(-${s.current*100}%)`;
-  const dots=document.querySelectorAll(`#dots-${id} .carousel-dot`);
-  dots.forEach((d,i)=>d.classList.toggle('active',i===s.current));
+  const s = carouselState[id];
+  if(!s) return;
+  const track = document.getElementById('track-' + id);
+  if(track) track.style.transform = `translateX(-${s.current * 100}%)`;
+  document.querySelectorAll(`#dots-${id} .carousel-dot`).forEach((d,i) =>
+    d.classList.toggle('active', i === s.current)
+  );
 }
 
-// Touch/swipe support
-document.querySelectorAll('.carousel').forEach(el=>{
-  let startX=0;
-  el.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
-  el.addEventListener('touchend',e=>{
-    const diff=startX-e.changedTouches[0].clientX;
-    const id=el.id.replace('carousel-','');
-    if(Math.abs(diff)>40) slide(id,diff>0?1:-1);
-  },{passive:true});
-});
+// ═══════════════════════════════════════════════
+// LIGHTBOX
+// ═══════════════════════════════════════════════
+let lbProp = '', lbIdx = 0;
+let lbImages = {};
 
-// ── LIGHTBOX ──
-let lbProp='',lbIdx=0;
-const lbImages={
-  abasolo:['ABASOLO_1','ABASOLO_2','ABASOLO_3','ABASOLO_4','ABASOLO_5'],
-  aldea:['ALDEA_1','ALDEA_2','ALDEA_3','ALDEA_4','ALDEA_5','ALDEA_6','ALDEA_7','ALDEA_8'],
-  morelos:['MORELOS_1','MORELOS_2','MORELOS_3','MORELOS_4','MORELOS_5','MORELOS_6'],
-  pirineos:['PIRINEOS_1','PIRINEOS_2','PIRINEOS_3','PIRINEOS_4','PIRINEOS_5']
-};
-function openLightbox(prop,idx){
-  lbProp=prop;lbIdx=idx;
+function openLightbox(prop, idx){
+  lbProp = prop; lbIdx = idx;
   renderLightbox();
   document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
 function renderLightbox(){
-  const imgs=lbImages[lbProp];
-  const src=imgs[lbIdx];
-  const img=document.getElementById('lightboxImg');
-  const ph=document.getElementById('lightboxPlaceholder');
-  const vn=document.getElementById('lightboxVarName');
-  const counter=document.getElementById('lightboxCounter');
-  img.src=src;
-  img.style.display='block';
-  ph.style.display='none';
-  img.onerror=()=>{
-    img.style.display='none';
-    ph.style.display='flex';
-    vn.textContent=src;
-  };
-  counter.textContent=`${lbIdx+1} / ${imgs.length}`;
+  const imgs = lbImages[lbProp] || [];
+  const src  = imgs[lbIdx] || '';
+  const img  = document.getElementById('lightboxImg');
+  const ph   = document.getElementById('lightboxPlaceholder');
+  const vn   = document.getElementById('lightboxVarName');
+  if(src){
+    img.src = src;
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+    img.onerror = () => {
+      img.style.display = 'none';
+      ph.style.display  = 'flex';
+      vn.textContent = src.startsWith('data:') ? '(imagen base64)' : src;
+    };
+  } else {
+    img.style.display = 'none';
+    ph.style.display  = 'flex';
+  }
+  document.getElementById('lightboxCounter').textContent =
+    imgs.length ? `${lbIdx + 1} / ${imgs.length}` : '';
 }
 function lightboxNav(dir){
-  const imgs=lbImages[lbProp];
-  lbIdx=(lbIdx+dir+imgs.length)%imgs.length;
+  const len = (lbImages[lbProp]||[]).length;
+  if(!len) return;
+  lbIdx = (lbIdx + dir + len) % len;
   renderLightbox();
 }
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
 function closeLightboxOutside(e){
-  if(e.target===document.getElementById('lightbox')) closeLightbox();
+  if(e.target === document.getElementById('lightbox')) closeLightbox();
 }
-document.addEventListener('keydown',e=>{
+document.addEventListener('keydown', e => {
   if(!document.getElementById('lightbox').classList.contains('open')) return;
-  if(e.key==='Escape') closeLightbox();
-  if(e.key==='ArrowLeft') lightboxNav(-1);
-  if(e.key==='ArrowRight') lightboxNav(1);
+  if(e.key === 'Escape')      closeLightbox();
+  if(e.key === 'ArrowLeft')   lightboxNav(-1);
+  if(e.key === 'ArrowRight')  lightboxNav(1);
 });
 
-// ── FAQ ──
-function toggleFaq(el){
-  const item=el.parentElement;
-  item.classList.toggle('open');
+// ═══════════════════════════════════════════════
+// FAQ
+// ═══════════════════════════════════════════════
+function toggleFaq(el){ el.parentElement.classList.toggle('open'); }
+
+// ═══════════════════════════════════════════════
+// REVEAL ON SCROLL
+// ═══════════════════════════════════════════════
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: .08 });
+document.querySelectorAll('.reveal').forEach(r => revealObserver.observe(r));
+
+// ═══════════════════════════════════════════════
+// DASHBOARD — ACCESO
+// ═══════════════════════════════════════════════
+function abrirAdmin(){
+  const pass = prompt('Contraseña de administrador:');
+  if(pass === 'pepegarza445768'){
+    const dash = document.getElementById('dashboard');
+    dash.classList.add('visible');
+    dash.scrollIntoView({ behavior: 'smooth' });
+    renderDashboard();
+  } else if(pass !== null){
+    alert('Contraseña incorrecta.');
+  }
+}
+function cerrarDashboard(){
+  document.getElementById('dashboard').classList.remove('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── REVEAL ON SCROLL ──
-const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('visible');
+// ═══════════════════════════════════════════════
+// DASHBOARD — CARGA DE IMÁGENES
+// ═══════════════════════════════════════════════
+let fotosBase64 = [];
+
+document.getElementById('fotos').addEventListener('change', function(){
+  const files = Array.from(this.files).slice(0, 5);
+  fotosBase64 = [];
+  const preview = document.getElementById('fotos-preview');
+  if(!files.length){ preview.textContent = ''; return; }
+  preview.textContent = 'Procesando imágenes...';
+  let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      fotosBase64.push(e.target.result);
+      loaded++;
+      if(loaded === files.length)
+        preview.textContent = `✓ ${fotosBase64.length} foto(s) lista(s) para cargar`;
+    };
+    reader.readAsDataURL(file);
   });
-},{threshold:.08});
-reveals.forEach(r=>observer.observe(r));
+});
+
+// ═══════════════════════════════════════════════
+// DASHBOARD — CRUD + EDICIÓN
+// ═══════════════════════════════════════════════
+let editandoId = null;
+
+function leerFormulario(){
+  const tel = document.getElementById('dash-telefono').value.trim();
+  return {
+    nombre:       document.getElementById('dash-nombre').value.trim(),
+    badge:        document.getElementById('dash-badge').value.trim()        || 'Barrio Inn',
+    direccion:    document.getElementById('dash-direccion').value.trim(),
+    direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
+    rating:       document.getElementById('dash-rating').value.trim(),
+    precio:       '',
+    telefono:     tel,
+    tags:         document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    cercanos:     document.getElementById('dash-cercanos').value.split(',').map(c=>c.trim()).filter(Boolean),
+    belong:       document.getElementById('dash-belong').value.trim(),
+    airbnb:       document.getElementById('dash-airbnb').value.trim(),
+    expedia:      document.getElementById('dash-expedia').value.trim(),
+  };
+}
+
+function guardarPropiedad(){
+  const datos = leerFormulario();
+
+  if(!datos.nombre){ alert('El nombre de la propiedad es requerido.'); return; }
+  if(datos.telefono && datos.telefono.length !== 10){
+    alert('El teléfono debe tener exactamente 10 dígitos.'); return;
+  }
+
+  if(editandoId !== null){
+    // MODO EDICIÓN — actualizar propiedad existente por ID
+    const idx = propiedades.findIndex(p => p.id === editandoId);
+    if(idx === -1){ alert('No se encontró la propiedad a editar.'); return; }
+    const fotosActuales = propiedades[idx].fotos || [];
+    propiedades[idx] = {
+      ...propiedades[idx],
+      ...datos,
+      fotos: fotosBase64.length ? [...fotosBase64] : fotosActuales
+    };
+  } else {
+    // MODO CREAR — agregar nueva
+    propiedades.push({
+      id: 'prop_' + Date.now(),
+      ...datos,
+      fotos: [...fotosBase64]
+    });
+  }
+
+  guardarLS();
+  renderizarPropiedades();
+  renderDashboard();
+  limpiarFormulario();
+}
+
+function editarPropiedad(idx){
+  const p = propiedades[idx];
+  editandoId = p.id;
+
+  // Cargar campos en el formulario
+  document.getElementById('dash-nombre').value         = p.nombre       || '';
+  document.getElementById('dash-badge').value          = p.badge        || '';
+  document.getElementById('dash-direccion').value      = p.direccion    || '';
+  document.getElementById('dash-direccion-url').value  = p.direccionUrl || '';
+  document.getElementById('dash-rating').value         = p.rating       || '';
+  document.getElementById('dash-telefono').value       = p.telefono     || '';
+  document.getElementById('dash-tags').value           = (p.tags    ||[]).join(', ');
+  document.getElementById('dash-cercanos').value       = (p.cercanos||[]).join(', ');
+  document.getElementById('dash-belong').value         = p.belong   || '';
+  document.getElementById('dash-airbnb').value         = p.airbnb   || '';
+  document.getElementById('dash-expedia').value        = p.expedia  || '';
+  fotosBase64 = [];
+  document.getElementById('fotos').value = '';
+  document.getElementById('fotos-preview').textContent =
+    (p.fotos && p.fotos.length) ? `↩ Conservando ${p.fotos.length} foto(s) existente(s)` : '';
+
+  // Actualizar UI del formulario
+  document.getElementById('dash-form-title').textContent  = `✏ Editando: ${p.nombre}`;
+  document.getElementById('dash-editing-badge').style.display = 'flex';
+  document.getElementById('dash-save-btn').textContent    = '✓ Actualizar propiedad';
+
+  // Scroll suave al formulario
+  document.getElementById('dash-form-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function eliminarPropiedad(idx){
+  if(!confirm(`¿Eliminar "${propiedades[idx].nombre}"? Esta acción no se puede deshacer.`)) return;
+  if(editandoId === propiedades[idx].id) limpiarFormulario();
+  propiedades.splice(idx, 1);
+  guardarLS();
+  renderizarPropiedades();
+  renderDashboard();
+}
+
+function limpiarFormulario(){
+  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating','dash-telefono',
+   'dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  fotosBase64 = [];
+  document.getElementById('fotos').value = '';
+  document.getElementById('fotos-preview').textContent = '';
+  // Resetear estado de edición
+  editandoId = null;
+  document.getElementById('dash-form-title').textContent  = '✦ Agregar nueva propiedad';
+  document.getElementById('dash-editing-badge').style.display = 'none';
+  document.getElementById('dash-save-btn').textContent    = '＋ Agregar propiedad';
+}
+
+function resetearDatos(){
+  if(!confirm('¿Restaurar las propiedades originales? Se perderán todas las modificaciones.')) return;
+  localStorage.removeItem(LS_KEY);
+  propiedades = JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
+  guardarLS();
+  renderizarPropiedades();
+  renderDashboard();
+  limpiarFormulario();
+}
+
+function renderDashboard(){
+  const list = document.getElementById('dashPropsList');
+  if(!propiedades.length){
+    list.innerHTML = '<p class="dash-empty">No hay propiedades. Agrega la primera con el formulario.</p>';
+    return;
+  }
+  list.innerHTML = propiedades.map((p, i) => {
+    const thumb = (p.fotos && p.fotos.length)
+      ? `<div class="dash-prop-thumb"><img src="${p.fotos[0]}" alt="" onerror="this.parentElement.textContent='🏠'"/></div>`
+      : `<div class="dash-prop-thumb">🏠</div>`;
+    const esEditando = editandoId === p.id;
+    return `<div class="dash-prop-item" style="${esEditando?'border-color:rgba(61,107,79,.5);background:rgba(61,107,79,.07)':''}">
+      ${thumb}
+      <div class="dash-prop-info">
+        <p class="dash-prop-name">${p.nombre}${esEditando?' <span style="font-size:10px;color:#7EC89A;font-weight:700;vertical-align:middle">● editando</span>':''}</p>
+        <p class="dash-prop-addr">${p.direccion||'Sin dirección'}</p>
+        <p class="dash-prop-meta">${(p.fotos||[]).length} foto(s) · ${(p.tags||[]).length} tag(s)${p.rating?' · ★ '+p.rating:''}${p.telefono?' · 📞 '+p.telefono:''}</p>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0">
+        <button class="dash-btn edit" onclick="editarPropiedad(${i})" title="Editar">✏ Editar</button>
+        <button class="dash-btn danger" onclick="eliminarPropiedad(${i})" title="Eliminar">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderizarPropiedades();
 </script>
 </body>
 </html>
