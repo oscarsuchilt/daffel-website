@@ -2035,7 +2035,7 @@ function renderizarComplejos(){
     const unidadesReales = propiedades.filter(p => p.complejo === c.id).length || c.unidades;
     const tagsHTML = (c.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
     const imgHTML = c.foto
-      ? `<img class="complejo-img" src="${c.foto}" alt="${c.nombre}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=complejo-placeholder><span class=ph-icon><i class="fa-solid fa-building"></i></span><span class=ph-label>${c.nombre}</span></div>'"/>`
+      ? `<img class="complejo-img" src="${c.foto}" alt="${c.nombre}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=complejo-placeholder><span class=ph-icon></span><span class=ph-label>${c.nombre}</span></div>'"/>`
       : `<div class="complejo-placeholder"><span class="ph-icon"><i class="fa-solid fa-building"></i></span><span class="ph-label">${c.nombre}</span></div>`;
     return `<div class="complejo-card" onclick="abrirComplejo('${c.id}')">
       <div class="complejo-img-wrap">
@@ -2470,7 +2470,7 @@ function renderDashComplejos(){
   list.innerHTML = complejos.map((c,i) => {
     const unidades = propiedades.filter(p => p.complejo === c.id).length;
     return `<div class="dash-prop-item">
-      <div class="dash-prop-thumb">${c.foto ? `<img src="${c.foto}" onerror="this.parentElement.textContent='<i class="fa-solid fa-building"></i>'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
+      <div class="dash-prop-thumb">${c.foto ? `<img src="${c.foto}" onerror="this.style.display='none';this.parentElement.textContent='🏨'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
       <div class="dash-prop-info">
         <div class="dash-prop-name">${c.nombre}</div>
         <div class="dash-prop-addr">${c.direccion}</div>
@@ -2561,7 +2561,7 @@ function renderDashProps(){
   list.innerHTML = props.map(p => {
     const thumb = p.fotos && p.fotos.length
       ? (p.fotos[0].startsWith('http') || p.fotos[0].startsWith('data:')
-        ? `<img src="${p.fotos[0]}" onerror="this.parentElement.textContent='<i class="fa-solid fa-house"></i>'"/>`
+        ? `<img src="${p.fotos[0]}" onerror="this.style.display='none';this.parentElement.textContent='🏠'"/>`
         : '<i class="fa-solid fa-house"></i>')
       : '<i class="fa-solid fa-house"></i>';
     return `<div class="dash-prop-item">
