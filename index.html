@@ -869,7 +869,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <a href="#amenidades">Amenidades</a>
     <a href="#resenas">Reseñas</a>
     <a href="#faq">FAQ</a>
-    <a href="https://wa.me/5218110645136" target="_blank" class="nav-cta">📲 Reservar</a>
+    <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta">📲 Reservar</a>
   </div>
   <button onclick="abrirAdmin()" class="nav-admin-btn" title="Administrador" aria-label="Admin">🔐</button>
   <button class="hamburger" id="hamburger" aria-label="Menú">
@@ -883,7 +883,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
   <a href="#amenidades" onclick="closeMobile()">Amenidades</a>
   <a href="#resenas" onclick="closeMobile()">Reseñas</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="https://wa.me/5218110645136" target="_blank" class="nav-cta" style="color:#fff">📲 Reservar</a>
+  <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta" style="color:#fff">📲 Reservar</a>
 </div>
 
 <!-- HERO -->
@@ -895,7 +895,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
   <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Tu hogar lejos de casa.</p>
   <div class="hero-btns">
     <a href="#propiedades" class="btn-primary">🏠 Ver propiedades</a>
-    <a href="https://wa.me/5218110645136" target="_blank" class="btn-ghost">💬 Hablar</a>
+    <a href="https://wa.me/5218110645136?text=Hola%2C%20me%20interesa%20hospedarme%20en%20Barrio%20Inn%20en%20el%20Barrio%20Antiguo%20de%20Monterrey.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" class="btn-ghost">💬 Hablar</a>
   </div>
   <div class="hero-scroll">
     <div class="hero-scroll-line"></div>
@@ -1190,7 +1190,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <h2>¿Listo para vivir Monterrey?</h2>
     <p>Escríbe directamente. Responde rápido y te ayuda a elegir la mejor opción para ti.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20reservar%20en%20Barrio%20Inn" target="_blank" class="btn-white">
+      <a href="https://wa.me/5218110645136?text=Hola%2C%20estoy%20listo%20para%20reservar%20en%20Barrio%20Inn.%20%C2%BFPueden%20ayudarme%20a%20elegir%20la%20mejor%20opci%C3%B3n%20para%20m%C3%AD%3F" target="_blank" class="btn-white">
         💬 Escribir por WhatsApp
       </a>
       <a href="#propiedades" class="btn-white-outline">
@@ -1270,7 +1270,10 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <!-- ── VISTA PRINCIPAL: COMPLEJOS ── -->
     <div id="dash-view-complejos">
       <div class="dash-panel">
-        <div class="dash-panel-title">🏘 Complejos</div>
+        <div class="dash-panel-title" style="display:flex;align-items:center;justify-content:space-between">
+          🏘 Complejos
+          <button class="dash-btn primary" style="font-size:12px;padding:.45rem 1rem" onclick="abrirFormComplejo()">＋ Agregar complejo</button>
+        </div>
         <div class="dash-props-list" id="dashComplejosList">
           <p class="dash-empty">Cargando...</p>
         </div>
@@ -1445,7 +1448,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 </div>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20vi%20Barrio%20Inn%20y%20me%20interesa" target="_blank" class="wa-float" aria-label="WhatsApp Rulo">
+<a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20su%20p%C3%A1gina%20de%20Barrio%20Inn%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20hospedajes." target="_blank" class="wa-float" aria-label="WhatsApp Rulo">
   <span class="wa-icon">💬</span>
   <span class="wa-label">Hablar</span>
 </a>
@@ -1657,8 +1660,12 @@ function generarTarjeta(prop){
   const mapsBtn    = prop.direccionUrl? `<a href="${prop.direccionUrl}" target="_blank" class="book-btn maps"><span class="book-btn-icon">📍</span> Maps</a>`      : '';
 
   const tel = prop.telefono || '';
+  const complejoNombre = (complejos.find(c => c.id === prop.complejo)||{}).nombre || '';
+  const waMsg = complejoNombre
+    ? `Hola, vi la unidad "${prop.nombre}" del complejo ${complejoNombre} en la página de Barrio Inn. ¿Tienen disponibilidad?`
+    : `Hola, vi "${prop.nombre}" en la página de Barrio Inn. ¿Tienen disponibilidad?`;
   const waBtn = tel
-    ? `<a href="https://wa.me/52${tel}?text=${encodeURIComponent('Hola, los vi en su web y me interesa: '+prop.nombre)}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon">💬</span> WhatsApp</a>`
+    ? `<a href="https://wa.me/52${tel}?text=${encodeURIComponent(waMsg)}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon">💬</span> WhatsApp</a>`
     : '';
   const telBtn = tel
     ? `<a href="tel:+52${tel}" class="book-btn tel"><span class="book-btn-icon">📞</span> Llamar</a>`
@@ -1699,23 +1706,8 @@ function renderizarPropiedades(complejoId){
     ? propiedades.filter(p => p.complejo === complejoId)
     : propiedades;
 
-  const comingSoon = `<div class="prop-card coming-soon">
-    <div class="coming-soon-overlay"><div class="coming-soon-badge">🦆 Próximamente</div></div>
-    <div class="carousel"><div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏗️</span><span class="ph-label">Nueva propiedad</span></div></div></div>
-    <div class="prop-body">
-      <h3 class="prop-title">Nueva ubicación</h3>
-      <p class="prop-address">Centro Histórico, Monterrey</p>
-      <div class="prop-tags"><span class="prop-tag">Muy pronto</span></div>
-      <div class="prop-highlights"><div class="prop-highlights-list">
-        <span class="prop-highlight">Siguiendo el estilo Barrio Inn</span>
-        <span class="prop-highlight">Notifícate por WhatsApp</span>
-      </div></div>
-      <div class="prop-actions"><div class="prop-actions-row"><a href="https://wa.me/5218110645136?text=Hola%20Rulo,%20quiero%20saber%20de%20la%20nueva%20propiedad" target="_blank" class="book-btn whatsapp" style="grid-column:1/-1"><span class="book-btn-icon">🔔</span> Notifícame</a></div></div>
-    </div>
-  </div>`;
-
   grid.innerHTML = filtradas.length
-    ? filtradas.map(generarTarjeta).join('') + comingSoon
+    ? filtradas.map(generarTarjeta).join('')
     : `<div class="dash-empty" style="color:var(--text3);padding:3rem;grid-column:1/-1;text-align:center">Sin unidades en este complejo aún.<br><span style="font-size:13px">Agrégalas desde el panel de administración.</span></div>`;
 
   carouselState = {};
@@ -1867,45 +1859,35 @@ function cerrarDashboard(){
 // ═══════════════════════════════════════════════
 let fotosBase64 = [];
 
-document.getElementById('fotos').addEventListener('change', async function(){
+document.getElementById('fotos').addEventListener('change', function(){
   const files = Array.from(this.files).slice(0, 5);
   fotosBase64 = [];
-
   const preview = document.getElementById('fotos-preview');
-  if(!files.length){ 
-    preview.textContent = ''; 
-    return; 
-  }
+  if(!files.length){ preview.textContent = ''; return; }
 
-  preview.textContent = 'Subiendo imágenes...';
+  preview.textContent = `Comprimiendo ${files.length} imagen(es)...`;
+  let done = 0;
 
-  let uploaded = 0;
-
-  for (const file of files) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'TU_UPLOAD_PRESET');
-
-    try {
-      const res = await fetch('https://api.cloudinary.com/v1_1/TU_CLOUD_NAME/image/upload', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await res.json();
-
-      fotosBase64.push(
-        data.secure_url.replace('/upload/', '/upload/f_auto,q_auto/')
-      );
-
-      uploaded++;
-      preview.textContent = `✓ ${uploaded}/${files.length} imágenes subidas`;
-
-    } catch (err) {
-      console.error(err);
-      preview.textContent = 'Error al subir imágenes';
-    }
-  }
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ratio  = Math.min(1, 1200 / img.width);
+        canvas.width  = Math.round(img.width  * ratio);
+        canvas.height = Math.round(img.height * ratio);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        fotosBase64.push(canvas.toDataURL('image/jpeg', 0.75));
+        done++;
+        preview.textContent = done === files.length
+          ? `✓ ${done} foto(s) listas`
+          : `Comprimiendo ${done}/${files.length}...`;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
 });
 // ═══════════════════════════════════════════════
 // DASHBOARD — COMPLEJOS
@@ -1913,6 +1895,19 @@ document.getElementById('fotos').addEventListener('change', async function(){
 let editandoComplejoId = null;
 let dcFotoBase64 = '';
 let dashComplejoActivo = null; // complejo abierto en el drill-down del dashboard
+
+function abrirFormComplejo(){
+  editandoComplejoId = '__nuevo__';
+  dcFotoBase64 = '';
+  document.getElementById('dc-nombre').value    = '';
+  document.getElementById('dc-direccion').value = '';
+  document.getElementById('dc-unidades').value  = '';
+  document.getElementById('dc-tags').value      = '';
+  document.getElementById('dc-foto-preview').textContent = '';
+  document.getElementById('dash-complejo-form-title').textContent = '✦ Nuevo complejo';
+  document.getElementById('dash-complejo-form-panel').style.display = 'block';
+  document.getElementById('dash-complejo-form-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+}
 
 function dashAbrirComplejo(id){
   dashComplejoActivo = id;
@@ -1999,16 +1994,31 @@ document.getElementById('dc-foto-input').addEventListener('change', function(){
 
 function guardarComplejo(){
   if(!editandoComplejoId) return;
-  const idx = complejos.findIndex(c => c.id === editandoComplejoId);
-  if(idx === -1) return;
-  complejos[idx] = {
-    ...complejos[idx],
-    nombre:    document.getElementById('dc-nombre').value.trim()   || complejos[idx].nombre,
-    direccion: document.getElementById('dc-direccion').value.trim(),
-    unidades:  parseInt(document.getElementById('dc-unidades').value) || complejos[idx].unidades,
-    tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
-    foto:      dcFotoBase64 || complejos[idx].foto || '',
-  };
+  const nombre = document.getElementById('dc-nombre').value.trim();
+  if(!nombre){ alert('El nombre del complejo es requerido.'); return; }
+
+  if(editandoComplejoId === '__nuevo__'){
+    const nuevoId = 'complejo_' + Date.now();
+    complejos.push({
+      id: nuevoId,
+      nombre,
+      direccion: document.getElementById('dc-direccion').value.trim(),
+      unidades:  parseInt(document.getElementById('dc-unidades').value) || 0,
+      tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+      foto:      dcFotoBase64 || '',
+    });
+  } else {
+    const idx = complejos.findIndex(c => c.id === editandoComplejoId);
+    if(idx === -1) return;
+    complejos[idx] = {
+      ...complejos[idx],
+      nombre,
+      direccion: document.getElementById('dc-direccion').value.trim(),
+      unidades:  parseInt(document.getElementById('dc-unidades').value) || complejos[idx].unidades,
+      tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+      foto:      dcFotoBase64 || complejos[idx].foto || '',
+    };
+  }
   guardarComplejos();
   renderizarComplejos();
   renderDashComplejos();
