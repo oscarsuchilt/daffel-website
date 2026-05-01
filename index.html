@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Barrio Inn — Hostelería · Monterrey</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
@@ -367,6 +366,150 @@ section{padding:100px 48px}
 .complejo-placeholder .ph-icon{font-size:44px;opacity:.35}
 .complejo-placeholder .ph-label{font-size:12px;opacity:.5}
 
+/* ── DETAIL FULLPAGE ── */
+.detail-fullpage{display:none;background:#fff;padding:100px 48px 0;min-height:100vh}
+body.detail-active .detail-fullpage{display:block}
+body.detail-active .hero,body.detail-active .stats-bar,body.detail-active .statement,body.detail-active .quienes,body.detail-active .why,body.detail-active .marquee-section,body.detail-active .propiedades,body.detail-active .reviews,body.detail-active .amenidades,body.detail-active .faq,body.detail-active .cta-section,body.detail-active .mapa-section,body.detail-active footer,body.detail-active .wa-float{display:none !important}
+body.detail-active nav{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--gray-200);box-shadow:var(--shadow-sm)}
+body.detail-active .nav-logo-mark{background:var(--black);color:#fff}
+body.detail-active .nav-logo-name{color:var(--black)}
+body.detail-active .nav-links a{color:var(--gray-600)}
+body.detail-active .nav-cta{background:var(--black) !important;border-color:var(--black) !important;color:#fff !important}
+body.detail-active nav::before{opacity:0}
+body.detail-active .hamburger span{background:var(--black)}
+
+/* Fixed back button */
+.detail-back-fixed{position:fixed;top:80px;left:48px;z-index:900;display:none;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--gray-200);color:var(--black);font-size:13px;font-weight:600;padding:.6rem 1.4rem;border-radius:var(--r-pill);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif;box-shadow:var(--shadow-sm)}
+body.detail-active .detail-back-fixed{display:inline-flex}
+.detail-back-fixed:hover{background:var(--gray-50);border-color:var(--black);box-shadow:var(--shadow-md)}
+
+.detail-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-400);margin-bottom:1.5rem;flex-wrap:wrap;padding-top:48px}
+.detail-breadcrumb a{color:var(--gray-400);text-decoration:none;transition:color .2s;font-weight:500}
+.detail-breadcrumb a:hover{color:var(--black)}
+.detail-breadcrumb .bc-sep{color:var(--gray-200);font-size:11px}
+.detail-breadcrumb .bc-current{color:var(--black);font-weight:600}
+.detail-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--black);margin-bottom:.35rem;letter-spacing:-.02em}
+.detail-address{font-size:14px;color:var(--gray-400);display:flex;align-items:center;gap:6px;margin-bottom:1.75rem}
+.detail-address::before{content:'📍';font-size:13px}
+.detail-gallery{display:grid;grid-template-columns:2.2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;height:420px;border-radius:var(--r-xl);overflow:hidden;margin-bottom:2.5rem;cursor:pointer}
+.detail-gallery-main{grid-row:1/3;position:relative;overflow:hidden}
+.detail-gallery-main img,.detail-gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.detail-gallery-main:hover img,.detail-gallery-thumb:hover img{transform:scale(1.04)}
+.detail-gallery-thumb{position:relative;overflow:hidden}
+.detail-gallery-main .gallery-ph,.detail-gallery-thumb .gallery-ph{width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--gray-400);flex-direction:column;gap:6px}
+.detail-gallery-thumb .gallery-ph{font-size:24px}
+.detail-gallery-count{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:.35rem .85rem;border-radius:var(--r-pill)}
+.detail-layout{display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start}
+.detail-tabs{display:flex;gap:0;border-bottom:1.5px solid var(--gray-200);margin-bottom:2rem}
+.detail-tab{padding:.85rem 1.5rem;font-size:14px;font-weight:600;color:var(--gray-400);cursor:pointer;position:relative;transition:color .2s;white-space:nowrap;border:none;background:none;font-family:'Outfit',sans-serif}
+.detail-tab:hover{color:var(--black)}
+.detail-tab.active{color:var(--black)}
+.detail-tab.active::after{content:'';position:absolute;bottom:-1.5px;left:0;right:0;height:2px;background:var(--black);border-radius:2px}
+.detail-tab-content{display:none}
+.detail-tab-content.active{display:block}
+.detail-desc{font-size:15px;color:var(--gray-600);line-height:1.8;margin-bottom:2rem;max-width:640px}
+.detail-stats{display:flex;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap;overflow:visible;padding-bottom:8px}
+.detail-stat{display:flex;align-items:center;gap:12px;overflow:visible}
+.detail-stat-icon{font-size:20px;color:var(--gray-400)}
+.detail-stat-text{font-size:15px;font-weight:600;color:var(--black)}
+
+/* 3D Isometric Icon — NO BOX, just the emoji in 3D */
+.iso-icon-wrap{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;flex-shrink:0;position:relative;
+  background:none;border:none;box-shadow:none;border-radius:0;
+  overflow:visible;
+}
+.iso-icon-wrap::before,.iso-icon-wrap::after{display:none}
+.iso-icon-wrap:hover{box-shadow:none}
+/* 3D extruded emoji */
+.iso-e{
+  display:inline-block;line-height:1;
+  transform:perspective(150px) rotateX(15deg) rotateY(-15deg) rotateZ(2deg) scale(1.1);
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.2)) drop-shadow(2px 3px 0 rgba(0,0,0,.14)) drop-shadow(3px 5px 0 rgba(0,0,0,.08)) drop-shadow(4px 7px 1px rgba(0,0,0,.04)) drop-shadow(0 10px 16px rgba(0,0,0,.1));
+  transition:transform .3s,filter .3s;
+}
+.iso-icon-wrap:hover .iso-e{
+  transform:perspective(150px) rotateX(20deg) rotateY(-20deg) rotateZ(3deg) scale(1.18) translateY(-3px);
+  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.22)) drop-shadow(3px 5px 0 rgba(0,0,0,.15)) drop-shadow(4px 7px 0 rgba(0,0,0,.09)) drop-shadow(5px 9px 2px rgba(0,0,0,.05)) drop-shadow(0 14px 22px rgba(0,0,0,.13));
+}
+
+.detail-spaces-title{font-family:'Instrument Serif',serif;font-size:1.5rem;font-weight:400;color:var(--black);margin-bottom:1.25rem;letter-spacing:-.01em}
+.detail-spaces-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2rem}
+.detail-space-card{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-md);padding:1.25rem 1.25rem 1.5rem;transition:border-color .2s,background .2s,transform .2s;cursor:default;overflow:visible}
+.detail-space-card:hover{border-color:var(--gray-400);background:var(--gray-50);transform:translateY(-2px)}
+.detail-space-name{font-size:14px;font-weight:600;color:var(--black);margin-bottom:2px}
+.detail-space-sub{font-size:12.5px;color:var(--gray-400)}
+
+.detail-services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-bottom:1.5rem;overflow:visible}
+.detail-service-item{display:flex;align-items:center;gap:12px;padding:1rem 0;font-size:14px;color:var(--gray-600);overflow:visible}
+.detail-service-item .svc-icon-wrap{
+  width:32px;height:32px;
+  background:none;border:none;box-shadow:none;border-radius:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;position:relative;overflow:visible;
+}
+.detail-service-item .svc-icon-wrap::before{display:none}
+.detail-service-item .svc-icon-wrap .iso-e{font-size:20px}
+.detail-service-item .svc-icon-wrap::after{display:none}
+
+.detail-map-wrap{border-radius:var(--r-xl);overflow:hidden;height:350px;border:1px solid var(--gray-200);margin-bottom:1.5rem;position:relative}
+.detail-map-wrap iframe{width:100%;height:100%;border:none}
+.detail-map-wrap #detailMap{width:100%;height:100%}
+.detail-map-addr{position:absolute;top:12px;left:12px;z-index:600;background:#fff;border-radius:var(--r-md);padding:.75rem 1rem;box-shadow:var(--shadow-md);max-width:280px}
+.detail-map-addr-title{font-size:13px;font-weight:600;color:var(--black)}
+.detail-map-addr-sub{font-size:11.5px;color:var(--gray-400);margin-top:2px}
+.detail-map-addr-links{display:flex;gap:8px;margin-top:8px}
+.detail-map-addr-link{width:28px;height:28px;border-radius:8px;background:var(--gray-50);border:1px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:13px;text-decoration:none;transition:background .2s}
+.detail-map-addr-link:hover{background:var(--gray-100)}
+
+.detail-contact{background:var(--black);border-radius:var(--r-xl);padding:1.75rem;position:sticky;top:84px}
+.detail-contact-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:.35rem}
+.detail-contact-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:1.25rem}
+
+/* Booking buttons in contact card */
+.detail-booking-btns{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.25rem}
+.detail-booking-btns a{display:flex;align-items:center;justify-content:center;gap:7px;padding:.7rem .85rem;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap;letter-spacing:.01em}
+.detail-booking-btns a svg{flex-shrink:0;vertical-align:middle}
+.detail-booking-btns .bb-airbnb{background:#FF5A5F;color:#fff}
+.detail-booking-btns .bb-airbnb:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(255,90,95,.3)}
+.detail-booking-btns .bb-whatsapp{background:#25D366;color:#fff}
+.detail-booking-btns .bb-whatsapp:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(37,211,102,.3)}
+.detail-booking-btns .bb-maps{background:#fff;color:var(--black)}
+.detail-booking-btns .bb-maps:hover{background:var(--gray-100);transform:translateY(-2px)}
+.detail-booking-btns .bb-tel{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
+.detail-booking-btns .bb-tel:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+
+/* Properties horizontal scroll */
+.detail-others-row{display:flex;align-items:center;justify-content:space-between;margin:3.5rem 0 1.5rem;flex-wrap:wrap;gap:1rem}
+.detail-others-title{font-family:'Instrument Serif',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--black)}
+.detail-props-scroll-wrap{overflow-x:auto;overflow-y:hidden;padding:0 48px 80px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent}
+.detail-props-scroll-wrap::-webkit-scrollbar{height:6px}
+.detail-props-scroll-wrap::-webkit-scrollbar-track{background:transparent}
+.detail-props-scroll-wrap::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:3px}
+.detail-props-scroll{display:flex;gap:1.25rem;width:max-content;padding-bottom:8px}
+.prop-scroll-card{width:320px;height:380px;flex-shrink:0;border-radius:var(--r-xl);overflow:hidden;position:relative;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.prop-scroll-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.prop-scroll-card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.prop-scroll-card:hover .prop-scroll-card-img{transform:scale(1.04)}
+.prop-scroll-card-ph{width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gray-400)}
+.prop-scroll-card-ph .iso-icon-wrap{width:60px;height:60px;font-size:30px;border-radius:14px}
+.prop-scroll-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);pointer-events:none}
+.prop-scroll-card-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:1.25rem;display:flex;align-items:flex-end;justify-content:space-between}
+.prop-scroll-card-name{font-family:'Instrument Serif',serif;font-size:1.15rem;font-weight:400;color:#fff;line-height:1.15}
+.prop-scroll-card-addr{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:3px}
+.prop-scroll-card-view{background:rgba(255,255,255,.95);backdrop-filter:blur(8px);color:var(--black);font-size:12px;font-weight:700;padding:.45rem 1.1rem;border-radius:var(--r-pill);white-space:nowrap;border:none;cursor:pointer;flex-shrink:0;transition:background .2s,transform .2s}
+.prop-scroll-card-view:hover{background:#fff;transform:scale(1.05)}
+
+.statement-tags-extra{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
+
+@media(max-width:1440px){.detail-fullpage{padding:100px 40px 0}.detail-props-scroll-wrap{padding:0 40px 80px}}
+@media(max-width:1024px){.detail-fullpage{padding:80px 32px 0}.detail-layout{grid-template-columns:1fr;gap:2rem}.detail-contact{position:static}.detail-gallery{height:320px}.detail-spaces-grid{grid-template-columns:1fr 1fr}.detail-back-fixed{left:32px}.detail-props-scroll-wrap{padding:0 32px 60px}.detail-booking-btns{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.detail-fullpage{padding:72px 20px 0}.detail-gallery{grid-template-columns:1fr;grid-template-rows:240px;height:auto;gap:6px}.detail-gallery-main{grid-row:auto}.detail-gallery-thumb{display:none}.detail-gallery-thumb:first-of-type{display:block;height:160px}.detail-services-grid{grid-template-columns:1fr}.detail-stats{gap:1.25rem;flex-direction:column}.detail-tab{padding:.7rem 1rem;font-size:13px}.detail-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.detail-props-scroll-wrap{padding:0 20px 48px}.prop-scroll-card{width:260px;height:320px}.detail-breadcrumb{padding-top:40px}.detail-spaces-grid{grid-template-columns:1fr}.detail-booking-btns{grid-template-columns:1fr 1fr}.detail-layout{gap:1.5rem}.detail-title{font-size:2rem}}
+@media(max-width:480px){.detail-fullpage{padding:68px 16px 0}.detail-back-fixed{left:16px;top:72px;font-size:11px;padding:.45rem .9rem}.detail-props-scroll-wrap{padding:0 16px 40px}.prop-scroll-card{width:240px;height:290px}.detail-gallery{grid-template-rows:200px;gap:4px}.detail-gallery-thumb:first-of-type{height:120px}.detail-breadcrumb{font-size:12px;padding-top:36px;gap:5px}.detail-title{font-size:1.7rem}.detail-address{font-size:13px;margin-bottom:1.25rem}.detail-desc{font-size:14px}.detail-spaces-title{font-size:1.25rem}.detail-tab{padding:.6rem .8rem;font-size:12px}.detail-stat .iso-icon-wrap{width:32px !important;height:32px !important;font-size:15px !important;border-radius:10px}.detail-space-card{padding:1rem;gap:10px}.detail-space-card .iso-icon-wrap{width:40px;height:40px;font-size:18px;border-radius:11px}.detail-service-item .svc-icon-wrap{width:30px;height:30px;font-size:14px;border-radius:8px}.detail-service-item{font-size:13px;gap:8px}.detail-contact{padding:1.25rem;border-radius:var(--r-lg)}.detail-contact-title{font-size:15px}.detail-contact-sub{font-size:12px}.detail-booking-btns a{padding:.55rem .6rem;font-size:11.5px}.detail-others-row{margin:2.5rem 0 1rem}.detail-others-title{font-size:1.2rem}}
+@media(max-width:360px){.detail-fullpage{padding:66px 12px 0}.detail-back-fixed{left:12px;font-size:10.5px;padding:.4rem .75rem}.prop-scroll-card{width:220px;height:265px}.detail-props-scroll-wrap{padding:0 12px 36px}.detail-booking-btns{grid-template-columns:1fr}.detail-booking-btns a{padding:.65rem}}
+
 /* Carousel */
 .prop-card{
   background:#fff;border-radius:var(--r-xl);overflow:hidden;
@@ -638,26 +781,8 @@ a.prop-address:hover{color:var(--black)}
 .mapa-legend{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .mapa-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4)}
 .mapa-legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-#map{height:460px;width:100%;filter:brightness(.8) saturate(.5) contrast(1.1)}
-.leaflet-popup-content-wrapper{
-  background:#fff;border-radius:var(--r-md);
-  box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);
-  padding:0;overflow:hidden;
-}
-.leaflet-popup-content{margin:0;width:220px !important}
-.leaflet-popup-tip{background:#fff}
-.map-popup-img{width:100%;height:130px;object-fit:cover;display:block}
-.map-popup-img-placeholder{width:100%;height:130px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:32px}
-.map-popup-body{padding:.85rem 1rem 1rem}
-.map-popup-name{font-family:'Instrument Serif',serif;font-size:15px;font-weight:400;color:var(--black);margin-bottom:.25rem}
-.map-popup-addr{font-size:11.5px;color:var(--gray-400);margin-bottom:.75rem}
-.map-popup-btn{
-  display:block;width:100%;text-align:center;
-  background:var(--black);color:#fff;
-  font-size:12.5px;font-weight:600;padding:.5rem;border-radius:8px;
-  text-decoration:none;transition:background .2s;
-}
-.map-popup-btn:hover{background:#333}
+#map{height:460px;width:100%;border:none}
+#map iframe{width:100%;height:100%;border:none}
 @media(max-width:768px){#map{height:340px}}
 
 /* ── FOOTER ── */
@@ -880,7 +1005,7 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
     <a href="#amenidades">Amenidades</a>
     <a href="#resenas">Reseñas</a>
     <a href="#faq">FAQ</a>
-    <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta">Reservar ahora</a>
+    <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20barrioinn.com%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta">Reservar ahora</a>
   </div>
   <button onclick="abrirAdmin()" class="nav-admin-btn" title="Administrador" aria-label="Admin">🔐</button>
   <button class="hamburger" id="hamburger" aria-label="Menú">
@@ -895,7 +1020,7 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
   <a href="#amenidades" onclick="closeMobile()">Amenidades</a>
   <a href="#resenas" onclick="closeMobile()">Reseñas</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta" style="color:#fff">Reservar</a>
+  <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20barrioinn.com%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta" style="color:#fff">Reservar</a>
 </div>
 
 <!-- HERO -->
@@ -912,7 +1037,7 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
         Ver propiedades
         <div class="btn-hero-icon">🏠</div>
       </a>
-      <a href="https://wa.me/5218110645136?text=Hola%2C%20me%20interesa%20hospedarme%20en%20Barrio%20Inn." target="_blank" class="btn-hero-ghost">
+      <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20barrioinn.com%20y%20me%20interesa%20hospedarme.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="btn-hero-ghost">
         💬 Hablar con nosotros
       </a>
     </div>
@@ -953,6 +1078,18 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
       <span class="statement-tag">☕ Café de cortesía</span>
       <span class="statement-tag">❄️ Mini Split</span>
       <span class="statement-tag">📺 Smart TV</span>
+    </div>
+    <div class="statement-tags-extra">
+      <span class="statement-tag">🧴 Amenidades de baño</span>
+      <span class="statement-tag">🍳 Cocina comunal</span>
+      <span class="statement-tag">🧺 Ropa de cama incluida</span>
+      <span class="statement-tag">🐾 Pet-friendly (select)</span>
+      <span class="statement-tag">🅿️ Estacionamiento cercano</span>
+      <span class="statement-tag">🏊 Alberca (select)</span>
+      <span class="statement-tag">📍 Macroplaza 600m</span>
+      <span class="statement-tag">🎨 MARCO 500m</span>
+      <span class="statement-tag">🍽️ Restaurantes al paso</span>
+      <span class="statement-tag">🔒 Acceso controlado</span>
     </div>
   </div>
 </div>
@@ -1118,19 +1255,91 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
     <div class="props-grid" id="complejosGrid">
       <!-- Renderizado dinámicamente -->
     </div>
-    <!-- VISTA UNIDADES (drill-down) -->
-    <div id="unidadesView" style="display:none">
-      <div class="unidades-header">
-        <button class="unidades-back" onclick="volverComplejos()">← Volver a complejos</button>
-        <div>
-          <div class="section-eyebrow" id="unidadesEyebrow">Complejo</div>
-          <h2 class="section-title" id="unidadesTitulo" style="margin-bottom:.25rem"></h2>
-          <p class="section-sub" id="unidadesSub"></p>
+  </div>
+</section>
+
+<!-- ═══════════ DETAIL FULLPAGE ═══════════ -->
+<section class="detail-fullpage" id="detailFullpage">
+  <!-- Fixed back button -->
+  <button class="detail-back-fixed" onclick="volverComplejos()">← Volver a complejos</button>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="detail-breadcrumb">
+      <a href="#" onclick="volverComplejos();return false;">Inicio</a>
+      <span class="bc-sep">›</span>
+      <a href="#" onclick="volverComplejos();return false;">Complejos</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bcComplejoName"></span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="detail-title" id="detailTitulo"></h1>
+    <p class="detail-address" id="detailDireccion"></p>
+
+    <!-- Photo Gallery -->
+    <div class="detail-gallery" id="detailGallery" onclick="openDetailGallery()">
+    </div>
+
+    <!-- Layout: content + sidebar -->
+    <div class="detail-layout">
+      <div class="detail-content">
+        <!-- Tabs -->
+        <div class="detail-tabs" id="detailTabs">
+          <button class="detail-tab active" data-tab="overview" onclick="switchDetailTab('overview')">Descripción</button>
+          <button class="detail-tab" data-tab="services" onclick="switchDetailTab('services')">Servicios</button>
+          <button class="detail-tab" data-tab="access" onclick="switchDetailTab('access')">Acceso</button>
+        </div>
+
+        <!-- Tab: Overview -->
+        <div class="detail-tab-content active" id="tab-overview">
+          <p class="detail-desc" id="detailDesc"></p>
+          <div class="detail-stats" id="detailStatsRow"></div>
+          <h3 class="detail-spaces-title">Tipos de espacio</h3>
+          <div class="detail-spaces-grid" id="detailSpacesPreview"></div>
+        </div>
+
+        <!-- Tab: Services -->
+        <div class="detail-tab-content" id="tab-services">
+          <h3 class="detail-spaces-title">Servicios incluidos</h3>
+          <div class="detail-services-grid" id="detailServicesGrid"></div>
+        </div>
+
+        <!-- Tab: Access -->
+        <div class="detail-tab-content" id="tab-access">
+          <h3 class="detail-spaces-title">Cómo llegar</h3>
+          <div class="detail-map-wrap" id="detailMapWrap">
+            <div id="detailMap"></div>
+            <div class="detail-map-addr" id="detailMapAddr">
+              <div class="detail-map-addr-title" id="detailMapTitle"></div>
+              <div class="detail-map-addr-sub" id="detailMapSub"></div>
+              <div class="detail-map-addr-links" id="detailMapLinks"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="props-grid" id="propsGrid">
-        <!-- Renderizado dinámicamente -->
+
+      <!-- Sidebar: Booking only -->
+      <div>
+        <div class="detail-contact">
+          <div class="detail-contact-title">Reserva este espacio</div>
+          <div class="detail-contact-sub">¿Quieres reservar o necesitas más información? Escríbenos directo.</div>
+          <!-- Booking buttons -->
+          <div class="detail-booking-btns" id="detailBookingBtns">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Properties of this complex - HORIZONTAL SCROLL -->
+    <div class="detail-others-row">
+      <h2 class="detail-others-title" id="detailPropsTitle">Propiedades en este complejo</h2>
+    </div>
+  </div>
+  <div class="detail-props-scroll-wrap">
+    <div class="detail-props-scroll" id="propsGrid">
+      <!-- Rendered by JS - clean FlowSpace-style cards -->
     </div>
   </div>
 </section>
@@ -1320,7 +1529,7 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
     <div class="cta-left">
       <h2>¿Listo para vivir Monterrey desde adentro?</h2>
       <p>Escríbenos directo. Respondemos rápido y te ayudamos a elegir la mejor opción para tu estadía.</p>
-      <a href="https://wa.me/5218110645136?text=Hola%2C%20estoy%20listo%20para%20reservar%20en%20Barrio%20Inn.%20%C2%BFPueden%20ayudarme%20a%20elegir%20la%20mejor%20opci%C3%B3n%3F" target="_blank" class="btn-cta-primary">
+      <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20barrioinn.com%20y%20estoy%20listo%20para%20reservar.%20%C2%BFPueden%20ayudarme%20a%20elegir%20la%20mejor%20opci%C3%B3n%3F" target="_blank" class="btn-cta-primary">
         Escribir por WhatsApp
         <div class="btn-icon">💬</div>
       </a>
@@ -1585,7 +1794,7 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
 </div>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20su%20p%C3%A1gina%20de%20Barrio%20Inn%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20hospedajes." target="_blank" class="wa-float" aria-label="WhatsApp Barrio Inn">
+<a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20barrioinn.com%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20hospedajes.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="wa-float" aria-label="WhatsApp Barrio Inn">
   <span class="wa-icon">💬</span>
   <span class="wa-label">Reservar</span>
 </a>
@@ -1739,37 +1948,209 @@ function abrirComplejo(id){
   complejoActivo = complejos.find(c => c.id === id);
   if(!complejoActivo) return;
 
-  document.getElementById('complejosGrid').style.display = 'none';
-  document.getElementById('unidadesView').style.display  = 'block';
-  document.getElementById('propsHeaderMain').style.display = 'none';
+  // Fullpage takeover
+  document.body.classList.add('detail-active');
+  window.scrollTo({top:0,behavior:'instant'});
 
-  document.getElementById('unidadesEyebrow').textContent = 'Complejo ' + complejoActivo.nombre;
-  document.getElementById('unidadesTitulo').textContent  = complejoActivo.nombre;
-  document.getElementById('unidadesSub').textContent     = complejoActivo.direccion;
+  // Breadcrumb + title
+  document.getElementById('bcComplejoName').textContent = complejoActivo.nombre;
+  document.getElementById('detailTitulo').textContent   = complejoActivo.nombre;
+  document.getElementById('detailDireccion').textContent = complejoActivo.direccion;
 
+  // Gallery
+  renderDetailGallery(complejoActivo);
+
+  // Props of this complex
+  const props = propiedades.filter(p => p.complejo === id);
+
+  // Overview description
+  const descriptions = {
+    abasolo: 'Ubicada en la calle José Abasolo, esta propiedad ofrece un ambiente tranquilo en pleno Barrio Antiguo. Con acceso autónomo 24h, WiFi de alta velocidad y habitaciones equipadas con Smart TV, es ideal para viajeros de negocios o turistas que buscan comodidad y ubicación privilegiada.',
+    morelos: 'En la calle principal del Barrio Antiguo, Morelos es nuestra propiedad con mayor vida. Rodeada de bares, restaurantes y galerías, ofrece una experiencia inmejorable para quienes quieren vivir Monterrey desde adentro. A pasos de todo.',
+    roma: 'Fuera del centro histórico, en la colonia Roma Sur, esta propiedad ofrece lofts tipo estudio con vista al skyline de Monterrey. Ideal para estancias largas, nómadas digitales y viajeros que buscan un espacio amplio y tranquilo. Pet-friendly.',
+    aldea: 'Aldea es un espacio comunitario con alberca, cocina compartida y ambiente social. Perfecta para viajeros que buscan conectar con otros huéspedes mientras disfrutan de una ubicación céntrica cerca del MARCO y la Macroplaza.',
+    sanjeronimo: 'En zona residencial de San Jerónimo, esta propiedad ofrece tranquilidad, acceso controlado y estacionamiento. Ideal para familias o viajeros que prefieren un entorno más sereno sin alejarse demasiado del centro.',
+    padremier: 'Sobre Padre Mier, a pasos de la Macroplaza y el Museo MARCO. Esta propiedad combina la ubicación más céntrica con el carácter auténtico del Barrio Antiguo. Perfecta para explorar Monterrey a pie.',
+  };
+  document.getElementById('detailDesc').textContent = descriptions[id] || 'Complejo de hospedaje boutique en el corazón de Monterrey, equipado con todo lo necesario para una estancia cómoda y memorable.';
+
+  // Stats
+  const unidadesCount = props.length || complejoActivo.unidades;
+  document.getElementById('detailStatsRow').innerHTML = `
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><span class="iso-e">🏠</span></div><span class="detail-stat-text">${unidadesCount} unidades</span></div>
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><span class="iso-e">👥</span></div><span class="detail-stat-text">${unidadesCount * 2} huéspedes</span></div>
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><span class="iso-e">⭐</span></div><span class="detail-stat-text">4.82 promedio</span></div>
+  `;
+
+  // Spaces preview
+  const spaceTypes = [
+    {icon:'🛏️',name:'Habitación privada',sub:'Tu propio espacio, cada noche'},
+    {icon:'🏢',name:'Loft / Estudio',sub:'Espacio amplio para estancias largas'},
+    {icon:'👥',name:'Sala común',sub:'Donde las ideas se encuentran'},
+    {icon:'🔄',name:'Espacio flexible',sub:'Sin asignación fija, máxima libertad'},
+  ];
+  if(id === 'aldea') spaceTypes.push({icon:'🏊',name:'Alberca',sub:'Refréscate entre el ajetreo del barrio'});
+  if(id === 'roma') spaceTypes[3] = {icon:'🐾',name:'Pet-friendly',sub:'Tu mascota también es bienvenida'};
+  document.getElementById('detailSpacesPreview').innerHTML = spaceTypes.map(s => `
+    <div class="detail-space-card">
+      <div class="iso-icon-wrap"><span class="iso-e">${s.icon}</span></div>
+      <div><div class="detail-space-name">${s.name}</div><div class="detail-space-sub">${s.sub}</div></div>
+    </div>
+  `).join('');
+
+  // Services
+  const services = [
+    {icon:'🔐',name:'Smart Lock 24h'},{icon:'📶',name:'WiFi 100+ Mbps'},
+    {icon:'📺',name:'Smart TV'},{icon:'❄️',name:'Mini Split A/C'},
+    {icon:'☕',name:'Café de cortesía'},{icon:'🛡️',name:'Seguridad 24/7'},
+    {icon:'🧴',name:'Amenidades de baño'},{icon:'🧺',name:'Ropa de cama incluida'},
+    {icon:'📄',name:'Factura CFDI'},{icon:'🍳',name:'Cocina comunal'},
+  ];
+  if(id === 'aldea') services.push({icon:'🏊',name:'Alberca'});
+  if(id === 'sanjeronimo') services.push({icon:'🅿️',name:'Estacionamiento'});
+  document.getElementById('detailServicesGrid').innerHTML = services.map(s => `
+    <div class="detail-service-item"><div class="svc-icon-wrap"><span class="iso-e">${s.icon}</span></div>${s.name}</div>
+  `).join('');
+
+  // Render property cards with FULL booking buttons at bottom
+  document.getElementById('detailPropsTitle').textContent = 'Propiedades en ' + complejoActivo.nombre;
   renderizarPropiedadesDeComplejo(id);
+
+  // Access map
+  renderDetailMap(complejoActivo, props);
+
+  // Booking buttons in contact card with specific WhatsApp messages
+  const firstProp = props[0] || {};
+  const bookingBtns = document.getElementById('detailBookingBtns');
+  const waBase = 'https://wa.me/528110645136?text=';
+  const waMsgComplejo = encodeURIComponent('Hola, vi en barrioinn.com el complejo ' + complejoActivo.nombre + ' (' + complejoActivo.direccion + ') y me gustaría rentarlo. ¿Tienen disponibilidad?');
+  let bbHTML = '';
+  if(firstProp.airbnb) bbHTML += '<a href="' + firstProp.airbnb + '" target="_blank" class="bb-airbnb"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.4 4.8 3.6 8.4 3.6 13.2c0 4.6 3.8 8.4 8.4 8.4s8.4-3.8 8.4-8.4C20.4 8.4 15.6 4.8 12 0zm0 19.2c-3.3 0-6-2.7-6-6 0-2.8 3-5.8 6-9.6 3 3.8 6 6.8 6 9.6 0 3.3-2.7 6-6 6z"/></svg> Airbnb</a>';
+  bbHTML += '<a href="' + waBase + waMsgComplejo + '" target="_blank" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
+  if(firstProp.direccionUrl) bbHTML += '<a href="' + firstProp.direccionUrl + '" target="_blank" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
+  bbHTML += '<a href="tel:52' + (firstProp.telefono || '8110645136') + '" class="bb-tel"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar</a>';
+  if(firstProp.belong) bbHTML = '<a href="' + firstProp.belong + '" target="_blank" class="bb-airbnb" style="grid-column:1/-1;background:linear-gradient(135deg,#A31635,#C4203F)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7z"/></svg> Reservar en Belong</a>' + bbHTML;
+  bookingBtns.innerHTML = bbHTML;
+
+  // Default tab
+  switchDetailTab('overview');
 }
 
 function volverComplejos(){
   complejoActivo = null;
-  document.getElementById('complejosGrid').style.display  = '';
-  document.getElementById('unidadesView').style.display   = 'none';
-  document.getElementById('propsHeaderMain').style.display = '';
+  document.body.classList.remove('detail-active');
+  setTimeout(function(){
+    var el = document.getElementById('propiedades');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 100);
 }
+
+// Detail gallery
+function renderDetailGallery(c){
+  const gallery = document.getElementById('detailGallery');
+  const props = propiedades.filter(p => p.complejo === c.id);
+  let allFotos = [];
+  if(c.foto) allFotos.push(c.foto);
+  props.forEach(p => { if(p.fotos) allFotos = allFotos.concat(p.fotos); });
+  allFotos = allFotos.filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
+
+  const ph = (big) => '<div class="gallery-ph">' + (big ? '🏨' : '🏠') + '</div>';
+
+  if(allFotos.length === 0){
+    gallery.innerHTML = '<div class="detail-gallery-main">' + ph(true) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>';
+  } else {
+    function imgTag(src, cls, alt){
+      const el = document.createElement('div');
+      el.className = cls;
+      const img = document.createElement('img');
+      img.src = src; img.alt = alt; img.loading = 'lazy';
+      img.onerror = function(){ this.parentElement.innerHTML = ph(cls.includes('main')); };
+      el.appendChild(img);
+      return el;
+    }
+    gallery.innerHTML = '';
+    // Main image
+    gallery.appendChild(imgTag(allFotos[0], 'detail-gallery-main', c.nombre));
+    // Thumbnails
+    for(let i = 1; i < 5; i++){
+      if(allFotos[i]){
+        const thumb = imgTag(allFotos[i], 'detail-gallery-thumb', c.nombre + ' ' + (i+1));
+        if(i === 4 && allFotos.length > 5){
+          const badge = document.createElement('div');
+          badge.className = 'detail-gallery-count';
+          badge.textContent = '+' + (allFotos.length - 5) + ' fotos';
+          thumb.appendChild(badge);
+        }
+        gallery.appendChild(thumb);
+      } else {
+        const d = document.createElement('div');
+        d.className = 'detail-gallery-thumb';
+        d.innerHTML = ph(false);
+        gallery.appendChild(d);
+      }
+    }
+  }
+  gallery._fotos = allFotos;
+}
+
+function openDetailGallery(){
+  const gallery = document.getElementById('detailGallery');
+  const fotos = gallery._fotos || [];
+  if(fotos.length) openLightbox(fotos, 0);
+}
+
+// Tab switching
+function switchDetailTab(tabId){
+  document.querySelectorAll('.detail-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+  document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
+  const content = document.getElementById('tab-' + tabId);
+  if(content) content.classList.add('active');
+}
+
+// Detail map - Google Maps iframe
+let detailLeafletMap = null; // kept for compatibility
+
+function renderDetailMap(c, props){
+  const mapEl = document.getElementById('detailMap');
+  const propsWithCoords = props.filter(p => p.lat && p.lng);
+  if(!propsWithCoords.length){ mapEl.innerHTML = ''; return; }
+
+  const centerLat = propsWithCoords.reduce((s,p) => s + p.lat, 0) / propsWithCoords.length;
+  const centerLng = propsWithCoords.reduce((s,p) => s + p.lng, 0) / propsWithCoords.length;
+
+  mapEl.innerHTML = '<iframe src="https://maps.google.com/maps?q=' + centerLat + ',' + centerLng + '&z=17&output=embed&t=m" allowfullscreen loading="lazy"></iframe>';
+
+  document.getElementById('detailMapTitle').textContent = c.direccion;
+  document.getElementById('detailMapSub').textContent = c.direccion;
+
+  const gmapUrl = 'https://www.google.com/maps/search/?api=1&query=' + centerLat + ',' + centerLng;
+  document.getElementById('detailMapLinks').innerHTML = '<a href="' + gmapUrl + '" target="_blank" class="detail-map-addr-link" title="Abrir en Google Maps">🔗</a><a href="' + gmapUrl + '" target="_blank" class="detail-map-addr-link" title="Direcciones">🧭</a>';
+}
+
+// (renderOtherComplejos removed - now showing properties of same complex at bottom)
 
 function renderizarPropiedadesDeComplejo(complejoId){
   const grid  = document.getElementById('propsGrid');
   const props = propiedades.filter(p => p.complejo === complejoId);
 
   if(!props.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--gray-400)">
-      <p style="font-size:2.5rem;margin-bottom:1rem">🏗️</p>
-      <p style="font-size:16px;font-weight:600;margin-bottom:.5rem">Sin unidades registradas</p>
-      <p style="font-size:14px">Agrega unidades desde el panel de administración.</p>
-    </div>`;
+    grid.innerHTML = '<div style="padding:3rem 2rem;color:var(--gray-400);text-align:center;width:300px"><p style="font-size:2rem;margin-bottom:.5rem">🏗️</p><p style="font-size:14px">Sin unidades registradas</p></div>';
     return;
   }
-  grid.innerHTML = props.map(p => generarCardHTML(p)).join('');
+  grid.innerHTML = props.map(p => {
+    const foto = (p.fotos && p.fotos.length) ? p.fotos[0] : '';
+    const isUrl = foto && (foto.startsWith('http') || foto.startsWith('data:'));
+    const imgHTML = isUrl
+      ? '<img class="prop-scroll-card-img" src="' + foto + '" alt="' + p.nombre + '" loading="lazy"/>'
+      : '<div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><span class="iso-e">🏠</span></div><span style="font-size:12px;margin-top:4px">' + p.nombre + '</span></div>';
+    return '<div class="prop-scroll-card">' +
+      imgHTML +
+      '<div class="prop-scroll-card-overlay"><div><div class="prop-scroll-card-name">' + p.nombre + '</div><div class="prop-scroll-card-addr">' + (p.direccion || '') + '</div></div><div class="prop-scroll-card-view">Ver →</div></div></div>';
+  }).join('');
   iniciarCarruseles();
 }
 
@@ -1801,7 +2182,7 @@ function generarCardHTML(p){
   const tagsHTML   = (p.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
   const cercanosHTML = (p.cercanos||[]).map(c=>`<div class="prop-highlight">${c}</div>`).join('');
 
-  const waMsg = encodeURIComponent(`Hola, me interesa reservar en ${p.nombre} (${p.direccion}). ¿Tienen disponibilidad?`);
+  const waMsg = encodeURIComponent(`Hola, vi en barrioinn.com la propiedad ${p.nombre} (${p.direccion}) y me gustaría rentarla. ¿Tienen disponibilidad?`);
   const telLink = p.telefono ? `tel:52${p.telefono}` : '#';
   const waLink  = `https://wa.me/52${p.telefono||'8110645136'}?text=${waMsg}`;
 
@@ -2327,8 +2708,8 @@ let leafletMap = null;
 let mapMarkers = [];
 
 function initMap(){
-  if(typeof L === 'undefined') return;
-  if(leafletMap){ leafletMap.remove(); leafletMap = null; }
+  const mapEl = document.getElementById('map');
+  if(!mapEl) return;
 
   const propConCoords = propiedades.filter(p => p.lat && p.lng);
   if(!propConCoords.length) return;
@@ -2336,44 +2717,11 @@ function initMap(){
   const centerLat = propConCoords.reduce((s, p) => s + p.lat, 0) / propConCoords.length;
   const centerLng = propConCoords.reduce((s, p) => s + p.lng, 0) / propConCoords.length;
 
-  leafletMap = L.map('map', { center:[centerLat,centerLng], zoom:14, zoomControl:true, scrollWheelZoom:false, attributionControl:true });
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> © <a href="https://carto.com/attributions" target="_blank">CARTO</a>',
-    subdomains:'abcd', maxZoom:19
-  }).addTo(leafletMap);
-
-  const crearIcono = (color) => L.divIcon({
-    className:'',
-    html:`<div style="width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${color};border:3px solid #fff;box-shadow:0 3px 14px rgba(0,0,0,.35);"></div>`,
-    iconSize:[34,34], iconAnchor:[17,34], popupAnchor:[0,-36]
-  });
-
-  mapMarkers = [];
-  propConCoords.forEach(prop => {
-    const fotoSrc = (prop.fotos && prop.fotos.length) ? prop.fotos[0] : '';
-    const imgHtml = fotoSrc
-      ? `<img class="map-popup-img" src="${fotoSrc}" alt="${prop.nombre}" onerror="this.parentElement.innerHTML='<div class=map-popup-img-placeholder>🏠</div>'"/>`
-      : `<div class="map-popup-img-placeholder">🏠</div>`;
-
-    const popup = `<div>
-      ${imgHtml}
-      <div class="map-popup-body">
-        <p class="map-popup-name">${prop.nombre}</p>
-        <p class="map-popup-addr">${prop.direccion||''}</p>
-        <a class="map-popup-btn" href="#prop-${prop.id}" onclick="document.getElementById('lightbox')&&closeLightbox();document.querySelector('[data-prop=${prop.id}]')&&document.querySelector('[data-prop=${prop.id}]').scrollIntoView({behavior:'smooth',block:'center'})">Ver propiedad →</a>
-      </div>
-    </div>`;
-
-    const marker = L.marker([prop.lat, prop.lng], { icon: crearIcono('#111111') })
-      .addTo(leafletMap)
-      .bindPopup(popup, { maxWidth:240, className:'' });
-    mapMarkers.push(marker);
-  });
+  mapEl.innerHTML = '<iframe src="https://maps.google.com/maps?q=' + centerLat + ',' + centerLng + '&z=14&output=embed&t=m" allowfullscreen loading="lazy" style="width:100%;height:100%;border:none"></iframe>';
 }
 
 function actualizarMapa(){
-  if(typeof L !== 'undefined') initMap();
+  initMap();
 }
 
 // ═══════════════════════════════════════════════
@@ -2384,6 +2732,6 @@ renderizarPropiedades();
 renderMarquee();
 window.addEventListener('load', renderMarquee);
 </script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onload="initMap()"></script>
+<script>initMap();</script>
 </body>
 </html>
