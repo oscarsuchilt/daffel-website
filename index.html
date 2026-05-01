@@ -220,7 +220,72 @@ section{padding:6rem 5%}
 .why-card h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:.5rem}
 .why-card p{font-size:14px;color:var(--text2);line-height:1.65}
 
-/* ── PROPIEDADES ── */
+/* ── COMPLEJOS ── */
+.complejo-card{
+  background:var(--white);border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid rgba(28,28,26,.07);cursor:pointer;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  position:relative;
+}
+.complejo-card:hover{transform:translateY(-10px);box-shadow:0 28px 72px rgba(28,28,26,.15)}
+.complejo-img{
+  height:240px;width:100%;object-fit:cover;display:block;
+  background:var(--cream2);
+  transition:transform .5s ease;
+}
+.complejo-card:hover .complejo-img{transform:scale(1.04)}
+.complejo-img-wrap{height:240px;overflow:hidden;position:relative;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.complejo-img-wrap::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to top,rgba(17,27,53,.55) 0%,transparent 100%);pointer-events:none;
+}
+.complejo-overlay{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:1.25rem 1.5rem;display:flex;align-items:flex-end;justify-content:space-between;
+}
+.complejo-name{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;color:#fff;line-height:1.1}
+.complejo-addr{font-size:12px;color:rgba(255,255,255,.65);margin-top:3px}
+.complejo-view-btn{
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  color:var(--navy);font-size:12px;font-weight:700;
+  padding:.45rem 1.1rem;border-radius:50px;white-space:nowrap;
+  border:none;cursor:pointer;flex-shrink:0;
+  transition:background .2s,transform .2s;
+}
+.complejo-card:hover .complejo-view-btn{background:#fff;transform:scale(1.04)}
+.complejo-body{padding:1.25rem 1.5rem 1.5rem}
+.complejo-units{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--text2);font-weight:500;margin-bottom:.75rem;
+}
+.complejo-units-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.complejo-tags{display:flex;flex-wrap:wrap;gap:5px}
+
+/* ── UNIDADES DRILL-DOWN ── */
+.unidades-header{
+  display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem;
+  flex-wrap:wrap;
+}
+.unidades-back{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--white);border:1.5px solid rgba(28,28,26,.12);
+  color:var(--navy);font-size:13px;font-weight:600;
+  padding:.6rem 1.25rem;border-radius:50px;cursor:pointer;
+  transition:background .2s,border-color .2s,transform .2s;
+  white-space:nowrap;margin-top:.35rem;flex-shrink:0;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.unidades-back:hover{background:var(--cream2);border-color:rgba(28,28,26,.22);transform:translateX(-3px)}
+
+/* ── COMPLEJO PLACEHOLDER IMG ── */
+.complejo-placeholder{
+  height:100%;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;color:var(--text3);background:var(--cream2);
+}
+.complejo-placeholder .ph-icon{font-size:44px;opacity:.35}
+.complejo-placeholder .ph-label{font-size:12px;opacity:.5}
+
+
 .propiedades{background:var(--cream)}
 .props-header{margin-bottom:3.5rem}
 .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
@@ -702,9 +767,9 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 .marquee-outer::after{right:0;background:linear-gradient(to left,var(--navy2),transparent)}
 .marquee-track{
   display:flex;gap:16px;width:max-content;
-  animation:marqueeScroll 50s linear infinite;
+  will-change:transform;
+  user-select:none;
 }
-.marquee-track:hover{animation-play-state:paused}
 .marquee-item{
   position:relative;flex-shrink:0;
   width:320px;height:220px;border-radius:var(--r-lg);
@@ -720,10 +785,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
   font-size:12px;font-weight:500;color:rgba(250,250,247,.85);
 }
 .marquee-item-ph{width:100%;height:100%;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:36px;opacity:.4}
-@keyframes marqueeScroll{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
 @media(max-width:1024px){.marquee-item{width:calc(100vw / 3 - 16px)}}
 @media(max-width:768px){.marquee-item{width:calc(100vw / 1.55 - 16px);height:190px}}
 @media(max-width:480px){.marquee-item{height:170px}}
@@ -919,13 +980,28 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 <!-- PROPIEDADES -->
 <section class="propiedades reveal" id="propiedades">
   <div class="container">
-    <div class="props-header">
+    <div class="props-header" id="propsHeaderMain">
       <div class="section-eyebrow">Nuestras propiedades</div>
       <h2 class="section-title">Elige tu espacio</h2>
-      <p class="section-sub">Cuatro complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
+      <p class="section-sub">Seis complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
     </div>
-    <div class="props-grid" id="propsGrid">
-      <!-- Renderizado dinámicamente por JavaScript -->
+    <!-- VISTA COMPLEJOS -->
+    <div class="props-grid" id="complejosGrid">
+      <!-- Renderizado dinámicamente -->
+    </div>
+    <!-- VISTA UNIDADES (drill-down) -->
+    <div id="unidadesView" style="display:none">
+      <div class="unidades-header">
+        <button class="unidades-back" onclick="volverComplejos()">← Volver a complejos</button>
+        <div>
+          <div class="section-eyebrow" id="unidadesEyebrow">Complejo</div>
+          <h2 class="section-title" id="unidadesTitulo" style="margin-bottom:.25rem"></h2>
+          <p class="section-sub" id="unidadesSub"></p>
+        </div>
+      </div>
+      <div class="props-grid" id="propsGrid">
+        <!-- Renderizado dinámicamente -->
+      </div>
     </div>
   </div>
 </section>
@@ -1125,10 +1201,8 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 </section>
 
 <!-- MAPA -->
-<div class="marquee" style="background:red; padding:40px;">
-  <div id="marqueeTrack" style="color:white;">
-    SI VES ESTO YA FUNCIONA
-  </div>
+<div class="marquee">
+  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
 <section class="mapa-section reveal" id="mapa">
@@ -1147,9 +1221,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 </section>
 
 <!-- FOOTER -->
- 
-  <div class="marquee-track" id="marqueeTrack"></div>
-</div>
 <footer>
   <div class="container">
     <div class="footer-top">
@@ -1196,104 +1267,165 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <div class="dash-title">Panel de Administración</div>
     <p class="dash-subtitle">Solo visible para administradores · Los cambios se guardan en este navegador automáticamente.</p>
 
-    <div class="dash-panel">
-      <div class="dash-panel-title" id="dash-form-title">✦ Agregar nueva propiedad</div>
-      <div id="dash-editing-badge" style="display:none" class="dash-editing-badge">✏ Modo edición activo — modifica los campos y guarda</div>
-      <div class="dash-form-grid">
-        <div class="dash-field">
-          <label class="dash-label">Nombre *</label>
-          <input class="dash-input" id="dash-nombre" type="text" placeholder="Casa Abasolo"/>
+    <!-- ── VISTA PRINCIPAL: COMPLEJOS ── -->
+    <div id="dash-view-complejos">
+      <div class="dash-panel">
+        <div class="dash-panel-title">🏘 Complejos</div>
+        <div class="dash-props-list" id="dashComplejosList">
+          <p class="dash-empty">Cargando...</p>
         </div>
-        <div class="dash-field">
-          <label class="dash-label">Badge (zona)</label>
-          <input class="dash-input" id="dash-badge" type="text" placeholder="Barrio Antiguo"/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Dirección (texto visible)</label>
-          <input class="dash-input" id="dash-direccion" type="text" placeholder="Calle Morelos, Centro Histórico"/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Link Google Maps</label>
-          <input class="dash-input" id="dash-direccion-url" type="url" placeholder="https://maps.app.goo.gl/..."/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Rating (ej. 4.82 · 130)</label>
-          <input class="dash-input" id="dash-rating" type="text" placeholder="4.82 · 130"/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Teléfono (10 dígitos, sin lada)</label>
-          <input class="dash-input" id="dash-telefono" type="tel" maxlength="10" placeholder="8110645136" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
-        </div>
-        <div class="dash-field full">
-          <label class="dash-label">Tags (separados por comas)</label>
-          <input class="dash-input" id="dash-tags" type="text" placeholder="Cama King, Baño privado, Smart Lock, WiFi"/>
-        </div>
-        <div class="dash-field full">
-          <label class="dash-label">Lugares cercanos (separados por comas)</label>
-          <input class="dash-input" id="dash-cercanos" type="text" placeholder="Macroplaza a 600m, MARCO 500m, 7-Eleven 10m"/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Link Belong</label>
-          <input class="dash-input" id="dash-belong" type="url" placeholder="https://belongmx.com/..."/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Link Airbnb</label>
-          <input class="dash-input" id="dash-airbnb" type="url" placeholder="https://airbnb.mx/rooms/..."/>
-        </div>
-        <div class="dash-field full">
-          <label class="dash-label">Link Expedia</label>
-          <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Latitud (GPS)</label>
-          <input class="dash-input" id="dash-lat" type="number" step="0.000001" placeholder="25.6697"/>
-        </div>
-        <div class="dash-field">
-          <label class="dash-label">Longitud (GPS)</label>
-          <input class="dash-input" id="dash-lng" type="number" step="0.000001" placeholder="-100.3108"/>
-        </div>
-        <div class="dash-field full">
-          <label class="dash-label">Fotos (máximo 5 imágenes)</label>
-          <div class="dash-file-area" onclick="document.getElementById('fotos').click()">
-            <label class="dash-file-label">
-              <strong>📷 Seleccionar imágenes</strong><br/>
-              JPG, PNG, WebP · Máximo 5 archivos
-            </label>
+      </div>
+
+      <!-- FORM EDITAR COMPLEJO (oculto hasta que se abre) -->
+      <div class="dash-panel" id="dash-complejo-form-panel" style="display:none">
+        <div class="dash-panel-title" id="dash-complejo-form-title">✦ Editar complejo</div>
+        <div class="dash-form-grid">
+          <div class="dash-field">
+            <label class="dash-label">Nombre del complejo *</label>
+            <input class="dash-input" id="dc-nombre" type="text" placeholder="Abasolo"/>
           </div>
-          <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*"/>
-          <p class="dash-preview" id="fotos-preview"></p>
+          <div class="dash-field">
+            <label class="dash-label">Dirección</label>
+            <input class="dash-input" id="dc-direccion" type="text" placeholder="José Abasolo, Barrio Antiguo"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Número de unidades (referencia)</label>
+            <input class="dash-input" id="dc-unidades" type="number" placeholder="6"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Tags (separadas por coma)</label>
+            <input class="dash-input" id="dc-tags" type="text" placeholder="Smart Lock, WiFi, Centro Histórico"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Foto del complejo (portada)</label>
+            <div class="dash-file-area" onclick="document.getElementById('dc-foto-input').click()">
+              <label class="dash-file-label"><strong>📷 Seleccionar imagen</strong><br/>JPG, PNG, WebP</label>
+            </div>
+            <input type="file" id="dc-foto-input" class="dash-file-input" accept="image/*"/>
+            <p class="dash-preview" id="dc-foto-preview"></p>
+          </div>
+        </div>
+        <div class="dash-actions">
+          <button class="dash-btn primary" onclick="guardarComplejo()">✓ Guardar complejo</button>
+          <button class="dash-btn ghost" onclick="cerrarFormComplejo()">✕ Cancelar</button>
         </div>
       </div>
-      <div class="dash-actions">
-        <button class="dash-btn primary" id="dash-save-btn" onclick="guardarPropiedad()">＋ Agregar propiedad</button>
-        <button class="dash-btn ghost" onclick="limpiarFormulario()">✕ Cancelar</button>
+
+      <!-- GALERÍA -->
+      <div class="dash-panel">
+        <div class="dash-panel-title">🖼 Galería Turística · Marquee</div>
+        <p style="font-size:12px;color:rgba(250,250,247,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel del sitio. Se comprimen automáticamente.</p>
+        <div class="dash-file-area" onclick="document.getElementById('galeriaInput').click()">
+          <label class="dash-file-label"><strong>📷 Subir fotos de Monterrey</strong><br/>JPG, PNG, WebP · Sin límite de archivos</label>
+        </div>
+        <input type="file" id="galeriaInput" class="dash-file-input" multiple accept="image/*"/>
+        <p class="dash-preview" id="galeria-preview"></p>
+        <div class="dash-gallery-grid" id="galeriaGrid">
+          <p class="dash-gallery-empty">Sin fotos aún.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="dash-btn danger" onclick="resetearDatos()">↺ Restaurar datos originales</button>
+        <button class="dash-btn ghost" onclick="cerrarDashboard()">✕ Cerrar panel</button>
       </div>
     </div>
 
-    <div class="dash-panel">
-      <div class="dash-panel-title">🏠 Propiedades actuales</div>
-      <div class="dash-props-list" id="dashPropsList">
-        <p class="dash-empty">Cargando...</p>
+    <!-- ── VISTA DRILL-DOWN: UNIDADES DE UN COMPLEJO ── -->
+    <div id="dash-view-unidades" style="display:none">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap">
+        <button class="unidades-back" onclick="dashVolverComplejos()">← Volver a complejos</button>
+        <div>
+          <div class="dash-panel-title" style="margin:0" id="dash-unidades-titulo">Complejo</div>
+          <p style="font-size:12px;color:rgba(250,250,247,.32);margin-top:2px" id="dash-unidades-sub"></p>
+        </div>
+      </div>
+
+      <!-- LISTA UNIDADES DEL COMPLEJO -->
+      <div class="dash-panel">
+        <div class="dash-panel-title">🏠 Unidades en este complejo</div>
+        <div class="dash-props-list" id="dashPropsList">
+          <p class="dash-empty">Cargando...</p>
+        </div>
+      </div>
+
+      <!-- FORM AGREGAR / EDITAR UNIDAD -->
+      <div class="dash-panel">
+        <div class="dash-panel-title" id="dash-form-title">✦ Agregar nueva unidad</div>
+        <div id="dash-editing-badge" style="display:none" class="dash-editing-badge">✏ Modo edición activo</div>
+        <div class="dash-form-grid">
+          <div class="dash-field">
+            <label class="dash-label">Nombre de la unidad *</label>
+            <input class="dash-input" id="dash-nombre" type="text" placeholder="Habitación 101"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Badge (zona)</label>
+            <input class="dash-input" id="dash-badge" type="text" placeholder="Barrio Antiguo"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Dirección (texto visible)</label>
+            <input class="dash-input" id="dash-direccion" type="text" placeholder="Calle Morelos, Centro Histórico"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Google Maps</label>
+            <input class="dash-input" id="dash-direccion-url" type="url" placeholder="https://maps.app.goo.gl/..."/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Rating (ej. 4.82 · 130)</label>
+            <input class="dash-input" id="dash-rating" type="text" placeholder="4.82 · 130"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Teléfono (10 dígitos, sin lada)</label>
+            <input class="dash-input" id="dash-telefono" type="tel" maxlength="10" placeholder="8110645136" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Tags (separados por comas)</label>
+            <input class="dash-input" id="dash-tags" type="text" placeholder="Cama King, Baño privado, Smart Lock, WiFi"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Lugares cercanos (separados por comas)</label>
+            <input class="dash-input" id="dash-cercanos" type="text" placeholder="Macroplaza a 600m, MARCO 500m"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Belong</label>
+            <input class="dash-input" id="dash-belong" type="url" placeholder="https://belongmx.com/..."/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Airbnb</label>
+            <input class="dash-input" id="dash-airbnb" type="url" placeholder="https://airbnb.mx/rooms/..."/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Link Expedia</label>
+            <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Latitud (GPS)</label>
+            <input class="dash-input" id="dash-lat" type="number" step="0.000001" placeholder="25.6697"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Longitud (GPS)</label>
+            <input class="dash-input" id="dash-lng" type="number" step="0.000001" placeholder="-100.3108"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Fotos (máximo 5 imágenes)</label>
+            <div class="dash-file-area" onclick="document.getElementById('fotos').click()">
+              <label class="dash-file-label"><strong>📷 Seleccionar imágenes</strong><br/>JPG, PNG, WebP · Máximo 5 archivos</label>
+            </div>
+            <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*"/>
+            <p class="dash-preview" id="fotos-preview"></p>
+          </div>
+        </div>
+        <div class="dash-actions">
+          <button class="dash-btn primary" id="dash-save-btn" onclick="guardarPropiedad()">＋ Agregar unidad</button>
+          <button class="dash-btn ghost" onclick="limpiarFormulario()">✕ Cancelar</button>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="dash-btn ghost" onclick="cerrarDashboard()">✕ Cerrar panel</button>
       </div>
     </div>
 
-    <div class="dash-panel">
-      <div class="dash-panel-title">🖼 Galería Turística · Marquee</div>
-      <p style="font-size:12px;color:rgba(250,250,247,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel infinite del sitio. Se comprimen automáticamente a 1200px / 70% calidad.</p>
-      <div class="dash-file-area" onclick="document.getElementById('galeriaInput').click()">
-        <label class="dash-file-label"><strong>📷 Subir fotos de Monterrey</strong><br/>JPG, PNG, WebP · Sin límite de archivos</label>
-      </div>
-      <input type="file" id="galeriaInput" class="dash-file-input" multiple accept="image/*"/>
-      <p class="dash-preview" id="galeria-preview"></p>
-      <div class="dash-gallery-grid" id="galeriaGrid">
-        <p class="dash-gallery-empty">Sin fotos aún. Sube imágenes del Barrio Antiguo para el marquee.</p>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
-      <button class="dash-btn danger" onclick="resetearDatos()">↺ Restaurar datos originales</button>
-      <button class="dash-btn ghost" onclick="cerrarDashboard()">✕ Cerrar panel</button>
-    </div>
   </div>
 </section>
 
@@ -1322,9 +1454,20 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 // ═══════════════════════════════════════════════
 // DATOS Y PERSISTENCIA
 // ═══════════════════════════════════════════════
+
+// COMPLEJOS DEFAULT
+const COMPLEJOS_DEFAULT = [
+  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:6,  tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'' },
+  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:16, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'' },
+  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:17, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'' },
+  { id:'aldea',       nombre:'Aldea',        direccion:'Fonda & Aldea, Centro Histórico',        unidades:15, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'' },
+  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:26, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'' },
+  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:16, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'' },
+];
+
 const PROPIEDADES_DEFAULT = [
   {
-    id:'abasolo',
+    id:'abasolo_1', complejo:'abasolo',
     nombre:'Casa Abasolo',
     badge:'Barrio Antiguo',
     direccion:'José Abasolo, Centro Histórico',
@@ -1338,10 +1481,10 @@ const PROPIEDADES_DEFAULT = [
     airbnb:'https://www.airbnb.mx/rooms/865916915126616151',
     expedia:'',
     lat:25.6697,lng:-100.3108,
-    fotos:['ABASOLO_1','ABASOLO_2','ABASOLO_3','ABASOLO_4','ABASOLO_5']
+    fotos:['3','4','5','6','7']
   },
   {
-    id:'aldea',
+    id:'aldea_1',complejo:'aldea',
     nombre:'Aldea Morelos',
     badge:'Barrio Antiguo',
     direccion:'Fonda & Aldea, Centro Histórico',
@@ -1358,7 +1501,7 @@ const PROPIEDADES_DEFAULT = [
     fotos:['ALDEA_1','ALDEA_2','ALDEA_3','ALDEA_4','ALDEA_5','ALDEA_6','ALDEA_7','ALDEA_8']
   },
   {
-    id:'morelos',
+    id:'morelos_1',complejo:'morelos',
     nombre:'Barrio Inn Morelos',
     badge:'Barrio Antiguo',
     direccion:'Calle Morelos, Centro Histórico',
@@ -1372,10 +1515,10 @@ const PROPIEDADES_DEFAULT = [
     airbnb:'https://www.airbnb.mx/rooms/957511127263086841',
     expedia:'',
     lat:25.6690,lng:-100.3096,
-    fotos:['MORELOS_1','MORELOS_2','MORELOS_3','MORELOS_4','MORELOS_5','MORELOS_6']
+    fotos:['1','2','3','4','MO','MORELOS_6']
   },
   {
-    id:'pirineos',
+    id:'roma_1',complejo:'roma',
     nombre:'Loft Pirineos',
     badge:'Roma Sur',
     direccion:'Pirineos 1012, Roma Sur',
@@ -1393,7 +1536,8 @@ const PROPIEDADES_DEFAULT = [
   }
 ];
 
-const LS_KEY = 'barrioinn_propiedades_v2';
+const LS_KEY      = 'barrioinn_propiedades_v2';
+const LS_COMPLEJOS = 'barrioinn_complejos_v1';
 
 function cargarLS(){
   try {
@@ -1406,8 +1550,74 @@ function cargarLS(){
 function guardarLS(){
   localStorage.setItem(LS_KEY, JSON.stringify(propiedades));
 }
+function cargarComplejos(){
+  try {
+    const raw = localStorage.getItem(LS_COMPLEJOS);
+    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
+  } catch(e) {
+    return JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
+  }
+}
+function guardarComplejos(){
+  localStorage.setItem(LS_COMPLEJOS, JSON.stringify(complejos));
+}
 
 let propiedades = cargarLS();
+let complejos   = cargarComplejos();
+let complejoActivo = null;
+
+// ═══════════════════════════════════════════════
+// VISTA COMPLEJOS
+// ═══════════════════════════════════════════════
+function renderizarComplejos(){
+  const grid = document.getElementById('complejosGrid');
+  grid.innerHTML = complejos.map(c => {
+    const unidadesReales = propiedades.filter(p => p.complejo === c.id).length || c.unidades;
+    const tagsHTML = (c.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
+    const imgHTML = c.foto
+      ? `<img class="complejo-img" src="${c.foto}" alt="${c.nombre}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=complejo-placeholder><span class=ph-icon>🏨</span><span class=ph-label>${c.nombre}</span></div>'"/>`
+      : `<div class="complejo-placeholder"><span class="ph-icon">🏨</span><span class="ph-label">${c.nombre}</span></div>`;
+    return `<div class="complejo-card" onclick="abrirComplejo('${c.id}')">
+      <div class="complejo-img-wrap">
+        ${imgHTML}
+        <div class="complejo-overlay">
+          <div>
+            <div class="complejo-name">${c.nombre}</div>
+            <div class="complejo-addr">${c.direccion}</div>
+          </div>
+          <div class="complejo-view-btn">Ver →</div>
+        </div>
+      </div>
+      <div class="complejo-body">
+        <div class="complejo-units"><span class="complejo-units-dot"></span>${unidadesReales} unidades disponibles</div>
+        <div class="complejo-tags">${tagsHTML}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function abrirComplejo(id){
+  complejoActivo = id;
+  const c = complejos.find(x => x.id === id);
+  document.getElementById('complejosGrid').style.display = 'none';
+  document.getElementById('propsHeaderMain').style.display = 'none';
+  const unidadesView = document.getElementById('unidadesView');
+  unidadesView.style.display = 'block';
+  document.getElementById('unidadesEyebrow').textContent = 'Complejo ' + (c ? c.nombre : id);
+  document.getElementById('unidadesTitulo').textContent  = c ? c.nombre : id;
+  document.getElementById('unidadesSub').textContent     = c ? c.direccion : '';
+  renderizarPropiedades(id);
+  document.getElementById('propiedades').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function volverComplejos(){
+  complejoActivo = null;
+  document.getElementById('unidadesView').style.display = 'none';
+  document.getElementById('complejosGrid').style.display = 'grid';
+  document.getElementById('propsHeaderMain').style.display = 'block';
+}
+
+
 
 // ═══════════════════════════════════════════════
 // RENDER DE PROPIEDADES
@@ -1483,8 +1693,11 @@ function generarTarjeta(prop){
   </div>`;
 }
 
-function renderizarPropiedades(){
+function renderizarPropiedades(complejoId){
   const grid = document.getElementById('propsGrid');
+  const filtradas = complejoId
+    ? propiedades.filter(p => p.complejo === complejoId)
+    : propiedades;
 
   const comingSoon = `<div class="prop-card coming-soon">
     <div class="coming-soon-overlay"><div class="coming-soon-badge">🦆 Próximamente</div></div>
@@ -1501,10 +1714,12 @@ function renderizarPropiedades(){
     </div>
   </div>`;
 
-  grid.innerHTML = propiedades.map(generarTarjeta).join('') + comingSoon;
+  grid.innerHTML = filtradas.length
+    ? filtradas.map(generarTarjeta).join('') + comingSoon
+    : `<div class="dash-empty" style="color:var(--text3);padding:3rem;grid-column:1/-1;text-align:center">Sin unidades en este complejo aún.<br><span style="font-size:13px">Agrégalas desde el panel de administración.</span></div>`;
 
   carouselState = {};
-  propiedades.forEach(p => {
+  filtradas.forEach(p => {
     carouselState[p.id] = { current: 0, count: (p.fotos||[]).length || 1 };
   });
 
@@ -1519,7 +1734,7 @@ function renderizarPropiedades(){
   });
 
   lbImages = {};
-  propiedades.forEach(p => { lbImages[p.id] = p.fotos || []; });
+  filtradas.forEach(p => { lbImages[p.id] = p.fotos || []; });
   actualizarMapa();
 }
 
@@ -1693,13 +1908,122 @@ document.getElementById('fotos').addEventListener('change', async function(){
   }
 });
 // ═══════════════════════════════════════════════
-// DASHBOARD — CRUD + EDICIÓN
+// DASHBOARD — COMPLEJOS
 // ═══════════════════════════════════════════════
-let editandoId = null;
+let editandoComplejoId = null;
+let dcFotoBase64 = '';
+let dashComplejoActivo = null; // complejo abierto en el drill-down del dashboard
+
+function dashAbrirComplejo(id){
+  dashComplejoActivo = id;
+  const c = complejos.find(x => x.id === id);
+  document.getElementById('dash-view-complejos').style.display = 'none';
+  document.getElementById('dash-view-unidades').style.display  = 'block';
+  document.getElementById('dash-unidades-titulo').textContent  = '🏘 ' + (c ? c.nombre : id);
+  document.getElementById('dash-unidades-sub').textContent     = c ? c.direccion : '';
+  renderDashUnidades();
+  document.getElementById('dashboard').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function dashVolverComplejos(){
+  dashComplejoActivo = null;
+  limpiarFormulario();
+  cerrarFormComplejo();
+  document.getElementById('dash-view-unidades').style.display  = 'none';
+  document.getElementById('dash-view-complejos').style.display = 'block';
+  renderDashComplejos();
+}
+
+function renderDashComplejos(){
+  const list = document.getElementById('dashComplejosList');
+  list.innerHTML = complejos.map((c, i) => {
+    const nUnidades = propiedades.filter(p => p.complejo === c.id).length;
+    const thumb = c.foto
+      ? `<div class="dash-prop-thumb"><img src="${c.foto}" alt="" onerror="this.parentElement.textContent='🏨'"/></div>`
+      : `<div class="dash-prop-thumb">🏨</div>`;
+    return `<div class="dash-prop-item">
+      ${thumb}
+      <div class="dash-prop-info">
+        <p class="dash-prop-name">${c.nombre}</p>
+        <p class="dash-prop-addr">${c.direccion||'Sin dirección'}</p>
+        <p class="dash-prop-meta">${nUnidades} unidad(es) · ${(c.tags||[]).join(', ')||'Sin tags'}</p>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0">
+        <button class="dash-btn edit" onclick="editarComplejo(${i})">✏ Editar</button>
+        <button class="dash-btn primary" style="font-size:12px;padding:.5rem 1rem" onclick="dashAbrirComplejo('${c.id}')">Ver unidades →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editarComplejo(idx){
+  const c = complejos[idx];
+  editandoComplejoId = c.id;
+  dcFotoBase64 = '';
+  document.getElementById('dc-nombre').value    = c.nombre    || '';
+  document.getElementById('dc-direccion').value = c.direccion || '';
+  document.getElementById('dc-unidades').value  = c.unidades  || '';
+  document.getElementById('dc-tags').value      = (c.tags||[]).join(', ');
+  document.getElementById('dc-foto-preview').textContent = c.foto ? '↩ Foto actual conservada' : '';
+  document.getElementById('dash-complejo-form-title').textContent = `✏ Editando complejo: ${c.nombre}`;
+  document.getElementById('dash-complejo-form-panel').style.display = 'block';
+  document.getElementById('dash-complejo-form-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function cerrarFormComplejo(){
+  editandoComplejoId = null;
+  dcFotoBase64 = '';
+  const panel = document.getElementById('dash-complejo-form-panel');
+  if(panel) panel.style.display = 'none';
+}
+
+document.getElementById('dc-foto-input').addEventListener('change', function(){
+  const file = this.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ratio  = Math.min(1, 1200 / img.width);
+      canvas.width  = Math.round(img.width * ratio);
+      canvas.height = Math.round(img.height * ratio);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      dcFotoBase64 = canvas.toDataURL('image/jpeg', 0.75);
+      document.getElementById('dc-foto-preview').textContent = '✓ Foto lista';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function guardarComplejo(){
+  if(!editandoComplejoId) return;
+  const idx = complejos.findIndex(c => c.id === editandoComplejoId);
+  if(idx === -1) return;
+  complejos[idx] = {
+    ...complejos[idx],
+    nombre:    document.getElementById('dc-nombre').value.trim()   || complejos[idx].nombre,
+    direccion: document.getElementById('dc-direccion').value.trim(),
+    unidades:  parseInt(document.getElementById('dc-unidades').value) || complejos[idx].unidades,
+    tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    foto:      dcFotoBase64 || complejos[idx].foto || '',
+  };
+  guardarComplejos();
+  renderizarComplejos();
+  renderDashComplejos();
+  cerrarFormComplejo();
+}
+
+// ═══════════════════════════════════════════════
+// DASHBOARD — CRUD UNIDADES
+// ═══════════════════════════════════════════════
+let editandoId  = null;
 
 function leerFormulario(){
-  const tel = document.getElementById('dash-telefono').value.trim();
+  const tel = document.getElementById('dash-telefono').value.replace(/\D/g,'').slice(0,10);
   return {
+    complejo:     dashComplejoActivo,
     nombre:       document.getElementById('dash-nombre').value.trim(),
     badge:        document.getElementById('dash-badge').value.trim()        || 'Barrio Inn',
     direccion:    document.getElementById('dash-direccion').value.trim(),
@@ -1719,100 +2043,37 @@ function leerFormulario(){
 
 function guardarPropiedad(){
   const datos = leerFormulario();
-  if(!datos.nombre){ alert('El nombre de la propiedad es requerido.'); return; }
+  if(!datos.nombre){ alert('El nombre de la unidad es requerido.'); return; }
+  if(!datos.complejo){ alert('Abre un complejo primero desde el panel principal.'); return; }
   if(datos.telefono && datos.telefono.length !== 10){
     alert('El teléfono debe tener exactamente 10 dígitos.'); return;
   }
 
   if(editandoId !== null){
     const idx = propiedades.findIndex(p => p.id === editandoId);
-    if(idx === -1){ alert('No se encontró la propiedad a editar.'); return; }
+    if(idx === -1){ alert('No se encontró la unidad a editar.'); return; }
     const fotosActuales = propiedades[idx].fotos || [];
-    propiedades[idx] = {
-      ...propiedades[idx],
-      ...datos,
-      fotos: fotosBase64.length ? [...fotosBase64] : fotosActuales
-    };
+    propiedades[idx] = { ...propiedades[idx], ...datos, fotos: fotosBase64.length ? [...fotosBase64] : fotosActuales };
   } else {
-    propiedades.push({
-      id: 'prop_' + Date.now(),
-      ...datos,
-      fotos: [...fotosBase64]
-    });
+    propiedades.push({ id: 'prop_' + Date.now(), ...datos, fotos: [...fotosBase64] });
   }
 
   guardarLS();
-  renderizarPropiedades();
-  renderDashboard();
+  if(complejoActivo) renderizarPropiedades(complejoActivo);
+  renderizarComplejos();
+  renderDashUnidades();
   limpiarFormulario();
 }
 
-function editarPropiedad(idx){
-  const p = propiedades[idx];
-  editandoId = p.id;
-  document.getElementById('dash-nombre').value         = p.nombre       || '';
-  document.getElementById('dash-badge').value          = p.badge        || '';
-  document.getElementById('dash-direccion').value      = p.direccion    || '';
-  document.getElementById('dash-direccion-url').value  = p.direccionUrl || '';
-  document.getElementById('dash-rating').value         = p.rating       || '';
-  document.getElementById('dash-telefono').value       = p.telefono     || '';
-  document.getElementById('dash-tags').value           = (p.tags    ||[]).join(', ');
-  document.getElementById('dash-cercanos').value       = (p.cercanos||[]).join(', ');
-  document.getElementById('dash-belong').value         = p.belong   || '';
-  document.getElementById('dash-airbnb').value         = p.airbnb   || '';
-  document.getElementById('dash-expedia').value        = p.expedia  || '';
-  document.getElementById('dash-lat').value            = p.lat != null ? p.lat : '';
-  document.getElementById('dash-lng').value            = p.lng != null ? p.lng : '';
-  fotosBase64 = [];
-  document.getElementById('fotos').value = '';
-  document.getElementById('fotos-preview').textContent =
-    (p.fotos && p.fotos.length) ? `↩ Conservando ${p.fotos.length} foto(s) existente(s)` : '';
-  document.getElementById('dash-form-title').textContent  = `✏ Editando: ${p.nombre}`;
-  document.getElementById('dash-editing-badge').style.display = 'flex';
-  document.getElementById('dash-save-btn').textContent    = '✓ Actualizar propiedad';
-  document.getElementById('dash-form-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function eliminarPropiedad(idx){
-  if(!confirm(`¿Eliminar "${propiedades[idx].nombre}"? Esta acción no se puede deshacer.`)) return;
-  if(editandoId === propiedades[idx].id) limpiarFormulario();
-  propiedades.splice(idx, 1);
-  guardarLS();
-  renderizarPropiedades();
-  renderDashboard();
-}
-
-function limpiarFormulario(){
-  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating','dash-telefono',
-   'dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
-    .forEach(id => { document.getElementById(id).value = ''; });
-  fotosBase64 = [];
-  document.getElementById('fotos').value = '';
-  document.getElementById('fotos-preview').textContent = '';
-  editandoId = null;
-  document.getElementById('dash-form-title').textContent  = '✦ Agregar nueva propiedad';
-  document.getElementById('dash-editing-badge').style.display = 'none';
-  document.getElementById('dash-save-btn').textContent    = '＋ Agregar propiedad';
-}
-
-function resetearDatos(){
-  if(!confirm('¿Restaurar las propiedades originales? Se perderán todas las modificaciones.')) return;
-  localStorage.removeItem(LS_KEY);
-  propiedades = JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
-  guardarLS();
-  renderizarPropiedades();
-  renderDashboard();
-  limpiarFormulario();
-}
-
-function renderDashboard(){
-  renderGaleriaAdmin();
+function renderDashUnidades(){
   const list = document.getElementById('dashPropsList');
-  if(!propiedades.length){
-    list.innerHTML = '<p class="dash-empty">No hay propiedades. Agrega la primera con el formulario.</p>';
+  const filtradas = propiedades.filter(p => p.complejo === dashComplejoActivo);
+  if(!filtradas.length){
+    list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo. Agrégalas con el formulario.</p>';
     return;
   }
-  list.innerHTML = propiedades.map((p, i) => {
+  list.innerHTML = filtradas.map((p) => {
+    const idx = propiedades.indexOf(p);
     const thumb = (p.fotos && p.fotos.length)
       ? `<div class="dash-prop-thumb"><img src="${p.fotos[0]}" alt="" onerror="this.parentElement.textContent='🏠'"/></div>`
       : `<div class="dash-prop-thumb">🏠</div>`;
@@ -1825,11 +2086,79 @@ function renderDashboard(){
         <p class="dash-prop-meta">${(p.fotos||[]).length} foto(s) · ${(p.tags||[]).length} tag(s)${p.rating?' · ★ '+p.rating:''}${p.telefono?' · 📞 '+p.telefono:''}</p>
       </div>
       <div style="display:flex;gap:.5rem;flex-shrink:0">
-        <button class="dash-btn edit" onclick="editarPropiedad(${i})" title="Editar">✏ Editar</button>
-        <button class="dash-btn danger" onclick="eliminarPropiedad(${i})" title="Eliminar">✕</button>
+        <button class="dash-btn edit" onclick="editarPropiedad(${idx})">✏ Editar</button>
+        <button class="dash-btn danger" onclick="eliminarPropiedad(${idx})">✕</button>
       </div>
     </div>`;
   }).join('');
+}
+
+function editarPropiedad(idx){
+  const p = propiedades[idx];
+  editandoId = p.id;
+  document.getElementById('dash-nombre').value            = p.nombre       || '';
+  document.getElementById('dash-badge').value             = p.badge        || '';
+  document.getElementById('dash-direccion').value         = p.direccion    || '';
+  document.getElementById('dash-direccion-url').value     = p.direccionUrl || '';
+  document.getElementById('dash-rating').value            = p.rating       || '';
+  document.getElementById('dash-telefono').value          = p.telefono     || '';
+  document.getElementById('dash-tags').value              = (p.tags    ||[]).join(', ');
+  document.getElementById('dash-cercanos').value          = (p.cercanos||[]).join(', ');
+  document.getElementById('dash-belong').value            = p.belong   || '';
+  document.getElementById('dash-airbnb').value            = p.airbnb   || '';
+  document.getElementById('dash-expedia').value           = p.expedia  || '';
+  document.getElementById('dash-lat').value               = p.lat != null ? p.lat : '';
+  document.getElementById('dash-lng').value               = p.lng != null ? p.lng : '';
+  fotosBase64 = [];
+  document.getElementById('fotos').value = '';
+  document.getElementById('fotos-preview').textContent =
+    (p.fotos && p.fotos.length) ? `↩ Conservando ${p.fotos.length} foto(s) existente(s)` : '';
+  document.getElementById('dash-form-title').textContent  = `✏ Editando: ${p.nombre}`;
+  document.getElementById('dash-editing-badge').style.display = 'flex';
+  document.getElementById('dash-save-btn').textContent    = '✓ Actualizar unidad';
+  document.getElementById('dash-form-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function eliminarPropiedad(idx){
+  if(!confirm(`¿Eliminar "${propiedades[idx].nombre}"? Esta acción no se puede deshacer.`)) return;
+  if(editandoId === propiedades[idx].id) limpiarFormulario();
+  propiedades.splice(idx, 1);
+  guardarLS();
+  if(complejoActivo) renderizarPropiedades(complejoActivo);
+  renderizarComplejos();
+  renderDashUnidades();
+}
+
+function limpiarFormulario(){
+  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating','dash-telefono',
+   'dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  fotosBase64 = [];
+  document.getElementById('fotos').value = '';
+  document.getElementById('fotos-preview').textContent = '';
+  editandoId = null;
+  document.getElementById('dash-form-title').textContent  = '✦ Agregar nueva unidad';
+  document.getElementById('dash-editing-badge').style.display = 'none';
+  document.getElementById('dash-save-btn').textContent    = '＋ Agregar unidad';
+}
+
+function resetearDatos(){
+  if(!confirm('¿Restaurar los datos originales? Se perderán todas las modificaciones.')) return;
+  localStorage.removeItem(LS_KEY);
+  localStorage.removeItem(LS_COMPLEJOS);
+  propiedades = JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
+  complejos   = JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
+  guardarLS();
+  guardarComplejos();
+  dashVolverComplejos();
+  volverComplejos();
+  renderizarComplejos();
+  limpiarFormulario();
+}
+
+function renderDashboard(){
+  renderGaleriaAdmin();
+  renderDashComplejos();
 }
 
 // ═══════════════════════════════════════════════
@@ -1914,38 +2243,105 @@ function renderMarquee(){
   if(!track) return;
 
   const galeria = cargarGaleria();
-
-  // 🔥 SIEMPRE usar propiedades + galería
-  let items = [];
-
-  // fotos de propiedades (fallback)
-  propiedades.forEach(p => {
-    if(p.fotos && p.fotos.length){
-      items.push({ src: p.fotos[0], label: p.nombre });
-    }
-  });
-
-  // fotos que subas
-  galeria.forEach(f => {
-    items.push({ src: f.src, label: '' });
-  });
-
-  if(!items.length){
-    track.innerHTML = '<div style="color:rgba(255,255,255,.3);padding:2rem">Sin imágenes</div>';
+  if(!galeria.length){
+    track.innerHTML = '';
+    track.style.animation = 'none';
     return;
   }
 
-  const html = [...items, ...items].map(item => `
-    <div class="marquee-item">
-      <img src="${item.src}" loading="lazy"/>
-      ${item.label ? `<div class="marquee-item-label">${item.label}</div>` : ''}
-    </div>
+  // Triplicar para loop infinito suave
+  const html = [...galeria, ...galeria, ...galeria].map(f => `
+    <div class="marquee-item"><img src="${f.src}" loading="lazy"/></div>
   `).join('');
-
   track.innerHTML = html;
+  track.style.animation = 'none';
+  track.style.transform = 'translateX(0)';
 
-  const speed = Math.max(30, items.length * 8);
-  track.style.animationDuration = speed + 's';
+  // Esperar a que carguen las imágenes para medir
+  requestAnimationFrame(() => {
+    const itemW    = track.querySelector('.marquee-item')?.offsetWidth || 300;
+    const totalW   = itemW * galeria.length; // ancho de 1 set
+    let pos        = -totalW; // empezar en el set del medio
+    let vel        = 1.2;     // px/frame velocidad base
+    let dragging   = false;
+    let lastX      = 0;
+    let lastVel    = 0;
+    let rafId      = null;
+    let momentum   = 0;
+
+    track.style.transform = `translateX(${pos}px)`;
+
+    function loop(){
+      if(!dragging){
+        if(Math.abs(momentum) > 0.15){
+          pos += momentum;
+          momentum *= 0.94; // fricción
+        } else {
+          momentum = 0;
+          pos -= vel; // auto-scroll
+        }
+        // Loop infinito
+        if(pos < -totalW * 2) pos += totalW;
+        if(pos > 0)            pos -= totalW;
+        track.style.transform = `translateX(${pos}px)`;
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+    loop();
+
+    // Touch
+    track.addEventListener('touchstart', e => {
+      dragging = true;
+      lastX    = e.touches[0].clientX;
+      lastVel  = 0;
+      momentum = 0;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(loop);
+    }, { passive:true });
+
+    track.addEventListener('touchmove', e => {
+      if(!dragging) return;
+      const dx = e.touches[0].clientX - lastX;
+      lastVel  = dx;
+      pos     += dx;
+      lastX    = e.touches[0].clientX;
+      if(pos < -totalW * 2) pos += totalW;
+      if(pos > 0)            pos -= totalW;
+      track.style.transform = `translateX(${pos}px)`;
+    }, { passive:true });
+
+    track.addEventListener('touchend', () => {
+      dragging = false;
+      momentum = lastVel * 0.6; // lanzar con momentum
+    });
+
+    // Mouse drag (desktop)
+    track.addEventListener('mousedown', e => {
+      dragging = true;
+      lastX    = e.clientX;
+      lastVel  = 0;
+      momentum = 0;
+      track.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', e => {
+      if(!dragging) return;
+      const dx = e.clientX - lastX;
+      lastVel  = dx;
+      pos     += dx;
+      lastX    = e.clientX;
+      if(pos < -totalW * 2) pos += totalW;
+      if(pos > 0)            pos -= totalW;
+      track.style.transform = `translateX(${pos}px)`;
+    });
+    window.addEventListener('mouseup', () => {
+      if(!dragging) return;
+      dragging = false;
+      momentum = lastVel * 0.6;
+      track.style.cursor = 'grab';
+    });
+
+    track.style.cursor = 'grab';
+  });
 }
 
 // ═══════════════════════════════════════════════
@@ -2024,6 +2420,7 @@ function actualizarMapa(){
 // ═══════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════
+renderizarComplejos();
 renderizarPropiedades();
 renderMarquee();
 window.addEventListener('load', renderMarquee);
