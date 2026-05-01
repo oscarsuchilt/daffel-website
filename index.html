@@ -4,578 +4,684 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Barrio Inn — Hostelería · Monterrey</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#FAFAF7;color:#1C1C1A;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:#fff;color:#111;overflow-x:hidden}
 
 :root{
-  --cream:#FAFAF7;
-  --cream2:#F2EDE4;
-  --navy:#1A2744;
-  --navy2:#111B35;
-  --green:#3D6B4F;
-  --green2:#2E5240;
-  --gold:#C9A96E;
-  --gold-light:rgba(201,169,110,.12);
-  --sand:#C9A96E;
-  --coral:#FF6B6B;
-  --white:#FFFFFF;
-  --text:#1C1C1A;
-  --text2:#5A5A55;
-  --text3:#9A9A90;
-  --r-sm:12px;
-  --r-md:20px;
-  --r-lg:28px;
-  --r-xl:40px;
-  --shadow-sm:0 2px 12px rgba(28,28,26,.07);
-  --shadow-md:0 8px 32px rgba(28,28,26,.10);
-  --shadow-lg:0 20px 60px rgba(28,28,26,.14);
+  --black:#111111;
+  --white:#ffffff;
+  --gray-50:#fafafa;
+  --gray-100:#f5f5f5;
+  --gray-200:#e8e8e8;
+  --gray-400:#9a9a9a;
+  --gray-600:#555555;
+  --green:#2d6a4f;
+  --green-dark:#1b4332;
+  --r-sm:10px;
+  --r-md:18px;
+  --r-lg:24px;
+  --r-xl:36px;
+  --r-pill:100px;
+  --shadow-sm:0 1px 8px rgba(0,0,0,.06);
+  --shadow-md:0 4px 24px rgba(0,0,0,.09);
+  --shadow-lg:0 16px 56px rgba(0,0,0,.13);
 }
 
 /* ── NAV ── */
+/* Franja difuminada fija en top — protege la nav siempre */
+nav::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:140px;
+  background:linear-gradient(to bottom, rgba(0,0,0,.52) 0%, transparent 100%);
+  pointer-events:none;
+  z-index:-1;
+  transition:opacity .35s;
+}
+nav.scrolled::before{opacity:0}
+
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:0 5%;height:72px;
+  padding:0 48px;height:68px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(250,250,247,.92);
+  background:transparent;
+  border-bottom:1px solid transparent;
+  transition:background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+nav.scrolled{
+  background:rgba(255,255,255,.97);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(28,28,26,.06);
-  transition:all .3s ease;
+  border-bottom:1px solid var(--gray-200);
+  box-shadow:var(--shadow-sm);
 }
-nav.scrolled{height:64px;background:rgba(250,250,247,.97);box-shadow:var(--shadow-sm)}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo-img{
-  width:38px;height:38px;background:var(--navy);border-radius:50%;
+/* logo + links: white when on hero, black when scrolled */
+.nav-logo-mark{
+  width:34px;height:34px;background:#fff;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  color:var(--cream);font-family:'Fraunces',serif;font-size:16px;font-weight:600;letter-spacing:-.5px;
+  color:var(--black);font-family:'Instrument Serif',serif;font-size:14px;font-weight:700;letter-spacing:-.5px;
+  transition:background .35s,color .35s;
 }
-.nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-text strong{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--navy);letter-spacing:.02em}
-.nav-logo-text span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);font-weight:400;margin-top:2px}
+nav.scrolled .nav-logo-mark{background:var(--black);color:#fff}
+.nav-logo-name{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.025em;transition:color .35s}
+nav.scrolled .nav-logo-name{color:var(--black)}
 .nav-links{display:flex;align-items:center;gap:2rem}
 .nav-links a{
-  color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;
-  position:relative;padding-bottom:3px;transition:color .2s;
+  color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;
+  transition:color .2s;
 }
-.nav-links a::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;
-  height:1.5px;background:var(--green);border-radius:2px;
-  transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
-}
-.nav-links a:hover{color:var(--navy)}
-.nav-links a:hover::after{transform:scaleX(1)}
+.nav-links a:hover{color:#fff}
+nav.scrolled .nav-links a{color:var(--gray-600)}
+nav.scrolled .nav-links a:hover{color:var(--black)}
 .nav-cta{
-  background:var(--green);color:var(--white) !important;
-  padding:.55rem 1.4rem;border-radius:50px;
-  font-size:13px !important;font-weight:600 !important;
-  transition:background .2s,transform .15s,box-shadow .2s !important;
-  display:flex;align-items:center;gap:6px;
+  background:transparent;color:#fff !important;
+  padding:.6rem 1.6rem;border-radius:var(--r-pill);
+  font-size:13.5px !important;font-weight:600 !important;
+  border:1.5px solid rgba(255,255,255,.7) !important;
+  transition:all .25s !important;
+  display:inline-flex;align-items:center;justify-content:center;gap:0;
+  letter-spacing:.01em;white-space:nowrap;
 }
-.nav-cta::after{display:none !important}
-.nav-cta:hover{background:var(--green2) !important;transform:translateY(-1px);box-shadow:0 4px 16px rgba(61,107,79,.3) !important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border-radius:8px;border:none;background:transparent}
-.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s}
+.nav-cta:hover{background:rgba(255,255,255,.13) !important;border-color:#fff !important}
+nav.scrolled .nav-cta{
+  background:var(--black) !important;
+  border-color:var(--black) !important;
+  color:#fff !important;
+}
+nav.scrolled .nav-cta:hover{background:#333 !important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.22) !important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:transparent}
+.hamburger span{display:block;width:22px;height:1.5px;background:#fff;border-radius:2px;transition:background .35s}
+nav.scrolled .hamburger span{background:var(--black)}
+.nav-admin-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:6px 8px;opacity:.25;transition:opacity .2s,background .2s;border-radius:8px;line-height:1}
+.nav-admin-btn:hover{opacity:1;background:rgba(255,255,255,.1)}
+nav.scrolled .nav-admin-btn:hover{background:var(--gray-100)}
 .mobile-menu{
-  display:none;position:fixed;top:72px;left:0;right:0;
-  background:var(--cream);border-bottom:1px solid rgba(28,28,26,.08);
-  padding:1.5rem 5% 2rem;flex-direction:column;gap:1.2rem;
+  display:none;position:fixed;top:68px;left:0;right:0;
+  background:#fff;border-bottom:1px solid var(--gray-200);
+  padding:1.5rem 48px 2rem;flex-direction:column;gap:1.2rem;
   z-index:999;box-shadow:var(--shadow-md);
 }
 .mobile-menu.open{display:flex}
-.mobile-menu a{color:var(--text);text-decoration:none;font-size:16px;font-weight:500;padding:.5rem 0;border-bottom:1px solid rgba(28,28,26,.06)}
+.mobile-menu a{color:var(--black);text-decoration:none;font-size:16px;font-weight:500;padding:.5rem 0;border-bottom:1px solid var(--gray-100)}
 .mobile-menu .nav-cta{border:none;width:fit-content;margin-top:.5rem}
 
 /* ── HERO ── */
 .hero{
   min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;padding:120px 5% 80px;
   position:relative;overflow:hidden;
-  background:var(--navy2);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 48px 120px;
 }
-.hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 65% 55% at 15% 85%, rgba(61,107,79,.22) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(201,169,110,.07) 0%, transparent 55%),
-    radial-gradient(ellipse 80% 60% at 50% 105%, rgba(61,107,79,.14) 0%, transparent 65%);
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#1a2a1f 0%,#0d1a10 50%,#111 100%);
 }
-.hero-dots{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(circle, rgba(255,255,255,.045) 1px, transparent 1px);
-  background-size:36px 36px;
+.hero-bg-img{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=80');
+  background-size:cover;background-position:center;
+  opacity:.32;
 }
-.hero-badge{
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.1) 60%,transparent 100%)}
+.hero-content{
+  position:relative;z-index:2;max-width:780px;
+  padding-top:110px;
+}
+.hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.28);
-  color:var(--gold);
   font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
-  padding:.45rem 1.2rem;border-radius:50px;margin-bottom:1.75rem;
-  animation:fadeUp .7s ease both;
+  color:rgba(255,255,255,.55);margin-bottom:2.5rem;
 }
-.hero-badge::before{content:'●';font-size:6px;opacity:.7}
-.hero-divider{
-  width:36px;height:1px;background:rgba(201,169,110,.35);
-  margin:0 auto 1.75rem;animation:fadeUp .7s .08s ease both;
+/* línea verde de 3px en top exactamente como el video de referencia */
+.hero::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;background:#7dc49a;z-index:10;
 }
 .hero h1{
-  font-family:'Fraunces',serif;
-  font-size:clamp(2.8rem,7vw,6.5rem);
-  font-weight:600;line-height:1.05;color:var(--cream);
-  margin-bottom:1.25rem;letter-spacing:-.025em;
-  animation:fadeUp .7s .12s ease both;max-width:900px;
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(3rem,7vw,6.5rem);
+  font-weight:400;line-height:1.02;color:#fff;
+  margin-bottom:1.5rem;letter-spacing:-.02em;
 }
-.hero h1 em{font-style:italic;color:#7EC89A}
+.hero h1 em{font-style:italic;color:#7dc49a}
 .hero-sub{
-  font-size:clamp(15px,2vw,18px);color:rgba(250,250,247,.52);
-  font-weight:400;line-height:1.72;max-width:500px;margin:0 auto 3rem;
-  animation:fadeUp .7s .22s ease both;
+  font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.55);
+  font-weight:400;line-height:1.72;max-width:480px;margin-bottom:2.5rem;
 }
-.hero-btns{
-  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
-  animation:fadeUp .7s .32s ease both;
-}
-.btn-primary{
-  background:var(--green);color:var(--white);
-  padding:.85rem 2.2rem;border-radius:50px;font-weight:600;font-size:15px;
+.hero-btns{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
+.btn-hero-primary{
+  background:#fff;color:var(--black);
+  padding:.8rem 1.8rem;border-radius:var(--r-pill);font-weight:700;font-size:14px;
   text-decoration:none;border:none;cursor:pointer;
-  transition:background .2s,transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
-  display:inline-flex;align-items:center;gap:8px;
+  transition:all .22s;display:inline-flex;align-items:center;gap:10px;
 }
-.btn-primary:hover{background:var(--green2);transform:translateY(-3px);box-shadow:0 10px 30px rgba(61,107,79,.4)}
-.btn-ghost{
-  background:transparent;color:var(--cream);
-  padding:.85rem 2.2rem;border-radius:50px;font-weight:500;font-size:15px;
-  text-decoration:none;border:1.5px solid rgba(250,250,247,.18);cursor:pointer;
-  transition:border-color .2s,transform .2s cubic-bezier(.34,1.56,.64,1),background .2s;
-  display:inline-flex;align-items:center;gap:8px;
+.btn-hero-primary:hover{background:var(--gray-100);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.15)}
+.btn-hero-icon{
+  width:32px;height:32px;background:var(--black);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;
 }
-.btn-ghost:hover{border-color:rgba(250,250,247,.5);transform:translateY(-3px);background:rgba(255,255,255,.05)}
-.hero-scroll{
-  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  color:rgba(250,250,247,.22);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  animation:fadeUp .7s .5s ease both;
+.btn-hero-ghost{
+  background:transparent;color:rgba(255,255,255,.8);
+  padding:.8rem 1.8rem;border-radius:var(--r-pill);font-weight:500;font-size:14px;
+  text-decoration:none;border:1.5px solid rgba(255,255,255,.25);cursor:pointer;
+  transition:all .22s;display:inline-flex;align-items:center;gap:8px;
 }
-.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(250,250,247,.22),transparent);animation:scrollPulse 2s ease-in-out infinite}
+.btn-hero-ghost:hover{border-color:rgba(255,255,255,.6);color:#fff;transform:translateY(-2px)}
+.hero-trust{
+  position:relative;z-index:2;margin-top:3rem;
+  font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-trust::before{content:'';width:22px;height:1px;background:rgba(255,255,255,.25)}
 
-/* ── STATS ── */
-.stats{
-  background:var(--white);padding:0;
-  display:flex;justify-content:center;gap:0;
-  border-bottom:1px solid rgba(28,28,26,.07);
-  border-top:2px solid var(--gold);
+/* ── STATS BAR ── */
+.stats-bar{
+  background:#fff;
+  display:flex;justify-content:center;
+  border-bottom:1px solid var(--gray-200);
+  border-top:3px solid var(--black);
 }
 .stat-item{
   display:flex;flex-direction:column;align-items:center;
-  padding:1.75rem 3rem;border-right:1px solid rgba(28,28,26,.07);
+  padding:1.5rem 3.5rem;border-right:1px solid var(--gray-200);
   transition:background .2s;
 }
 .stat-item:last-child{border-right:none}
-.stat-item:hover{background:rgba(201,169,110,.04)}
-.stat-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:600;color:var(--navy);line-height:1}
-.stat-label{font-size:11px;color:var(--text3);font-weight:500;letter-spacing:.09em;text-transform:uppercase;margin-top:5px}
+.stat-item:hover{background:var(--gray-50)}
+.stat-num{font-family:'Instrument Serif',serif;font-size:2.2rem;font-weight:400;color:var(--black);line-height:1}
+.stat-label{font-size:11px;color:var(--gray-400);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-top:5px}
 
-/* ── SECTION SHELL ── */
-section{padding:6rem 5%}
-.container{max-width:1280px;margin:0 auto}
+/* ── SECTIONS ── */
+section{padding:100px 48px}
+.container{max-width:1240px;margin:0 auto}
 .section-eyebrow{
-  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--green);font-weight:700;margin-bottom:.75rem;
-  display:flex;align-items:center;gap:10px;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gray-400);font-weight:600;margin-bottom:1rem;
 }
-.section-eyebrow::before{content:'';display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px}
 .section-title{
-  font-family:'Fraunces',serif;
-  font-size:clamp(1.9rem,4vw,3rem);font-weight:600;line-height:1.12;
-  color:var(--navy);margin-bottom:1rem;letter-spacing:-.02em;
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.1;
+  color:var(--black);margin-bottom:1rem;letter-spacing:-.02em;
 }
-.section-sub{font-size:16px;color:var(--text2);line-height:1.72;max-width:540px;font-weight:400}
+.section-sub{font-size:16px;color:var(--gray-600);line-height:1.72;max-width:520px;font-weight:400}
+
+/* ── STATEMENT SECTION ── */
+.statement{background:#fff;padding:80px 48px}
+.statement-inner{max-width:1240px;margin:0 auto;text-align:center}
+.statement-text{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;line-height:1.35;
+  color:var(--black);letter-spacing:-.015em;max-width:860px;margin:0 auto 3rem;
+}
+.statement-text em{font-style:italic;color:var(--gray-400)}
+.statement-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.statement-tag{
+  font-size:13px;font-weight:500;color:var(--gray-600);
+  padding:.4rem 1.1rem;border-radius:var(--r-pill);
+  border:1px solid var(--gray-200);
+  display:inline-flex;align-items:center;gap:6px;
+  transition:all .2s;
+}
+.statement-tag:hover{border-color:var(--black);color:var(--black)}
+
+/* ── QUIÉNES SOMOS ── */
+.quienes{background:var(--black);padding:100px 48px;overflow:hidden;position:relative}
+
+.quienes-inner{max-width:1240px;margin:0 auto;position:relative;z-index:2}
+.quienes-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:80px}
+.quienes-eyebrow{
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);font-weight:600;margin-bottom:1.25rem;
+}
+.quienes-title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;line-height:1.05;
+  color:#fff;letter-spacing:-.02em;margin-bottom:1.5rem;
+}
+.quienes-title em{font-style:italic;color:#7dc49a}
+.quienes-desc{font-size:16px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:2rem}
+.quienes-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;color:var(--black);
+  padding:.75rem 1.75rem;border-radius:var(--r-pill);
+  font-size:14px;font-weight:700;text-decoration:none;
+  transition:all .22s;
+}
+.quienes-cta:hover{background:var(--gray-100);transform:translateY(-2px)}
+.quienes-right{display:flex;flex-direction:column;gap:1rem}
+.quienes-stat-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r-lg);padding:1.5rem;
+  transition:background .2s,border-color .2s;
+}
+.quienes-stat-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14)}
+.quienes-stat-num{
+  font-family:'Instrument Serif',serif;font-size:2.5rem;font-weight:400;
+  color:#fff;line-height:1;margin-bottom:.3rem;
+}
+.quienes-stat-label{font-size:13px;color:rgba(255,255,255,.4);font-weight:500}
+
+/* MVV cards */
+.mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden}
+.mvv-card{background:rgba(255,255,255,.03);padding:2.5rem 2rem;position:relative;transition:background .25s}
+.mvv-card:hover{background:rgba(255,255,255,.06)}
+.mvv-num{
+  font-family:'Instrument Serif',serif;font-size:3rem;font-weight:400;
+  color:rgba(255,255,255,.06);line-height:1;position:absolute;top:1.5rem;right:2rem;
+}
+.mvv-icon{font-size:28px;margin-bottom:1.25rem}
+.mvv-label{
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);font-weight:600;margin-bottom:.75rem;
+}
+.mvv-title{
+  font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;
+  color:#fff;margin-bottom:.75rem;line-height:1.2;
+}
+.mvv-text{font-size:14px;color:rgba(255,255,255,.45);line-height:1.75}
+
+/* Valores */
+.valores-title{
+  font-family:'Instrument Serif',serif;font-size:clamp(1.4rem,2.5vw,2rem);
+  font-weight:400;color:#fff;margin-bottom:2rem;letter-spacing:-.015em;
+  text-align:center;
+}
+.valores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;margin-top:1rem}
+.valor-item{background:rgba(255,255,255,.02);padding:1.75rem 1.5rem;text-align:center;transition:background .2s}
+.valor-item:hover{background:rgba(255,255,255,.06)}
+.valor-icon{font-size:24px;margin-bottom:.75rem}
+.valor-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:.35rem}
+.valor-desc{font-size:13px;color:rgba(255,255,255,.38);line-height:1.6}
 
 /* ── WHY ── */
-.why{background:var(--cream2)}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:3.5rem}
+.why{background:var(--gray-50);padding:100px 48px}
+.why-layout{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
+.why-left{}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--gray-200);border-radius:var(--r-xl);overflow:hidden;margin-top:0}
 .why-card{
-  background:var(--white);border-radius:var(--r-lg);padding:2rem;
-  border:1px solid rgba(28,28,26,.06);
-  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s,border-color .28s;
-  position:relative;overflow:hidden;
-}
-.why-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--gold);transform:scaleY(0);transform-origin:bottom;
-  transition:transform .3s ease;border-radius:0 2px 2px 0;
-}
-.why-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:rgba(201,169,110,.18)}
-.why-card:hover::before{transform:scaleY(1)}
-.why-icon{
-  width:52px;height:52px;border-radius:14px;background:rgba(61,107,79,.08);
-  display:flex;align-items:center;justify-content:center;font-size:24px;
-  margin-bottom:1.25rem;transition:background .25s,transform .25s;
-}
-.why-card:hover .why-icon{background:rgba(201,169,110,.14);transform:scale(1.06)}
-.why-card h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:.5rem}
-.why-card p{font-size:14px;color:var(--text2);line-height:1.65}
-
-/* ── COMPLEJOS ── */
-.complejo-card{
-  background:var(--white);border-radius:var(--r-xl);overflow:hidden;
-  border:1px solid rgba(28,28,26,.07);cursor:pointer;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  background:#fff;padding:2rem;
+  transition:background .2s;
   position:relative;
 }
-.complejo-card:hover{transform:translateY(-10px);box-shadow:0 28px 72px rgba(28,28,26,.15)}
-.complejo-img{
-  height:240px;width:100%;object-fit:cover;display:block;
-  background:var(--cream2);
-  transition:transform .5s ease;
+.why-card:hover{background:var(--gray-50)}
+.why-icon{font-size:22px;margin-bottom:1rem}
+.why-card h3{font-size:15px;font-weight:700;color:var(--black);margin-bottom:.4rem}
+.why-card p{font-size:13.5px;color:var(--gray-600);line-height:1.65}
+
+/* ── PROPIEDADES ── */
+.propiedades{background:#fff;padding:80px 48px}
+.props-header-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.complejo-card{cursor:pointer;
+  background:#fff;border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid var(--gray-200);cursor:pointer;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
 }
+.complejo-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.complejo-img-wrap{height:340px;overflow:hidden;position:relative}
+.complejo-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .complejo-card:hover .complejo-img{transform:scale(1.04)}
-.complejo-img-wrap{height:240px;overflow:hidden;position:relative;border-radius:var(--r-xl) var(--r-xl) 0 0}
 .complejo-img-wrap::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
-  background:linear-gradient(to top,rgba(17,27,53,.55) 0%,transparent 100%);pointer-events:none;
+  content:'';position:absolute;bottom:0;left:0;right:0;height:110px;
+  background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);pointer-events:none;
 }
 .complejo-overlay{
   position:absolute;bottom:0;left:0;right:0;z-index:2;
-  padding:1.25rem 1.5rem;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:1.1rem 1.25rem;display:flex;align-items:flex-end;justify-content:space-between;
 }
-.complejo-name{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;color:#fff;line-height:1.1}
-.complejo-addr{font-size:12px;color:rgba(255,255,255,.65);margin-top:3px}
+.complejo-name{font-family:'Instrument Serif',serif;font-size:1.15rem;font-weight:400;color:#fff;line-height:1.15}
+.complejo-addr{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:2px}
 .complejo-view-btn{
-  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-  color:var(--navy);font-size:12px;font-weight:700;
-  padding:.45rem 1.1rem;border-radius:50px;white-space:nowrap;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  color:var(--black);font-size:12px;font-weight:700;
+  padding:.4rem 1rem;border-radius:var(--r-pill);white-space:nowrap;
   border:none;cursor:pointer;flex-shrink:0;
   transition:background .2s,transform .2s;
 }
-.complejo-card:hover .complejo-view-btn{background:#fff;transform:scale(1.04)}
-.complejo-body{padding:1.25rem 1.5rem 1.5rem}
+.complejo-body{padding:.9rem 1.25rem 1.2rem}
 .complejo-units{
   display:flex;align-items:center;gap:8px;
-  font-size:13px;color:var(--text2);font-weight:500;margin-bottom:.75rem;
+  font-size:12.5px;color:var(--gray-600);font-weight:500;margin-bottom:.5rem;
 }
-.complejo-units-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.complejo-units-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .complejo-tags{display:flex;flex-wrap:wrap;gap:5px}
 
-/* ── UNIDADES DRILL-DOWN ── */
-.unidades-header{
-  display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem;
-  flex-wrap:wrap;
-}
+/* Unidades drill-down */
+.unidades-header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
 .unidades-back{
   display:inline-flex;align-items:center;gap:6px;
-  background:var(--white);border:1.5px solid rgba(28,28,26,.12);
-  color:var(--navy);font-size:13px;font-weight:600;
-  padding:.6rem 1.25rem;border-radius:50px;cursor:pointer;
-  transition:background .2s,border-color .2s,transform .2s;
-  white-space:nowrap;margin-top:.35rem;flex-shrink:0;
-  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#fff;border:1.5px solid var(--gray-200);
+  color:var(--black);font-size:13px;font-weight:600;
+  padding:.6rem 1.25rem;border-radius:var(--r-pill);cursor:pointer;
+  transition:background .2s,border-color .2s;white-space:nowrap;margin-top:.35rem;flex-shrink:0;
+  font-family:'Outfit',sans-serif;
 }
-.unidades-back:hover{background:var(--cream2);border-color:rgba(28,28,26,.22);transform:translateX(-3px)}
-
-/* ── COMPLEJO PLACEHOLDER IMG ── */
+.unidades-back:hover{background:var(--gray-50);border-color:var(--black)}
 .complejo-placeholder{
   height:100%;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;color:var(--text3);background:var(--cream2);
+  gap:10px;color:var(--gray-400);background:var(--gray-100);
 }
 .complejo-placeholder .ph-icon{font-size:44px;opacity:.35}
 .complejo-placeholder .ph-label{font-size:12px;opacity:.5}
 
-
-.propiedades{background:var(--cream)}
-.props-header{margin-bottom:3.5rem}
-.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+/* Carousel */
 .prop-card{
-  background:var(--white);border-radius:var(--r-xl);overflow:hidden;
-  border:1px solid rgba(28,28,26,.07);cursor:pointer;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  background:#fff;border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid var(--gray-200);cursor:pointer;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
   position:relative;
 }
-.prop-card:hover{transform:translateY(-10px);box-shadow:0 28px 72px rgba(28,28,26,.15)}
-
-/* Carrusel */
-.carousel{position:relative;height:295px;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.prop-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.carousel{position:relative;height:300px;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0}
 .carousel::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:70px;
-  background:linear-gradient(to top, rgba(17,27,53,.32) 0%, transparent 100%);
+  background:linear-gradient(to top,rgba(0,0,0,.3) 0%,transparent 100%);
   pointer-events:none;z-index:4;
 }
 .carousel-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,.46,.45,.94)}
-.carousel-slide{
-  min-width:100%;height:100%;background:var(--cream2);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;flex-direction:column;gap:8px;
-}
+.carousel-slide{min-width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-direction:column;gap:8px}
 .carousel-slide img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
 .prop-card:hover .carousel-slide img{transform:scale(1.04)}
-.carousel-slide .slide-placeholder{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--text3)}
+.carousel-slide .slide-placeholder{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--gray-400)}
 .carousel-slide .slide-placeholder .ph-icon{font-size:40px;opacity:.35}
-.carousel-slide .slide-placeholder .ph-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;opacity:.5}
+.carousel-slide .slide-placeholder .ph-label{font-family:'Outfit',sans-serif;font-size:12px;opacity:.5}
 .carousel-btn{
   position:absolute;top:50%;transform:translateY(-50%);
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
   border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:15px;color:var(--navy);box-shadow:0 2px 14px rgba(0,0,0,.18);
+  font-size:14px;color:var(--black);box-shadow:0 2px 14px rgba(0,0,0,.18);
   transition:all .2s;z-index:10;opacity:0;
 }
 .prop-card:hover .carousel-btn{opacity:1}
-.carousel-btn:hover{background:var(--white);transform:translateY(-50%) scale(1.1);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.carousel-btn:hover{background:#fff;transform:translateY(-50%) scale(1.1)}
 .carousel-btn.prev{left:12px}
 .carousel-btn.next{right:12px}
 .carousel-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:10}
 .carousel-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);transition:all .25s;cursor:pointer}
-.carousel-dot.active{width:20px;border-radius:3px;background:var(--white)}
+.carousel-dot.active{width:18px;border-radius:3px;background:#fff}
 .prop-badge{
   position:absolute;top:14px;left:14px;z-index:5;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-  color:var(--navy);font-size:10px;font-weight:700;
-  padding:.28rem .82rem;border-radius:50px;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  color:var(--black);font-size:10px;font-weight:700;
+  padding:.28rem .82rem;border-radius:var(--r-pill);letter-spacing:.08em;text-transform:uppercase;
 }
 .prop-rating{
   position:absolute;top:14px;right:14px;z-index:5;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-  color:var(--navy);font-size:12px;font-weight:600;
-  padding:.28rem .75rem;border-radius:50px;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  color:var(--black);font-size:12px;font-weight:600;
+  padding:.28rem .75rem;border-radius:var(--r-pill);
   display:flex;align-items:center;gap:4px;
 }
 .prop-rating::before{content:'★';color:#F59E0B;font-size:11px}
-
-/* Card body */
-.prop-body{padding:1.5rem}
-.prop-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;color:var(--navy);margin-bottom:.38rem;letter-spacing:-.01em}
-.prop-address{font-size:13px;color:var(--text3);margin-bottom:.85rem;display:flex;align-items:center;gap:5px;text-decoration:none;transition:color .2s}
+.prop-body{padding:1.4rem}
+.prop-title{font-family:'Instrument Serif',serif;font-size:1.25rem;font-weight:400;color:var(--black);margin-bottom:.35rem;letter-spacing:-.01em}
+.prop-address{font-size:13px;color:var(--gray-400);margin-bottom:.85rem;display:flex;align-items:center;gap:5px;text-decoration:none;transition:color .2s}
 .prop-address::before{content:'📍';font-size:11px}
-a.prop-address:hover{color:var(--green)}
+a.prop-address:hover{color:var(--black)}
 .prop-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1rem}
 .prop-tag{
-  background:rgba(61,107,79,.07);color:var(--green2);
+  background:var(--gray-100);color:var(--gray-600);
   font-size:11.5px;font-weight:500;
-  padding:.26rem .8rem;border-radius:50px;border:1px solid rgba(61,107,79,.1);
+  padding:.26rem .8rem;border-radius:var(--r-pill);border:1px solid var(--gray-200);
 }
 .prop-highlights{margin-bottom:1.25rem}
-.prop-highlights-title{font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.prop-highlights-title{font-size:10.5px;font-weight:700;color:var(--gray-400);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
 .prop-highlights-list{display:flex;flex-direction:column;gap:3px}
-.prop-highlight{font-size:12.5px;color:var(--text2);display:flex;align-items:center;gap:6px}
-.prop-highlight::before{content:'→';color:var(--gold);font-size:11px;font-weight:700}
+.prop-highlight{font-size:12.5px;color:var(--gray-600);display:flex;align-items:center;gap:6px}
+.prop-highlight::before{content:'→';color:var(--gray-400);font-size:11px;font-weight:700}
 
-/* ── BOTONES DE RESERVA ── */
+/* Booking buttons */
 .prop-actions{display:flex;flex-direction:column;gap:.5rem}
-
-/* Belong — ancho completo, premium */
 .book-btn.belong-primary{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  background:linear-gradient(135deg, var(--navy) 0%, #253a6b 100%);
-  color:var(--white);font-weight:700;font-size:13.5px;
-  padding:.75rem 1.1rem;border-radius:14px;
-  border:1px solid rgba(201,169,110,.22);
+  background:var(--black);
+  color:#fff;font-weight:700;font-size:13.5px;
+  padding:.75rem 1.1rem;border-radius:12px;
+  border:none;
   text-decoration:none;cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,border-color .22s;
+  transition:all .22s;
 }
-.book-btn.belong-primary::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg, rgba(201,169,110,.1) 0%, transparent 55%);
-  pointer-events:none;
-}
-.book-btn.belong-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 28px rgba(26,39,68,.42);
-  border-color:rgba(201,169,110,.42);
-}
-.belong-label{display:flex;align-items:center;gap:8px;position:relative}
+.book-btn.belong-primary:hover{background:#333;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.22)}
+.belong-label{display:flex;align-items:center;gap:8px}
 .belong-badge{
-  background:rgba(201,169,110,.18);color:var(--gold);
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);
   font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:.2rem .6rem;border-radius:50px;border:1px solid rgba(201,169,110,.28);
-  position:relative;flex-shrink:0;
+  padding:.2rem .6rem;border-radius:var(--r-pill);
 }
-
-/* Fila secundaria */
 .prop-actions-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem}
 .book-btn{
   display:flex;align-items:center;justify-content:center;gap:5px;
   padding:.58rem .75rem;border-radius:10px;
   font-size:12.5px;font-weight:600;
   text-decoration:none;border:none;cursor:pointer;
-  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,background .15s;
+  transition:transform .2s,box-shadow .2s,background .15s;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
-.book-btn.airbnb{background:#FF5A5F;color:var(--white)}
+.book-btn.airbnb{background:#FF5A5F;color:#fff}
 .book-btn.airbnb:hover{background:#e04a4f;transform:translateY(-2px);box-shadow:0 5px 18px rgba(255,90,95,.3)}
-.book-btn.belong{background:linear-gradient(135deg,#A31635,#C4203F);color:var(--white);font-weight:700}
-.book-btn.belong:hover{background:linear-gradient(135deg,#8a1229,#a8192f);transform:translateY(-2px);box-shadow:0 5px 18px rgba(163,22,53,.4)}
-.book-btn.expedia{background:#003580;color:var(--white)}
-.book-btn.expedia:hover{background:#002a66;transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,53,128,.35)}
-.book-btn.whatsapp{background:#25D366;color:var(--white)}
-.book-btn.whatsapp:hover{background:#1da851;transform:translateY(-2px);box-shadow:0 5px 18px rgba(37,211,102,.3)}
-.book-btn.tel{background:rgba(28,28,26,.07);color:var(--text)}
-.book-btn.tel:hover{background:rgba(28,28,26,.12);transform:translateY(-2px)}
-.book-btn.maps{background:var(--navy);color:var(--white)}
-.book-btn.maps:hover{background:var(--navy2);transform:translateY(-2px);box-shadow:0 5px 16px rgba(26,39,68,.35)}
+.book-btn.belong{background:linear-gradient(135deg,#A31635,#C4203F);color:#fff;font-weight:700}
+.book-btn.belong:hover{background:linear-gradient(135deg,#8a1229,#a8192f);transform:translateY(-2px)}
+.book-btn.expedia{background:#003580;color:#fff}
+.book-btn.expedia:hover{background:#002a66;transform:translateY(-2px)}
+.book-btn.whatsapp{background:#25D366;color:#fff}
+.book-btn.whatsapp:hover{background:#1da851;transform:translateY(-2px)}
+.book-btn.tel{background:var(--gray-100);color:var(--black)}
+.book-btn.tel:hover{background:var(--gray-200);transform:translateY(-2px)}
+.book-btn.maps{background:var(--black);color:#fff}
+.book-btn.maps:hover{background:#333;transform:translateY(-2px)}
 .book-btn-icon{width:15px;height:15px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .prop-card.coming-soon{opacity:.72;cursor:default}
 .prop-card.coming-soon:hover{transform:none;box-shadow:none}
 .coming-soon-overlay{
   position:absolute;inset:0;z-index:20;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(17,27,53,.62);backdrop-filter:blur(4px);border-radius:var(--r-xl);
+  background:rgba(255,255,255,.65);backdrop-filter:blur(4px);border-radius:var(--r-xl);
 }
 .coming-soon-badge{
-  background:var(--white);color:var(--navy);
-  font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;
-  padding:1rem 2rem;border-radius:50px;display:flex;align-items:center;gap:10px;
+  background:var(--black);color:#fff;
+  font-family:'Instrument Serif',serif;font-size:1.1rem;font-weight:400;
+  padding:.85rem 2rem;border-radius:var(--r-pill);
 }
 
 /* ── REVIEWS ── */
-.reviews{background:var(--navy2);overflow:hidden}
-.reviews .section-eyebrow{color:#7EC89A}
-.reviews .section-eyebrow::before{background:#7EC89A}
-.reviews .section-title{color:var(--cream)}
-.reviews .section-sub{color:rgba(250,250,247,.52)}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-top:3.5rem}
+/* ── REVIEWS ── */
+.reviews{background:var(--black);padding:100px 48px;overflow:hidden}
+.reviews-inner{max-width:980px;margin:0 auto}
+.reviews .section-eyebrow{color:rgba(255,255,255,.3)}
+.reviews .section-title{color:#fff}
+.reviews .section-sub{color:rgba(255,255,255,.45)}
+.reviews-header{text-align:center;margin-bottom:3.5rem}
+.reviews-header .section-title{margin-bottom:.75rem}
+.reviews-header .section-sub{margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+@media(max-width:900px){.reviews-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.reviews-grid{grid-template-columns:1fr}}
 .review-card{
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
   border-radius:var(--r-lg);padding:1.75rem;
   transition:background .25s,transform .25s,border-color .25s;
-  position:relative;overflow:hidden;
 }
-.review-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg, var(--gold), transparent);
-  transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
-}
-.review-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px);border-color:rgba(255,255,255,.12)}
-.review-card:hover::before{transform:scaleX(1)}
-.review-stars{color:#F59E0B;font-size:12px;margin-bottom:.75rem;letter-spacing:3px}
-.review-text{font-size:14px;color:rgba(250,250,247,.75);line-height:1.75;margin-bottom:1.25rem;font-style:italic}
+.review-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+.review-stars{color:#F59E0B;font-size:12px;margin-bottom:.75rem;letter-spacing:2px}
+.review-score{font-size:13px;font-weight:700;color:#fff;margin-left:6px}
+.review-text{font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:1.25rem}
 .review-author{display:flex;align-items:center;gap:10px}
 .review-avatar{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(61,107,79,.28);border:1px solid rgba(61,107,79,.4);
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(125,196,154,.2);border:1px solid rgba(125,196,154,.35);
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:600;color:#7EC89A;
-  font-family:'Fraunces',serif;flex-shrink:0;
+  font-size:14px;font-weight:700;color:#7dc49a;
+  font-family:'Instrument Serif',serif;flex-shrink:0;
 }
-.review-info{}
-.review-name{font-size:14px;font-weight:600;color:var(--cream)}
-.review-meta{font-size:12px;color:rgba(250,250,247,.32);margin-top:1px}
+.review-name{font-size:13.5px;font-weight:600;color:#fff}
+.review-meta{font-size:11.5px;color:rgba(255,255,255,.28);margin-top:1px}
 .review-platform{
   margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  padding:.22rem .7rem;border-radius:50px;
+  padding:.22rem .7rem;border-radius:var(--r-pill);
   background:rgba(255,90,95,.12);color:#FF8A8E;border:1px solid rgba(255,90,95,.18);
 }
 
 /* ── AMENIDADES ── */
-.amenidades{background:var(--cream2)}
-.amenidades-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:.875rem;margin-top:3rem}
+.amenidades{background:var(--gray-50);padding:100px 48px}
+.amenidades-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1px;background:var(--gray-200);border-radius:var(--r-xl);overflow:hidden;margin-top:3.5rem}
 .amenidad-item{
-  background:var(--white);border-radius:var(--r-md);padding:1.5rem 1.25rem;
+  background:#fff;padding:1.75rem 1.25rem;
   display:flex;flex-direction:column;align-items:center;text-align:center;gap:.65rem;
-  border:1px solid rgba(28,28,26,.05);
-  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s,border-color .28s;
+  transition:background .2s;
 }
-.amenidad-item:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:rgba(201,169,110,.18)}
-.amenidad-icon{font-size:28px;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
-.amenidad-item:hover .amenidad-icon{transform:scale(1.14)}
-.amenidad-name{font-size:13.5px;font-weight:600;color:var(--navy)}
-.amenidad-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.amenidad-item:hover{background:var(--gray-50)}
+.amenidad-icon{font-size:26px}
+.amenidad-name{font-size:13.5px;font-weight:700;color:var(--black)}
+.amenidad-desc{font-size:12px;color:var(--gray-400);line-height:1.5}
 
 /* ── FAQ ── */
-.faq{background:var(--cream)}
-.faq-list{margin-top:3rem;display:flex;flex-direction:column;gap:.65rem;max-width:760px}
-.faq-item{
-  background:var(--white);border-radius:var(--r-md);
-  border:1px solid rgba(28,28,26,.07);overflow:hidden;transition:border-color .25s;
-}
-.faq-item.open{border-color:rgba(61,107,79,.2)}
+.faq{background:#fff;padding:100px 48px}
+.faq-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.faq-left{}
+.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--gray-200);overflow:hidden}
+.faq-item:first-child{border-top:1px solid var(--gray-200)}
 .faq-q{
-  padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;
-  cursor:pointer;font-size:15px;font-weight:600;color:var(--navy);
-  gap:1rem;user-select:none;transition:background .2s;
+  padding:1.25rem 0;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;font-size:15px;font-weight:600;color:var(--black);
+  gap:1rem;user-select:none;transition:color .2s;
 }
-.faq-q:hover{background:rgba(28,28,26,.02)}
+.faq-q:hover{color:var(--gray-600)}
 .faq-icon{
-  width:28px;height:28px;border-radius:50%;background:rgba(61,107,79,.08);
+  width:28px;height:28px;border-radius:50%;background:var(--gray-100);
   display:flex;align-items:center;justify-content:center;
-  color:var(--green);font-size:16px;font-weight:300;
+  color:var(--black);font-size:16px;font-weight:300;
   transition:transform .3s,background .2s,color .2s;flex-shrink:0;
 }
-.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--green);color:var(--white)}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--black);color:#fff}
 .faq-a{
   max-height:0;overflow:hidden;
   transition:max-height .35s ease,padding .35s;
-  font-size:14px;color:var(--text2);line-height:1.75;padding:0 1.5rem;
+  font-size:14px;color:var(--gray-600);line-height:1.75;padding:0;
 }
-.faq-item.open .faq-a{max-height:400px;padding:.25rem 1.5rem 1.5rem}
+.faq-item.open .faq-a{max-height:400px;padding:.25rem 0 1.5rem}
 
-/* ── CTA ── */
-.cta-section{
-  background:var(--green);padding:6rem 5%;text-align:center;
-  position:relative;overflow:hidden;
+/* ── CTA FINAL (dark card) ── */
+.cta-section{background:var(--gray-50);padding:60px 48px}
+.cta-card{
+  max-width:1240px;margin:0 auto;
+  background:var(--black);border-radius:var(--r-xl);
+  padding:64px;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
 }
-.cta-section::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,255,255,.07) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 5% 10%, rgba(201,169,110,.07) 0%, transparent 55%);
+.cta-left h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(1.8rem,3.5vw,3rem);font-weight:400;
+  color:#fff;margin-bottom:1rem;letter-spacing:-.02em;line-height:1.1;
 }
-.cta-section::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(circle, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:28px 28px;
+.cta-left p{font-size:16px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:2rem}
+.btn-cta-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;color:var(--black);
+  padding:.8rem 2rem;border-radius:var(--r-pill);
+  font-size:14px;font-weight:700;text-decoration:none;
+  transition:all .22s;
 }
-.cta-section h2{
-  font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.5rem);
-  font-weight:600;color:var(--white);margin-bottom:1rem;position:relative;z-index:1;letter-spacing:-.02em;
+.btn-cta-primary .btn-icon{
+  width:30px;height:30px;background:var(--black);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
 }
-.cta-section p{font-size:17px;color:rgba(255,255,255,.72);margin-bottom:2.5rem;position:relative;z-index:1}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
-.btn-white{
-  background:var(--white);color:var(--green2);
-  padding:.9rem 2.2rem;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;
-  transition:all .22s cubic-bezier(.34,1.56,.64,1);display:inline-flex;align-items:center;gap:8px;
+.btn-cta-primary:hover{background:var(--gray-100);transform:translateY(-2px)}
+.cta-right{display:flex;flex-direction:column;gap:1rem}
+.cta-feat{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:15px;font-weight:500}
+.cta-feat-icon{
+  width:38px;height:38px;background:rgba(255,255,255,.08);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
 }
-.btn-white:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,.2)}
-.btn-white-outline{
-  background:transparent;color:var(--white);
-  padding:.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;
-  border:2px solid rgba(255,255,255,.35);
-  transition:all .22s;display:inline-flex;align-items:center;gap:8px;
+.cta-trust{
+  display:flex;align-items:center;gap:10px;margin-top:1rem;
+  font-size:13px;color:rgba(255,255,255,.4);
 }
-.btn-white-outline:hover{border-color:var(--white);transform:translateY(-3px);background:rgba(255,255,255,.08)}
+.cta-avatars{display:flex}
+.cta-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.15);
+  border:2px solid var(--black);
+  margin-left:-8px;display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+}
+.cta-avatar:first-child{margin-left:0}
+
+/* ── MARQUEE ── */
+.marquee-section{background:var(--black);padding:80px 0;overflow:hidden}
+.marquee-header{padding:0 48px 2.5rem;max-width:1240px;margin:0 auto}
+.marquee-header .section-eyebrow{color:rgba(255,255,255,.3)}
+.marquee-header .section-title{color:#fff}
+.marquee-outer{position:relative;overflow:hidden;width:100%}
+.marquee-outer::before,.marquee-outer::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:10;pointer-events:none;
+}
+.marquee-outer::before{left:0;background:linear-gradient(to right,var(--black),transparent)}
+.marquee-outer::after{right:0;background:linear-gradient(to left,var(--black),transparent)}
+.marquee-track{display:flex;gap:14px;width:max-content;will-change:transform;user-select:none}
+.marquee-item{position:relative;flex-shrink:0;width:300px;height:200px;border-radius:var(--r-lg);overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.07)}
+.marquee-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.marquee-item:hover img{transform:scale(1.06)}
+.marquee-item-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem .85rem;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 100%);font-size:12px;font-weight:500;color:rgba(255,255,255,.85)}
+.marquee-item-ph{width:100%;height:100%;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;font-size:36px;opacity:.4}
+
+/* ── MAPA ── */
+.mapa-section{background:var(--black);padding:0 0 80px;overflow:hidden}
+.mapa-header{padding:0 48px 2rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1240px;margin:0 auto}
+.mapa-header .section-eyebrow{color:rgba(255,255,255,.3)}
+.mapa-header .section-title{color:#fff;margin-bottom:.25rem}
+.mapa-header .section-sub{color:rgba(255,255,255,.45);max-width:400px}
+.mapa-legend{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.mapa-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4)}
+.mapa-legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+#map{height:460px;width:100%;filter:brightness(.8) saturate(.5) contrast(1.1)}
+.leaflet-popup-content-wrapper{
+  background:#fff;border-radius:var(--r-md);
+  box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);
+  padding:0;overflow:hidden;
+}
+.leaflet-popup-content{margin:0;width:220px !important}
+.leaflet-popup-tip{background:#fff}
+.map-popup-img{width:100%;height:130px;object-fit:cover;display:block}
+.map-popup-img-placeholder{width:100%;height:130px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:32px}
+.map-popup-body{padding:.85rem 1rem 1rem}
+.map-popup-name{font-family:'Instrument Serif',serif;font-size:15px;font-weight:400;color:var(--black);margin-bottom:.25rem}
+.map-popup-addr{font-size:11.5px;color:var(--gray-400);margin-bottom:.75rem}
+.map-popup-btn{
+  display:block;width:100%;text-align:center;
+  background:var(--black);color:#fff;
+  font-size:12.5px;font-weight:600;padding:.5rem;border-radius:8px;
+  text-decoration:none;transition:background .2s;
+}
+.map-popup-btn:hover{background:#333}
+@media(max-width:768px){#map{height:340px}}
 
 /* ── FOOTER ── */
-footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52)}
-.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.4)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:3rem}
 .footer-brand{}
 .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:1rem;text-decoration:none}
-.footer-logo .nav-logo-img{background:rgba(255,255,255,.08)}
-.footer-logo strong{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--cream)}
-.footer-logo span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,247,.32);font-weight:400;margin-top:2px;display:block}
-.footer-tagline{font-size:14px;line-height:1.7;margin-bottom:1.5rem;max-width:280px}
-.footer-social{display:flex;gap:.75rem}
+.footer-logo-mark{width:32px;height:32px;background:rgba(255,255,255,.1);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Instrument Serif',serif;font-size:13px}
+.footer-logo-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.footer-tagline{font-size:14px;line-height:1.7;margin-bottom:1.5rem;max-width:270px}
+.footer-social{display:flex;gap:.65rem}
 .social-btn{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
   display:flex;align-items:center;justify-content:center;
-  text-decoration:none;font-size:16px;
-  transition:background .2s,transform .2s,border-color .2s;
+  text-decoration:none;font-size:15px;
+  transition:background .2s,transform .2s;
 }
-.social-btn:hover{background:rgba(255,255,255,.13);transform:translateY(-3px);border-color:rgba(255,255,255,.15)}
-.footer-col h4{font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem}
-.footer-col a{display:block;color:rgba(250,250,247,.42);text-decoration:none;font-size:14px;margin-bottom:.65rem;transition:color .2s}
-.footer-col a:hover{color:var(--cream)}
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-}
+.social-btn:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.footer-col h4{font-size:11px;font-weight:700;color:#fff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem}
+.footer-col a{display:block;color:rgba(255,255,255,.35);text-decoration:none;font-size:14px;margin-bottom:.6rem;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .footer-bottom p{font-size:13px}
-.footer-bottom .patito{font-size:14px}
 
 /* ── LIGHTBOX ── */
 .lightbox{
@@ -593,15 +699,15 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 }
 .lightbox-close{
   position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;
-  background:var(--white);color:var(--navy);border:none;cursor:pointer;font-size:20px;
+  background:#fff;color:var(--black);border:none;cursor:pointer;font-size:20px;
   display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:var(--shadow-md);
 }
-.lightbox-close:hover{background:var(--cream2);transform:scale(1.1)}
+.lightbox-close:hover{background:var(--gray-100);transform:scale(1.1)}
 .lightbox-nav{
   position:absolute;top:50%;transform:translateY(-50%);
   width:48px;height:48px;border-radius:50%;
   background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);
-  color:var(--white);cursor:pointer;font-size:18px;
+  color:#fff;cursor:pointer;font-size:18px;
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
 .lightbox-nav:hover{background:rgba(255,255,255,.2)}
@@ -609,187 +715,72 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 .lightbox-nav.next{right:-70px}
 .lightbox-counter{text-align:center;margin-top:1rem;font-size:13px;color:rgba(255,255,255,.38);letter-spacing:.06em}
 
-/* ── WHATSAPP FLOAT ── */
+/* ── WA FLOAT ── */
 .wa-float{
   position:fixed;bottom:1.75rem;right:1.75rem;z-index:500;
-  height:56px;width:56px;border-radius:50px;
+  height:56px;width:56px;border-radius:var(--r-pill);
   background:#25D366;
   display:flex;align-items:center;justify-content:center;gap:0;
   text-decoration:none;overflow:hidden;
   box-shadow:0 4px 22px rgba(37,211,102,.45);
   transition:width .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,border-radius .3s,gap .3s;
 }
-.wa-float:hover{width:190px;border-radius:28px;gap:10px;box-shadow:0 6px 30px rgba(37,211,102,.55)}
-.wa-icon{font-size:26px;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.wa-float:hover{width:180px;border-radius:28px;gap:10px;box-shadow:0 6px 30px rgba(37,211,102,.55)}
+.wa-icon{font-size:26px;flex-shrink:0;transition:transform .3s}
 .wa-float:hover .wa-icon{transform:scale(.92)}
-.wa-label{
-  font-size:14px;font-weight:600;color:var(--white);white-space:nowrap;
-  max-width:0;opacity:0;overflow:hidden;
-  transition:max-width .3s ease,opacity .25s ease;
-}
+.wa-label{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;max-width:0;opacity:0;overflow:hidden;transition:max-width .3s ease,opacity .25s ease}
 .wa-float:hover .wa-label{max-width:120px;opacity:1}
 .wa-float::after{
-  content:'';position:absolute;inset:-5px;border-radius:50px;
+  content:'';position:absolute;inset:-5px;border-radius:var(--r-pill);
   border:2px solid rgba(37,211,102,.3);
   animation:waPulse 2.8s ease-in-out infinite;pointer-events:none;
 }
-@keyframes waPulse{
-  0%,100%{transform:scale(1);opacity:.45}
-  50%{transform:scale(1.1);opacity:.1}
-}
+@keyframes waPulse{0%,100%{transform:scale(1);opacity:.45}50%{transform:scale(1.1);opacity:.1}}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(28px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes scrollPulse{
-  0%,100%{opacity:.22;transform:scaleY(1)}
-  50%{opacity:.55;transform:scaleY(1.15)}
-}
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 
-/* ── RESPONSIVE ── */
-@media(max-width:1280px){.props-grid{gap:1.5rem}}
-@media(max-width:1024px){
-  .props-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem}
-  .footer-top{grid-template-columns:1fr 1fr}
-  .footer-brand{grid-column:1/-1}
-  .lightbox-nav.prev{left:-50px}
-  .lightbox-nav.next{right:-50px}
-  .carousel{height:255px}
-}
-@media(max-width:768px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .stats{flex-wrap:wrap}
-  .stat-item{border-right:none;border-bottom:1px solid rgba(28,28,26,.07);padding:1rem 2rem;min-width:50%}
-  .stat-item:nth-child(odd){border-right:1px solid rgba(28,28,26,.07)}
-  .stat-item:last-child{border-bottom:none}
-  .props-grid{grid-template-columns:1fr;gap:1.25rem}
-  .reviews-grid{grid-template-columns:1fr}
-  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr}
-  .footer-brand{grid-column:auto}
-  .footer-bottom{flex-direction:column;text-align:center}
-  .lightbox-nav{display:none}
-  .lightbox{padding:1rem}
-  .prop-body{padding:1.25rem}
-  .carousel-btn{opacity:1 !important}
-}
-@media(max-width:480px){
-  section{padding:3.5rem 4%}
-  .hero{padding:90px 4% 56px}
-  .hero-btns{flex-direction:column;align-items:center}
-  .btn-primary,.btn-ghost{width:100%;max-width:300px;justify-content:center}
-  .prop-actions-row{grid-template-columns:1fr}
-  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
-  .stat-item{min-width:100%;border-right:none}
-  .cta-btns{flex-direction:column;align-items:center}
-  .btn-white,.btn-white-outline{width:100%;max-width:300px;justify-content:center}
-  .carousel{height:225px}
-  .prop-body{padding:1rem}
-  .prop-title{font-size:1.2rem}
-}
-@media(max-width:390px){
-  :root{font-size:15px}
-  .hero h1{font-size:clamp(2rem,10vw,3rem)}
-  .hero-sub{font-size:14px}
-  .carousel{height:205px}
-  .prop-body{padding:.875rem}
-  .prop-title{font-size:1.1rem}
-  .prop-tag{font-size:11px;padding:.22rem .6rem}
-  .stat-num{font-size:2rem}
-  section{padding:3rem 3.5%}
-}
-@media(max-width:360px){
-  .stats{flex-direction:column}
-  .stat-item{width:100%;border-right:none;border-bottom:1px solid rgba(28,28,26,.07)}
-  .why-grid{grid-template-columns:1fr}
-  .amenidades-grid{grid-template-columns:1fr}
-  nav{padding:0 3%}
-}
-@media(min-width:1440px){.props-grid{gap:2.5rem}.container{max-width:1380px}}
-@media(min-width:2560px){
-  :root{font-size:19px}
-  nav{height:84px}
-  .props-grid{grid-template-columns:repeat(3,1fr);gap:3rem}
-  .carousel{height:320px}
-  .container{max-width:1600px}
-  .lightbox-inner{max-width:1400px}
-}
-
-/* ── MAPA ── */
-.mapa-section{background:var(--navy2);padding:0 0 4rem;overflow:hidden}
-.mapa-header{padding:4rem 5% 2rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1280px;margin:0 auto}
-.mapa-header .section-eyebrow{color:#7EC89A}
-.mapa-header .section-eyebrow::before{background:#7EC89A}
-.mapa-header .section-title{color:var(--cream);margin-bottom:.25rem}
-.mapa-header .section-sub{color:rgba(250,250,247,.52);max-width:400px}
-.mapa-legend{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
-.mapa-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(250,250,247,.5)}
-.mapa-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-#map{height:480px;width:100%;filter:brightness(.88) saturate(.55)}
-.leaflet-popup-content-wrapper{
-  background:var(--white);border-radius:var(--r-md);
-  box-shadow:var(--shadow-lg);border:1px solid rgba(28,28,26,.08);
-  padding:0;overflow:hidden;
-}
-.leaflet-popup-content{margin:0;width:220px !important}
-.leaflet-popup-tip{background:var(--white)}
-.map-popup-img{width:100%;height:130px;object-fit:cover;display:block}
-.map-popup-img-placeholder{width:100%;height:130px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:32px}
-.map-popup-body{padding:.85rem 1rem 1rem}
-.map-popup-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:.25rem}
-.map-popup-addr{font-size:11.5px;color:var(--text3);margin-bottom:.75rem}
-.map-popup-btn{
-  display:block;width:100%;text-align:center;
-  background:var(--green);color:var(--white);
-  font-size:12.5px;font-weight:600;padding:.5rem;border-radius:8px;
-  text-decoration:none;transition:background .2s;
-}
-.map-popup-btn:hover{background:var(--green2)}
-@media(max-width:768px){#map{height:360px}}
-@media(max-width:480px){#map{height:280px}}
-
-/* ── MARQUEE ── */
-.marquee-section{background:var(--navy2);padding:0 0 4rem;overflow:hidden}
-.marquee-header{padding:3.5rem 5% 2rem;max-width:1280px;margin:0 auto}
-.marquee-header .section-eyebrow{color:#7EC89A}
-.marquee-header .section-eyebrow::before{background:#7EC89A}
-.marquee-header .section-title{color:var(--cream)}
-.marquee-outer{position:relative;overflow:hidden;width:100%}
-.marquee-outer::before,.marquee-outer::after{
-  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:10;pointer-events:none;
-}
-.marquee-outer::before{left:0;background:linear-gradient(to right,var(--navy2),transparent)}
-.marquee-outer::after{right:0;background:linear-gradient(to left,var(--navy2),transparent)}
-.marquee-track{
-  display:flex;gap:16px;width:max-content;
-  will-change:transform;
-  user-select:none;
-}
-.marquee-item{
-  position:relative;flex-shrink:0;
-  width:320px;height:220px;border-radius:var(--r-lg);
-  overflow:hidden;cursor:pointer;
-  border:1px solid rgba(255,255,255,.08);
-}
-.marquee-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
-.marquee-item:hover img{transform:scale(1.06)}
-.marquee-item-label{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:.6rem .85rem;
-  background:linear-gradient(to top, rgba(17,27,53,.85) 0%, transparent 100%);
-  font-size:12px;font-weight:500;color:rgba(250,250,247,.85);
-}
-.marquee-item-ph{width:100%;height:100%;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:36px;opacity:.4}
-@media(max-width:1024px){.marquee-item{width:calc(100vw / 3 - 16px)}}
-@media(max-width:768px){.marquee-item{width:calc(100vw / 1.55 - 16px);height:190px}}
-@media(max-width:480px){.marquee-item{height:170px}}
-
-/* ── GALERIA DASH ── */
+/* ── DASHBOARD ── */
+#dashboard{display:none;background:var(--black);color:#fafaf7;padding:5rem 48px}
+#dashboard.visible{display:block}
+.dash-container{max-width:900px;margin:0 auto}
+.dash-title{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;color:#fafaf7;margin-bottom:.35rem}
+.dash-subtitle{font-size:13px;color:rgba(255,255,255,.32);margin-bottom:3rem;letter-spacing:.02em}
+.dash-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-lg);padding:2rem;margin-bottom:2rem}
+.dash-panel-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7dc49a;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.dash-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.dash-field{display:flex;flex-direction:column;gap:.4rem}
+.dash-field.full{grid-column:1/-1}
+.dash-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.1em;text-transform:uppercase}
+.dash-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-sm);padding:.65rem 1rem;color:#fafaf7;font-family:'Outfit',sans-serif;font-size:14px;transition:border-color .2s,background .2s;width:100%}
+.dash-input:focus{outline:none;border-color:rgba(125,196,154,.6);background:rgba(255,255,255,.09)}
+.dash-input::placeholder{color:rgba(255,255,255,.16)}
+.dash-file-area{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.12);border-radius:var(--r-sm);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.dash-file-area:hover{border-color:rgba(125,196,154,.45);background:rgba(125,196,154,.05)}
+.dash-file-input{display:none}
+.dash-file-label{font-size:13px;color:rgba(255,255,255,.38);cursor:pointer;pointer-events:none}
+.dash-file-label strong{color:#7dc49a}
+.dash-preview{font-size:12px;color:#7dc49a;margin-top:.5rem;min-height:16px}
+.dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
+.dash-btn{padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.dash-btn.primary{background:var(--green);color:#fff}
+.dash-btn.primary:hover{background:var(--green-dark);transform:translateY(-1px)}
+.dash-btn.ghost{background:rgba(255,255,255,.07);color:#fafaf7;border:1px solid rgba(255,255,255,.1)}
+.dash-btn.ghost:hover{background:rgba(255,255,255,.12)}
+.dash-btn.danger{background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);padding:.5rem 1rem;font-size:12px}
+.dash-btn.danger:hover{background:rgba(255,107,107,.22)}
+.dash-btn.edit{background:rgba(125,196,154,.12);color:#7dc49a;border:1px solid rgba(125,196,154,.28);padding:.5rem 1rem;font-size:12px}
+.dash-btn.edit:hover{background:rgba(125,196,154,.25)}
+.dash-editing-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(125,196,154,.18);border:1px solid rgba(125,196,154,.35);color:#7dc49a;font-size:11px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);margin-bottom:1rem;letter-spacing:.06em}
+.dash-props-list{display:flex;flex-direction:column;gap:.75rem}
+.dash-prop-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-md);padding:1rem 1.25rem;transition:background .2s}
+.dash-prop-item:hover{background:rgba(255,255,255,.06)}
+.dash-prop-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
+.dash-prop-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.dash-prop-info{flex:1;min-width:0}
+.dash-prop-name{font-weight:600;font-size:15px;color:#fafaf7}
+.dash-prop-addr{font-size:12px;color:rgba(255,255,255,.32);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-prop-meta{font-size:11px;color:rgba(255,255,255,.22);margin-top:3px}
+.dash-empty{text-align:center;padding:2rem;color:rgba(255,255,255,.26);font-size:14px}
 .dash-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.75rem;margin-top:1rem}
 .dash-gallery-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
 .dash-gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
@@ -802,55 +793,77 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
   opacity:0;transition:opacity .2s;
 }
 .dash-gallery-item:hover .dash-gallery-del{opacity:1}
-.dash-gallery-empty{font-size:13px;color:rgba(250,250,247,.28);padding:1rem 0}
-
-/* ── ADMIN BTN ── */
-.nav-admin-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:6px 8px;opacity:.18;transition:opacity .2s,background .2s;border-radius:8px;line-height:1}
-.nav-admin-btn:hover{opacity:1;background:rgba(28,28,26,.06)}
-
-/* ── DASHBOARD ── */
-#dashboard{display:none;background:var(--navy2);color:var(--cream);padding:5rem 5%}
-#dashboard.visible{display:block}
-.dash-container{max-width:900px;margin:0 auto}
-.dash-title{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;color:var(--cream);margin-bottom:.35rem}
-.dash-subtitle{font-size:13px;color:rgba(250,250,247,.32);margin-bottom:3rem;letter-spacing:.02em}
-.dash-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-lg);padding:2rem;margin-bottom:2rem}
-.dash-panel-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7EC89A;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.07)}
-.dash-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.dash-field{display:flex;flex-direction:column;gap:.4rem}
-.dash-field.full{grid-column:1/-1}
-.dash-label{font-size:11px;font-weight:600;color:rgba(250,250,247,.38);letter-spacing:.1em;text-transform:uppercase}
-.dash-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-sm);padding:.65rem 1rem;color:var(--cream);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;transition:border-color .2s,background .2s;width:100%}
-.dash-input:focus{outline:none;border-color:rgba(61,107,79,.6);background:rgba(255,255,255,.09)}
-.dash-input::placeholder{color:rgba(250,250,247,.16)}
-.dash-file-area{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.12);border-radius:var(--r-sm);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
-.dash-file-area:hover{border-color:rgba(61,107,79,.45);background:rgba(61,107,79,.05)}
-.dash-file-input{display:none}
-.dash-file-label{font-size:13px;color:rgba(250,250,247,.38);cursor:pointer;pointer-events:none}
-.dash-file-label strong{color:#7EC89A}
-.dash-preview{font-size:12px;color:#7EC89A;margin-top:.5rem;min-height:16px}
-.dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
-.dash-btn{padding:.65rem 1.4rem;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-flex;align-items:center;gap:6px}
-.dash-btn.primary{background:var(--green);color:var(--white)}
-.dash-btn.primary:hover{background:var(--green2);transform:translateY(-1px)}
-.dash-btn.ghost{background:rgba(255,255,255,.07);color:var(--cream);border:1px solid rgba(255,255,255,.1)}
-.dash-btn.ghost:hover{background:rgba(255,255,255,.12)}
-.dash-btn.danger{background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);padding:.5rem 1rem;font-size:12px}
-.dash-btn.danger:hover{background:rgba(255,107,107,.22)}
-.dash-btn.edit{background:rgba(61,107,79,.12);color:#7EC89A;border:1px solid rgba(61,107,79,.28);padding:.5rem 1rem;font-size:12px}
-.dash-btn.edit:hover{background:rgba(61,107,79,.25)}
-.dash-editing-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(61,107,79,.18);border:1px solid rgba(61,107,79,.35);color:#7EC89A;font-size:11px;font-weight:600;padding:.3rem .8rem;border-radius:50px;margin-bottom:1rem;letter-spacing:.06em}
-.dash-props-list{display:flex;flex-direction:column;gap:.75rem}
-.dash-prop-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-md);padding:1rem 1.25rem;transition:background .2s}
-.dash-prop-item:hover{background:rgba(255,255,255,.06)}
-.dash-prop-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
-.dash-prop-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.dash-prop-info{flex:1;min-width:0}
-.dash-prop-name{font-weight:600;font-size:15px;color:var(--cream)}
-.dash-prop-addr{font-size:12px;color:rgba(250,250,247,.32);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dash-prop-meta{font-size:11px;color:rgba(250,250,247,.22);margin-top:3px}
-.dash-empty{text-align:center;padding:2rem;color:rgba(250,250,247,.26);font-size:14px}
+.dash-gallery-empty{font-size:13px;color:rgba(255,255,255,.28);padding:1rem 0}
 @media(max-width:768px){.dash-form-grid{grid-template-columns:1fr}.dash-field.full{grid-column:auto}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1280px){.props-grid{gap:1.25rem}.quienes-top{gap:48px}.mvv-grid{gap:0}}
+@media(max-width:1024px){
+  nav{padding:0 32px}
+  section{padding:80px 32px}
+  .statement{padding:60px 32px}
+  .quienes{padding:80px 32px}
+  .cta-section{padding:48px 32px}
+  .marquee-header{padding:0 32px 2rem}
+  .mapa-header{padding:0 32px 2rem}
+  footer{padding:3rem 32px 2rem}
+  #dashboard{padding:5rem 32px}
+  .props-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .quienes-top{grid-template-columns:1fr;gap:48px}
+  .mvv-grid{grid-template-columns:1fr}
+  .why-layout{grid-template-columns:1fr;gap:40px}
+  .faq-layout{grid-template-columns:1fr;gap:40px}
+  .cta-card{grid-template-columns:1fr;gap:40px}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1/-1}
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
+  .lightbox-nav.prev{left:-50px}
+  .lightbox-nav.next{right:-50px}
+}
+@media(max-width:768px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{padding:1.5rem 24px 2rem}
+  section{padding:64px 24px}
+  .statement{padding:48px 24px}
+  .quienes{padding:64px 24px}
+  .cta-section{padding:32px 24px}
+  .marquee-header{padding:0 24px 1.5rem}
+  .mapa-header{padding:0 24px 1.5rem}
+  footer{padding:2.5rem 24px 2rem}
+  #dashboard{padding:4rem 24px}
+  .props-grid{grid-template-columns:1fr;gap:1.25rem}
+  .stats-bar{flex-wrap:wrap}
+  .stat-item{border-right:none;border-bottom:1px solid var(--gray-200);padding:1rem 2rem;min-width:50%}
+  .stat-item:nth-child(odd){border-right:1px solid var(--gray-200)}
+  .stat-item:last-child{border-bottom:none}
+  .hero{padding:0 24px 64px}
+  .reviews-grid{grid-template-columns:1fr}
+  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .footer-brand{grid-column:auto}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .lightbox-nav{display:none}
+  .lightbox{padding:1rem}
+  .valores-grid{grid-template-columns:1fr 1fr}
+  .cta-card{padding:40px 32px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:clamp(2.4rem,11vw,3.5rem)}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+  .btn-hero-primary,.btn-hero-ghost{width:100%;max-width:280px;justify-content:center}
+  .prop-actions-row{grid-template-columns:1fr}
+  .amenidades-grid{grid-template-columns:repeat(2,1fr)}
+  .cta-card{padding:32px 24px}
+  .valores-grid{grid-template-columns:1fr}
+  .mvv-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -858,18 +871,16 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-img">🦆</div>
-    <div class="nav-logo-text">
-      <strong>Barrio Inn</strong>
-      <span>Hostelería</span>
-    </div>
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-logo-name">Barrio Inn</div>
   </a>
   <div class="nav-links">
+    <a href="#quienes">Nosotros</a>
     <a href="#propiedades">Propiedades</a>
     <a href="#amenidades">Amenidades</a>
     <a href="#resenas">Reseñas</a>
     <a href="#faq">FAQ</a>
-    <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta">📲 Reservar</a>
+    <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta">Reservar ahora</a>
   </div>
   <button onclick="abrirAdmin()" class="nav-admin-btn" title="Administrador" aria-label="Admin">🔐</button>
   <button class="hamburger" id="hamburger" aria-label="Menú">
@@ -879,32 +890,38 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#quienes" onclick="closeMobile()">Nosotros</a>
   <a href="#propiedades" onclick="closeMobile()">Propiedades</a>
   <a href="#amenidades" onclick="closeMobile()">Amenidades</a>
   <a href="#resenas" onclick="closeMobile()">Reseñas</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta" style="color:#fff">📲 Reservar</a>
+  <a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20Barrio%20Inn%20en%20su%20p%C3%A1gina%20web%20y%20quisiera%20hacer%20una%20reservaci%C3%B3n.%20%C2%BFTienen%20disponibilidad%3F" target="_blank" class="nav-cta" style="color:#fff">Reservar</a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-badge">Barrio Antiguo · Monterrey, México</div>
-  <div class="hero-divider"></div>
-  <h1>No visites Monterrey,<br><em>vívelo.</em></h1>
-  <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Tu hogar lejos de casa.</p>
-  <div class="hero-btns">
-    <a href="#propiedades" class="btn-primary">🏠 Ver propiedades</a>
-    <a href="https://wa.me/5218110645136?text=Hola%2C%20me%20interesa%20hospedarme%20en%20Barrio%20Inn%20en%20el%20Barrio%20Antiguo%20de%20Monterrey.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" class="btn-ghost">💬 Hablar</a>
-  </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    explora
+  <div class="hero-bg"></div>
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Barrio Antiguo · Monterrey, México</div>
+    <h1>No visites<br>Monterrey,<br><em>vívelo.</em></h1>
+    <p class="hero-sub">Hospedajes boutique en el corazón del centro histórico. Experiencias reales, conexiones genuinas, turismo con propósito.</p>
+    <div class="hero-btns">
+      <a href="#propiedades" class="btn-hero-primary">
+        Ver propiedades
+        <div class="btn-hero-icon">🏠</div>
+      </a>
+      <a href="https://wa.me/5218110645136?text=Hola%2C%20me%20interesa%20hospedarme%20en%20Barrio%20Inn." target="_blank" class="btn-hero-ghost">
+        💬 Hablar con nosotros
+      </a>
+    </div>
+    <div class="hero-trust">Superanfitrión verificado · 4.82 estrellas · 250+ reseñas</div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats">
+<!-- STATS BAR -->
+<div class="stats-bar">
   <div class="stat-item">
     <span class="stat-num">4+</span>
     <span class="stat-label">Propiedades</span>
@@ -923,42 +940,151 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
   </div>
 </div>
 
+<!-- STATEMENT -->
+<div class="statement">
+  <div class="statement-inner">
+    <p class="statement-text">Hospedarte en <em>Barrio Inn</em> es más que una cama. Es despertar en el barrio más vivo de Monterrey, conectar con su historia y vivir la ciudad desde adentro.</p>
+    <div class="statement-tags">
+      <span class="statement-tag">🔐 Smart Lock 24h</span>
+      <span class="statement-tag">📶 WiFi 100+ Mbps</span>
+      <span class="statement-tag">📍 Barrio Antiguo</span>
+      <span class="statement-tag">📄 Factura CFDI</span>
+      <span class="statement-tag">🛡️ Seguridad 24/7</span>
+      <span class="statement-tag">☕ Café de cortesía</span>
+      <span class="statement-tag">❄️ Mini Split</span>
+      <span class="statement-tag">📺 Smart TV</span>
+    </div>
+  </div>
+</div>
+
+<!-- QUIÉNES SOMOS -->
+<section class="quienes reveal" id="quienes">
+  <div class="quienes-inner">
+
+    <!-- Top: texto + stats -->
+    <div class="quienes-top">
+      <div class="quienes-left">
+        <div class="quienes-eyebrow">Quiénes somos</div>
+        <h2 class="quienes-title">Turismo consciente<br>desde el <em>Barrio.</em></h2>
+        <p class="quienes-desc">Barrio Inn nació de una convicción simple: el turismo debe generar bienestar real — para quien viaja y para quien recibe. Somos una empresa de hospedaje boutique en el Barrio Antiguo de Monterrey, operada con propósito, impulsada por la hospitalidad y comprometida con la comunidad que nos rodea.</p>
+        <p class="quienes-desc">Cada propiedad es una invitación a descubrir Monterrey con autenticidad. Nada de hoteles genéricos. Nada de experiencias vacías. Aquí el viajero es bienvenido como parte del barrio.</p>
+        <a href="#propiedades" class="quienes-cta">Explorar propiedades →</a>
+      </div>
+      <div class="quienes-right">
+        <div class="quienes-stat-card">
+          <div class="quienes-stat-num">4.82 ★</div>
+          <div class="quienes-stat-label">Calificación promedio en Airbnb, basada en 250+ reseñas verificadas</div>
+        </div>
+        <div class="quienes-stat-card">
+          <div class="quienes-stat-num">3 años</div>
+          <div class="quienes-stat-label">Como SuperAnfitrión en Airbnb — reconocimiento a la consistencia y calidad</div>
+        </div>
+        <div class="quienes-stat-card">
+          <div class="quienes-stat-num">6 complejos</div>
+          <div class="quienes-stat-label">En el corazón del centro histórico de Monterrey, Nuevo León</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Misión, Visión, Valores -->
+    <div class="mvv-grid" style="margin-bottom:60px">
+      <div class="mvv-card">
+        <div class="mvv-num">01</div>
+        <div class="mvv-icon">🧭</div>
+        <div class="mvv-label">Misión</div>
+        <div class="mvv-title">Hospitalidad con alma</div>
+        <p class="mvv-text">Crear experiencias de hospedaje auténticas que conecten al viajero con la esencia cultural del Barrio Antiguo de Monterrey, operando con estándares de excelencia, tecnología y un profundo respeto por la comunidad local y el entorno.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-num">02</div>
+        <div class="mvv-icon">🌿</div>
+        <div class="mvv-label">Visión</div>
+        <div class="mvv-title">El modelo de turismo que México necesita</div>
+        <p class="mvv-text">Ser la empresa de hospedaje boutique más influyente del norte de México — un referente de que el turismo puede ser un motor de desarrollo consciente, construido sobre relaciones genuinas entre viajeros, anfitriones y comunidad.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-num">03</div>
+        <div class="mvv-icon">♻️</div>
+        <div class="mvv-label">Negocio consciente</div>
+        <div class="mvv-title">Rentabilidad con propósito</div>
+        <p class="mvv-text">Creemos que la rentabilidad y el impacto positivo no son opuestos. Barrio Inn opera bajo principios de hospitalidad regenerativa: generando valor económico mientras cuida a las personas, el barrio y las experiencias que hacen único a Monterrey.</p>
+      </div>
+    </div>
+
+    <!-- Valores -->
+    <div class="valores-title">Nuestros valores</div>
+    <div class="valores-grid">
+      <div class="valor-item">
+        <div class="valor-icon">🤝</div>
+        <div class="valor-name">Autenticidad</div>
+        <p class="valor-desc">Nada de fachadas. Ofrecemos experiencias reales en espacios con carácter propio.</p>
+      </div>
+      <div class="valor-item">
+        <div class="valor-icon">🌱</div>
+        <div class="valor-name">Consciencia</div>
+        <p class="valor-desc">Cada decisión considera su impacto en la comunidad, el ambiente y el viajero.</p>
+      </div>
+      <div class="valor-item">
+        <div class="valor-icon">⭐</div>
+        <div class="valor-name">Excelencia</div>
+        <p class="valor-desc">El 4.82 en Airbnb no es un accidente. Es el resultado de obsesionarnos con cada detalle.</p>
+      </div>
+      <div class="valor-item">
+        <div class="valor-icon">🏘️</div>
+        <div class="valor-name">Comunidad</div>
+        <p class="valor-desc">El Barrio Antiguo es nuestro hogar. Lo cuidamos como lo que es: un patrimonio vivo.</p>
+      </div>
+      <div class="valor-item">
+        <div class="valor-icon">🔓</div>
+        <div class="valor-name">Accesibilidad</div>
+        <p class="valor-desc">Tecnología y diseño al servicio de una experiencia simple, fluida y sin fricciones.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- WHY -->
 <section class="why reveal">
   <div class="container">
-    <div class="section-eyebrow">¿Por qué Barrio Inn?</div>
-    <h2 class="section-title">La experiencia que mereces</h2>
-    <p class="section-sub">Cada detalle pensado para que tu estadía en Monterrey sea memorable, cómoda y auténtica.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">🔐</div>
-        <h3>Smart Lock 24h</h3>
-        <p>Sin recepción. Llega a cualquier hora con tu código único. Acceso completamente autónomo.</p>
+    <div class="why-layout">
+      <div class="why-left">
+        <div class="section-eyebrow">¿Por qué Barrio Inn?</div>
+        <h2 class="section-title">Encuentra tu espacio, a tu manera.</h2>
+        <p class="section-sub">Desde smart locks hasta factura CFDI — diseñamos cada detalle para que solo te concentres en vivir Monterrey.</p>
+        <a href="https://wa.me/5218110645136" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;padding:.75rem 1.75rem;border-radius:var(--r-pill);font-size:14px;font-weight:700;text-decoration:none;margin-top:2rem;transition:all .22s" onmouseover="this.style.background='#333'" onmouseout="this.style.background='var(--black)'">Hacer una reserva</a>
       </div>
-      <div class="why-card">
-        <div class="why-icon">📶</div>
-        <h3>WiFi 100+ Mbps</h3>
-        <p>Fibra óptica dedicada para trabajo remoto, videollamadas y streaming sin interrupciones.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">📍</div>
-        <h3>Ubicación perfecta</h3>
-        <p>En el corazón del Barrio Antiguo. Museos, restaurantes y vida nocturna a pasos de tu puerta.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">📄</div>
-        <h3>Facturación CFDI</h3>
-        <p>Factura fiscal disponible para viajeros de negocios. Sin complicaciones, sin trámites.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🛡️</div>
-        <h3>Seguridad total</h3>
-        <p>Cámaras de alta seguridad, extintores y acceso controlado en todas las propiedades.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">☕</div>
-        <h3>Café de cortesía</h3>
-        <p>Café incluido en cada propiedad. Empieza tu día en Monterrey como se debe.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🔐</div>
+          <h3>Smart Lock 24h</h3>
+          <p>Sin recepción. Llega a cualquier hora con tu código único. Acceso completamente autónomo.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📶</div>
+          <h3>WiFi 100+ Mbps</h3>
+          <p>Fibra óptica dedicada para trabajo remoto, videollamadas y streaming sin interrupciones.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📍</div>
+          <h3>Ubicación perfecta</h3>
+          <p>En el corazón del Barrio Antiguo. Museos, restaurantes y vida nocturna a pasos de tu puerta.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📄</div>
+          <h3>Facturación CFDI</h3>
+          <p>Factura fiscal disponible para viajeros de negocios. Sin complicaciones, sin trámites.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🛡️</div>
+          <h3>Seguridad total</h3>
+          <p>Cámaras de alta seguridad, extintores y acceso controlado en todas las propiedades.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">☕</div>
+          <h3>Café de cortesía</h3>
+          <p>Café incluido en cada propiedad. Empieza tu día en Monterrey como se debe.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -968,7 +1094,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 <section class="marquee-section" id="galeria">
   <div class="marquee-header">
     <div class="section-eyebrow">Vive el Barrio Antiguo</div>
-    <h2 class="section-title">Monterrey en imágenes</h2>
+    <h2 class="section-title" style="color:#fff">Monterrey en imágenes</h2>
   </div>
   <div class="marquee-outer">
     <div class="marquee-track" id="marqueeTrack">
@@ -980,10 +1106,13 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 <!-- PROPIEDADES -->
 <section class="propiedades reveal" id="propiedades">
   <div class="container">
-    <div class="props-header" id="propsHeaderMain">
-      <div class="section-eyebrow">Nuestras propiedades</div>
-      <h2 class="section-title">Elige tu espacio</h2>
-      <p class="section-sub">Seis complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
+    <div class="props-header-row" id="propsHeaderMain">
+      <div>
+        <div class="section-eyebrow">Nuestras propiedades</div>
+        <h2 class="section-title">Elige tu espacio</h2>
+        <p class="section-sub">Seis complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
+      </div>
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);color:var(--black);padding:.7rem 1.5rem;border-radius:var(--r-pill);font-size:13.5px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--black)'" onmouseout="this.style.borderColor='var(--gray-200)'">Ver todos →</a>
     </div>
     <!-- VISTA COMPLEJOS -->
     <div class="props-grid" id="complejosGrid">
@@ -1008,77 +1137,79 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 
 <!-- REVIEWS -->
 <section class="reviews reveal" id="resenas">
-  <div class="container">
-    <div class="section-eyebrow">Lo que dicen</div>
-    <h2 class="section-title" style="color:var(--cream)">Reseñas reales</h2>
-    <p class="section-sub">Más de 250 evaluaciones en Airbnb con calificación promedio de 4.82.</p>
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div class="section-eyebrow" style="justify-content:center">Lo que dicen nuestros huéspedes</div>
+      <h2 class="section-title">Reseñas reales</h2>
+      <p class="section-sub">Más de 250 evaluaciones en Airbnb con calificación promedio de 4.82.</p>
+    </div>
     <div class="reviews-grid">
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars">★★★★★<span class="review-score">4.9</span></div>
         <p class="review-text">"Excelente lugar para conocer Monterrey y su barrio antiguo, está bien ubicado y con restaurantes cercanos para tener diferentes opciones para comer."</p>
         <div class="review-author">
           <div class="review-avatar">C</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Carlos</p>
-            <p class="review-meta">Tizimín, México · febrero 2026</p>
+            <p class="review-meta">Tizimín · febrero 2026</p>
           </div>
           <span class="review-platform">Airbnb</span>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Barrio Inn siempre nos ha agradado por la ubicación y por toda la facilidad y atención que nos dan los hosts. Ya van varias noches que nos hospedamos en distintas propiedades."</p>
+        <div class="review-stars">★★★★★<span class="review-score">5</span></div>
+        <p class="review-text">"Barrio Inn siempre nos ha agradado por la ubicación y por toda la facilidad y atención que nos dan los hosts. Ya van varias noches que nos hospedamos."</p>
         <div class="review-author">
           <div class="review-avatar">J</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Juan Angel</p>
-            <p class="review-meta">Monterrey, México · hace 3 semanas</p>
+            <p class="review-meta">Monterrey · hace 3 semanas</p>
           </div>
           <span class="review-platform">Airbnb</span>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Amo este lugar, tienen una excelente atención y lo mejor de todo es que puedes tener comida muy rica con solo salir de tu habitación. Está en el centro de Barrio Antiguo."</p>
+        <div class="review-stars">★★★★★<span class="review-score">5</span></div>
+        <p class="review-text">"Amo este lugar, tienen una excelente atención y lo mejor de todo es que puedes tener comida muy rica con solo salir de tu habitación. Está en el centro."</p>
         <div class="review-author">
           <div class="review-avatar">N</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Nathaly</p>
-            <p class="review-meta">San Salvador, El Salvador · nov 2025</p>
+            <p class="review-meta">El Salvador · nov 2025</p>
           </div>
           <span class="review-platform">Airbnb</span>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars">★★★★★<span class="review-score">5</span></div>
         <p class="review-text">"Ubicación perfecta, calle principal de Barrio, con todo cerca a escasos pasos. Muy cómodo, agua súper caliente en regadera y A/C funcionando perfecto."</p>
         <div class="review-author">
           <div class="review-avatar">J</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Juan Angel</p>
-            <p class="review-meta">Monterrey, México · feb 2026</p>
+            <p class="review-meta">Monterrey · feb 2026</p>
           </div>
           <span class="review-platform">Airbnb</span>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars">★★★★★<span class="review-score">5</span></div>
         <p class="review-text">"Me gustó mucho el lugar y la ubicación está perfecta, un lugar seguro y céntrico. Si vuelvo a Monterrey sin duda regreso aquí."</p>
         <div class="review-author">
           <div class="review-avatar">O</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Oscar</p>
-            <p class="review-meta">León, México · febrero 2026</p>
+            <p class="review-meta">León · febrero 2026</p>
           </div>
           <span class="review-platform">Airbnb</span>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Excelente ubicacion, servicios, privacidad y accesibilidad. Lugar muy lindo y excelentes instalaciones, todo muy limpio."</p>
+        <div class="review-stars">★★★★★<span class="review-score">5</span></div>
+        <p class="review-text">"Excelente ubicación, servicios, privacidad y accesibilidad. Lugar muy lindo y excelentes instalaciones, todo muy limpio."</p>
         <div class="review-author">
           <div class="review-avatar">M</div>
-          <div class="review-info">
+          <div>
             <p class="review-name">Misael &amp; Maria Fernanda</p>
             <p class="review-meta">Ciudad Juárez · marzo 2026</p>
           </div>
@@ -1107,19 +1238,19 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
       <div class="amenidad-item"><div class="amenidad-icon">🛡️</div><p class="amenidad-name">Cámaras HD</p><p class="amenidad-desc">Seguridad 24/7</p></div>
       <div class="amenidad-item"><div class="amenidad-icon">🧺</div><p class="amenidad-name">Ropa de cama</p><p class="amenidad-desc">Incluida y limpia</p></div>
     </div>
-    <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:var(--white);border-radius:var(--r-lg);padding:1.5rem 2rem;border:1px solid rgba(28,28,26,.07)">
+    <div style="margin-top:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:#fff;border-radius:var(--r-xl);padding:1.5rem 2rem;border:1px solid var(--gray-200)">
       <div>
-        <p style="font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px">Check-in</p>
-        <p style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:600;color:var(--green)">3:00 PM</p>
+        <p style="font-size:10.5px;font-weight:700;color:var(--gray-400);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px">Check-in</p>
+        <p style="font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:var(--black)">3:00 PM</p>
       </div>
-      <div style="width:1px;height:48px;background:rgba(28,28,26,.09)"></div>
+      <div style="width:1px;height:48px;background:var(--gray-200)"></div>
       <div>
-        <p style="font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px">Check-out</p>
-        <p style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:600;color:var(--navy)">11:00 AM</p>
+        <p style="font-size:10.5px;font-weight:700;color:var(--gray-400);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px">Check-out</p>
+        <p style="font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:var(--black)">11:00 AM</p>
       </div>
-      <div style="width:1px;height:48px;background:rgba(28,28,26,.09)"></div>
+      <div style="width:1px;height:48px;background:var(--gray-200)"></div>
       <div>
-        <p style="font-size:13px;color:var(--text2);max-width:320px;line-height:1.65">Instrucciones de acceso enviadas el día de tu llegada vía WhatsApp. Sin recepción, sin filas.</p>
+        <p style="font-size:13px;color:var(--gray-600);max-width:320px;line-height:1.65">Instrucciones de acceso enviadas el día de tu llegada vía WhatsApp. Sin recepción, sin filas.</p>
       </div>
     </div>
   </div>
@@ -1128,83 +1259,90 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 <!-- FAQ -->
 <section class="faq reveal" id="faq">
   <div class="container">
-    <div class="section-eyebrow">Preguntas frecuentes</div>
-    <h2 class="section-title">Resolvemos tus dudas</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Cómo funciona el acceso con smart lock?
-          <div class="faq-icon">+</div>
-        </div>
-        <div class="faq-a">No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp el día de tu llegada a las 2 PM. El acceso es completamente autónomo, disponible las 24 horas.</div>
+    <div class="faq-layout">
+      <div class="faq-left">
+        <div class="section-eyebrow">Preguntas frecuentes</div>
+        <h2 class="section-title">¿Tienes dudas? Las resolvemos.</h2>
+        <p class="section-sub">Todo lo que necesitas saber antes de reservar en Barrio Inn — desde el acceso hasta las mascotas.</p>
+        <a href="https://wa.me/5218110645136" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;padding:.75rem 1.75rem;border-radius:var(--r-pill);font-size:14px;font-weight:700;text-decoration:none;margin-top:2rem;transition:all .22s" onmouseover="this.style.background='#333'" onmouseout="this.style.background='var(--black)'">Contactar →</a>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Cuáles son los horarios de check-in y check-out?
-          <div class="faq-icon">+</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Cómo funciona el acceso con smart lock?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp el día de tu llegada a las 2 PM. El acceso es completamente autónomo, disponible las 24 horas.</div>
         </div>
-        <div class="faq-a">El check-in es a partir de las 3:00 PM y el check-out antes de las 11:00 AM. No realizamos early check-in ni late check-out sin reserva adicional.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Ofrecen factura fiscal?
-          <div class="faq-icon">+</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Cuáles son los horarios de check-in y check-out?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">El check-in es a partir de las 3:00 PM y el check-out antes de las 11:00 AM. No realizamos early check-in ni late check-out sin reserva adicional.</div>
         </div>
-        <div class="faq-a">Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por WhatsApp. Las facturas se generan días después de terminar la estancia.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Hay estacionamiento?
-          <div class="faq-icon">+</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Ofrecen factura fiscal?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por WhatsApp. Las facturas se generan días después de terminar la estancia.</div>
         </div>
-        <div class="faq-a">No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Puedo hacer check-in anticipado?
-          <div class="faq-icon">+</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Hay estacionamiento?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.</div>
         </div>
-        <div class="faq-a">El check-in anticipado no está disponible actualmente. Nuestro sistema de limpieza y preparación de habitaciones necesita el tiempo completo entre huéspedes para garantizar la mejor experiencia.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Hay guardado de equipaje?
-          <div class="faq-icon">+</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Puedo hacer check-in anticipado?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">El check-in anticipado no está disponible actualmente. Nuestro sistema de limpieza y preparación de habitaciones necesita el tiempo completo entre huéspedes para garantizar la mejor experiencia.</div>
         </div>
-        <div class="faq-a">Por el momento no contamos con servicio de guardado de equipaje. Te recomendamos coordinar tu llegada con el horario de check-in.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          ¿Se permiten mascotas?
-          <div class="faq-icon">+</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Se permiten mascotas?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">El Loft Pirineos es pet-friendly. Las demás propiedades no permiten mascotas por políticas de convivencia. Consulta al momento de reservar.</div>
         </div>
-        <div class="faq-a">El Loft Pirineos es pet-friendly. Las demás propiedades no permiten mascotas por políticas de convivencia. Consulta al momento de reservar.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section reveal">
-  <div class="container">
-    <h2>¿Listo para vivir Monterrey?</h2>
-    <p>Escríbe directamente. Responde rápido y te ayuda a elegir la mejor opción para ti.</p>
-    <div class="cta-btns">
-      <a href="https://wa.me/5218110645136?text=Hola%2C%20estoy%20listo%20para%20reservar%20en%20Barrio%20Inn.%20%C2%BFPueden%20ayudarme%20a%20elegir%20la%20mejor%20opci%C3%B3n%20para%20m%C3%AD%3F" target="_blank" class="btn-white">
-        💬 Escribir por WhatsApp
-      </a>
-      <a href="#propiedades" class="btn-white-outline">
-        🏠 Ver propiedades
+<!-- CTA DARK CARD -->
+<div class="cta-section reveal">
+  <div class="cta-card">
+    <div class="cta-left">
+      <h2>¿Listo para vivir Monterrey desde adentro?</h2>
+      <p>Escríbenos directo. Respondemos rápido y te ayudamos a elegir la mejor opción para tu estadía.</p>
+      <a href="https://wa.me/5218110645136?text=Hola%2C%20estoy%20listo%20para%20reservar%20en%20Barrio%20Inn.%20%C2%BFPueden%20ayudarme%20a%20elegir%20la%20mejor%20opci%C3%B3n%3F" target="_blank" class="btn-cta-primary">
+        Escribir por WhatsApp
+        <div class="btn-icon">💬</div>
       </a>
     </div>
+    <div class="cta-right">
+      <div class="cta-feat"><div class="cta-feat-icon">🔐</div>Smart Lock · Acceso 24h sin recepción</div>
+      <div class="cta-feat"><div class="cta-feat-icon">📶</div>WiFi 100+ Mbps · Fibra óptica</div>
+      <div class="cta-feat"><div class="cta-feat-icon">📄</div>Factura CFDI disponible</div>
+      <div class="cta-feat"><div class="cta-feat-icon">⭐</div>4.82 estrellas · SuperAnfitrión</div>
+      <div class="cta-trust">
+        <div class="cta-avatars">
+          <div class="cta-avatar">😊</div>
+          <div class="cta-avatar">👤</div>
+          <div class="cta-avatar">🙂</div>
+        </div>
+        Más de 250 huéspedes satisfechos
+      </div>
+    </div>
   </div>
-</section>
-
-<!-- MAPA -->
-<div class="marquee">
-  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
+<!-- MAPA -->
 <section class="mapa-section reveal" id="mapa">
   <div class="mapa-header">
     <div>
@@ -1213,8 +1351,8 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
       <p class="section-sub">Cada propiedad a pasos de lo mejor del Barrio Antiguo de Monterrey.</p>
     </div>
     <div class="mapa-legend">
-      <div class="mapa-legend-item"><div class="mapa-legend-dot" style="background:#3D6B4F"></div>Propiedades activas</div>
-      <div class="mapa-legend-item"><div class="mapa-legend-dot" style="background:#C9A96E"></div>Próximamente</div>
+      <div class="mapa-legend-item"><div class="mapa-legend-dot" style="background:#7dc49a"></div>Propiedades activas</div>
+      <div class="mapa-legend-item"><div class="mapa-legend-dot" style="background:rgba(255,255,255,.3)"></div>Próximamente</div>
     </div>
   </div>
   <div id="map"></div>
@@ -1226,13 +1364,10 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="footer-logo">
-          <div class="nav-logo-img" style="background:rgba(255,255,255,.1);font-size:18px">🦆</div>
-          <div class="nav-logo-text">
-            <strong>Barrio Inn</strong>
-            <span>Hostelería</span>
-          </div>
+          <div class="footer-logo-mark">B</div>
+          <div class="footer-logo-name">Barrio Inn</div>
         </a>
-        <p class="footer-tagline">Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey.</p>
+        <p class="footer-tagline">Tu hogar lejos de casa, en el corazón del centro histórico de Monterrey. Turismo consciente desde el Barrio.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/barrioinn" target="_blank" class="social-btn">📷</a>
           <a href="https://www.facebook.com/Barrio-Inn-61553063681506" target="_blank" class="social-btn">📘</a>
@@ -1247,16 +1382,23 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
         <a href="#propiedades">Loft Pirineos</a>
       </div>
       <div class="footer-col">
-        <h4>Info</h4>
+        <h4>Navegación</h4>
+        <a href="#quienes">Quiénes somos</a>
         <a href="#amenidades">Amenidades</a>
         <a href="#resenas">Reseñas</a>
         <a href="#faq">FAQ</a>
-        <a href="https://wa.me/5218110645136" target="_blank">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/5218110645136" target="_blank">💬 WhatsApp</a>
+        <a href="https://www.instagram.com/barrioinn" target="_blank">📷 Instagram</a>
+        <a href="https://www.airbnb.mx" target="_blank">🏠 Airbnb</a>
+        <a href="mailto:hola@barrioinn.mx">✉️ Email</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
-      <p class="patito">Hecho con 🦆 por Barrio Inn</p>
+      <p>Turismo consciente desde el Barrio 🏘️</p>
     </div>
   </div>
 </footer>
@@ -1267,7 +1409,7 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
     <div class="dash-title">Panel de Administración</div>
     <p class="dash-subtitle">Solo visible para administradores · Los cambios se guardan en este navegador automáticamente.</p>
 
-    <!-- ── VISTA PRINCIPAL: COMPLEJOS ── -->
+    <!-- VISTA PRINCIPAL: COMPLEJOS -->
     <div id="dash-view-complejos">
       <div class="dash-panel">
         <div class="dash-panel-title" style="display:flex;align-items:center;justify-content:space-between">
@@ -1279,7 +1421,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
         </div>
       </div>
 
-      <!-- FORM EDITAR COMPLEJO (oculto hasta que se abre) -->
       <div class="dash-panel" id="dash-complejo-form-panel" style="display:none">
         <div class="dash-panel-title" id="dash-complejo-form-title">✦ Editar complejo</div>
         <div class="dash-form-grid">
@@ -1314,10 +1455,9 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
         </div>
       </div>
 
-      <!-- GALERÍA -->
       <div class="dash-panel">
         <div class="dash-panel-title">🖼 Galería Turística · Marquee</div>
-        <p style="font-size:12px;color:rgba(250,250,247,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel del sitio. Se comprimen automáticamente.</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel del sitio. Se comprimen automáticamente.</p>
         <div class="dash-file-area" onclick="document.getElementById('galeriaInput').click()">
           <label class="dash-file-label"><strong>📷 Subir fotos de Monterrey</strong><br/>JPG, PNG, WebP · Sin límite de archivos</label>
         </div>
@@ -1334,17 +1474,16 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
       </div>
     </div>
 
-    <!-- ── VISTA DRILL-DOWN: UNIDADES DE UN COMPLEJO ── -->
+    <!-- VISTA DRILL-DOWN: UNIDADES -->
     <div id="dash-view-unidades" style="display:none">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap">
         <button class="unidades-back" onclick="dashVolverComplejos()">← Volver a complejos</button>
         <div>
           <div class="dash-panel-title" style="margin:0" id="dash-unidades-titulo">Complejo</div>
-          <p style="font-size:12px;color:rgba(250,250,247,.32);margin-top:2px" id="dash-unidades-sub"></p>
+          <p style="font-size:12px;color:rgba(255,255,255,.32);margin-top:2px" id="dash-unidades-sub"></p>
         </div>
       </div>
 
-      <!-- LISTA UNIDADES DEL COMPLEJO -->
       <div class="dash-panel">
         <div class="dash-panel-title">🏠 Unidades en este complejo</div>
         <div class="dash-props-list" id="dashPropsList">
@@ -1352,7 +1491,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
         </div>
       </div>
 
-      <!-- FORM AGREGAR / EDITAR UNIDAD -->
       <div class="dash-panel">
         <div class="dash-panel-title" id="dash-form-title">✦ Agregar nueva unidad</div>
         <div id="dash-editing-badge" style="display:none" class="dash-editing-badge">✏ Modo edición activo</div>
@@ -1428,7 +1566,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
         <button class="dash-btn ghost" onclick="cerrarDashboard()">✕ Cerrar panel</button>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1448,9 +1585,9 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 </div>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20su%20p%C3%A1gina%20de%20Barrio%20Inn%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20hospedajes." target="_blank" class="wa-float" aria-label="WhatsApp Rulo">
+<a href="https://wa.me/5218110645136?text=Hola%2C%20vi%20su%20p%C3%A1gina%20de%20Barrio%20Inn%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20hospedajes." target="_blank" class="wa-float" aria-label="WhatsApp Barrio Inn">
   <span class="wa-icon">💬</span>
-  <span class="wa-label">Hablar</span>
+  <span class="wa-label">Reservar</span>
 </a>
 
 <script>
@@ -1458,7 +1595,6 @@ footer{background:var(--navy2);padding:4rem 5% 2.5rem;color:rgba(250,250,247,.52
 // DATOS Y PERSISTENCIA
 // ═══════════════════════════════════════════════
 
-// COMPLEJOS DEFAULT
 const COMPLEJOS_DEFAULT = [
   { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:6,  tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'' },
   { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:16, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'' },
@@ -1600,637 +1736,520 @@ function renderizarComplejos(){
 }
 
 function abrirComplejo(id){
-  complejoActivo = id;
-  const c = complejos.find(x => x.id === id);
+  complejoActivo = complejos.find(c => c.id === id);
+  if(!complejoActivo) return;
+
   document.getElementById('complejosGrid').style.display = 'none';
+  document.getElementById('unidadesView').style.display  = 'block';
   document.getElementById('propsHeaderMain').style.display = 'none';
-  const unidadesView = document.getElementById('unidadesView');
-  unidadesView.style.display = 'block';
-  document.getElementById('unidadesEyebrow').textContent = 'Complejo ' + (c ? c.nombre : id);
-  document.getElementById('unidadesTitulo').textContent  = c ? c.nombre : id;
-  document.getElementById('unidadesSub').textContent     = c ? c.direccion : '';
-  renderizarPropiedades(id);
-  document.getElementById('propiedades').scrollIntoView({ behavior:'smooth', block:'start' });
+
+  document.getElementById('unidadesEyebrow').textContent = 'Complejo ' + complejoActivo.nombre;
+  document.getElementById('unidadesTitulo').textContent  = complejoActivo.nombre;
+  document.getElementById('unidadesSub').textContent     = complejoActivo.direccion;
+
+  renderizarPropiedadesDeComplejo(id);
 }
 
 function volverComplejos(){
   complejoActivo = null;
-  document.getElementById('unidadesView').style.display = 'none';
-  document.getElementById('complejosGrid').style.display = 'grid';
-  document.getElementById('propsHeaderMain').style.display = 'block';
+  document.getElementById('complejosGrid').style.display  = '';
+  document.getElementById('unidadesView').style.display   = 'none';
+  document.getElementById('propsHeaderMain').style.display = '';
 }
 
+function renderizarPropiedadesDeComplejo(complejoId){
+  const grid  = document.getElementById('propsGrid');
+  const props = propiedades.filter(p => p.complejo === complejoId);
 
+  if(!props.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--gray-400)">
+      <p style="font-size:2.5rem;margin-bottom:1rem">🏗️</p>
+      <p style="font-size:16px;font-weight:600;margin-bottom:.5rem">Sin unidades registradas</p>
+      <p style="font-size:14px">Agrega unidades desde el panel de administración.</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = props.map(p => generarCardHTML(p)).join('');
+  iniciarCarruseles();
+}
 
 // ═══════════════════════════════════════════════
-// RENDER DE PROPIEDADES
+// RENDER PROPIEDADES
 // ═══════════════════════════════════════════════
-function generarTarjeta(prop){
-  const id = prop.id;
-  const fotos = (prop.fotos && prop.fotos.length) ? prop.fotos : [];
+function renderizarPropiedades(){
+  renderizarComplejos();
+}
 
-  const slidesHTML = fotos.length
-    ? fotos.map((f,i) => `<div class="carousel-slide" onclick="openLightbox('${id}',${i})"><img src="${f}" alt="${prop.nombre} ${i+1}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏠</span><span class=ph-label>${prop.nombre}</span></div>'"/></div>`).join('')
-    : `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏠</span><span class="ph-label">${prop.nombre}</span></div></div>`;
+function generarCardHTML(p){
+  const fotosHTML = (() => {
+    const fotos = p.fotos && p.fotos.length ? p.fotos : [];
+    if(!fotos.length) return `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏠</span><span class="ph-label">Sin fotos aún</span></div></div>`;
+    return fotos.map((f, i) => {
+      const isUrl = f.startsWith('http') || f.startsWith('data:');
+      if(isUrl){
+        return `<div class="carousel-slide"><img src="${f}" alt="${p.nombre} ${i+1}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon>🏠</span></div>'"/></div>`;
+      }
+      return `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon">🏠</span><span class="ph-label">${f}</span></div></div>`;
+    }).join('');
+  })();
+  const dotsHTML = (() => {
+    const n = (p.fotos && p.fotos.length) ? Math.min(p.fotos.length, 5) : 1;
+    return Array.from({length:n},(_,i)=>`<div class="carousel-dot${i===0?' active':''}" onclick="goToSlide(this,${i});event.stopPropagation()"></div>`).join('');
+  })();
+  const ratingHTML = p.rating ? `<div class="prop-rating">${p.rating}</div>` : '';
+  const badgeHTML  = p.badge  ? `<div class="prop-badge">${p.badge}</div>`   : '';
+  const tagsHTML   = (p.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
+  const cercanosHTML = (p.cercanos||[]).map(c=>`<div class="prop-highlight">${c}</div>`).join('');
 
-  const dotsHTML = fotos.map((_,i) =>
-    `<div class="carousel-dot${i===0?' active':''}" onclick="goTo('${id}',${i})"></div>`
-  ).join('');
+  const waMsg = encodeURIComponent(`Hola, me interesa reservar en ${p.nombre} (${p.direccion}). ¿Tienen disponibilidad?`);
+  const telLink = p.telefono ? `tel:52${p.telefono}` : '#';
+  const waLink  = `https://wa.me/52${p.telefono||'8110645136'}?text=${waMsg}`;
 
-  const tagsHTML  = (prop.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
-  const cercaHTML = (prop.cercanos||[]).map(c=>`<span class="prop-highlight">${c}</span>`).join('');
+  const belongBtn = p.belong ? `
+    <a href="${p.belong}" target="_blank" class="book-btn belong-primary">
+      <span class="belong-label">🏠 Reservar en Belong <span class="belong-badge">Directo</span></span>
+      <span style="font-size:18px">→</span>
+    </a>` : '';
 
-  const addrHTML = prop.direccionUrl
-    ? `<a href="${prop.direccionUrl}" target="_blank" class="prop-address">${prop.direccion||'Ver en Maps'}</a>`
-    : prop.direccion
-      ? `<p class="prop-address">${prop.direccion}</p>`
-      : '';
+  const rows2 = [
+    p.airbnb   ? `<a href="${p.airbnb}" target="_blank" class="book-btn airbnb"><span class="book-btn-icon">🏡</span>Airbnb</a>` : '',
+    `<a href="${waLink}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon">💬</span>WhatsApp</a>`,
+    p.expedia  ? `<a href="${p.expedia}" target="_blank" class="book-btn expedia"><span class="book-btn-icon">✈️</span>Expedia</a>` : '',
+    p.direccionUrl ? `<a href="${p.direccionUrl}" target="_blank" class="book-btn maps"><span class="book-btn-icon">📍</span>Maps</a>` : '',
+    `<a href="${telLink}" class="book-btn tel"><span class="book-btn-icon">📞</span>Llamar</a>`,
+  ].filter(Boolean).join('');
 
-  // Belong — ancho completo, posición premium
-  const belongBtn = prop.belong
-    ? `<a href="${prop.belong}" target="_blank" class="book-btn belong-primary">
-        <span class="belong-label"><span class="book-btn-icon">✦</span> Reservar con Belong</span>
-        <span class="belong-badge">Mejor precio</span>
-      </a>`
-    : '';
-
-  // Botones secundarios
-  const airbnbBtn  = prop.airbnb      ? `<a href="${prop.airbnb}"      target="_blank" class="book-btn airbnb"><span class="book-btn-icon">🏠</span> Airbnb</a>`   : '';
-  const expediaBtn = prop.expedia     ? `<a href="${prop.expedia}"     target="_blank" class="book-btn expedia"><span class="book-btn-icon">✈</span> Expedia</a>` : '';
-  const mapsBtn    = prop.direccionUrl? `<a href="${prop.direccionUrl}" target="_blank" class="book-btn maps"><span class="book-btn-icon">📍</span> Maps</a>`      : '';
-
-  const tel = prop.telefono || '';
-  const complejoNombre = (complejos.find(c => c.id === prop.complejo)||{}).nombre || '';
-  const waMsg = complejoNombre
-    ? `Hola, vi la unidad "${prop.nombre}" del complejo ${complejoNombre} en la página de Barrio Inn. ¿Tienen disponibilidad?`
-    : `Hola, vi "${prop.nombre}" en la página de Barrio Inn. ¿Tienen disponibilidad?`;
-  const waBtn = tel
-    ? `<a href="https://wa.me/52${tel}?text=${encodeURIComponent(waMsg)}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon">💬</span> WhatsApp</a>`
-    : '';
-  const telBtn = tel
-    ? `<a href="tel:+52${tel}" class="book-btn tel"><span class="book-btn-icon">📞</span> Llamar</a>`
-    : '';
-
-  const secondaryBtns = [airbnbBtn, expediaBtn, waBtn, telBtn, mapsBtn].filter(Boolean);
-  const secondaryRow  = secondaryBtns.length
-    ? `<div class="prop-actions-row">${secondaryBtns.join('')}</div>`
-    : '';
-
-  const ratingBadge = prop.rating ? `<div class="prop-rating">${prop.rating}</div>` : '';
-
-  return `<div class="prop-card" data-prop="${id}">
-    <div class="carousel" id="carousel-${id}">
-      <div class="carousel-track" id="track-${id}">${slidesHTML}</div>
-      <button class="carousel-btn prev" onclick="slide('${id}',-1)">‹</button>
-      <button class="carousel-btn next" onclick="slide('${id}',1)">›</button>
-      <div class="carousel-dots" id="dots-${id}">${dotsHTML}</div>
-      <div class="prop-badge">${prop.badge||'Barrio Inn'}</div>
-      ${ratingBadge}
+  return `<div class="prop-card" id="prop-${p.id}" data-prop="${p.id}">
+    <div class="carousel" id="car-${p.id}">
+      <div class="carousel-track">${fotosHTML}</div>
+      <button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()">‹</button>
+      <button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()">›</button>
+      <div class="carousel-dots">${dotsHTML}</div>
+      ${badgeHTML}${ratingHTML}
     </div>
     <div class="prop-body">
-      <h3 class="prop-title">${prop.nombre}</h3>
-      ${addrHTML}
+      <h3 class="prop-title">${p.nombre}</h3>
+      ${p.direccionUrl
+        ? `<a href="${p.direccionUrl}" target="_blank" class="prop-address">${p.direccion}</a>`
+        : `<p class="prop-address">${p.direccion}</p>`}
       <div class="prop-tags">${tagsHTML}</div>
-      <div class="prop-highlights">
-        <p class="prop-highlights-title">Cerca de ti</p>
-        <div class="prop-highlights-list">${cercaHTML}</div>
+      ${cercanosHTML ? `<div class="prop-highlights"><div class="prop-highlights-title">Cerca de ti</div><div class="prop-highlights-list">${cercanosHTML}</div></div>` : ''}
+      <div class="prop-actions">
+        ${belongBtn}
+        <div class="prop-actions-row">${rows2}</div>
       </div>
-      <div class="prop-actions">${belongBtn}${secondaryRow}</div>
     </div>
   </div>`;
 }
 
-function renderizarPropiedades(complejoId){
-  const grid = document.getElementById('propsGrid');
-  const filtradas = complejoId
-    ? propiedades.filter(p => p.complejo === complejoId)
-    : propiedades;
-
-  grid.innerHTML = filtradas.length
-    ? filtradas.map(generarTarjeta).join('')
-    : `<div class="dash-empty" style="color:var(--text3);padding:3rem;grid-column:1/-1;text-align:center">Sin unidades en este complejo aún.<br><span style="font-size:13px">Agrégalas desde el panel de administración.</span></div>`;
-
-  carouselState = {};
-  filtradas.forEach(p => {
-    carouselState[p.id] = { current: 0, count: (p.fotos||[]).length || 1 };
+// ═══════════════════════════════════════════════
+// CARRUSEL
+// ═══════════════════════════════════════════════
+function iniciarCarruseles(){
+  document.querySelectorAll('.carousel').forEach(car => {
+    car.dataset.idx = '0';
   });
-
-  grid.querySelectorAll('.carousel').forEach(el => {
-    let startX = 0;
-    el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    el.addEventListener('touchend', e => {
-      const diff = startX - e.changedTouches[0].clientX;
-      const id = el.id.replace('carousel-','');
-      if (Math.abs(diff) > 40 && carouselState[id]) slide(id, diff > 0 ? 1 : -1);
-    }, { passive: true });
-  });
-
-  lbImages = {};
-  filtradas.forEach(p => { lbImages[p.id] = p.fotos || []; });
-  actualizarMapa();
 }
 
-// ═══════════════════════════════════════════════
-// NAV
-// ═══════════════════════════════════════════════
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-});
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
-function closeMobile(){ mobileMenu.classList.remove('open'); }
-
-// ═══════════════════════════════════════════════
-// CAROUSEL
-// ═══════════════════════════════════════════════
-let carouselState = {};
-
-function slide(id, dir){
-  const s = carouselState[id];
-  if(!s) return;
-  s.current = (s.current + dir + s.count) % s.count;
-  updateCarousel(id);
+function moverCarrusel(btn, dir){
+  const car   = btn.closest('.carousel');
+  const track = car.querySelector('.carousel-track');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const dots   = car.querySelectorAll('.carousel-dot');
+  let idx = parseInt(car.dataset.idx || 0);
+  idx = (idx + dir + slides.length) % slides.length;
+  car.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  dots.forEach((d,i) => d.classList.toggle('active', i === idx));
 }
-function goTo(id, idx){
-  if(!carouselState[id]) return;
-  carouselState[id].current = idx;
-  updateCarousel(id);
-}
-function updateCarousel(id){
-  const s = carouselState[id];
-  if(!s) return;
-  const track = document.getElementById('track-' + id);
-  if(track) track.style.transform = `translateX(-${s.current * 100}%)`;
-  document.querySelectorAll(`#dots-${id} .carousel-dot`).forEach((d,i) =>
-    d.classList.toggle('active', i === s.current)
-  );
+
+function goToSlide(dot, idx){
+  const car   = dot.closest('.carousel');
+  const track = car.querySelector('.carousel-track');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const dots   = car.querySelectorAll('.carousel-dot');
+  car.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  dots.forEach((d,i) => d.classList.toggle('active', i === idx));
 }
 
 // ═══════════════════════════════════════════════
 // LIGHTBOX
 // ═══════════════════════════════════════════════
-let lbProp = '', lbIdx = 0;
-let lbImages = {};
+let lightboxFotos = [];
+let lightboxIdx   = 0;
 
-function openLightbox(prop, idx){
-  lbProp = prop; lbIdx = idx;
-  renderLightbox();
+function openLightbox(fotos, idx){
+  lightboxFotos = fotos;
+  lightboxIdx   = idx;
+  updateLightbox();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function renderLightbox(){
-  const imgs = lbImages[lbProp] || [];
-  const src  = imgs[lbIdx] || '';
-  const img  = document.getElementById('lightboxImg');
-  const ph   = document.getElementById('lightboxPlaceholder');
-  const vn   = document.getElementById('lightboxVarName');
-  if(src){
-    img.src = src;
-    img.style.display = 'block';
-    ph.style.display  = 'none';
-    img.onerror = () => {
-      img.style.display = 'none';
-      ph.style.display  = 'flex';
-      vn.textContent = src.startsWith('data:') ? '(imagen base64)' : src;
-    };
-  } else {
-    img.style.display = 'none';
-    ph.style.display  = 'flex';
-  }
-  document.getElementById('lightboxCounter').textContent =
-    imgs.length ? `${lbIdx + 1} / ${imgs.length}` : '';
+
+function updateLightbox(){
+  const f   = lightboxFotos[lightboxIdx];
+  const img = document.getElementById('lightboxImg');
+  const ph  = document.getElementById('lightboxPlaceholder');
+  const cnt = document.getElementById('lightboxCounter');
+  cnt.textContent = `${lightboxIdx + 1} / ${lightboxFotos.length}`;
+  const isUrl = f && (f.startsWith('http') || f.startsWith('data:'));
+  if(isUrl){ img.src = f; img.style.display = 'block'; ph.style.display = 'none'; }
+  else { img.style.display = 'none'; ph.style.display = 'flex'; document.getElementById('lightboxVarName').textContent = f || ''; }
 }
+
 function lightboxNav(dir){
-  const len = (lbImages[lbProp]||[]).length;
-  if(!len) return;
-  lbIdx = (lbIdx + dir + len) % len;
-  renderLightbox();
+  lightboxIdx = (lightboxIdx + dir + lightboxFotos.length) % lightboxFotos.length;
+  updateLightbox();
 }
+
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function closeLightboxOutside(e){
   if(e.target === document.getElementById('lightbox')) closeLightbox();
 }
-document.addEventListener('keydown', e => {
-  if(!document.getElementById('lightbox').classList.contains('open')) return;
-  if(e.key === 'Escape')      closeLightbox();
-  if(e.key === 'ArrowLeft')   lightboxNav(-1);
-  if(e.key === 'ArrowRight')  lightboxNav(1);
-});
 
 // ═══════════════════════════════════════════════
 // FAQ
 // ═══════════════════════════════════════════════
-function toggleFaq(el){ el.parentElement.classList.toggle('open'); }
+function toggleFaq(btn){
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ═══════════════════════════════════════════════
+// NAV SCROLL + MOBILE
+// ═══════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  const heroH = document.querySelector('.hero')?.offsetHeight || window.innerHeight;
+  const nav   = document.getElementById('navbar');
+  // Become white after 80px scroll (still in hero but user scrolled)
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+function closeMobile(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
 
 // ═══════════════════════════════════════════════
 // REVEAL ON SCROLL
 // ═══════════════════════════════════════════════
-const revealObserver = new IntersectionObserver(entries => {
+const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: .08 });
-document.querySelectorAll('.reveal').forEach(r => revealObserver.observe(r));
+}, { threshold:.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 // ═══════════════════════════════════════════════
-// DASHBOARD — ACCESO
+// ADMIN / DASHBOARD
 // ═══════════════════════════════════════════════
+let editingId      = null;
+let editingComplejo = null;
+
 function abrirAdmin(){
   const pass = prompt('Contraseña de administrador:');
-  if(pass === 'pepegarza445768'){
-    const dash = document.getElementById('dashboard');
-    dash.classList.add('visible');
-    dash.scrollIntoView({ behavior: 'smooth' });
-    renderDashboard();
+  if(pass === 'barrio2024'){
+    document.getElementById('dashboard').classList.add('visible');
+    document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
+    renderDashComplejos();
+    renderGaleriaAdmin();
   } else if(pass !== null){
     alert('Contraseña incorrecta.');
   }
 }
+
 function cerrarDashboard(){
   document.getElementById('dashboard').classList.remove('visible');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ═══════════════════════════════════════════════
-// DASHBOARD — CARGA DE IMÁGENES
-// ═══════════════════════════════════════════════
-let fotosBase64 = [];
-
-document.getElementById('fotos').addEventListener('change', function(){
-  const files = Array.from(this.files).slice(0, 5);
-  fotosBase64 = [];
-  const preview = document.getElementById('fotos-preview');
-  if(!files.length){ preview.textContent = ''; return; }
-
-  preview.textContent = `Comprimiendo ${files.length} imagen(es)...`;
-  let done = 0;
-
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ratio  = Math.min(1, 1200 / img.width);
-        canvas.width  = Math.round(img.width  * ratio);
-        canvas.height = Math.round(img.height * ratio);
-        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-        fotosBase64.push(canvas.toDataURL('image/jpeg', 0.75));
-        done++;
-        preview.textContent = done === files.length
-          ? `✓ ${done} foto(s) listas`
-          : `Comprimiendo ${done}/${files.length}...`;
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-});
-// ═══════════════════════════════════════════════
-// DASHBOARD — COMPLEJOS
-// ═══════════════════════════════════════════════
-let editandoComplejoId = null;
-let dcFotoBase64 = '';
-let dashComplejoActivo = null; // complejo abierto en el drill-down del dashboard
-
-function abrirFormComplejo(){
-  editandoComplejoId = '__nuevo__';
-  dcFotoBase64 = '';
-  document.getElementById('dc-nombre').value    = '';
-  document.getElementById('dc-direccion').value = '';
-  document.getElementById('dc-unidades').value  = '';
-  document.getElementById('dc-tags').value      = '';
-  document.getElementById('dc-foto-preview').textContent = '';
-  document.getElementById('dash-complejo-form-title').textContent = '✦ Nuevo complejo';
-  document.getElementById('dash-complejo-form-panel').style.display = 'block';
-  document.getElementById('dash-complejo-form-panel').scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function dashAbrirComplejo(id){
-  dashComplejoActivo = id;
-  const c = complejos.find(x => x.id === id);
-  document.getElementById('dash-view-complejos').style.display = 'none';
-  document.getElementById('dash-view-unidades').style.display  = 'block';
-  document.getElementById('dash-unidades-titulo').textContent  = '🏘 ' + (c ? c.nombre : id);
-  document.getElementById('dash-unidades-sub').textContent     = c ? c.direccion : '';
-  renderDashUnidades();
-  document.getElementById('dashboard').scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function dashVolverComplejos(){
-  dashComplejoActivo = null;
-  limpiarFormulario();
-  cerrarFormComplejo();
-  document.getElementById('dash-view-unidades').style.display  = 'none';
-  document.getElementById('dash-view-complejos').style.display = 'block';
-  renderDashComplejos();
-}
-
+// ─── COMPLEJOS DASH ───
 function renderDashComplejos(){
   const list = document.getElementById('dashComplejosList');
-  list.innerHTML = complejos.map((c, i) => {
-    const nUnidades = propiedades.filter(p => p.complejo === c.id).length;
-    const thumb = c.foto
-      ? `<div class="dash-prop-thumb"><img src="${c.foto}" alt="" onerror="this.parentElement.textContent='🏨'"/></div>`
-      : `<div class="dash-prop-thumb">🏨</div>`;
+  if(!complejos.length){ list.innerHTML = '<p class="dash-empty">Sin complejos registrados.</p>'; return; }
+  list.innerHTML = complejos.map((c,i) => {
+    const unidades = propiedades.filter(p => p.complejo === c.id).length;
     return `<div class="dash-prop-item">
-      ${thumb}
+      <div class="dash-prop-thumb">${c.foto ? `<img src="${c.foto}" onerror="this.parentElement.textContent='🏨'"/>` : '🏨'}</div>
       <div class="dash-prop-info">
-        <p class="dash-prop-name">${c.nombre}</p>
-        <p class="dash-prop-addr">${c.direccion||'Sin dirección'}</p>
-        <p class="dash-prop-meta">${nUnidades} unidad(es) · ${(c.tags||[]).join(', ')||'Sin tags'}</p>
+        <div class="dash-prop-name">${c.nombre}</div>
+        <div class="dash-prop-addr">${c.direccion}</div>
+        <div class="dash-prop-meta">${unidades} unidades · ${(c.tags||[]).join(', ')}</div>
       </div>
-      <div style="display:flex;gap:.5rem;flex-shrink:0">
+      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
+        <button class="dash-btn edit" onclick="abrirUnidadesComplejo('${c.id}')">🏠 Unidades</button>
         <button class="dash-btn edit" onclick="editarComplejo(${i})">✏ Editar</button>
-        <button class="dash-btn primary" style="font-size:12px;padding:.5rem 1rem" onclick="dashAbrirComplejo('${c.id}')">Ver unidades →</button>
+        <button class="dash-btn danger" onclick="eliminarComplejo('${c.id}')">✕</button>
       </div>
     </div>`;
   }).join('');
 }
 
+function abrirFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display = 'block'; }
+function cerrarFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display = 'none'; editingComplejo = null; }
+
 function editarComplejo(idx){
   const c = complejos[idx];
-  editandoComplejoId = c.id;
-  dcFotoBase64 = '';
-  document.getElementById('dc-nombre').value    = c.nombre    || '';
-  document.getElementById('dc-direccion').value = c.direccion || '';
-  document.getElementById('dc-unidades').value  = c.unidades  || '';
+  editingComplejo = c.id;
+  document.getElementById('dc-nombre').value    = c.nombre;
+  document.getElementById('dc-direccion').value = c.direccion;
+  document.getElementById('dc-unidades').value  = c.unidades;
   document.getElementById('dc-tags').value      = (c.tags||[]).join(', ');
-  document.getElementById('dc-foto-preview').textContent = c.foto ? '↩ Foto actual conservada' : '';
-  document.getElementById('dash-complejo-form-title').textContent = `✏ Editando complejo: ${c.nombre}`;
-  document.getElementById('dash-complejo-form-panel').style.display = 'block';
-  document.getElementById('dash-complejo-form-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('dash-complejo-form-title').textContent = '✦ Editando: ' + c.nombre;
+  abrirFormComplejo();
+  document.getElementById('dash-complejo-form-panel').scrollIntoView({behavior:'smooth'});
 }
-
-function cerrarFormComplejo(){
-  editandoComplejoId = null;
-  dcFotoBase64 = '';
-  const panel = document.getElementById('dash-complejo-form-panel');
-  if(panel) panel.style.display = 'none';
-}
-
-document.getElementById('dc-foto-input').addEventListener('change', function(){
-  const file = this.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ratio  = Math.min(1, 1200 / img.width);
-      canvas.width  = Math.round(img.width * ratio);
-      canvas.height = Math.round(img.height * ratio);
-      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-      dcFotoBase64 = canvas.toDataURL('image/jpeg', 0.75);
-      document.getElementById('dc-foto-preview').textContent = '✓ Foto lista';
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
 
 function guardarComplejo(){
-  if(!editandoComplejoId) return;
   const nombre = document.getElementById('dc-nombre').value.trim();
-  if(!nombre){ alert('El nombre del complejo es requerido.'); return; }
+  if(!nombre){ alert('El nombre es obligatorio.'); return; }
+  const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
+  const dir = document.getElementById('dc-direccion').value.trim();
 
-  if(editandoComplejoId === '__nuevo__'){
-    const nuevoId = 'complejo_' + Date.now();
-    complejos.push({
-      id: nuevoId,
-      nombre,
-      direccion: document.getElementById('dc-direccion').value.trim(),
-      unidades:  parseInt(document.getElementById('dc-unidades').value) || 0,
-      tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
-      foto:      dcFotoBase64 || '',
-    });
+  if(editingComplejo){
+    const idx = complejos.findIndex(c => c.id === editingComplejo);
+    if(idx > -1){ complejos[idx].nombre = nombre; complejos[idx].direccion = dir; complejos[idx].unidades = unidades; complejos[idx].tags = tags; }
   } else {
-    const idx = complejos.findIndex(c => c.id === editandoComplejoId);
-    if(idx === -1) return;
-    complejos[idx] = {
-      ...complejos[idx],
-      nombre,
-      direccion: document.getElementById('dc-direccion').value.trim(),
-      unidades:  parseInt(document.getElementById('dc-unidades').value) || complejos[idx].unidades,
-      tags:      document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
-      foto:      dcFotoBase64 || complejos[idx].foto || '',
-    };
+    const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+    complejos.push({ id, nombre, direccion:dir, unidades, tags, foto:'' });
   }
-  guardarComplejos();
-  renderizarComplejos();
-  renderDashComplejos();
-  cerrarFormComplejo();
+
+  const fileInput = document.getElementById('dc-foto-input');
+  if(fileInput.files && fileInput.files[0]){
+    const reader = new FileReader();
+    reader.onload = e => {
+      const c = complejos.find(x => x.nombre === nombre);
+      if(c) c.foto = e.target.result;
+      guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  } else {
+    guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
+  }
 }
 
-// ═══════════════════════════════════════════════
-// DASHBOARD — CRUD UNIDADES
-// ═══════════════════════════════════════════════
-let editandoId  = null;
+function eliminarComplejo(id){
+  if(!confirm('¿Eliminar complejo y TODAS sus unidades?')) return;
+  complejos = complejos.filter(c => c.id !== id);
+  propiedades = propiedades.filter(p => p.complejo !== id);
+  guardarComplejos(); guardarLS(); renderDashComplejos(); renderizarComplejos();
+}
 
-function leerFormulario(){
-  const tel = document.getElementById('dash-telefono').value.replace(/\D/g,'').slice(0,10);
-  return {
-    complejo:     dashComplejoActivo,
-    nombre:       document.getElementById('dash-nombre').value.trim(),
-    badge:        document.getElementById('dash-badge').value.trim()        || 'Barrio Inn',
+// ─── DRILL-DOWN UNIDADES ───
+function abrirUnidadesComplejo(complejoId){
+  complejoActivo = complejos.find(c => c.id === complejoId);
+  document.getElementById('dash-view-complejos').style.display = 'none';
+  document.getElementById('dash-view-unidades').style.display  = 'block';
+  document.getElementById('dash-unidades-titulo').textContent   = complejoActivo ? complejoActivo.nombre : '';
+  document.getElementById('dash-unidades-sub').textContent      = complejoActivo ? complejoActivo.direccion : '';
+  renderDashProps();
+}
+
+function dashVolverComplejos(){
+  complejoActivo = null;
+  document.getElementById('dash-view-unidades').style.display  = 'none';
+  document.getElementById('dash-view-complejos').style.display = 'block';
+  limpiarFormulario();
+}
+
+function renderDashProps(){
+  const list  = document.getElementById('dashPropsList');
+  const cId   = complejoActivo ? complejoActivo.id : null;
+  const props = cId ? propiedades.filter(p => p.complejo === cId) : propiedades;
+  if(!props.length){ list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo.</p>'; return; }
+  list.innerHTML = props.map(p => {
+    const thumb = p.fotos && p.fotos.length
+      ? (p.fotos[0].startsWith('http') || p.fotos[0].startsWith('data:')
+        ? `<img src="${p.fotos[0]}" onerror="this.parentElement.textContent='🏠'"/>`
+        : '🏠')
+      : '🏠';
+    return `<div class="dash-prop-item">
+      <div class="dash-prop-thumb">${thumb}</div>
+      <div class="dash-prop-info">
+        <div class="dash-prop-name">${p.nombre}</div>
+        <div class="dash-prop-addr">${p.direccion||''}</div>
+        <div class="dash-prop-meta">${(p.tags||[]).slice(0,3).join(' · ')}</div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
+        <button class="dash-btn edit" onclick="editarPropiedad('${p.id}')">✏ Editar</button>
+        <button class="dash-btn danger" onclick="eliminarPropiedad('${p.id}')">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editarPropiedad(id){
+  const p = propiedades.find(x => x.id === id);
+  if(!p) return;
+  editingId = id;
+  document.getElementById('dash-nombre').value        = p.nombre;
+  document.getElementById('dash-badge').value         = p.badge || '';
+  document.getElementById('dash-direccion').value     = p.direccion || '';
+  document.getElementById('dash-direccion-url').value = p.direccionUrl || '';
+  document.getElementById('dash-rating').value        = p.rating || '';
+  document.getElementById('dash-telefono').value      = p.telefono || '';
+  document.getElementById('dash-tags').value          = (p.tags||[]).join(', ');
+  document.getElementById('dash-cercanos').value      = (p.cercanos||[]).join(', ');
+  document.getElementById('dash-belong').value        = p.belong || '';
+  document.getElementById('dash-airbnb').value        = p.airbnb || '';
+  document.getElementById('dash-expedia').value       = p.expedia || '';
+  document.getElementById('dash-lat').value           = p.lat || '';
+  document.getElementById('dash-lng').value           = p.lng || '';
+  document.getElementById('dash-form-title').textContent  = '✦ Editando: ' + p.nombre;
+  document.getElementById('dash-save-btn').textContent    = '✓ Guardar cambios';
+  document.getElementById('dash-editing-badge').style.display = 'flex';
+  document.getElementById('dash-save-btn').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function limpiarFormulario(){
+  editingId = null;
+  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating',
+   'dash-telefono','dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  document.getElementById('fotos-preview').textContent = '';
+  document.getElementById('fotos').value = '';
+  document.getElementById('dash-form-title').textContent = '✦ Agregar nueva unidad';
+  document.getElementById('dash-save-btn').textContent   = '＋ Agregar unidad';
+  document.getElementById('dash-editing-badge').style.display = 'none';
+}
+
+function guardarPropiedad(){
+  const nombre = document.getElementById('dash-nombre').value.trim();
+  if(!nombre){ alert('El nombre es obligatorio.'); return; }
+
+  const tags     = document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const cercanos = document.getElementById('dash-cercanos').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const lat = parseFloat(document.getElementById('dash-lat').value) || null;
+  const lng = parseFloat(document.getElementById('dash-lng').value) || null;
+
+  const data = {
+    id: editingId || (nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') + '_' + Date.now()),
+    complejo: complejoActivo ? complejoActivo.id : 'sin_complejo',
+    nombre,
+    badge:        document.getElementById('dash-badge').value.trim(),
     direccion:    document.getElementById('dash-direccion').value.trim(),
     direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
     rating:       document.getElementById('dash-rating').value.trim(),
     precio:       '',
-    telefono:     tel,
-    tags:         document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
-    cercanos:     document.getElementById('dash-cercanos').value.split(',').map(c=>c.trim()).filter(Boolean),
-    belong:       document.getElementById('dash-belong').value.trim(),
-    airbnb:       document.getElementById('dash-airbnb').value.trim(),
-    expedia:      document.getElementById('dash-expedia').value.trim(),
-    lat:          parseFloat(document.getElementById('dash-lat').value) || null,
-    lng:          parseFloat(document.getElementById('dash-lng').value) || null,
+    telefono:     document.getElementById('dash-telefono').value.trim(),
+    tags, cercanos,
+    belong:  document.getElementById('dash-belong').value.trim(),
+    airbnb:  document.getElementById('dash-airbnb').value.trim(),
+    expedia: document.getElementById('dash-expedia').value.trim(),
+    lat, lng,
+    fotos: editingId ? (propiedades.find(p=>p.id===editingId)||{fotos:[]}).fotos : [],
   };
-}
 
-function guardarPropiedad(){
-  const datos = leerFormulario();
-  if(!datos.nombre){ alert('El nombre de la unidad es requerido.'); return; }
-  if(!datos.complejo){ alert('Abre un complejo primero desde el panel principal.'); return; }
-  if(datos.telefono && datos.telefono.length !== 10){
-    alert('El teléfono debe tener exactamente 10 dígitos.'); return;
-  }
+  const fotosInput = document.getElementById('fotos');
+  const files = Array.from(fotosInput.files || []).slice(0, 5);
 
-  if(editandoId !== null){
-    const idx = propiedades.findIndex(p => p.id === editandoId);
-    if(idx === -1){ alert('No se encontró la unidad a editar.'); return; }
-    const fotosActuales = propiedades[idx].fotos || [];
-    propiedades[idx] = { ...propiedades[idx], ...datos, fotos: fotosBase64.length ? [...fotosBase64] : fotosActuales };
+  if(files.length){
+    let loaded = 0;
+    const newFotos = [];
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        newFotos.push(e.target.result);
+        loaded++;
+        if(loaded === files.length){
+          data.fotos = newFotos;
+          persistirPropiedad(data);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   } else {
-    propiedades.push({ id: 'prop_' + Date.now(), ...datos, fotos: [...fotosBase64] });
+    persistirPropiedad(data);
   }
+}
 
+function persistirPropiedad(data){
+  if(editingId){
+    const idx = propiedades.findIndex(p => p.id === editingId);
+    if(idx > -1) propiedades[idx] = data;
+  } else {
+    propiedades.push(data);
+  }
   guardarLS();
-  if(complejoActivo) renderizarPropiedades(complejoActivo);
-  renderizarComplejos();
-  renderDashUnidades();
   limpiarFormulario();
-}
-
-function renderDashUnidades(){
-  const list = document.getElementById('dashPropsList');
-  const filtradas = propiedades.filter(p => p.complejo === dashComplejoActivo);
-  if(!filtradas.length){
-    list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo. Agrégalas con el formulario.</p>';
-    return;
-  }
-  list.innerHTML = filtradas.map((p) => {
-    const idx = propiedades.indexOf(p);
-    const thumb = (p.fotos && p.fotos.length)
-      ? `<div class="dash-prop-thumb"><img src="${p.fotos[0]}" alt="" onerror="this.parentElement.textContent='🏠'"/></div>`
-      : `<div class="dash-prop-thumb">🏠</div>`;
-    const esEditando = editandoId === p.id;
-    return `<div class="dash-prop-item" style="${esEditando?'border-color:rgba(61,107,79,.5);background:rgba(61,107,79,.07)':''}">
-      ${thumb}
-      <div class="dash-prop-info">
-        <p class="dash-prop-name">${p.nombre}${esEditando?' <span style="font-size:10px;color:#7EC89A;font-weight:700;vertical-align:middle">● editando</span>':''}</p>
-        <p class="dash-prop-addr">${p.direccion||'Sin dirección'}</p>
-        <p class="dash-prop-meta">${(p.fotos||[]).length} foto(s) · ${(p.tags||[]).length} tag(s)${p.rating?' · ★ '+p.rating:''}${p.telefono?' · 📞 '+p.telefono:''}</p>
-      </div>
-      <div style="display:flex;gap:.5rem;flex-shrink:0">
-        <button class="dash-btn edit" onclick="editarPropiedad(${idx})">✏ Editar</button>
-        <button class="dash-btn danger" onclick="eliminarPropiedad(${idx})">✕</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function editarPropiedad(idx){
-  const p = propiedades[idx];
-  editandoId = p.id;
-  document.getElementById('dash-nombre').value            = p.nombre       || '';
-  document.getElementById('dash-badge').value             = p.badge        || '';
-  document.getElementById('dash-direccion').value         = p.direccion    || '';
-  document.getElementById('dash-direccion-url').value     = p.direccionUrl || '';
-  document.getElementById('dash-rating').value            = p.rating       || '';
-  document.getElementById('dash-telefono').value          = p.telefono     || '';
-  document.getElementById('dash-tags').value              = (p.tags    ||[]).join(', ');
-  document.getElementById('dash-cercanos').value          = (p.cercanos||[]).join(', ');
-  document.getElementById('dash-belong').value            = p.belong   || '';
-  document.getElementById('dash-airbnb').value            = p.airbnb   || '';
-  document.getElementById('dash-expedia').value           = p.expedia  || '';
-  document.getElementById('dash-lat').value               = p.lat != null ? p.lat : '';
-  document.getElementById('dash-lng').value               = p.lng != null ? p.lng : '';
-  fotosBase64 = [];
-  document.getElementById('fotos').value = '';
-  document.getElementById('fotos-preview').textContent =
-    (p.fotos && p.fotos.length) ? `↩ Conservando ${p.fotos.length} foto(s) existente(s)` : '';
-  document.getElementById('dash-form-title').textContent  = `✏ Editando: ${p.nombre}`;
-  document.getElementById('dash-editing-badge').style.display = 'flex';
-  document.getElementById('dash-save-btn').textContent    = '✓ Actualizar unidad';
-  document.getElementById('dash-form-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function eliminarPropiedad(idx){
-  if(!confirm(`¿Eliminar "${propiedades[idx].nombre}"? Esta acción no se puede deshacer.`)) return;
-  if(editandoId === propiedades[idx].id) limpiarFormulario();
-  propiedades.splice(idx, 1);
-  guardarLS();
-  if(complejoActivo) renderizarPropiedades(complejoActivo);
+  renderDashProps();
+  if(complejoActivo) renderizarPropiedadesDeComplejo(complejoActivo.id);
   renderizarComplejos();
-  renderDashUnidades();
+  actualizarMapa();
 }
 
-function limpiarFormulario(){
-  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating','dash-telefono',
-   'dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
-    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-  fotosBase64 = [];
-  document.getElementById('fotos').value = '';
-  document.getElementById('fotos-preview').textContent = '';
-  editandoId = null;
-  document.getElementById('dash-form-title').textContent  = '✦ Agregar nueva unidad';
-  document.getElementById('dash-editing-badge').style.display = 'none';
-  document.getElementById('dash-save-btn').textContent    = '＋ Agregar unidad';
+function eliminarPropiedad(id){
+  if(!confirm('¿Eliminar esta propiedad?')) return;
+  propiedades = propiedades.filter(p => p.id !== id);
+  guardarLS();
+  renderDashProps();
+  if(complejoActivo) renderizarPropiedadesDeComplejo(complejoActivo.id);
+  renderizarComplejos();
+  actualizarMapa();
 }
 
 function resetearDatos(){
-  if(!confirm('¿Restaurar los datos originales? Se perderán todas las modificaciones.')) return;
-  localStorage.removeItem(LS_KEY);
-  localStorage.removeItem(LS_COMPLEJOS);
+  if(!confirm('¿Restaurar datos originales? Se perderán todos los cambios.')) return;
   propiedades = JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
   complejos   = JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
-  guardarLS();
-  guardarComplejos();
-  dashVolverComplejos();
-  volverComplejos();
-  renderizarComplejos();
-  limpiarFormulario();
+  guardarLS(); guardarComplejos();
+  renderizarComplejos(); renderizarPropiedades(); renderDashComplejos(); actualizarMapa();
 }
 
-function renderDashboard(){
-  renderGaleriaAdmin();
-  renderDashComplejos();
-}
-
-// ═══════════════════════════════════════════════
-// GALERÍA TURÍSTICA
-// ═══════════════════════════════════════════════
-const LS_GALERIA = 'barrioinn_galeria_v1';
-
-function cargarGaleria(){
-  try{ return JSON.parse(localStorage.getItem(LS_GALERIA)) || []; }
-  catch(e){ return []; }
-}
-function guardarGaleria(imgs){
-  localStorage.setItem(LS_GALERIA, JSON.stringify(imgs));
-}
-
-function comprimirImagen(dataUrl, maxWidth, quality, cb){
-  const img = new Image();
-  img.onload = () => {
-    const ratio = Math.min(1, maxWidth / img.width);
-    const canvas = document.createElement('canvas');
-    canvas.width  = Math.round(img.width  * ratio);
-    canvas.height = Math.round(img.height * ratio);
-    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-    cb(canvas.toDataURL('image/jpeg', quality));
-  };
-  img.src = dataUrl;
-}
-
+// ─── FOTOS PREVIEW ───
+document.getElementById('fotos').addEventListener('change', function(){
+  const names = Array.from(this.files).map(f => f.name).join(', ');
+  document.getElementById('fotos-preview').textContent = names ? `✓ ${names}` : '';
+});
+document.getElementById('dc-foto-input').addEventListener('change', function(){
+  document.getElementById('dc-foto-preview').textContent = this.files[0] ? `✓ ${this.files[0].name}` : '';
+});
 document.getElementById('galeriaInput').addEventListener('change', function(){
-  const files = Array.from(this.files);
-  if(!files.length) return;
-  const preview = document.getElementById('galeria-preview');
-  preview.textContent = `Comprimiendo ${files.length} imagen(es)...`;
-  const galeria = cargarGaleria();
-  let done = 0;
-  files.forEach(file => {
+  if(!this.files.length) return;
+  document.getElementById('galeria-preview').textContent = `Subiendo ${this.files.length} foto(s)...`;
+  let loaded = 0;
+  Array.from(this.files).forEach(file => {
     const reader = new FileReader();
     reader.onload = e => {
-      comprimirImagen(e.target.result, 1200, 0.70, compressed => {
-        galeria.push({ src: compressed, nombre: file.name });
-        done++;
-        if(done === files.length){
-          guardarGaleria(galeria);
-          renderGaleriaAdmin();
-          renderMarquee();
-          preview.textContent = `✓ ${done} foto(s) guardada(s) y comprimida(s)`;
-          document.getElementById('galeriaInput').value = '';
-        }
-      });
+      agregarFotoGaleria({ src: e.target.result, nombre: file.name });
+      loaded++;
+      if(loaded === this.files.length){
+        document.getElementById('galeria-preview').textContent = `✓ ${loaded} foto(s) subidas`;
+        renderGaleriaAdmin();
+        renderMarquee();
+      }
     };
     reader.readAsDataURL(file);
   });
 });
 
+// ─── GALERÍA ───
+const LS_GALERIA = 'barrioinn_galeria_v1';
+function cargarGaleria(){
+  try { const raw = localStorage.getItem(LS_GALERIA); return raw ? JSON.parse(raw) : []; }
+  catch(e){ return []; }
+}
+function guardarGaleria(g){ localStorage.setItem(LS_GALERIA, JSON.stringify(g)); }
+function agregarFotoGaleria(foto){
+  const g = cargarGaleria();
+  g.push(foto);
+  guardarGaleria(g);
+}
 function eliminarFotoGaleria(idx){
-  const galeria = cargarGaleria();
-  galeria.splice(idx, 1);
-  guardarGaleria(galeria);
+  const g = cargarGaleria();
+  g.splice(idx, 1);
+  guardarGaleria(g);
   renderGaleriaAdmin();
   renderMarquee();
 }
-
 function renderGaleriaAdmin(){
   const grid = document.getElementById('galeriaGrid');
   const galeria = cargarGaleria();
@@ -2259,7 +2278,6 @@ function renderMarquee(){
     return;
   }
 
-  // Triplicar para loop infinito suave
   const html = [...galeria, ...galeria, ...galeria].map(f => `
     <div class="marquee-item"><img src="${f.src}" loading="lazy"/></div>
   `).join('');
@@ -2267,12 +2285,11 @@ function renderMarquee(){
   track.style.animation = 'none';
   track.style.transform = 'translateX(0)';
 
-  // Esperar a que carguen las imágenes para medir
   requestAnimationFrame(() => {
     const itemW    = track.querySelector('.marquee-item')?.offsetWidth || 300;
-    const totalW   = itemW * galeria.length; // ancho de 1 set
-    let pos        = -totalW; // empezar en el set del medio
-    let vel        = 1.2;     // px/frame velocidad base
+    const totalW   = itemW * galeria.length;
+    let pos        = -totalW;
+    let vel        = 1.2;
     let dragging   = false;
     let lastX      = 0;
     let lastVel    = 0;
@@ -2283,14 +2300,8 @@ function renderMarquee(){
 
     function loop(){
       if(!dragging){
-        if(Math.abs(momentum) > 0.15){
-          pos += momentum;
-          momentum *= 0.94; // fricción
-        } else {
-          momentum = 0;
-          pos -= vel; // auto-scroll
-        }
-        // Loop infinito
+        if(Math.abs(momentum) > 0.15){ pos += momentum; momentum *= 0.94; }
+        else { momentum = 0; pos -= vel; }
         if(pos < -totalW * 2) pos += totalW;
         if(pos > 0)            pos -= totalW;
         track.style.transform = `translateX(${pos}px)`;
@@ -2299,57 +2310,12 @@ function renderMarquee(){
     }
     loop();
 
-    // Touch
-    track.addEventListener('touchstart', e => {
-      dragging = true;
-      lastX    = e.touches[0].clientX;
-      lastVel  = 0;
-      momentum = 0;
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(loop);
-    }, { passive:true });
-
-    track.addEventListener('touchmove', e => {
-      if(!dragging) return;
-      const dx = e.touches[0].clientX - lastX;
-      lastVel  = dx;
-      pos     += dx;
-      lastX    = e.touches[0].clientX;
-      if(pos < -totalW * 2) pos += totalW;
-      if(pos > 0)            pos -= totalW;
-      track.style.transform = `translateX(${pos}px)`;
-    }, { passive:true });
-
-    track.addEventListener('touchend', () => {
-      dragging = false;
-      momentum = lastVel * 0.6; // lanzar con momentum
-    });
-
-    // Mouse drag (desktop)
-    track.addEventListener('mousedown', e => {
-      dragging = true;
-      lastX    = e.clientX;
-      lastVel  = 0;
-      momentum = 0;
-      track.style.cursor = 'grabbing';
-    });
-    window.addEventListener('mousemove', e => {
-      if(!dragging) return;
-      const dx = e.clientX - lastX;
-      lastVel  = dx;
-      pos     += dx;
-      lastX    = e.clientX;
-      if(pos < -totalW * 2) pos += totalW;
-      if(pos > 0)            pos -= totalW;
-      track.style.transform = `translateX(${pos}px)`;
-    });
-    window.addEventListener('mouseup', () => {
-      if(!dragging) return;
-      dragging = false;
-      momentum = lastVel * 0.6;
-      track.style.cursor = 'grab';
-    });
-
+    track.addEventListener('touchstart', e => { dragging=true; lastX=e.touches[0].clientX; lastVel=0; momentum=0; cancelAnimationFrame(rafId); rafId=requestAnimationFrame(loop); }, { passive:true });
+    track.addEventListener('touchmove', e => { if(!dragging) return; const dx=e.touches[0].clientX-lastX; lastVel=dx; pos+=dx; lastX=e.touches[0].clientX; if(pos<-totalW*2) pos+=totalW; if(pos>0) pos-=totalW; track.style.transform=`translateX(${pos}px)`; }, { passive:true });
+    track.addEventListener('touchend', () => { dragging=false; momentum=lastVel*0.6; });
+    track.addEventListener('mousedown', e => { dragging=true; lastX=e.clientX; lastVel=0; momentum=0; track.style.cursor='grabbing'; });
+    window.addEventListener('mousemove', e => { if(!dragging) return; const dx=e.clientX-lastX; lastVel=dx; pos+=dx; lastX=e.clientX; if(pos<-totalW*2) pos+=totalW; if(pos>0) pos-=totalW; track.style.transform=`translateX(${pos}px)`; });
+    window.addEventListener('mouseup', () => { if(!dragging) return; dragging=false; momentum=lastVel*0.6; track.style.cursor='grab'; });
     track.style.cursor = 'grab';
   });
 }
@@ -2367,36 +2333,20 @@ function initMap(){
   const propConCoords = propiedades.filter(p => p.lat && p.lng);
   if(!propConCoords.length) return;
 
-  // Centro: promedio de coordenadas
   const centerLat = propConCoords.reduce((s, p) => s + p.lat, 0) / propConCoords.length;
   const centerLng = propConCoords.reduce((s, p) => s + p.lng, 0) / propConCoords.length;
 
-  leafletMap = L.map('map', {
-    center: [centerLat, centerLng],
-    zoom: 14,
-    zoomControl: true,
-    scrollWheelZoom: false,
-    attributionControl: true
-  });
+  leafletMap = L.map('map', { center:[centerLat,centerLng], zoom:14, zoomControl:true, scrollWheelZoom:false, attributionControl:true });
 
-  // Tiles CartoDB Positron — gratis, sin API key, look editorial
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> © <a href="https://carto.com/attributions" target="_blank">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
+    subdomains:'abcd', maxZoom:19
   }).addTo(leafletMap);
 
-  // Icono personalizado con colores de marca
   const crearIcono = (color) => L.divIcon({
-    className: '',
-    html: `<div style="
-      width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
-      background:${color};border:3px solid #fff;
-      box-shadow:0 3px 14px rgba(0,0,0,.35);
-    "></div>`,
-    iconSize: [36, 36],
-    iconAnchor: [18, 36],
-    popupAnchor: [0, -38]
+    className:'',
+    html:`<div style="width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${color};border:3px solid #fff;box-shadow:0 3px 14px rgba(0,0,0,.35);"></div>`,
+    iconSize:[34,34], iconAnchor:[17,34], popupAnchor:[0,-36]
   });
 
   mapMarkers = [];
@@ -2415,14 +2365,13 @@ function initMap(){
       </div>
     </div>`;
 
-    const marker = L.marker([prop.lat, prop.lng], { icon: crearIcono('#3D6B4F') })
+    const marker = L.marker([prop.lat, prop.lng], { icon: crearIcono('#111111') })
       .addTo(leafletMap)
-      .bindPopup(popup, { maxWidth: 240, className: '' });
+      .bindPopup(popup, { maxWidth:240, className:'' });
     mapMarkers.push(marker);
   });
 }
 
-// Re-iniciar mapa cuando las propiedades cambian
 function actualizarMapa(){
   if(typeof L !== 'undefined') initMap();
 }
