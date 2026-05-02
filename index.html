@@ -1123,6 +1123,110 @@ body.detail-active .nav-logo-mark{}
   </div>
 </div>
 
+<!-- PROPIEDADES -->
+<section class="propiedades reveal" id="propiedades">
+  <div class="container">
+    <div class="props-header-row" id="propsHeaderMain">
+      <div>
+        <div class="section-eyebrow">Nuestras propiedades</div>
+        <h2 class="section-title">Elige tu espacio</h2>
+        <p class="section-sub">Seis complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
+      </div>
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);color:var(--black);padding:.7rem 1.5rem;border-radius:var(--r-pill);font-size:13.5px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--black)'" onmouseout="this.style.borderColor='var(--gray-200)'">Ver todos →</a>
+    </div>
+    <!-- VISTA COMPLEJOS -->
+    <div class="props-grid" id="complejosGrid">
+      <!-- Renderizado dinámicamente -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DETAIL FULLPAGE ═══════════ -->
+<section class="detail-fullpage" id="detailFullpage">
+  <!-- Fixed back button -->
+  <button class="detail-back-fixed" onclick="volverComplejos()">← Volver a complejos</button>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="detail-breadcrumb">
+      <a href="#" onclick="volverComplejos();return false;">Inicio</a>
+      <span class="bc-sep">›</span>
+      <a href="#" onclick="volverComplejos();return false;">Complejos</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bcComplejoName"></span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="detail-title" id="detailTitulo"></h1>
+    <p class="detail-address" id="detailDireccion"></p>
+
+    <!-- Photo Gallery -->
+    <div class="detail-gallery" id="detailGallery" onclick="openDetailGallery()">
+    </div>
+
+    <!-- Layout: content + sidebar -->
+    <div class="detail-layout">
+      <div class="detail-content">
+        <!-- Tabs -->
+        <div class="detail-tabs" id="detailTabs">
+          <button class="detail-tab active" data-tab="overview" onclick="switchDetailTab('overview')">Descripción</button>
+          <button class="detail-tab" data-tab="services" onclick="switchDetailTab('services')">Servicios</button>
+          <button class="detail-tab" data-tab="access" onclick="switchDetailTab('access')">Acceso</button>
+        </div>
+
+        <!-- Tab: Overview -->
+        <div class="detail-tab-content active" id="tab-overview">
+          <p class="detail-desc" id="detailDesc"></p>
+          <div class="detail-stats" id="detailStatsRow"></div>
+          <h3 class="detail-spaces-title">Tipos de espacio</h3>
+          <div class="detail-spaces-grid" id="detailSpacesPreview"></div>
+        </div>
+
+        <!-- Tab: Services -->
+        <div class="detail-tab-content" id="tab-services">
+          <h3 class="detail-spaces-title">Servicios incluidos</h3>
+          <div class="detail-services-grid" id="detailServicesGrid"></div>
+        </div>
+
+        <!-- Tab: Access -->
+        <div class="detail-tab-content" id="tab-access">
+          <h3 class="detail-spaces-title">Cómo llegar</h3>
+          <div class="detail-map-wrap" id="detailMapWrap">
+            <div id="detailMap"></div>
+            <div class="detail-map-addr" id="detailMapAddr">
+              <div class="detail-map-addr-title" id="detailMapTitle"></div>
+              <div class="detail-map-addr-sub" id="detailMapSub"></div>
+              <div class="detail-map-addr-links" id="detailMapLinks"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: Booking only -->
+      <div>
+        <div class="detail-contact">
+          <div class="detail-contact-title">Reserva este espacio</div>
+          <div class="detail-contact-sub">¿Quieres reservar o necesitas más información? Escríbenos directo.</div>
+          <!-- Booking buttons -->
+          <div class="detail-booking-btns" id="detailBookingBtns">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Properties of this complex - HORIZONTAL SCROLL -->
+    <div class="detail-others-row">
+      <h2 class="detail-others-title" id="detailPropsTitle">Propiedades en este complejo</h2>
+    </div>
+  </div>
+  <div class="detail-props-scroll-wrap">
+    <div class="detail-props-scroll" id="propsGrid">
+      <!-- Rendered by JS - clean FlowSpace-style cards -->
+    </div>
+  </div>
+</section>
+
 <!-- STATEMENT -->
 <div class="statement">
   <div class="statement-inner">
@@ -1298,109 +1402,6 @@ body.detail-active .nav-logo-mark{}
   </div>
 </section>
 
-<!-- PROPIEDADES -->
-<section class="propiedades reveal" id="propiedades">
-  <div class="container">
-    <div class="props-header-row" id="propsHeaderMain">
-      <div>
-        <div class="section-eyebrow">Nuestras propiedades</div>
-        <h2 class="section-title">Elige tu espacio</h2>
-        <p class="section-sub">Seis complejos únicos en el centro histórico de Monterrey. Cada uno con su propio carácter.</p>
-      </div>
-      <a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);color:var(--black);padding:.7rem 1.5rem;border-radius:var(--r-pill);font-size:13.5px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--black)'" onmouseout="this.style.borderColor='var(--gray-200)'">Ver todos →</a>
-    </div>
-    <!-- VISTA COMPLEJOS -->
-    <div class="props-grid" id="complejosGrid">
-      <!-- Renderizado dinámicamente -->
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ DETAIL FULLPAGE ═══════════ -->
-<section class="detail-fullpage" id="detailFullpage">
-  <!-- Fixed back button -->
-  <button class="detail-back-fixed" onclick="volverComplejos()">← Volver a complejos</button>
-
-  <div class="container">
-    <!-- Breadcrumb -->
-    <div class="detail-breadcrumb">
-      <a href="#" onclick="volverComplejos();return false;">Inicio</a>
-      <span class="bc-sep">›</span>
-      <a href="#" onclick="volverComplejos();return false;">Complejos</a>
-      <span class="bc-sep">›</span>
-      <span class="bc-current" id="bcComplejoName"></span>
-    </div>
-
-    <!-- Title -->
-    <h1 class="detail-title" id="detailTitulo"></h1>
-    <p class="detail-address" id="detailDireccion"></p>
-
-    <!-- Photo Gallery -->
-    <div class="detail-gallery" id="detailGallery" onclick="openDetailGallery()">
-    </div>
-
-    <!-- Layout: content + sidebar -->
-    <div class="detail-layout">
-      <div class="detail-content">
-        <!-- Tabs -->
-        <div class="detail-tabs" id="detailTabs">
-          <button class="detail-tab active" data-tab="overview" onclick="switchDetailTab('overview')">Descripción</button>
-          <button class="detail-tab" data-tab="services" onclick="switchDetailTab('services')">Servicios</button>
-          <button class="detail-tab" data-tab="access" onclick="switchDetailTab('access')">Acceso</button>
-        </div>
-
-        <!-- Tab: Overview -->
-        <div class="detail-tab-content active" id="tab-overview">
-          <p class="detail-desc" id="detailDesc"></p>
-          <div class="detail-stats" id="detailStatsRow"></div>
-          <h3 class="detail-spaces-title">Tipos de espacio</h3>
-          <div class="detail-spaces-grid" id="detailSpacesPreview"></div>
-        </div>
-
-        <!-- Tab: Services -->
-        <div class="detail-tab-content" id="tab-services">
-          <h3 class="detail-spaces-title">Servicios incluidos</h3>
-          <div class="detail-services-grid" id="detailServicesGrid"></div>
-        </div>
-
-        <!-- Tab: Access -->
-        <div class="detail-tab-content" id="tab-access">
-          <h3 class="detail-spaces-title">Cómo llegar</h3>
-          <div class="detail-map-wrap" id="detailMapWrap">
-            <div id="detailMap"></div>
-            <div class="detail-map-addr" id="detailMapAddr">
-              <div class="detail-map-addr-title" id="detailMapTitle"></div>
-              <div class="detail-map-addr-sub" id="detailMapSub"></div>
-              <div class="detail-map-addr-links" id="detailMapLinks"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar: Booking only -->
-      <div>
-        <div class="detail-contact">
-          <div class="detail-contact-title">Reserva este espacio</div>
-          <div class="detail-contact-sub">¿Quieres reservar o necesitas más información? Escríbenos directo.</div>
-          <!-- Booking buttons -->
-          <div class="detail-booking-btns" id="detailBookingBtns">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Properties of this complex - HORIZONTAL SCROLL -->
-    <div class="detail-others-row">
-      <h2 class="detail-others-title" id="detailPropsTitle">Propiedades en este complejo</h2>
-    </div>
-  </div>
-  <div class="detail-props-scroll-wrap">
-    <div class="detail-props-scroll" id="propsGrid">
-      <!-- Rendered by JS - clean FlowSpace-style cards -->
-    </div>
-  </div>
-</section>
 
 <!-- REVIEWS -->
 <section class="reviews reveal" id="resenas">
@@ -1806,14 +1807,8 @@ body.detail-active .nav-logo-mark{}
             <label class="dash-label">Link Expedia</label>
             <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
           </div>
-          <div class="dash-field">
-            <label class="dash-label">Latitud (GPS)</label>
-            <input class="dash-input" id="dash-lat" type="number" step="0.000001" placeholder="25.6697"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Longitud (GPS)</label>
-            <input class="dash-input" id="dash-lng" type="number" step="0.000001" placeholder="-100.3108"/>
-          </div>
+          <input type="hidden" id="dash-lat" value=""/>
+          <input type="hidden" id="dash-lng" value=""/>
           <div class="dash-field full">
             <label class="dash-label">Fotos (máximo 5 imágenes)</label>
             <div class="dash-file-area" onclick="document.getElementById('fotos').click()">
@@ -2103,12 +2098,130 @@ function volverComplejos(){
   }, 100);
 }
 
+function abrirUnidad(propId){
+  const p = propiedades.find(x => x.id === propId);
+  if(!p) return;
+
+  complejoActivo = complejos.find(c => c.id === p.complejo) || complejoActivo;
+
+  document.body.classList.add('detail-active');
+  window.scrollTo({top:0,behavior:'instant'});
+
+  // Breadcrumb + title
+  document.getElementById('bcComplejoName').textContent = p.nombre;
+  document.getElementById('detailTitulo').textContent = p.nombre;
+  document.getElementById('detailDireccion').textContent = p.direccion || '';
+
+  // Gallery — solo fotos de la unidad
+  const gallery = document.getElementById('detailGallery');
+  const fotos = (p.fotos || []).filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
+  const ph = (big) => '<div class="gallery-ph">' + (big ? '<i class="fa-solid fa-building"></i>' : '<i class="fa-solid fa-house"></i>') + '</div>';
+  if(!fotos.length){
+    gallery.innerHTML = '<div class="detail-gallery-main">' + ph(true) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
+      '<div class="detail-gallery-thumb">' + ph(false) + '</div>';
+  } else {
+    function imgTag(src, cls, alt){
+      const el = document.createElement('div');
+      el.className = cls;
+      const img = document.createElement('img');
+      img.src = src; img.alt = alt; img.loading = 'lazy';
+      img.onerror = function(){ this.parentElement.innerHTML = ph(cls.includes('main')); };
+      el.appendChild(img);
+      return el;
+    }
+    gallery.innerHTML = '';
+    gallery.appendChild(imgTag(fotos[0], 'detail-gallery-main', p.nombre));
+    for(let i = 1; i < 5; i++){
+      if(fotos[i]){
+        const thumb = imgTag(fotos[i], 'detail-gallery-thumb', p.nombre + ' ' + (i+1));
+        if(i === 4 && fotos.length > 5){
+          const badge = document.createElement('div');
+          badge.className = 'detail-gallery-count';
+          badge.textContent = '+' + (fotos.length - 5) + ' fotos';
+          thumb.appendChild(badge);
+        }
+        gallery.appendChild(thumb);
+      } else {
+        const d = document.createElement('div');
+        d.className = 'detail-gallery-thumb';
+        d.innerHTML = ph(false);
+        gallery.appendChild(d);
+      }
+    }
+  }
+  gallery._fotos = fotos;
+
+  // Descripción
+  document.getElementById('detailDesc').textContent = (p.cercanos && p.cercanos.length)
+    ? 'Cerca de: ' + p.cercanos.join(' · ')
+    : 'Unidad de hospedaje boutique en el corazón de Monterrey.';
+
+  // Stats
+  const ratingText = p.rating ? p.rating.split('·')[0].trim() : '4.82';
+  document.getElementById('detailStatsRow').innerHTML = `
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-star iso-e"></i></div><span class="detail-stat-text">${ratingText} rating</span></div>
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-tag iso-e"></i></div><span class="detail-stat-text">${(p.tags||[]).slice(0,1).join('')||'Boutique'}</span></div>
+    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-location-dot iso-e"></i></div><span class="detail-stat-text">${p.badge||'Barrio Antiguo'}</span></div>
+  `;
+
+  // Tags como spaces
+  const tags = p.tags || [];
+  document.getElementById('detailSpacesPreview').innerHTML = tags.length
+    ? tags.map(t => `<div class="detail-space-card"><div class="iso-icon-wrap"><i class="fa-solid fa-check iso-e"></i></div><div><div class="detail-space-name">${t}</div></div></div>`).join('')
+    : '<p style="color:var(--gray-400);font-size:14px">Sin características registradas.</p>';
+
+  // Services
+  const services = [
+    {icon:'<i class="fa-solid fa-lock iso-e"></i>',name:'Smart Lock 24h'},
+    {icon:'<i class="fa-solid fa-wifi iso-e"></i>',name:'WiFi 100+ Mbps'},
+    {icon:'<i class="fa-solid fa-tv iso-e"></i>',name:'Smart TV'},
+    {icon:'<i class="fa-solid fa-snowflake iso-e"></i>',name:'Mini Split A/C'},
+    {icon:'<i class="fa-solid fa-mug-hot iso-e"></i>',name:'Café de cortesía'},
+    {icon:'<i class="fa-solid fa-shield-halved iso-e"></i>',name:'Seguridad 24/7'},
+    {icon:'<i class="fa-solid fa-pump-soap iso-e"></i>',name:'Amenidades de baño'},
+    {icon:'<i class="fa-solid fa-bed iso-e"></i>',name:'Ropa de cama incluida'},
+    {icon:'<i class="fa-solid fa-file-invoice iso-e"></i>',name:'Factura CFDI'},
+  ];
+  document.getElementById('detailServicesGrid').innerHTML = services.map(s =>
+    `<div class="detail-service-item"><div class="svc-icon-wrap"><span class="iso-e">${s.icon}</span></div>${s.name}</div>`
+  ).join('');
+
+  // Map
+  if(p.direccionUrl){
+    document.getElementById('detailMapTitle').textContent = p.nombre;
+    document.getElementById('detailMapSub').textContent = p.direccion || '';
+    document.getElementById('detailMapLinks').innerHTML = '<a href="' + p.direccionUrl + '" target="_blank" class="detail-map-addr-link"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i></a>';
+    document.getElementById('detailMap').innerHTML = '<iframe src="https://maps.google.com/maps?q=' + encodeURIComponent(p.direccion||'Barrio Antiguo Monterrey') + '&z=16&output=embed" allowfullscreen loading="lazy"></iframe>';
+  }
+
+  // Booking buttons
+  const bookingBtns = document.getElementById('detailBookingBtns');
+  const waMsg = encodeURIComponent('Hola, vi en barrioinn.com la unidad ' + p.nombre + ' (' + (p.direccion||'') + ') y me gustaría reservarla. ¿Tienen disponibilidad?');
+  const waLink = 'https://wa.me/52' + (p.telefono||'8110645136') + '?text=' + waMsg;
+  let bbHTML = '';
+  if(p.belong) bbHTML += '<a href="' + p.belong + '" target="_blank" class="bb-airbnb" style="grid-column:1/-1;background:linear-gradient(135deg,#A31635,#C4203F)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7z"/></svg> Reservar en Belong</a>';
+  if(p.airbnb) bbHTML += '<a href="' + p.airbnb + '" target="_blank" class="bb-airbnb"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.4 4.8 3.6 8.4 3.6 13.2c0 4.6 3.8 8.4 8.4 8.4s8.4-3.8 8.4-8.4C20.4 8.4 15.6 4.8 12 0zm0 19.2c-3.3 0-6-2.7-6-6 0-2.8 3-5.8 6-9.6 3 3.8 6 6.8 6 9.6 0 3.3-2.7 6-6 6z"/></svg> Airbnb</a>';
+  bbHTML += '<a href="' + waLink + '" target="_blank" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
+  if(p.direccionUrl) bbHTML += '<a href="' + p.direccionUrl + '" target="_blank" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
+  bbHTML += '<a href="tel:52' + (p.telefono||'8110645136') + '" class="bb-tel"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar</a>';
+  bookingBtns.innerHTML = bbHTML;
+
+  // Otras unidades del mismo complejo
+  document.getElementById('detailPropsTitle').textContent = 'Más unidades en ' + (complejoActivo ? complejoActivo.nombre : 'este complejo');
+  renderizarPropiedadesDeComplejo(p.complejo);
+
+  switchDetailTab('overview');
+}
+
+
 // Detail gallery
 function renderDetailGallery(c){
   const gallery = document.getElementById('detailGallery');
   const props = propiedades.filter(p => p.complejo === c.id);
   let allFotos = [];
-  if(c.foto) allFotos.push(c.foto);
   props.forEach(p => { if(p.fotos) allFotos = allFotos.concat(p.fotos); });
   allFotos = allFotos.filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
 
@@ -2205,7 +2318,7 @@ function renderizarPropiedadesDeComplejo(complejoId){
     const imgHTML = isUrl
       ? '<img class="prop-scroll-card-img" src="' + foto + '" alt="' + p.nombre + '" loading="lazy"/>'
       : '<div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div><span style="font-size:12px;margin-top:4px">' + p.nombre + '</span></div>';
-    return '<div class="prop-scroll-card">' +
+    return '<div class="prop-scroll-card" onclick="abrirUnidad(\'' + p.id + '\')" style="cursor:pointer">' +
       imgHTML +
       '<div class="prop-scroll-card-overlay"><div><div class="prop-scroll-card-name">' + p.nombre + '</div><div class="prop-scroll-card-addr">' + (p.direccion || '') + '</div></div><div class="prop-scroll-card-view">Ver →</div></div></div>';
   }).join('');
@@ -2588,18 +2701,30 @@ function guardarPropiedad(){
   };
 
   const fotosInput = document.getElementById('fotos');
-  const files = Array.from(fotosInput.files || []).slice(0, 5);
+  const files = Array.from(fotosInput.files || []).slice(0, 10);
 
   if(files.length){
     let loaded = 0;
+    let errored = 0;
     const newFotos = [];
+    document.getElementById('dash-save-btn').textContent = 'Cargando fotos...';
+    document.getElementById('dash-save-btn').disabled = true;
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
         newFotos.push(e.target.result);
         loaded++;
-        if(loaded === files.length){
+        if(loaded + errored === files.length){
           data.fotos = newFotos;
+          document.getElementById('dash-save-btn').disabled = false;
+          persistirPropiedad(data);
+        }
+      };
+      reader.onerror = () => {
+        errored++;
+        if(loaded + errored === files.length){
+          data.fotos = newFotos;
+          document.getElementById('dash-save-btn').disabled = false;
           persistirPropiedad(data);
         }
       };
