@@ -538,13 +538,17 @@ body.complejo-units-active .hamburger span{background:var(--black)}
 .cup-booking-btns .bb-tel:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
 
 .cup-units-title{font-family:'Instrument Serif',serif;font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:400;color:var(--black);margin-bottom:1.5rem}
-.cup-units-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
-.cup-unit-card{border-radius:var(--r-xl);overflow:hidden;cursor:pointer;border:1px solid var(--gray-200);background:#fff;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative}
-.cup-unit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.cup-unit-img-wrap{height:260px;overflow:hidden;position:relative}
+.cup-units-scroll-wrap{overflow-x:auto;overflow-y:hidden;padding-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent}
+.cup-units-scroll-wrap::-webkit-scrollbar{height:6px}
+.cup-units-scroll-wrap::-webkit-scrollbar-track{background:transparent}
+.cup-units-scroll-wrap::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:3px}
+.cup-units-grid{display:flex;gap:1.25rem;width:max-content;padding-bottom:4px}
+.cup-unit-card{width:400px;height:380px;flex-shrink:0;border-radius:var(--r-xl);overflow:hidden;cursor:pointer;position:relative;transition:transform .3s,box-shadow .3s}
+.cup-unit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.cup-unit-img-wrap{width:100%;height:100%;overflow:hidden;position:relative}
 .cup-unit-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .cup-unit-card:hover .cup-unit-img{transform:scale(1.04)}
-.cup-unit-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:110px;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);pointer-events:none}
+.cup-unit-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 100%);pointer-events:none}
 .cup-unit-img-ph{width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gray-400)}
 .cup-unit-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:1.1rem 1.25rem;display:flex;align-items:flex-end;justify-content:space-between}
 .cup-unit-name{font-family:'Instrument Serif',serif;font-size:1.1rem;font-weight:400;color:#fff;line-height:1.15}
@@ -556,10 +560,9 @@ body.complejo-units-active .hamburger span{background:var(--black)}
 body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .cup-back-fixed:hover{background:var(--gray-50);border-color:var(--black);box-shadow:var(--shadow-md)}
 
-@media(max-width:1024px){.complejo-units-page{padding:80px 32px 60px}.cup-back-fixed{left:32px}}
-@media(max-width:768px){.complejo-units-page{padding:72px 20px 48px}.cup-units-grid{grid-template-columns:1fr 1fr}.cup-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}}
-@media(max-width:560px){.cup-units-grid{grid-template-columns:1fr}.cup-unit-img-wrap{height:220px}}
-@media(max-width:480px){.complejo-units-page{padding:68px 16px 40px}.cup-back-fixed{left:16px;top:72px}}
+@media(max-width:1024px){.complejo-units-page{padding:80px 0 60px}.cup-back-fixed{left:32px}}
+@media(max-width:768px){.complejo-units-page{padding:72px 0 48px}.cup-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.cup-unit-card{width:300px;height:290px}}
+@media(max-width:480px){.complejo-units-page{padding:68px 0 40px}.cup-back-fixed{left:16px;top:72px}.cup-unit-card{width:260px;height:250px}}
 
 /* Properties horizontal scroll */
 .detail-others-row{display:flex;align-items:center;justify-content:space-between;margin:3.5rem 0 1.5rem;flex-wrap:wrap;gap:1rem}
@@ -1212,6 +1215,8 @@ body.detail-active .nav-logo-mark{}
 <section class="complejo-units-page" id="complejoUnitsPage">
   <div class="container">
     <h2 class="cup-units-title" id="cupUnitsTitle" style="text-align:center;margin-bottom:2rem"></h2>
+  </div>
+  <div class="cup-units-scroll-wrap" style="padding:0 48px 40px">
     <div class="cup-units-grid" id="cupUnitsGrid"></div>
   </div>
 </section>
