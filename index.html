@@ -968,6 +968,10 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
 .dash-file-label{font-size:13px;color:rgba(255,255,255,.38);cursor:pointer;pointer-events:none}
 .dash-file-label strong{color:#7dc49a}
 .dash-preview{font-size:12px;color:#7dc49a;margin-top:.5rem;min-height:16px}
+.fotos-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid rgba(125,196,154,.4);flex-shrink:0}
+.fotos-thumb-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
+.fotos-thumb-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#e53e3e;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
+#fotos-drop-area{min-height:100px;display:flex;align-items:center;justify-content:center}
 .dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
 .dash-btn{padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:6px}
 .dash-btn.primary{background:var(--green);color:#fff}
@@ -1891,11 +1895,11 @@ body.detail-active .nav-logo-mark{}
           <input type="hidden" id="dash-lng" value=""/>
           <div class="dash-field full">
             <label class="dash-label">Fotos (máximo 5 imágenes)</label>
-            <div class="dash-file-area" onclick="document.getElementById('fotos').click()">
-              <label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imágenes</strong><br/>JPG, PNG, WebP · Máximo 5 archivos</label>
+            <div class="dash-file-area" id="fotos-drop-area" onclick="document.getElementById('fotos').click()">
+              <div id="fotos-preview-grid" style="display:none;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:4px"></div>
+              <div id="fotos-placeholder"><label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imágenes</strong><br/>JPG, PNG, WebP · Máximo 5 archivos</label></div>
             </div>
-            <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*"/>
-            <p class="dash-preview" id="fotos-preview"></p>
+            <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*" onchange="mostrarPreviews(this)"/>
           </div>
         </div>
         <div class="dash-actions">
@@ -2032,7 +2036,11 @@ function cargarLS(){
   }
 }
 function guardarLS(){
-  localStorage.setItem(LS_KEY, JSON.stringify(propiedades));
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(propiedades));
+  } catch(e){
+    alert('Espacio de almacenamiento lleno. Las fotos son muy pesadas — intenta con menos imágenes o de menor tamaño.');
+  }
 }
 function cargarComplejos(){
   try {
@@ -2601,19 +2609,27 @@ function guardarComplejo(){
   const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
   const dir = document.getElementById('dc-direccion').value.trim();
 
+  let targetId;
   if(editingComplejo){
     const idx = complejos.findIndex(c => c.id === editingComplejo);
-    if(idx > -1){ complejos[idx].nombre = nombre; complejos[idx].direccion = dir; complejos[idx].unidades = unidades; complejos[idx].tags = tags; }
+    if(idx > -1){
+      complejos[idx].nombre = nombre;
+      complejos[idx].direccion = dir;
+      complejos[idx].unidades = unidades;
+      complejos[idx].tags = tags;
+      targetId = complejos[idx].id;
+    }
   } else {
     const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
     complejos.push({ id, nombre, direccion:dir, unidades, tags, foto:'' });
+    targetId = id;
   }
 
   const fileInput = document.getElementById('dc-foto-input');
-  if(fileInput.files && fileInput.files[0]){
+  if(fileInput && fileInput.files && fileInput.files[0]){
     const reader = new FileReader();
     reader.onload = e => {
-      const c = complejos.find(x => x.nombre === nombre);
+      const c = complejos.find(x => x.id === targetId);
       if(c) c.foto = e.target.result;
       guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
     };
@@ -2701,11 +2717,68 @@ function limpiarFormulario(){
   ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating',
    'dash-telefono','dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
     .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-  document.getElementById('fotos-preview').textContent = '';
-  document.getElementById('fotos').value = '';
-  document.getElementById('dash-form-title').textContent = '<i class="fa-solid fa-plus"></i> Agregar nueva unidad';
-  document.getElementById('dash-save-btn').textContent   = '<i class="fa-solid fa-plus"></i> Agregar unidad';
+  limpiarPreviewFotos();
+  document.getElementById('dash-form-title').textContent = 'Agregar nueva unidad';
+  document.getElementById('dash-save-btn').textContent   = '＋ Agregar unidad';
   document.getElementById('dash-editing-badge').style.display = 'none';
+}
+
+function mostrarPreviews(input){
+  const files = Array.from(input.files).slice(0, 5);
+  const grid = document.getElementById('fotos-preview-grid');
+  const placeholder = document.getElementById('fotos-placeholder');
+  grid.innerHTML = '';
+  if(!files.length){
+    grid.style.display = 'none';
+    placeholder.style.display = 'block';
+    return;
+  }
+  placeholder.style.display = 'none';
+  grid.style.display = 'flex';
+  files.forEach((file, i) => {
+    const url = URL.createObjectURL(file);
+    const wrap = document.createElement('div');
+    wrap.className = 'fotos-thumb-wrap';
+    const img = document.createElement('img');
+    img.src = url; img.className = 'fotos-thumb';
+    const del = document.createElement('button');
+    del.className = 'fotos-thumb-del'; del.textContent = '×';
+    del.onclick = function(e){
+      e.stopPropagation();
+      // Remove file from input by rebuilding DataTransfer
+      const dt = new DataTransfer();
+      Array.from(input.files).forEach((f, j) => { if(j !== i) dt.items.add(f); });
+      input.files = dt.files;
+      mostrarPreviews(input);
+    };
+    wrap.appendChild(img); wrap.appendChild(del);
+    grid.appendChild(wrap);
+  });
+}
+
+function limpiarPreviewFotos(){
+  const grid = document.getElementById('fotos-preview-grid');
+  const placeholder = document.getElementById('fotos-placeholder');
+  if(grid){ grid.innerHTML = ''; grid.style.display = 'none'; }
+  if(placeholder) placeholder.style.display = 'block';
+  const input = document.getElementById('fotos');
+  if(input) input.value = '';
+}
+
+function comprimirImagen(file, maxW, quality, cb){
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = function(){
+    URL.revokeObjectURL(url);
+    const canvas = document.createElement('canvas');
+    let w = img.width, h = img.height;
+    if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+    canvas.width = w; canvas.height = h;
+    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+    cb(canvas.toDataURL('image/jpeg', quality));
+  };
+  img.onerror = function(){ URL.revokeObjectURL(url); cb(null); };
+  img.src = url;
 }
 
 function guardarPropiedad(){
@@ -2736,34 +2809,25 @@ function guardarPropiedad(){
   };
 
   const fotosInput = document.getElementById('fotos');
-  const files = Array.from(fotosInput.files || []).slice(0, 10);
+  const files = Array.from(fotosInput.files || []).slice(0, 5);
 
   if(files.length){
-    let loaded = 0;
-    let errored = 0;
+    const btn = document.getElementById('dash-save-btn');
+    btn.textContent = 'Cargando fotos...';
+    btn.disabled = true;
     const newFotos = [];
-    document.getElementById('dash-save-btn').textContent = 'Cargando fotos...';
-    document.getElementById('dash-save-btn').disabled = true;
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        newFotos.push(e.target.result);
-        loaded++;
-        if(loaded + errored === files.length){
-          data.fotos = newFotos;
-          document.getElementById('dash-save-btn').disabled = false;
+    let done = 0;
+    files.forEach((file, i) => {
+      comprimirImagen(file, 1200, 0.75, function(dataUrl){
+        newFotos[i] = dataUrl || '';
+        done++;
+        if(done === files.length){
+          data.fotos = newFotos.filter(Boolean);
+          btn.disabled = false;
+          btn.textContent = '＋ Agregar unidad';
           persistirPropiedad(data);
         }
-      };
-      reader.onerror = () => {
-        errored++;
-        if(loaded + errored === files.length){
-          data.fotos = newFotos;
-          document.getElementById('dash-save-btn').disabled = false;
-          persistirPropiedad(data);
-        }
-      };
-      reader.readAsDataURL(file);
+      });
     });
   } else {
     persistirPropiedad(data);
