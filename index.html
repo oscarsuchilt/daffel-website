@@ -495,6 +495,72 @@ body.detail-active .detail-back-fixed{display:inline-flex}
 .detail-booking-btns .bb-tel{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
 .detail-booking-btns .bb-tel:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
 
+/* ── COMPLEJO UNITS PAGE (intermediate level) ── */
+.complejo-units-page{display:none;background:#fff;padding:120px 48px 80px;min-height:100vh}
+body.complejo-units-active .complejo-units-page{display:block}
+body.complejo-units-active .hero,body.complejo-units-active .stats-bar,body.complejo-units-active .statement,body.complejo-units-active .quienes,body.complejo-units-active .why,body.complejo-units-active .marquee-section,body.complejo-units-active .propiedades,body.complejo-units-active .reviews,body.complejo-units-active .amenidades,body.complejo-units-active .faq,body.complejo-units-active .cta-section,body.complejo-units-active .mapa-section,body.complejo-units-active footer,body.complejo-units-active .wa-float{display:none !important}
+body.complejo-units-active nav{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--gray-200);box-shadow:var(--shadow-sm)}
+body.complejo-units-active .nav-logo-name{color:var(--black)}
+body.complejo-units-active .nav-links a{color:var(--gray-600)}
+body.complejo-units-active .nav-cta{background:var(--black) !important;border-color:var(--black) !important;color:#fff !important}
+body.complejo-units-active nav::before{opacity:0}
+body.complejo-units-active .hamburger span{background:var(--black)}
+
+.cup-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-400);margin-bottom:1.5rem;flex-wrap:wrap}
+.cup-breadcrumb a{color:var(--gray-400);text-decoration:none;transition:color .2s;font-weight:500}
+.cup-breadcrumb a:hover{color:var(--black)}
+.cup-breadcrumb .bc-sep{color:var(--gray-200);font-size:11px}
+.cup-breadcrumb .bc-current{color:var(--black);font-weight:600}
+
+.cup-hero{display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start;margin-bottom:3rem}
+@media(max-width:900px){.cup-hero{grid-template-columns:1fr;gap:1.5rem}}
+.cup-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--black);margin-bottom:.35rem;letter-spacing:-.02em}
+.cup-address{font-size:14px;color:var(--gray-400);display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.cup-address::before{content:'\f3c5';font-family:'Font Awesome 6 Free';font-weight:900;font-size:13px}
+.cup-desc{font-size:15px;color:var(--gray-600);line-height:1.8;max-width:640px;margin-bottom:1.5rem}
+.cup-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.cup-stat{display:flex;align-items:center;gap:10px}
+.cup-stat-icon{font-size:18px;color:var(--gray-400)}
+.cup-stat-text{font-size:15px;font-weight:600;color:var(--black)}
+.cup-contact{background:var(--black);border-radius:var(--r-xl);padding:1.75rem;position:sticky;top:84px}
+.cup-contact-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:.35rem}
+.cup-contact-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:1.25rem}
+.cup-booking-btns{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cup-booking-btns a{display:flex;align-items:center;justify-content:center;gap:7px;padding:.7rem .85rem;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.cup-booking-btns a svg{flex-shrink:0}
+.cup-booking-btns .bb-airbnb{background:#FF5A5F;color:#fff}
+.cup-booking-btns .bb-airbnb:hover{transform:translateY(-2px)}
+.cup-booking-btns .bb-whatsapp{background:#25D366;color:#fff}
+.cup-booking-btns .bb-whatsapp:hover{transform:translateY(-2px)}
+.cup-booking-btns .bb-maps{background:#fff;color:var(--black)}
+.cup-booking-btns .bb-maps:hover{background:var(--gray-100);transform:translateY(-2px)}
+.cup-booking-btns .bb-tel{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
+.cup-booking-btns .bb-tel:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+
+.cup-units-title{font-family:'Instrument Serif',serif;font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:400;color:var(--black);margin-bottom:1.5rem}
+.cup-units-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.cup-unit-card{border-radius:var(--r-xl);overflow:hidden;cursor:pointer;border:1px solid var(--gray-200);background:#fff;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative}
+.cup-unit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.cup-unit-img-wrap{height:260px;overflow:hidden;position:relative}
+.cup-unit-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.cup-unit-card:hover .cup-unit-img{transform:scale(1.04)}
+.cup-unit-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:110px;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);pointer-events:none}
+.cup-unit-img-ph{width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gray-400)}
+.cup-unit-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:1.1rem 1.25rem;display:flex;align-items:flex-end;justify-content:space-between}
+.cup-unit-name{font-family:'Instrument Serif',serif;font-size:1.1rem;font-weight:400;color:#fff;line-height:1.15}
+.cup-unit-addr{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:2px}
+.cup-unit-view-btn{background:rgba(255,255,255,.95);backdrop-filter:blur(8px);color:var(--black);font-size:12px;font-weight:700;padding:.4rem 1rem;border-radius:var(--r-pill);white-space:nowrap;border:none;cursor:pointer;flex-shrink:0;transition:background .2s,transform .2s}
+.cup-unit-view-btn:hover{background:#fff;transform:scale(1.05)}
+
+.cup-back-fixed{position:fixed;top:80px;left:48px;z-index:900;display:none;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--gray-200);color:var(--black);font-size:13px;font-weight:600;padding:.6rem 1.4rem;border-radius:var(--r-pill);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif;box-shadow:var(--shadow-sm)}
+body.complejo-units-active .cup-back-fixed{display:inline-flex}
+.cup-back-fixed:hover{background:var(--gray-50);border-color:var(--black);box-shadow:var(--shadow-md)}
+
+@media(max-width:1024px){.complejo-units-page{padding:80px 32px 60px}.cup-back-fixed{left:32px}}
+@media(max-width:768px){.complejo-units-page{padding:72px 20px 48px}.cup-units-grid{grid-template-columns:1fr 1fr}.cup-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}}
+@media(max-width:560px){.cup-units-grid{grid-template-columns:1fr}.cup-unit-img-wrap{height:220px}}
+@media(max-width:480px){.complejo-units-page{padding:68px 16px 40px}.cup-back-fixed{left:16px;top:72px}}
+
 /* Properties horizontal scroll */
 .detail-others-row{display:flex;align-items:center;justify-content:space-between;margin:3.5rem 0 1.5rem;flex-wrap:wrap;gap:1rem}
 .detail-others-title{font-family:'Instrument Serif',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--black)}
@@ -1141,17 +1207,26 @@ body.detail-active .nav-logo-mark{}
   </div>
 </section>
 
+<!-- ═══════════ COMPLEJO UNITS PAGE (intermediate) ═══════════ -->
+<button class="cup-back-fixed" onclick="volverComplejos()">← Volver</button>
+<section class="complejo-units-page" id="complejoUnitsPage">
+  <div class="container">
+    <h2 class="cup-units-title" id="cupUnitsTitle" style="text-align:center;margin-bottom:2rem"></h2>
+    <div class="cup-units-grid" id="cupUnitsGrid"></div>
+  </div>
+</section>
+
 <!-- ═══════════ DETAIL FULLPAGE ═══════════ -->
 <section class="detail-fullpage" id="detailFullpage">
   <!-- Fixed back button -->
-  <button class="detail-back-fixed" onclick="volverComplejos()">← Volver a complejos</button>
+  <button class="detail-back-fixed" id="detailBackBtn" onclick="volverAComplejo()">← Volver</button>
 
   <div class="container">
     <!-- Breadcrumb -->
     <div class="detail-breadcrumb">
       <a href="#" onclick="volverComplejos();return false;">Inicio</a>
       <span class="bc-sep">›</span>
-      <a href="#" onclick="volverComplejos();return false;">Complejos</a>
+      <a href="#" id="bcComplejoLink" onclick="volverAComplejo();return false;"></a>
       <span class="bc-sep">›</span>
       <span class="bc-current" id="bcComplejoName"></span>
     </div>
@@ -1858,87 +1933,90 @@ body.detail-active .nav-logo-mark{}
 // ═══════════════════════════════════════════════
 
 const COMPLEJOS_DEFAULT = [
-  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:6,  tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'' },
-  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:16, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'' },
-  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:17, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'' },
-  { id:'aldea',       nombre:'Aldea',        direccion:'Fonda & Aldea, Centro Histórico',        unidades:15, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'' },
-  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:26, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'' },
-  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:16, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'' },
+  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'' },
+  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'' },
+  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'' },
+  { id:'aldea',       nombre:'Aldea',        direccion:'Fonda & Aldea, Centro Histórico',        unidades:10, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'' },
+  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'' },
+  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'' },
 ];
 
 const PROPIEDADES_DEFAULT = [
-  {
-    id:'abasolo_1', complejo:'abasolo',
-    nombre:'Casa Abasolo',
-    badge:'Barrio Antiguo',
-    direccion:'José Abasolo, Centro Histórico',
-    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Abasolo+424+Barrio+Antiguo+Monterrey+NL',
-    rating:'4.83 · 103',
-    precio:'',
-    telefono:'8110645136',
-    tags:['Cama King','Baño privado','Smart Lock','WiFi 109 Mbps','Escritorio'],
-    cercanos:['Macroplaza a 600m','Museo MARCO a 500m','7-Eleven a 10m','Parque Fundidora 4km'],
-    belong:'',
-    airbnb:'https://www.airbnb.mx/rooms/865916915126616151',
-    expedia:'',
-    lat:25.6697,lng:-100.3108,
-    fotos:['3','4','5','6','7']
-  },
-  {
-    id:'aldea_1',complejo:'aldea',
-    nombre:'Aldea Morelos',
-    badge:'Barrio Antiguo',
-    direccion:'Fonda & Aldea, Centro Histórico',
-    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Aldea+Morelos+Barrio+Antiguo+Monterrey+NL',
-    rating:'4.81 · 16',
-    precio:'',
-    telefono:'8110645136',
-    tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'],
-    cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'],
-    belong:'',
-    airbnb:'https://www.airbnb.mx/rooms/1376405838885906661',
-    expedia:'',
-    lat:25.6692,lng:-100.3099,
-    fotos:['ALDEA_1','ALDEA_2','ALDEA_3','ALDEA_4','ALDEA_5','ALDEA_6','ALDEA_7','ALDEA_8']
-  },
-  {
-    id:'morelos_1',complejo:'morelos',
-    nombre:'Barrio Inn Morelos',
-    badge:'Barrio Antiguo',
-    direccion:'Calle Morelos, Centro Histórico',
-    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Morelos+Barrio+Antiguo+Monterrey+NL',
-    rating:'4.82 · 130',
-    precio:'',
-    telefono:'8110645136',
-    tags:['Cama matrimonial','Baño privado','Smart TV','Microondas','Frigobar'],
-    cercanos:['Calle principal de Barrio','Bares y restaurantes al paso','Macroplaza 600m','Museo MARCO 500m'],
-    belong:'',
-    airbnb:'https://www.airbnb.mx/rooms/957511127263086841',
-    expedia:'',
-    lat:25.6690,lng:-100.3096,
-    fotos:['1','2','3','4','MO','MORELOS_6']
-  },
-  {
-    id:'roma_1',complejo:'roma',
-    nombre:'Loft Pirineos',
-    badge:'Roma Sur',
-    direccion:'Pirineos 1012, Roma Sur',
-    direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+Monterrey+NL',
-    rating:'',
-    precio:'',
-    telefono:'8110645136',
-    tags:['Loft tipo estudio','Baño privado','Walking closet','Kitchenette','Pet-friendly'],
-    cercanos:['Zona residencial tranquila','Vista al skyline de Monterrey','A 10 min del Centro Histórico','Restaurantes en la zona'],
-    belong:'https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78',
-    airbnb:'',
-    expedia:'',
-    lat:25.6419,lng:-100.3297,
-    fotos:['PIRINEOS_1','PIRINEOS_2','PIRINEOS_3','PIRINEOS_4','PIRINEOS_5']
-  }
+  // ── ABASOLO (Barrio Antiguo) ──
+  { id:'abasolo_1', complejo:'abasolo', nombre:'Abasolo 101', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.83 · 103', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Bares y restaurantes al paso'], belong:'', airbnb:'https://www.airbnb.mx/rooms/865916915126616151', expedia:'', lat:25.6697, lng:-100.3108, fotos:[] },
+  { id:'abasolo_2', complejo:'abasolo', nombre:'Abasolo 102', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.80 · 88', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Bares al paso','Parroquia del Roble 200m'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3108, fotos:[] },
+  { id:'abasolo_3', complejo:'abasolo', nombre:'Abasolo 103', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.85 · 67', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Calle Morelos 3 min'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3109, fotos:[] },
+  { id:'abasolo_4', complejo:'abasolo', nombre:'Abasolo 201', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.78 · 52', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Galería de Arte 100m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3108, fotos:[] },
+  { id:'abasolo_5', complejo:'abasolo', nombre:'Abasolo 202', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.82 · 44', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Cafetería artesanal 80m','Bares al paso'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3109, fotos:[] },
+  { id:'abasolo_6', complejo:'abasolo', nombre:'Abasolo 203', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.79 · 38', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Tiendas y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6696, lng:-100.3108, fotos:[] },
+  { id:'abasolo_7', complejo:'abasolo', nombre:'Abasolo 301', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.86 · 29', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista al patio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Restaurantes 50m','Barrio histórico'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3110, fotos:[] },
+  { id:'abasolo_8', complejo:'abasolo', nombre:'Abasolo 302', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.81 · 21', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Bar La Fauna 100m','Cafés de especialidad'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3110, fotos:[] },
+  { id:'abasolo_9', complejo:'abasolo', nombre:'Abasolo 303', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.77 · 15', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Mercado Barrio 200m','Restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6696, lng:-100.3110, fotos:[] },
+  { id:'abasolo_10', complejo:'abasolo', nombre:'Abasolo Estudio', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.84 · 9', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Kitchenette','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Bares al paso'], belong:'', airbnb:'', expedia:'', lat:25.6699, lng:-100.3108, fotos:[] },
+
+  // ── MORELOS (Centro Histórico) ──
+  { id:'morelos_1', complejo:'morelos', nombre:'Morelos 101', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.82 · 130', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart TV','Microondas','Frigobar'], cercanos:['Bares y restaurantes en la puerta','Macroplaza 600m','Museo MARCO 500m','Calle Peatonal 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/957511127263086841', expedia:'', lat:25.6690, lng:-100.3096, fotos:[] },
+  { id:'morelos_2', complejo:'morelos', nombre:'Morelos 102', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.80 · 98', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Bares al paso','Macroplaza 600m','Museo MARCO 500m','Vida nocturna'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3096, fotos:[] },
+  { id:'morelos_3', complejo:'morelos', nombre:'Morelos 103', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.84 · 77', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Restaurantes en la puerta','Macroplaza 600m','Galería 100m','Café artesanal'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3097, fotos:[] },
+  { id:'morelos_4', complejo:'morelos', nombre:'Morelos 201', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.79 · 65', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Vida nocturna al paso','Macroplaza 600m','Museo MARCO 500m','Tacos 24h'], belong:'', airbnb:'', expedia:'', lat:25.6689, lng:-100.3096, fotos:[] },
+  { id:'morelos_5', complejo:'morelos', nombre:'Morelos 202', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.83 · 54', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Bares Barrio Antiguo','Macroplaza 600m','Museo MARCO 500m','Restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3095, fotos:[] },
+  { id:'morelos_6', complejo:'morelos', nombre:'Morelos 203', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.81 · 43', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Calle Morelos principal','Macroplaza 600m','Museo MARCO 500m','Bares 50m'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3095, fotos:[] },
+  { id:'morelos_7', complejo:'morelos', nombre:'Morelos 301', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.86 · 31', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista a la calle'], cercanos:['Vista Barrio Antiguo','Macroplaza 600m','Museo MARCO 500m','Todo al paso'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3097, fotos:[] },
+  { id:'morelos_8', complejo:'morelos', nombre:'Morelos 302', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.78 · 22', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Bares en la planta baja','Macroplaza 600m','Museo MARCO 500m','7-Eleven 200m'], belong:'', airbnb:'', expedia:'', lat:25.6689, lng:-100.3097, fotos:[] },
+  { id:'morelos_9', complejo:'morelos', nombre:'Morelos 303', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.82 · 14', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Calle Morelos','Macroplaza 600m','Museo MARCO 500m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3096, fotos:[] },
+  { id:'morelos_10', complejo:'morelos', nombre:'Morelos Loft', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.85 · 8', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Kitchenette','Escritorio'], cercanos:['Barrio Antiguo al paso','Macroplaza 600m','Museo MARCO 500m','Bares 30m'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3098, fotos:[] },
+
+  // ── ROMA (Roma Sur / San Pedro) ──
+  { id:'roma_1', complejo:'roma', nombre:'Roma 101', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.88 · 42', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Walking closet','Kitchenette','Pet-friendly'], cercanos:['Zona residencial tranquila','Vista skyline Monterrey','Restaurantes San Pedro 5 min','Centros comerciales 10 min'], belong:'https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78', airbnb:'', expedia:'', lat:25.6419, lng:-100.3297, fotos:[] },
+  { id:'roma_2', complejo:'roma', nombre:'Roma 102', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.85 · 38', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 200 Mbps','Smart TV'], cercanos:['Zona residencial','Vista skyline','Restaurantes 5 min','San Pedro centro 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6419, lng:-100.3298, fotos:[] },
+  { id:'roma_3', complejo:'roma', nombre:'Roma 103', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.83 · 29', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 200 Mbps','Escritorio','Pet-friendly'], cercanos:['Colonia tranquila','Parque 300m','Restaurantes Vasconcelos 10 min','Galerías 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3297, fotos:[] },
+  { id:'roma_4', complejo:'roma', nombre:'Roma 201', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.87 · 24', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Mini Split','WiFi 200 Mbps','Kitchenette'], cercanos:['Vista skyline Monterrey','Zona residencial','Cafés especiales 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6418, lng:-100.3297, fotos:[] },
+  { id:'roma_5', complejo:'roma', nombre:'Roma 202', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.84 · 19', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 200 Mbps','Smart TV','Pet-friendly'], cercanos:['Parque del Barrio 400m','Restaurantes 5 min','Vasconcelos 10 min','Centro San Pedro 12 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3298, fotos:[] },
+  { id:'roma_6', complejo:'roma', nombre:'Roma 203', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.86 · 14', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 200 Mbps','Escritorio'], cercanos:['Zona residencial segura','Vista sierra','Cafés 5 min','San Pedro 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6419, lng:-100.3299, fotos:[] },
+  { id:'roma_7', complejo:'roma', nombre:'Roma 301', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.89 · 11', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Smart Lock','WiFi 200 Mbps','Vista panorámica'], cercanos:['Vista skyline Monterrey','Silencio residencial','Restaurantes 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6421, lng:-100.3297, fotos:[] },
+  { id:'roma_8', complejo:'roma', nombre:'Roma 302', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.82 · 8', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 200 Mbps','Smart TV','Pet-friendly'], cercanos:['Colonia Roma Sur','Vista sierra','Cafés especiales 5 min','Galerías 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6418, lng:-100.3298, fotos:[] },
+  { id:'roma_9', complejo:'roma', nombre:'Roma 303', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.85 · 5', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 200 Mbps','Escritorio'], cercanos:['Zona residencial tranquila','Vista panorámica','Restaurantes 5 min','San Pedro centro 12 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3299, fotos:[] },
+  { id:'roma_10', complejo:'roma', nombre:'Roma Penthouse', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.92 · 3', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 200 Mbps','Terraza','Vista 360°','Pet-friendly'], cercanos:['Vista skyline Monterrey y sierra','Zona exclusiva San Pedro','Restaurantes 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6421, lng:-100.3298, fotos:[] },
+
+  // ── ALDEA (Centro Histórico) ──
+  { id:'aldea_1', complejo:'aldea', nombre:'Aldea 101', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.81 · 64', precio:'', telefono:'8110645136', tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/1376405838885906661', expedia:'', lat:25.6692, lng:-100.3099, fotos:[] },
+  { id:'aldea_2', complejo:'aldea', nombre:'Aldea 102', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.79 · 58', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','WiFi 100 Mbps','Smart TV'], cercanos:['MARCO 500m','Macroplaza 600m','Restaurantes al paso','Barrio Antiguo 5 min'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3100, fotos:[] },
+  { id:'aldea_3', complejo:'aldea', nombre:'Aldea 103', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.83 · 47', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','Cocina comunal','Smart Lock'], cercanos:['Vista al patio con alberca','MARCO 500m','Macroplaza 600m','Cafés artesanales'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3099, fotos:[] },
+  { id:'aldea_4', complejo:'aldea', nombre:'Aldea 201', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca privada','MARCO 500m','Macroplaza 600m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3099, fotos:[] },
+  { id:'aldea_5', complejo:'aldea', nombre:'Aldea 202', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Patio comunitario','MARCO 500m','Macroplaza 600m','Vida social intensa'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3098, fotos:[] },
+  { id:'aldea_6', complejo:'aldea', nombre:'Aldea 203', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.78 · 24', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock'], cercanos:['Alberca en el patio','MARCO 500m','Macroplaza 600m','Restaurantes 50m'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3100, fotos:[] },
+  { id:'aldea_7', complejo:'aldea', nombre:'Aldea 301', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.86 · 17', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Vista al patio'], cercanos:['Vista panorámica al patio','MARCO 500m','Macroplaza 600m','Bares Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3100, fotos:[] },
+  { id:'aldea_8', complejo:'aldea', nombre:'Aldea 302', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.82 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','Cocina comunal','Smart TV'], cercanos:['Piso alto con vista','MARCO 500m','Macroplaza 600m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3101, fotos:[] },
+  { id:'aldea_9', complejo:'aldea', nombre:'Aldea 303', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.80 · 7', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca','MARCO 500m','Macroplaza 600m','Cafés y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3098, fotos:[] },
+  { id:'aldea_10', complejo:'aldea', nombre:'Aldea Suite', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.90 · 4', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock','Terraza privada'], cercanos:['Terraza exclusiva','MARCO 500m','Macroplaza 600m','Barrio Antiguo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3099, fotos:[] },
+
+  // ── SAN JERÓNIMO (Zona Residencial Monterrey) ──
+  { id:'sanjeronimo_1', complejo:'sanjeronimo', nombre:'San Jerónimo 101', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.85 · 72', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Zona residencial segura','Supermercados 5 min','Restaurantes San Jerónimo 5 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3698, fotos:[] },
+  { id:'sanjeronimo_2', complejo:'sanjeronimo', nombre:'San Jerónimo 102', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.82 · 65', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Colonia tranquila','Supermercados 5 min','Plazas comerciales 8 min','Monterrey centro 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3699, fotos:[] },
+  { id:'sanjeronimo_3', complejo:'sanjeronimo', nombre:'San Jerónimo 103', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.87 · 54', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Escritorio'], cercanos:['Área residencial','Parque 300m','Restaurantes 5 min','Acceso controlado'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3698, fotos:[] },
+  { id:'sanjeronimo_4', complejo:'sanjeronimo', nombre:'San Jerónimo 201', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.83 · 46', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Vista a la sierra','Supermercados 5 min','Plazas 8 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6511, lng:-100.3698, fotos:[] },
+  { id:'sanjeronimo_5', complejo:'sanjeronimo', nombre:'San Jerónimo 202', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Zona residencial privada','Parque cercano','Restaurantes 5 min','Acceso controlado'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3700, fotos:[] },
+  { id:'sanjeronimo_6', complejo:'sanjeronimo', nombre:'San Jerónimo 203', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Escritorio'], cercanos:['Colonia San Jerónimo','Supermercados 5 min','Plazas comerciales 8 min','Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3700, fotos:[] },
+  { id:'sanjeronimo_7', complejo:'sanjeronimo', nombre:'San Jerónimo 301', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.88 · 22', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Vista a la sierra'], cercanos:['Vista sierra Madre','Zona tranquila','Restaurantes 5 min','Plazas 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6514, lng:-100.3698, fotos:[] },
+  { id:'sanjeronimo_8', complejo:'sanjeronimo', nombre:'San Jerónimo 302', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.81 · 15', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Área residencial privada','Parque 200m','Supermercados 5 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6511, lng:-100.3700, fotos:[] },
+  { id:'sanjeronimo_9', complejo:'sanjeronimo', nombre:'San Jerónimo 303', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.86 · 9', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Vista panorámica','Zona residencial segura','Restaurantes 5 min','Plazas comerciales 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3697, fotos:[] },
+  { id:'sanjeronimo_10', complejo:'sanjeronimo', nombre:'San Jerónimo Suite', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.91 · 5', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV','Terraza privada'], cercanos:['Vista sierra y ciudad','Zona exclusiva','Restaurantes 5 min','Plazas premium 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6514, lng:-100.3699, fotos:[] },
+
+  // ── PADRE MIER (Centro Histórico) ──
+  { id:'padremier_1', complejo:'padremier', nombre:'Padre Mier 101', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.84 · 81', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','Museo MARCO 400m','Palacio de Gobierno 200m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3085, fotos:[] },
+  { id:'padremier_2', complejo:'padremier', nombre:'Padre Mier 102', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.81 · 73', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Catedral Metropolitana 400m','Bares y restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3086, fotos:[] },
+  { id:'padremier_3', complejo:'padremier', nombre:'Padre Mier 103', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.86 · 62', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Vida cultural intensa','Todo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3085, fotos:[] },
+  { id:'padremier_4', complejo:'padremier', nombre:'Padre Mier 201', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.79 · 53', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Macroplaza 300m','MARCO 400m','Museos y galerías al paso','Restaurantes históricos'], belong:'', airbnb:'', expedia:'', lat:25.6702, lng:-100.3085, fotos:[] },
+  { id:'padremier_5', complejo:'padremier', nombre:'Padre Mier 202', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.83 · 44', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Calle Peatonal 100m','Cafés históricos'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3087, fotos:[] },
+  { id:'padremier_6', complejo:'padremier', nombre:'Padre Mier 203', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.80 · 36', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Barrio Antiguo 5 min','Todo el centro a pie'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3086, fotos:[] },
+  { id:'padremier_7', complejo:'padremier', nombre:'Padre Mier 301', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.87 · 27', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista a la Macroplaza'], cercanos:['Vista a la Macroplaza','MARCO 400m','Palacio Municipal 300m','Todo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6702, lng:-100.3086, fotos:[] },
+  { id:'padremier_8', complejo:'padremier', nombre:'Padre Mier 302', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.82 · 18', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Zona histórica','Restaurantes premium'], belong:'', airbnb:'', expedia:'', lat:25.6705, lng:-100.3085, fotos:[] },
+  { id:'padremier_9', complejo:'padremier', nombre:'Padre Mier 303', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.85 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Museos 5 min','Galerías de arte al paso'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3084, fotos:[] },
+  { id:'padremier_10', complejo:'padremier', nombre:'Padre Mier Suite', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.93 · 6', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Vista panorámica','Frigobar'], cercanos:['Vista Macroplaza y sierra','Centro histórico a pie','MARCO 400m','Mejor ubicación del centro'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3084, fotos:[] },
 ];
 
-const LS_KEY      = 'barrioinn_propiedades_v2';
-const LS_COMPLEJOS = 'barrioinn_complejos_v1';
+const LS_KEY      = 'barrioinn_propiedades_v3';
+const LS_COMPLEJOS = 'barrioinn_complejos_v2';
 
 function cargarLS(){
   try {
@@ -2001,97 +2079,49 @@ function abrirComplejo(id){
   complejoActivo = complejos.find(c => c.id === id);
   if(!complejoActivo) return;
 
-  // Fullpage takeover
-  document.body.classList.add('detail-active');
+  document.body.classList.remove('detail-active');
+  document.body.classList.add('complejo-units-active');
   window.scrollTo({top:0,behavior:'instant'});
 
-  // Breadcrumb + title
-  document.getElementById('bcComplejoName').textContent = complejoActivo.nombre;
-  document.getElementById('detailTitulo').textContent   = complejoActivo.nombre;
-  document.getElementById('detailDireccion').textContent = complejoActivo.direccion;
-
-  // Gallery
-  renderDetailGallery(complejoActivo);
-
-  // Props of this complex
+  const c = complejoActivo;
   const props = propiedades.filter(p => p.complejo === id);
 
-  // Overview description
-  const descriptions = {
-    abasolo: 'Ubicada en la calle José Abasolo, esta propiedad ofrece un ambiente tranquilo en pleno Barrio Antiguo. Con acceso autónomo 24h, WiFi de alta velocidad y habitaciones equipadas con Smart TV, es ideal para viajeros de negocios o turistas que buscan comodidad y ubicación privilegiada.',
-    morelos: 'En la calle principal del Barrio Antiguo, Morelos es nuestra propiedad con mayor vida. Rodeada de bares, restaurantes y galerías, ofrece una experiencia inmejorable para quienes quieren vivir Monterrey desde adentro. A pasos de todo.',
-    roma: 'Fuera del centro histórico, en la colonia Roma Sur, esta propiedad ofrece lofts tipo estudio con vista al skyline de Monterrey. Ideal para estancias largas, nómadas digitales y viajeros que buscan un espacio amplio y tranquilo. Pet-friendly.',
-    aldea: 'Aldea es un espacio comunitario con alberca, cocina compartida y ambiente social. Perfecta para viajeros que buscan conectar con otros huéspedes mientras disfrutan de una ubicación céntrica cerca del MARCO y la Macroplaza.',
-    sanjeronimo: 'En zona residencial de San Jerónimo, esta propiedad ofrece tranquilidad, acceso controlado y estacionamiento. Ideal para familias o viajeros que prefieren un entorno más sereno sin alejarse demasiado del centro.',
-    padremier: 'Sobre Padre Mier, a pasos de la Macroplaza y el Museo MARCO. Esta propiedad combina la ubicación más céntrica con el carácter auténtico del Barrio Antiguo. Perfecta para explorar Monterrey a pie.',
-  };
-  document.getElementById('detailDesc').textContent = descriptions[id] || 'Complejo de hospedaje boutique en el corazón de Monterrey, equipado con todo lo necesario para una estancia cómoda y memorable.';
+  // Solo título
+  document.getElementById('cupUnitsTitle').textContent = 'Propiedades en ' + c.nombre;
 
-  // Stats
-  const unidadesCount = props.length || complejoActivo.unidades;
-  document.getElementById('detailStatsRow').innerHTML = `
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-house iso-e"></i></div><span class="detail-stat-text">${unidadesCount} unidades</span></div>
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-users iso-e"></i></div><span class="detail-stat-text">${unidadesCount * 2} huéspedes</span></div>
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-star iso-e"></i></div><span class="detail-stat-text">4.82 promedio</span></div>
-  `;
+  // Render unit cards
+  const grid = document.getElementById('cupUnitsGrid');
+  if(!props.length){
+    grid.innerHTML = '<div style="padding:3rem 2rem;color:var(--gray-400);text-align:center;grid-column:1/-1"><p style="font-size:2rem;margin-bottom:.5rem"><i class="fa-solid fa-hammer"></i></p><p>Sin unidades registradas aún</p></div>';
+    return;
+  }
+  grid.innerHTML = props.map(p => {
+    const foto = (p.fotos && p.fotos.length) ? p.fotos[0] : '';
+    const isUrl = foto && (foto.startsWith('http') || foto.startsWith('data:'));
+    const imgHTML = isUrl
+      ? '<div class="cup-unit-img-wrap"><img class="cup-unit-img" src="' + foto + '" alt="' + p.nombre + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=cup-unit-img-ph><i class=fa-solid fa-house style=font-size:2rem></i></div>\'"/></div>'
+      : '<div class="cup-unit-img-wrap"><div class="cup-unit-img-ph"><i class="fa-solid fa-house" style="font-size:2rem"></i></div></div>';
+    return '<div class="cup-unit-card" onclick="abrirUnidad(\'' + p.id + '\')">' +
+      imgHTML +
+      '<div class="cup-unit-overlay"><div><div class="cup-unit-name">' + p.nombre + '</div><div class="cup-unit-addr">' + (p.direccion || '') + '</div></div><button class="cup-unit-view-btn" onclick="event.stopPropagation();abrirUnidad(\'' + p.id + '\')">Ver →</button></div></div>';
+  }).join('');
+}
 
-  // Spaces preview
-  const spaceTypes = [
-    {icon:'<i class="fa-solid fa-bed iso-e"></i>',name:'Habitación privada',sub:'Tu propio espacio, cada noche'},
-    {icon:'<i class="fa-solid fa-building iso-e"></i>',name:'Loft / Estudio',sub:'Espacio amplio para estancias largas'},
-    {icon:'<i class="fa-solid fa-users iso-e"></i>',name:'Sala común',sub:'Donde las ideas se encuentran'},
-    {icon:'<i class="fa-solid fa-arrows-rotate iso-e"></i>',name:'Espacio flexible',sub:'Sin asignación fija, máxima libertad'},
-  ];
-  if(id === 'aldea') spaceTypes.push({icon:'<i class="fa-solid fa-person-swimming iso-e"></i>',name:'Alberca',sub:'Refréscate entre el ajetreo del barrio'});
-  if(id === 'roma') spaceTypes[3] = {icon:'<i class="fa-solid fa-paw iso-e"></i>',name:'Pet-friendly',sub:'Tu mascota también es bienvenida'};
-  document.getElementById('detailSpacesPreview').innerHTML = spaceTypes.map(s => `
-    <div class="detail-space-card">
-      <div class="iso-icon-wrap">${s.icon}</div>
-      <div><div class="detail-space-name">${s.name}</div><div class="detail-space-sub">${s.sub}</div></div>
-    </div>
-  `).join('');
-
-  // Services
-  const services = [
-    {icon:'<i class="fa-solid fa-lock iso-e"></i>',name:'Smart Lock 24h'},{icon:'<i class="fa-solid fa-wifi iso-e"></i>',name:'WiFi 100+ Mbps'},
-    {icon:'<i class="fa-solid fa-tv iso-e"></i>',name:'Smart TV'},{icon:'<i class="fa-solid fa-snowflake iso-e"></i>',name:'Mini Split A/C'},
-    {icon:'<i class="fa-solid fa-mug-hot iso-e"></i>',name:'Café de cortesía'},{icon:'<i class="fa-solid fa-shield-halved iso-e"></i>',name:'Seguridad 24/7'},
-    {icon:'<i class="fa-solid fa-pump-soap iso-e"></i>',name:'Amenidades de baño'},{icon:'<i class="fa-solid fa-bed iso-e"></i>',name:'Ropa de cama incluida'},
-    {icon:'<i class="fa-solid fa-file-invoice iso-e"></i>',name:'Factura CFDI'},{icon:'<i class="fa-solid fa-utensils iso-e"></i>',name:'Cocina comunal'},
-  ];
-  if(id === 'aldea') services.push({icon:'<i class="fa-solid fa-person-swimming iso-e"></i>',name:'Alberca'});
-  if(id === 'sanjeronimo') services.push({icon:'<i class="fa-solid fa-square-parking iso-e"></i>',name:'Estacionamiento'});
-  document.getElementById('detailServicesGrid').innerHTML = services.map(s => `
-    <div class="detail-service-item"><div class="svc-icon-wrap"><span class="iso-e">${s.icon}</span></div>${s.name}</div>
-  `).join('');
-
-  // Render property cards with FULL booking buttons at bottom
-  document.getElementById('detailPropsTitle').textContent = 'Propiedades en ' + complejoActivo.nombre;
-  renderizarPropiedadesDeComplejo(id);
-
-  // Access map
-  renderDetailMap(complejoActivo, props);
-
-  // Booking buttons in contact card with specific WhatsApp messages
-  const firstProp = props[0] || {};
-  const bookingBtns = document.getElementById('detailBookingBtns');
-  const waBase = 'https://wa.me/528110645136?text=';
-  const waMsgComplejo = encodeURIComponent('Hola, vi en barrioinn.com el complejo ' + complejoActivo.nombre + ' (' + complejoActivo.direccion + ') y me gustaría rentarlo. ¿Tienen disponibilidad?');
-  let bbHTML = '';
-  if(firstProp.airbnb) bbHTML += '<a href="' + firstProp.airbnb + '" target="_blank" class="bb-airbnb"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.4 4.8 3.6 8.4 3.6 13.2c0 4.6 3.8 8.4 8.4 8.4s8.4-3.8 8.4-8.4C20.4 8.4 15.6 4.8 12 0zm0 19.2c-3.3 0-6-2.7-6-6 0-2.8 3-5.8 6-9.6 3 3.8 6 6.8 6 9.6 0 3.3-2.7 6-6 6z"/></svg> Airbnb</a>';
-  bbHTML += '<a href="' + waBase + waMsgComplejo + '" target="_blank" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
-  if(firstProp.direccionUrl) bbHTML += '<a href="' + firstProp.direccionUrl + '" target="_blank" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
-  bbHTML += '<a href="tel:52' + (firstProp.telefono || '8110645136') + '" class="bb-tel"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar</a>';
-  if(firstProp.belong) bbHTML = '<a href="' + firstProp.belong + '" target="_blank" class="bb-airbnb" style="grid-column:1/-1;background:linear-gradient(135deg,#A31635,#C4203F)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7z"/></svg> Reservar en Belong</a>' + bbHTML;
-  bookingBtns.innerHTML = bbHTML;
-
-  // Default tab
-  switchDetailTab('overview');
+function volverAComplejo(){
+  // Go from unit detail back to the complejo units page
+  if(!complejoActivo){
+    volverComplejos();
+    return;
+  }
+  document.body.classList.remove('detail-active');
+  document.body.classList.add('complejo-units-active');
+  window.scrollTo({top:0,behavior:'instant'});
 }
 
 function volverComplejos(){
   complejoActivo = null;
   document.body.classList.remove('detail-active');
+  document.body.classList.remove('complejo-units-active');
   setTimeout(function(){
     var el = document.getElementById('propiedades');
     if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
@@ -2104,10 +2134,15 @@ function abrirUnidad(propId){
 
   complejoActivo = complejos.find(c => c.id === p.complejo) || complejoActivo;
 
+  document.body.classList.remove('complejo-units-active');
   document.body.classList.add('detail-active');
   window.scrollTo({top:0,behavior:'instant'});
 
-  // Breadcrumb + title
+  // Breadcrumb + title — complejo link + unit name
+  const bcLink = document.getElementById('bcComplejoLink');
+  if(bcLink && complejoActivo){
+    bcLink.textContent = complejoActivo.nombre;
+  }
   document.getElementById('bcComplejoName').textContent = p.nombre;
   document.getElementById('detailTitulo').textContent = p.nombre;
   document.getElementById('detailDireccion').textContent = p.direccion || '';
@@ -2159,18 +2194,13 @@ function abrirUnidad(propId){
     ? 'Cerca de: ' + p.cercanos.join(' · ')
     : 'Unidad de hospedaje boutique en el corazón de Monterrey.';
 
-  // Stats
-  const ratingText = p.rating ? p.rating.split('·')[0].trim() : '4.82';
-  document.getElementById('detailStatsRow').innerHTML = `
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-star iso-e"></i></div><span class="detail-stat-text">${ratingText} rating</span></div>
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-tag iso-e"></i></div><span class="detail-stat-text">${(p.tags||[]).slice(0,1).join('')||'Boutique'}</span></div>
-    <div class="detail-stat"><div class="iso-icon-wrap" style="width:42px;height:42px;font-size:19px;border-radius:11px"><i class="fa-solid fa-location-dot iso-e"></i></div><span class="detail-stat-text">${p.badge||'Barrio Antiguo'}</span></div>
-  `;
+  // Stats — ocultar en detalle de unidad (no aplica)
+  document.getElementById('detailStatsRow').innerHTML = '';
 
-  // Tags como spaces
+  // Tags como pills simples
   const tags = p.tags || [];
   document.getElementById('detailSpacesPreview').innerHTML = tags.length
-    ? tags.map(t => `<div class="detail-space-card"><div class="iso-icon-wrap"><i class="fa-solid fa-check iso-e"></i></div><div><div class="detail-space-name">${t}</div></div></div>`).join('')
+    ? `<div style="display:flex;flex-wrap:wrap;gap:8px">${tags.map(t => `<span style="background:var(--gray-100);border:1px solid var(--gray-200);color:var(--black);font-size:13.5px;font-weight:500;padding:.45rem 1.1rem;border-radius:var(--r-pill)">${t}</span>`).join('')}</div>`
     : '<p style="color:var(--gray-400);font-size:14px">Sin características registradas.</p>';
 
   // Services
