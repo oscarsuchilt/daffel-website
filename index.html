@@ -6,6 +6,7 @@
 <title>Barrio Inn — Hostelería · Monterrey</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
@@ -2024,34 +2025,60 @@ const PROPIEDADES_DEFAULT = [
   { id:'padremier_10', complejo:'padremier', nombre:'Padre Mier Suite', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.93 · 6', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Vista panorámica','Frigobar'], cercanos:['Vista Macroplaza y sierra','Centro histórico a pie','MARCO 400m','Mejor ubicación del centro'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3084, fotos:[] },
 ];
 
-const LS_KEY      = 'barrioinn_propiedades_v3';
-const LS_COMPLEJOS = 'barrioinn_complejos_v2';
+// ─── SUPABASE ───
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function cargarLS(){
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
-  } catch(e) {
-    return JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
-  }
+function cargarLS(){ return JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT)); }
+async function guardarLS(){
+  await sb.from('propiedades').upsert(propiedades.map(p => ({...p})));
 }
-function guardarLS(){
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(propiedades));
-  } catch(e){
-    alert('Espacio de almacenamiento lleno. Las fotos son muy pesadas — intenta con menos imágenes o de menor tamaño.');
-  }
+function cargarComplejos(){ return JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT)); }
+async function guardarComplejos(){
+  await sb.from('complejos').upsert(complejos.map(c => ({...c})));
 }
-function cargarComplejos(){
-  try {
-    const raw = localStorage.getItem(LS_COMPLEJOS);
-    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
-  } catch(e) {
-    return JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
-  }
+
+async function uploadFoto(file, folder){
+  const ext  = file.name.split('.').pop() || 'jpg';
+  const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const { error } = await sb.storage.from('fotos').upload(path, file, { upsert: true });
+  if(error){ console.error('Upload error', error); return null; }
+  return sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
 }
-function guardarComplejos(){
-  localStorage.setItem(LS_COMPLEJOS, JSON.stringify(complejos));
+
+function comprimirImagenBlob(file, maxW, quality){
+  return new Promise(resolve => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = function(){
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height;
+      if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      canvas.toBlob(resolve, 'image/jpeg', quality);
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+async function initApp(){
+  const [{ data: props }, { data: cmpls }] = await Promise.all([
+    sb.from('propiedades').select('*'),
+    sb.from('complejos').select('*'),
+  ]);
+  if(props && props.length)  propiedades = props;
+  if(cmpls && cmpls.length)  complejos   = cmpls;
+  renderizarComplejos();
+  await initMarquee();
+}
+
+async function initMarquee(){
+  const { data } = await sb.from('galeria').select('*').order('id');
+  const galeria = data || [];
+  renderMarqueeData(galeria);
 }
 
 let propiedades = cargarLS();
@@ -2549,16 +2576,17 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 let editingId      = null;
 let editingComplejo = null;
 
-function abrirAdmin(){
-  const pass = prompt('Contraseña de administrador:');
-  if(pass === 'pepegarza445768'){
-    document.getElementById('dashboard').classList.add('visible');
-    document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
-    renderDashComplejos();
-    renderGaleriaAdmin();
-  } else if(pass !== null){
-    alert('Contraseña incorrecta.');
-  }
+async function abrirAdmin(){
+  const email = prompt('Email administrador:');
+  if(!email) return;
+  const pass = prompt('Contraseña:');
+  if(!pass) return;
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if(error){ alert('Credenciales incorrectas.'); return; }
+  document.getElementById('dashboard').classList.add('visible');
+  document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
+  renderDashComplejos();
+  renderGaleriaAdmin();
 }
 
 function cerrarDashboard(){
@@ -2602,7 +2630,7 @@ function editarComplejo(idx){
   document.getElementById('dash-complejo-form-panel').scrollIntoView({behavior:'smooth'});
 }
 
-function guardarComplejo(){
+async function guardarComplejo(){
   const nombre = document.getElementById('dc-nombre').value.trim();
   if(!nombre){ alert('El nombre es obligatorio.'); return; }
   const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
@@ -2627,16 +2655,11 @@ function guardarComplejo(){
 
   const fileInput = document.getElementById('dc-foto-input');
   if(fileInput && fileInput.files && fileInput.files[0]){
-    const reader = new FileReader();
-    reader.onload = e => {
-      const c = complejos.find(x => x.id === targetId);
-      if(c) c.foto = e.target.result;
-      guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
-    };
-    reader.readAsDataURL(fileInput.files[0]);
-  } else {
-    guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
+    const btn = document.getElementById('dc-foto-input');
+    const url = await uploadFoto(fileInput.files[0], 'complejos');
+    if(url){ const c = complejos.find(x => x.id === targetId); if(c) c.foto = url; }
   }
+  guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
 }
 
 function eliminarComplejo(id){
@@ -2781,7 +2804,7 @@ function comprimirImagen(file, maxW, quality, cb){
   img.src = url;
 }
 
-function guardarPropiedad(){
+async function guardarPropiedad(){
   const nombre = document.getElementById('dash-nombre').value.trim();
   if(!nombre){ alert('El nombre es obligatorio.'); return; }
 
@@ -2815,20 +2838,16 @@ function guardarPropiedad(){
     const btn = document.getElementById('dash-save-btn');
     btn.textContent = 'Cargando fotos...';
     btn.disabled = true;
-    const newFotos = [];
-    let done = 0;
-    files.forEach((file, i) => {
-      comprimirImagen(file, 1200, 0.75, function(dataUrl){
-        newFotos[i] = dataUrl || '';
-        done++;
-        if(done === files.length){
-          data.fotos = newFotos.filter(Boolean);
-          btn.disabled = false;
-          btn.textContent = '＋ Agregar unidad';
-          persistirPropiedad(data);
-        }
-      });
-    });
+    const urls = await Promise.all(files.map(async (file) => {
+      const blob = await comprimirImagenBlob(file, 1200, 0.75);
+      if(!blob) return null;
+      const f = new File([blob], file.name, { type: 'image/jpeg' });
+      return uploadFoto(f, 'propiedades');
+    }));
+    data.fotos = urls.filter(Boolean);
+    btn.disabled = false;
+    btn.textContent = '＋ Agregar unidad';
+    persistirPropiedad(data);
   } else {
     persistirPropiedad(data);
   }
@@ -2875,67 +2894,48 @@ document.getElementById('fotos').addEventListener('change', function(){
 document.getElementById('dc-foto-input').addEventListener('change', function(){
   document.getElementById('dc-foto-preview').textContent = this.files[0] ? `✔ ${this.files[0].name}` : '';
 });
-document.getElementById('galeriaInput').addEventListener('change', function(){
+document.getElementById('galeriaInput').addEventListener('change', async function(){
   if(!this.files.length) return;
-  document.getElementById('galeria-preview').textContent = `Subiendo ${this.files.length} foto(s)...`;
-  let loaded = 0;
-  Array.from(this.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      agregarFotoGaleria({ src: e.target.result, nombre: file.name });
-      loaded++;
-      if(loaded === this.files.length){
-        document.getElementById('galeria-preview').textContent = `✔ ${loaded} foto(s) subidas`;
-        renderGaleriaAdmin();
-        renderMarquee();
-      }
-    };
-    reader.readAsDataURL(file);
-  });
+  const preview = document.getElementById('galeria-preview');
+  preview.textContent = `Subiendo ${this.files.length} foto(s)...`;
+  const files = Array.from(this.files);
+  await Promise.all(files.map(async file => {
+    const url = await uploadFoto(file, 'galeria');
+    if(url) await sb.from('galeria').insert({ src: url, nombre: file.name });
+  }));
+  preview.textContent = `✔ ${files.length} foto(s) subidas`;
+  renderGaleriaAdmin();
+  initMarquee();
 });
 
 // ─── GALERÍA ───
-const LS_GALERIA = 'barrioinn_galeria_v1';
-function cargarGaleria(){
-  try { const raw = localStorage.getItem(LS_GALERIA); return raw ? JSON.parse(raw) : []; }
-  catch(e){ return []; }
-}
-function guardarGaleria(g){ localStorage.setItem(LS_GALERIA, JSON.stringify(g)); }
-function agregarFotoGaleria(foto){
-  const g = cargarGaleria();
-  g.push(foto);
-  guardarGaleria(g);
-}
-function eliminarFotoGaleria(idx){
-  const g = cargarGaleria();
-  g.splice(idx, 1);
-  guardarGaleria(g);
+async function eliminarFotoGaleria(id){
+  await sb.from('galeria').delete().eq('id', id);
   renderGaleriaAdmin();
-  renderMarquee();
+  initMarquee();
 }
-function renderGaleriaAdmin(){
+async function renderGaleriaAdmin(){
   const grid = document.getElementById('galeriaGrid');
-  const galeria = cargarGaleria();
-  if(!galeria.length){
+  const { data: galeria } = await sb.from('galeria').select('*').order('id');
+  if(!galeria || !galeria.length){
     grid.innerHTML = '<p class="dash-gallery-empty">Sin fotos aún. Sube imágenes del Barrio Antiguo para el marquee.</p>';
     return;
   }
-  grid.innerHTML = galeria.map((f, i) => `
+  grid.innerHTML = galeria.map(f => `
     <div class="dash-gallery-item">
       <img src="${f.src}" alt="${f.nombre}" loading="lazy"/>
-      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${i})" title="Eliminar">×</button>
+      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${f.id})" title="Eliminar">×</button>
     </div>`).join('');
 }
 
 // ═══════════════════════════════════════════════
 // MARQUEE
 // ═══════════════════════════════════════════════
-function renderMarquee(){
+function renderMarqueeData(galeria){
   const track = document.getElementById('marqueeTrack');
   if(!track) return;
 
-  const galeria = cargarGaleria();
-  if(!galeria.length){
+  if(!galeria || !galeria.length){
     track.innerHTML = '';
     track.style.animation = 'none';
     return;
@@ -2944,6 +2944,12 @@ function renderMarquee(){
   const html = [...galeria, ...galeria, ...galeria].map(f => `
     <div class="marquee-item"><img src="${f.src}" loading="lazy"/></div>
   `).join('');
+  renderMarqueeTrack(track, galeria, html);
+}
+
+function renderMarquee(){ initMarquee(); }
+
+function renderMarqueeTrack(track, galeria, html){
   track.innerHTML = html;
   track.style.animation = 'none';
   track.style.transform = 'translateX(0)';
@@ -3009,10 +3015,8 @@ function actualizarMapa(){
 // ═══════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════
-renderizarComplejos();
-renderizarPropiedades();
-renderMarquee();
-window.addEventListener('load', renderMarquee);
+initApp();
+window.addEventListener('load', initMarquee);
 </script>
 <script>initMap();</script>
 
