@@ -1073,18 +1073,18 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
   .lightbox-close{top:env(safe-area-inset-top, 16px);right:16px;top:16px;position:fixed;z-index:10001}
   .lightbox-counter{position:fixed;bottom:env(safe-area-inset-bottom,24px);bottom:24px;left:0;right:0;text-align:center}
   /* Mobile swipe gallery */
-  .mobile-gallery{display:block;position:relative;overflow:hidden;border-radius:var(--r-xl);height:300px;touch-action:pan-y}
+  .mobile-gallery{display:block;position:relative;overflow:hidden;border-radius:0;height:320px;touch-action:pan-y;margin:0 -20px}
   .mobile-gallery-track{display:flex;height:100%;transition:transform .3s ease;will-change:transform}
   .mobile-gallery-slide{flex:0 0 100%;height:100%;overflow:hidden}
   .mobile-gallery-slide img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
   .mobile-gallery-slide .gallery-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--gray-100);font-size:44px;color:var(--gray-400)}
-  .mobile-gallery-counter{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);pointer-events:none}
-  .mobile-gallery-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:5px;align-items:center;pointer-events:none}
-  .mobile-gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .2s}
-  .mobile-gallery-dot.active{background:#fff;width:8px;height:8px}
+  .mobile-gallery-counter{display:none}
+  .mobile-gallery-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;align-items:center;pointer-events:none;z-index:5}
+  .mobile-gallery-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);transition:all .25s}
+  .mobile-gallery-dot.active{background:#fff;width:22px;border-radius:4px}
   /* Hide desktop gallery on mobile */
   #detailGallery.has-mobile{display:none}
-  .mobile-gallery-wrap{display:block}
+  .mobile-gallery-wrap{display:block;margin:0 -20px}
   .valores-grid{grid-template-columns:1fr 1fr}
   .cta-card{padding:40px 32px}
 }
@@ -2414,11 +2414,8 @@ function renderizarPropiedadesDeComplejo(complejoId){
     const slidesHTML = fotos.length
       ? fotos.map((f,i) => `<div class="carousel-slide"><img src="${f}" alt="${p.nombre} ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/></div>`).join('')
       : `<div class="carousel-slide"><div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div></div></div>`;
-    // Build dots (max 5)
-    const nDots = Math.min(fotos.length || 1, 5);
-    const dotsHTML = nDots > 1
-      ? `<div class="carousel-dots" style="position:absolute;bottom:52px;left:50%;transform:translateX(-50%);z-index:5">${Array.from({length:nDots},(_,i)=>`<div class="carousel-dot${i===0?' active':''}" onclick="goToSlide(this,${i});event.stopPropagation()"></div>`).join('')}</div>`
-      : '';
+    // Build dots (max 5) — removed from cards, dots only in unit detail
+    const dotsHTML = '';
     return `<div class="prop-scroll-card" style="cursor:pointer">
       <div class="carousel" id="car-psc-${p.id}" style="position:absolute;inset:0;overflow:hidden" data-idx="0" onclick="abrirUnidad('${p.id}')">
         <div class="carousel-track" style="display:flex;height:100%;transition:transform .3s ease">${slidesHTML}</div>
