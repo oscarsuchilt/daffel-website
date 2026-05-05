@@ -1079,6 +1079,9 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
   .mobile-gallery-slide img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
   .mobile-gallery-slide .gallery-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--gray-100);font-size:44px;color:var(--gray-400)}
   .mobile-gallery-counter{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);pointer-events:none}
+  .mobile-gallery-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:5px;align-items:center;pointer-events:none}
+  .mobile-gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .2s}
+  .mobile-gallery-dot.active{background:#fff;width:8px;height:8px}
   /* Hide desktop gallery on mobile */
   #detailGallery.has-mobile{display:none}
   .mobile-gallery-wrap{display:block}
@@ -2604,10 +2607,13 @@ function renderMobileGallery(fotos, complejo){
   }
 
   const slides = validFotos.map((f,i) => `<div class="mobile-gallery-slide" data-idx="${i}"><img src="${f}" alt="${complejo} ${i+1}" loading="lazy"/></div>`).join('');
+  const nDots = Math.min(validFotos.length, 10);
+  const dotsHTML = nDots > 1 ? `<div class="mobile-gallery-dots" id="mobileGalleryDots">${Array.from({length:nDots},(_,i)=>`<div class="mobile-gallery-dot${i===0?' active':''}"></div>`).join('')}</div>` : '';
   wrap.innerHTML = `
     <div class="mobile-gallery" id="mobileGallery">
       <div class="mobile-gallery-track" id="mobileGalleryTrack">${slides}</div>
       <div class="mobile-gallery-counter" id="mobileGalleryCounter">1 / ${validFotos.length}</div>
+      ${dotsHTML}
     </div>`;
 
   // Store fotos for lightbox
@@ -2624,6 +2630,8 @@ function renderMobileGallery(fotos, complejo){
     track.style.transition = 'transform .3s ease';
     track.style.transform = `translateX(-${cur * 100}%)`;
     counter.textContent = `${cur + 1} / ${validFotos.length}`;
+    const dots = document.querySelectorAll('#mobileGalleryDots .mobile-gallery-dot');
+    dots.forEach((d,i) => d.classList.toggle('active', i === cur));
   }
 
   gallery.addEventListener('touchstart', e => {
