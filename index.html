@@ -565,8 +565,8 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .cup-back-fixed:hover{background:var(--gray-50);border-color:var(--black);box-shadow:var(--shadow-md)}
 
 @media(max-width:1024px){.complejo-units-page{padding:80px 0 60px}.cup-back-fixed{left:32px}}
-@media(max-width:768px){.complejo-units-page{padding:72px 0 48px}.cup-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.cup-unit-card{width:300px;height:290px}}
-@media(max-width:480px){.complejo-units-page{padding:68px 0 40px}.cup-back-fixed{left:16px;top:72px}.cup-unit-card{width:260px;height:250px}}
+@media(max-width:768px){.complejo-units-page{padding:72px 0 48px}.cup-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.cup-unit-card{width:82vw;height:420px;scroll-snap-align:start}.cup-units-scroll-wrap{scroll-snap-type:x mandatory;padding:0 0 40px !important}.cup-units-grid{padding:0 20px;gap:.85rem}}
+@media(max-width:480px){.complejo-units-page{padding:68px 0 40px}.cup-back-fixed{left:16px;top:72px}.cup-unit-card{width:84vw;height:400px}}
 
 /* Properties horizontal scroll */
 .detail-others-row{display:flex;align-items:center;justify-content:space-between;margin:3.5rem 0 1.5rem;flex-wrap:wrap;gap:1rem}
@@ -1242,7 +1242,7 @@ body.detail-active .nav-logo-mark{}
   <div class="container">
     <h2 class="cup-units-title" id="cupUnitsTitle" style="text-align:center;margin-bottom:2rem"></h2>
   </div>
-  <div class="cup-units-scroll-wrap" style="padding:0 48px 40px">
+  <div class="cup-units-scroll-wrap" id="cupUnitsScrollWrap" style="padding:0 48px 40px">
     <div class="cup-units-grid" id="cupUnitsGrid"></div>
   </div>
 </section>
