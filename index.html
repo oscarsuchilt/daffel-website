@@ -368,6 +368,9 @@ section{padding:100px 48px}
 .complejo-placeholder .ph-icon{font-size:44px;opacity:.35}
 .complejo-placeholder .ph-label{font-size:12px;opacity:.5}
 
+/* Mobile gallery wrap - hidden on desktop */
+.mobile-gallery-wrap{ display:none }
+
 /* ── DETAIL FULLPAGE ── */
 .detail-fullpage{display:none;background:#fff;padding:100px 48px 0;min-height:100vh}
 body.detail-active .detail-fullpage{display:block}
@@ -590,9 +593,9 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 
 @media(max-width:1440px){.detail-fullpage{padding:100px 40px 0}.detail-props-scroll-wrap{padding:0 40px 80px}}
 @media(max-width:1024px){.detail-fullpage{padding:80px 32px 0}.detail-layout{grid-template-columns:1fr;gap:2rem}.detail-contact{position:static}.detail-gallery{height:320px}.detail-spaces-grid{grid-template-columns:1fr 1fr}.detail-back-fixed{left:32px}.detail-props-scroll-wrap{padding:0 32px 60px}.detail-booking-btns{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){.detail-fullpage{padding:72px 20px 0}.detail-gallery{grid-template-columns:1fr;grid-template-rows:240px;height:auto;gap:6px}.detail-gallery-main{grid-row:auto}.detail-gallery-thumb{display:none}.detail-gallery-thumb:first-of-type{display:block;height:160px}.detail-services-grid{grid-template-columns:1fr}.detail-stats{gap:1.25rem;flex-direction:column}.detail-tab{padding:.7rem 1rem;font-size:13px}.detail-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.detail-props-scroll-wrap{padding:0 20px 48px}.prop-scroll-card{width:260px;height:320px}.detail-breadcrumb{padding-top:40px}.detail-spaces-grid{grid-template-columns:1fr}.detail-booking-btns{grid-template-columns:1fr 1fr}.detail-layout{gap:1.5rem}.detail-title{font-size:2rem}}
-@media(max-width:480px){.detail-fullpage{padding:68px 16px 0}.detail-back-fixed{left:16px;top:72px;font-size:11px;padding:.45rem .9rem}.detail-props-scroll-wrap{padding:0 16px 40px}.prop-scroll-card{width:240px;height:290px}.detail-gallery{grid-template-rows:200px;gap:4px}.detail-gallery-thumb:first-of-type{height:120px}.detail-breadcrumb{font-size:12px;padding-top:36px;gap:5px}.detail-title{font-size:1.7rem}.detail-address{font-size:13px;margin-bottom:1.25rem}.detail-desc{font-size:14px}.detail-spaces-title{font-size:1.25rem}.detail-tab{padding:.6rem .8rem;font-size:12px}.detail-stat .iso-icon-wrap{width:32px !important;height:32px !important;font-size:15px !important;border-radius:10px}.detail-space-card{padding:1rem;gap:10px}.detail-space-card .iso-icon-wrap{width:40px;height:40px;font-size:18px;border-radius:11px}.detail-service-item .svc-icon-wrap{width:30px;height:30px;font-size:14px;border-radius:8px}.detail-service-item{font-size:13px;gap:8px}.detail-contact{padding:1.25rem;border-radius:var(--r-lg)}.detail-contact-title{font-size:15px}.detail-contact-sub{font-size:12px}.detail-booking-btns a{padding:.55rem .6rem;font-size:11.5px}.detail-others-row{margin:2.5rem 0 1rem}.detail-others-title{font-size:1.2rem}}
-@media(max-width:360px){.detail-fullpage{padding:66px 12px 0}.detail-back-fixed{left:12px;font-size:10.5px;padding:.4rem .75rem}.prop-scroll-card{width:220px;height:265px}.detail-props-scroll-wrap{padding:0 12px 36px}.detail-booking-btns{grid-template-columns:1fr}.detail-booking-btns a{padding:.65rem}}
+@media(max-width:768px){.detail-fullpage{padding:72px 20px 0}.detail-gallery{grid-template-columns:1fr;grid-template-rows:240px;height:auto;gap:6px}.detail-gallery-main{grid-row:auto}.detail-gallery-thumb{display:none}.detail-gallery-thumb:first-of-type{display:block;height:160px}.detail-services-grid{grid-template-columns:1fr}.detail-stats{gap:1.25rem;flex-direction:column}.detail-tab{padding:.7rem 1rem;font-size:13px}.detail-back-fixed{left:20px;top:74px;font-size:12px;padding:.5rem 1rem}.detail-props-scroll-wrap{padding:0 0 48px;scroll-snap-type:x mandatory}.detail-props-scroll{padding:0 20px;gap:.75rem}.prop-scroll-card{width:calc(88vw);height:460px;scroll-snap-align:start;flex-shrink:0}.detail-breadcrumb{padding-top:40px}.detail-spaces-grid{grid-template-columns:1fr}.detail-booking-btns{grid-template-columns:1fr 1fr}.detail-layout{gap:1.5rem}.detail-title{font-size:2rem}}
+@media(max-width:480px){.detail-fullpage{padding:68px 16px 0}.detail-back-fixed{left:16px;top:72px;font-size:11px;padding:.45rem .9rem}.detail-props-scroll-wrap{padding:0 0 40px}.prop-scroll-card{width:calc(88vw);height:440px}.detail-gallery{grid-template-rows:200px;gap:4px}.detail-gallery-thumb:first-of-type{height:120px}.detail-breadcrumb{font-size:12px;padding-top:36px;gap:5px}.detail-title{font-size:1.7rem}.detail-address{font-size:13px;margin-bottom:1.25rem}.detail-desc{font-size:14px}.detail-spaces-title{font-size:1.25rem}.detail-tab{padding:.6rem .8rem;font-size:12px}.detail-stat .iso-icon-wrap{width:32px !important;height:32px !important;font-size:15px !important;border-radius:10px}.detail-space-card{padding:1rem;gap:10px}.detail-space-card .iso-icon-wrap{width:40px;height:40px;font-size:18px;border-radius:11px}.detail-service-item .svc-icon-wrap{width:30px;height:30px;font-size:14px;border-radius:8px}.detail-service-item{font-size:13px;gap:8px}.detail-contact{padding:1.25rem;border-radius:var(--r-lg)}.detail-contact-title{font-size:15px}.detail-contact-sub{font-size:12px}.detail-booking-btns a{padding:.55rem .6rem;font-size:11.5px}.detail-others-row{margin:2.5rem 0 1rem}.detail-others-title{font-size:1.2rem}}
+@media(max-width:360px){.detail-fullpage{padding:66px 12px 0}.detail-back-fixed{left:12px;font-size:10.5px;padding:.4rem .75rem}.detail-props-scroll-wrap{padding:0 0 36px}.prop-scroll-card{width:calc(90vw);height:400px}.detail-booking-btns{grid-template-columns:1fr}.detail-booking-btns a{padding:.65rem}}
 
 /* Carousel */
 .prop-card{
@@ -1063,7 +1066,22 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
   .footer-brand{grid-column:auto}
   .footer-bottom{flex-direction:column;text-align:center}
   .lightbox-nav{display:none}
-  .lightbox{padding:1rem}
+  .lightbox{padding:0}
+  /* Mobile lightbox fullscreen */
+  .lightbox-inner{max-width:100%;max-height:100vh;width:100%;height:100vh;display:flex;flex-direction:column;justify-content:center;border-radius:0}
+  .lightbox-img{max-height:100vh;border-radius:0}
+  .lightbox-close{top:env(safe-area-inset-top, 16px);right:16px;top:16px;position:fixed;z-index:10001}
+  .lightbox-counter{position:fixed;bottom:env(safe-area-inset-bottom,24px);bottom:24px;left:0;right:0;text-align:center}
+  /* Mobile swipe gallery */
+  .mobile-gallery{display:block;position:relative;overflow:hidden;border-radius:var(--r-xl);height:300px;touch-action:pan-y}
+  .mobile-gallery-track{display:flex;height:100%;transition:transform .3s ease;will-change:transform}
+  .mobile-gallery-slide{flex:0 0 100%;height:100%;overflow:hidden}
+  .mobile-gallery-slide img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
+  .mobile-gallery-slide .gallery-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--gray-100);font-size:44px;color:var(--gray-400)}
+  .mobile-gallery-counter{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);pointer-events:none}
+  /* Hide desktop gallery on mobile */
+  #detailGallery.has-mobile{display:none}
+  .mobile-gallery-wrap{display:block}
   .valores-grid{grid-template-columns:1fr 1fr}
   .cta-card{padding:40px 32px}
 }
@@ -1245,7 +1263,10 @@ body.detail-active .nav-logo-mark{}
     <h1 class="detail-title" id="detailTitulo"></h1>
     <p class="detail-address" id="detailDireccion"></p>
 
-    <!-- Photo Gallery -->
+    <!-- Mobile Gallery (swipeable carousel) -->
+    <div class="mobile-gallery-wrap" id="mobileGalleryWrap" style="display:none"></div>
+
+    <!-- Photo Gallery (desktop grid) -->
     <div class="detail-gallery" id="detailGallery" onclick="openDetailGallery()">
     </div>
 
@@ -1918,7 +1939,7 @@ body.detail-active .nav-logo-mark{}
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
-  <div class="lightbox-inner">
+  <div class="lightbox-inner" id="lightboxInner">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav prev" onclick="lightboxNav(-1)">‹</button>
     <button class="lightbox-nav next" onclick="lightboxNav(1)">›</button>
@@ -2336,6 +2357,8 @@ function renderDetailGallery(c){
     }
   }
   gallery._fotos = allFotos;
+  // Mobile swipeable carousel
+  renderMobileGallery(allFotos, c.nombre);
 }
 
 function openDetailGallery(){
@@ -2507,6 +2530,7 @@ function openLightbox(fotos, idx){
   updateLightbox();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  initLightboxSwipe();
 }
 
 function updateLightbox(){
@@ -2533,6 +2557,92 @@ function closeLightbox(){
 function closeLightboxOutside(e){
   if(e.target === document.getElementById('lightbox')) closeLightbox();
 }
+
+// Touch swipe for lightbox
+function initLightboxSwipe(){
+  const inner = document.getElementById('lightboxInner');
+  let startX = 0, startY = 0, moved = false;
+  inner.ontouchstart = function(e){ startX = e.touches[0].clientX; startY = e.touches[0].clientY; moved = false; };
+  inner.ontouchmove = function(e){ moved = true; };
+  inner.ontouchend = function(e){
+    if(!moved) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = Math.abs(e.changedTouches[0].clientY - startY);
+    if(Math.abs(dx) > 40 && Math.abs(dx) > dy){
+      lightboxNav(dx < 0 ? 1 : -1);
+    }
+  };
+}
+
+// Mobile swipeable gallery
+function renderMobileGallery(fotos, complejo){
+  const wrap = document.getElementById('mobileGalleryWrap');
+  const isMobile = window.innerWidth <= 768;
+  if(!isMobile){ wrap.style.display='none'; document.getElementById('detailGallery').classList.remove('has-mobile'); return; }
+
+  wrap.style.display = 'block';
+  document.getElementById('detailGallery').classList.add('has-mobile');
+
+  const validFotos = (fotos||[]).filter(f => f && (f.startsWith('http')||f.startsWith('data:')));
+
+  if(!validFotos.length){
+    wrap.innerHTML = '<div class="mobile-gallery"><div class="mobile-gallery-track"><div class="mobile-gallery-slide"><div class="gallery-ph"><i class="fa-solid fa-building"></i></div></div></div></div>';
+    return;
+  }
+
+  const slides = validFotos.map((f,i) => `<div class="mobile-gallery-slide" data-idx="${i}"><img src="${f}" alt="${complejo} ${i+1}" loading="lazy"/></div>`).join('');
+  wrap.innerHTML = `
+    <div class="mobile-gallery" id="mobileGallery">
+      <div class="mobile-gallery-track" id="mobileGalleryTrack">${slides}</div>
+      <div class="mobile-gallery-counter" id="mobileGalleryCounter">1 / ${validFotos.length}</div>
+    </div>`;
+
+  // Store fotos for lightbox
+  wrap._fotos = validFotos;
+
+  // Init swipe
+  const gallery = document.getElementById('mobileGallery');
+  const track   = document.getElementById('mobileGalleryTrack');
+  const counter = document.getElementById('mobileGalleryCounter');
+  let cur = 0, startX = 0, startY = 0, isDragging = false, startTranslate = 0;
+
+  function goTo(idx){
+    cur = Math.max(0, Math.min(idx, validFotos.length - 1));
+    track.style.transition = 'transform .3s ease';
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = `${cur + 1} / ${validFotos.length}`;
+  }
+
+  gallery.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isDragging = true;
+    startTranslate = -cur * gallery.offsetWidth;
+    track.style.transition = 'none';
+  }, { passive: true });
+
+  gallery.addEventListener('touchmove', e => {
+    if(!isDragging) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = Math.abs(e.touches[0].clientY - startY);
+    if(dy > Math.abs(dx)) return; // vertical scroll takes priority
+    track.style.transform = `translateX(${startTranslate + dx}px)`;
+  }, { passive: true });
+
+  gallery.addEventListener('touchend', e => {
+    if(!isDragging) return;
+    isDragging = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 50) goTo(dx < 0 ? cur + 1 : cur - 1);
+    else goTo(cur);
+  });
+
+  // Tap to open lightbox
+  gallery.addEventListener('click', e => {
+    openLightbox(validFotos, cur);
+  });
+}
+
 
 // ═══════════════════════════════════════════════
 // FAQ
