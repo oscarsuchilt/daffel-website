@@ -2406,14 +2406,27 @@ function renderizarPropiedadesDeComplejo(complejoId){
     return;
   }
   grid.innerHTML = props.map(p => {
-    const foto = (p.fotos && p.fotos.length) ? p.fotos[0] : '';
-    const isUrl = foto && (foto.startsWith('http') || foto.startsWith('data:'));
-    const imgHTML = isUrl
-      ? '<img class="prop-scroll-card-img" src="' + foto + '" alt="' + p.nombre + '" loading="lazy"/>'
-      : '<div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div><span style="font-size:12px;margin-top:4px">' + p.nombre + '</span></div>';
-    return '<div class="prop-scroll-card" onclick="abrirUnidad(\'' + p.id + '\')" style="cursor:pointer">' +
-      imgHTML +
-      '<div class="prop-scroll-card-overlay"><div><div class="prop-scroll-card-name">' + p.nombre + '</div><div class="prop-scroll-card-addr">' + (p.direccion || '') + '</div></div><div class="prop-scroll-card-view">Ver →</div></div></div>';
+    const fotos = (p.fotos || []).filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
+    // Build slides
+    const slidesHTML = fotos.length
+      ? fotos.map((f,i) => `<div class="carousel-slide"><img src="${f}" alt="${p.nombre} ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/></div>`).join('')
+      : `<div class="carousel-slide"><div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div></div></div>`;
+    // Build dots (max 5)
+    const nDots = Math.min(fotos.length || 1, 5);
+    const dotsHTML = nDots > 1
+      ? `<div class="carousel-dots" style="position:absolute;bottom:52px;left:50%;transform:translateX(-50%);z-index:5">${Array.from({length:nDots},(_,i)=>`<div class="carousel-dot${i===0?' active':''}" onclick="goToSlide(this,${i});event.stopPropagation()"></div>`).join('')}</div>`
+      : '';
+    return `<div class="prop-scroll-card" style="cursor:pointer">
+      <div class="carousel" id="car-psc-${p.id}" style="position:absolute;inset:0;overflow:hidden" data-idx="0" onclick="abrirUnidad('${p.id}')">
+        <div class="carousel-track" style="display:flex;height:100%;transition:transform .3s ease">${slidesHTML}</div>
+        ${fotos.length > 1 ? `<button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)">‹</button><button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)">›</button>` : ''}
+        ${dotsHTML}
+      </div>
+      <div class="prop-scroll-card-overlay" style="z-index:6">
+        <div><div class="prop-scroll-card-name">${p.nombre}</div><div class="prop-scroll-card-addr">${p.direccion || ''}</div></div>
+        <div class="prop-scroll-card-view" onclick="abrirUnidad('${p.id}')">Ver →</div>
+      </div>
+    </div>`;
   }).join('');
   iniciarCarruseles();
 }
