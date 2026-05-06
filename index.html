@@ -2706,13 +2706,10 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 let editingId      = null;
 let editingComplejo = null;
 
-async function abrirAdmin(){
-  const email = prompt('Email administrador:');
-  if(!email) return;
+function abrirAdmin(){
   const pass = prompt('Contraseña:');
   if(!pass) return;
-  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
-  if(error){ alert('Credenciales incorrectas.'); return; }
+  if(pass !== 'pepegarza45768'){ alert('Contraseña incorrecta.'); return; }
   document.getElementById('dashboard').classList.add('visible');
   document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
   renderDashComplejos();
