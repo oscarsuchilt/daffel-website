@@ -1972,12 +1972,12 @@ body.detail-active .nav-logo-mark{}
 // ═══════════════════════════════════════════════
 
 const COMPLEJOS_DEFAULT = [
-  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'', descripcion:'Enclavado en la calle más icónica del Barrio Antiguo, Abasolo combina arquitectura regiomontana con comodidades modernas. A pasos de los mejores bares, restaurantes y galerías de arte de Monterrey.' },
-  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'', descripcion:'Ubicado en el corazón del Centro Histórico, Morelos te pone a minutos caminando de la Macroplaza, la Catedral y los mejores restaurantes de la ciudad. Ideal para viajeros que quieren vivirlo todo sin depender del auto.' },
-  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'', descripcion:'Lofts tipo estudio con vista al skyline de Monterrey en una de las zonas más tranquilas y bien conectadas de la ciudad. Pet-friendly y con el equilibrio perfecto entre comodidad residencial y acceso urbano.' },
+  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'', descripcion:'Suites minimalistas en el corazón del Barrio Antiguo, a pasos del Museo MARCO, la Macroplaza y 10 minutos caminando del Parque Fundidora. Climatizadas, con internet de alta velocidad, agua caliente y servicio de facturación.' },
+  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'', descripcion:'Lugar privado con excelentes espacios en las suites, ideal para los amantes de la amplitud. Perfecto para quienes buscan privacidad y comodidad en una ubicación inmejorable en el corazón del Barrio Antiguo.' },
+  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'', descripcion:'Departamentos dobles, individuales, recámaras compartidas y lofts recién amueblados y equipados con todo nuevo. Excelente opción para profesionistas y estudiantes del Tecnológico de Monterrey a precios accesibles. Contamos con personal administrativo viviendo en el edificio para que nunca te falte nada, en un ambiente seguro y agradable.' },
   { id:'aldea',       nombre:'Barrio Inn Hostal',        direccion:'Fonda & Hostal, Centro Histórico',        unidades:10, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'', descripcion:'Aldea y Fonda Morelos es un hostal donde puedes encontrar todo en un mismo lugar: área de alberca, cocina, servicio de restaurante-bar y ambiente para conectar con otros viajeros. Contamos con baños completos compartidos —4 de mujeres y 3 de hombres— además de 2 suites con baño propio para quienes prefieren más privacidad.' },
-  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'', descripcion:'Área residencial privada con vistas a la Sierra Madre y acceso controlado. La opción perfecta para estancias largas o quienes buscan tranquilidad sin alejarse de plazas comerciales y restaurantes de primer nivel.' },
-  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'', descripcion:'A 300 metros de la Macroplaza y 400 del Museo MARCO, Padre Mier es nuestra joya del Centro Histórico. Habitaciones diseñadas para el viajero urbano que valora la cultura, la gastronomía y la vida nocturna a pie de calle.' },
+  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'', descripcion:'Suite privada en la exclusiva zona de San Jerónimo, con baño privado, Smart TV, frigobar, microondas, cafetera y estacionamiento gratuito. Torre de 26 habitaciones con elevador, área de coworking y acceso totalmente autónomo mediante chapa digital. Ideal para viajeros de negocios o placer que buscan comodidad, privacidad y flexibilidad.' },
+  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'', descripcion:'Suites en el corazón del Barrio Antiguo con habitaciones individuales, matrimoniales y suites con baño privado. Acceso automatizado con chapa digital, cocineta compartida, Smart TV, internet de alta velocidad y servicio de facturación. A 500m del Museo MARCO, 600m de la Macroplaza y 10 minutos del Parque Fundidora.' },
 ];
 
 const PROPIEDADES_DEFAULT = [
@@ -2113,7 +2113,17 @@ async function initApp(){
     sb.from('complejos').select('*'),
   ]);
   if(props && props.length)  propiedades = migrarNombres(props, false);
-  if(cmpls && cmpls.length)  complejos   = migrarNombres(cmpls, true);
+  if(cmpls && cmpls.length){
+    // Rellenar descripcion desde COMPLEJOS_DEFAULT si Supabase no la tiene
+    const merged = migrarNombres(cmpls, true).map(c => {
+      if(!c.descripcion){
+        const def = COMPLEJOS_DEFAULT.find(d => d.id === c.id);
+        if(def && def.descripcion) c.descripcion = def.descripcion;
+      }
+      return c;
+    });
+    complejos = merged;
+  }
   renderizarComplejos();
   await initMarquee();
 }
