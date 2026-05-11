@@ -349,6 +349,7 @@ section{padding:100px 48px}
 }
 .complejo-units-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .complejo-tags{display:flex;flex-wrap:wrap;gap:5px}
+.complejo-desc{font-size:13px;color:var(--gray-600);line-height:1.65;margin-bottom:.75rem}
 
 /* Unidades drill-down */
 .unidades-header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
@@ -1754,7 +1755,7 @@ body.detail-active .nav-logo-mark{}
       <div class="footer-col">
         <h4>Propiedades</h4>
         <a href="#propiedades">Casa Abasolo</a>
-        <a href="#propiedades">Aldea Morelos</a>
+        <a href="#propiedades">Barrio Inn Hostal Morelos</a>
         <a href="#propiedades">Barrio Inn Morelos</a>
         <a href="#propiedades">Loft Pirineos</a>
       </div>
@@ -1816,6 +1817,10 @@ body.detail-active .nav-logo-mark{}
           <div class="dash-field">
             <label class="dash-label">Tags (separadas por coma)</label>
             <input class="dash-input" id="dc-tags" type="text" placeholder="Smart Lock, WiFi, Centro Histórico"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Descripción del complejo</label>
+            <textarea class="dash-input" id="dc-descripcion" rows="3" placeholder="Describe la ubicación, ambiente y lo que hace especial a este complejo..." style="resize:vertical;min-height:80px"></textarea>
           </div>
           <div class="dash-field full">
             <label class="dash-label">Foto del complejo (portada)</label>
@@ -1967,12 +1972,12 @@ body.detail-active .nav-logo-mark{}
 // ═══════════════════════════════════════════════
 
 const COMPLEJOS_DEFAULT = [
-  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'' },
-  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'' },
-  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'' },
-  { id:'aldea',       nombre:'Aldea',        direccion:'Fonda & Aldea, Centro Histórico',        unidades:10, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'' },
-  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'' },
-  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'' },
+  { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'', descripcion:'Enclavado en la calle más icónica del Barrio Antiguo, Abasolo combina arquitectura regiomontana con comodidades modernas. A pasos de los mejores bares, restaurantes y galerías de arte de Monterrey.' },
+  { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'', descripcion:'Ubicado en el corazón del Centro Histórico, Morelos te pone a minutos caminando de la Macroplaza, la Catedral y los mejores restaurantes de la ciudad. Ideal para viajeros que quieren vivirlo todo sin depender del auto.' },
+  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'', descripcion:'Lofts tipo estudio con vista al skyline de Monterrey en una de las zonas más tranquilas y bien conectadas de la ciudad. Pet-friendly y con el equilibrio perfecto entre comodidad residencial y acceso urbano.' },
+  { id:'aldea',       nombre:'Barrio Inn Hostal',        direccion:'Fonda & Hostal, Centro Histórico',        unidades:10, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'', descripcion:'Aldea y Fonda Morelos es un hostal donde puedes encontrar todo en un mismo lugar: área de alberca, cocina, servicio de restaurante-bar y ambiente para conectar con otros viajeros. Contamos con baños completos compartidos —4 de mujeres y 3 de hombres— además de 2 suites con baño propio para quienes prefieren más privacidad.' },
+  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'', descripcion:'Área residencial privada con vistas a la Sierra Madre y acceso controlado. La opción perfecta para estancias largas o quienes buscan tranquilidad sin alejarse de plazas comerciales y restaurantes de primer nivel.' },
+  { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'', descripcion:'A 300 metros de la Macroplaza y 400 del Museo MARCO, Padre Mier es nuestra joya del Centro Histórico. Habitaciones diseñadas para el viajero urbano que valora la cultura, la gastronomía y la vida nocturna a pie de calle.' },
 ];
 
 const PROPIEDADES_DEFAULT = [
@@ -2013,16 +2018,16 @@ const PROPIEDADES_DEFAULT = [
   { id:'roma_10', complejo:'roma', nombre:'Roma Penthouse', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.92 · 3', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 200 Mbps','Terraza','Vista 360°','Pet-friendly'], cercanos:['Vista skyline Monterrey y sierra','Zona exclusiva San Pedro','Restaurantes 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6421, lng:-100.3298, fotos:[] },
 
   // ── ALDEA (Centro Histórico) ──
-  { id:'aldea_1', complejo:'aldea', nombre:'Aldea 101', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.81 · 64', precio:'', telefono:'8110645136', tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/1376405838885906661', expedia:'', lat:25.6692, lng:-100.3099, fotos:[] },
-  { id:'aldea_2', complejo:'aldea', nombre:'Aldea 102', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.79 · 58', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','WiFi 100 Mbps','Smart TV'], cercanos:['MARCO 500m','Macroplaza 600m','Restaurantes al paso','Barrio Antiguo 5 min'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3100, fotos:[] },
-  { id:'aldea_3', complejo:'aldea', nombre:'Aldea 103', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.83 · 47', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','Cocina comunal','Smart Lock'], cercanos:['Vista al patio con alberca','MARCO 500m','Macroplaza 600m','Cafés artesanales'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3099, fotos:[] },
-  { id:'aldea_4', complejo:'aldea', nombre:'Aldea 201', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca privada','MARCO 500m','Macroplaza 600m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3099, fotos:[] },
-  { id:'aldea_5', complejo:'aldea', nombre:'Aldea 202', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Patio comunitario','MARCO 500m','Macroplaza 600m','Vida social intensa'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3098, fotos:[] },
-  { id:'aldea_6', complejo:'aldea', nombre:'Aldea 203', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.78 · 24', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock'], cercanos:['Alberca en el patio','MARCO 500m','Macroplaza 600m','Restaurantes 50m'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3100, fotos:[] },
-  { id:'aldea_7', complejo:'aldea', nombre:'Aldea 301', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.86 · 17', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Vista al patio'], cercanos:['Vista panorámica al patio','MARCO 500m','Macroplaza 600m','Bares Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3100, fotos:[] },
-  { id:'aldea_8', complejo:'aldea', nombre:'Aldea 302', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.82 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','Cocina comunal','Smart TV'], cercanos:['Piso alto con vista','MARCO 500m','Macroplaza 600m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3101, fotos:[] },
-  { id:'aldea_9', complejo:'aldea', nombre:'Aldea 303', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.80 · 7', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca','MARCO 500m','Macroplaza 600m','Cafés y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3098, fotos:[] },
-  { id:'aldea_10', complejo:'aldea', nombre:'Aldea Suite', badge:'Centro Histórico', direccion:'Fonda & Aldea, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Aldea+Centro+Histórico+Monterrey+NL', rating:'4.90 · 4', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock','Terraza privada'], cercanos:['Terraza exclusiva','MARCO 500m','Macroplaza 600m','Barrio Antiguo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3099, fotos:[] },
+  { id:'aldea_1', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #01', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.81 · 64', precio:'', telefono:'8110645136', tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/1376405838885906661', expedia:'', lat:25.6692, lng:-100.3099, fotos:[] },
+  { id:'aldea_2', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #02', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.79 · 58', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','WiFi 100 Mbps','Smart TV'], cercanos:['MARCO 500m','Macroplaza 600m','Restaurantes al paso','Barrio Antiguo 5 min'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3100, fotos:[] },
+  { id:'aldea_3', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #03', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.83 · 47', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','Cocina comunal','Smart Lock'], cercanos:['Vista al patio con alberca','MARCO 500m','Macroplaza 600m','Cafés artesanales'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3099, fotos:[] },
+  { id:'aldea_4', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #04', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca privada','MARCO 500m','Macroplaza 600m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3099, fotos:[] },
+  { id:'aldea_5', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #05', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Patio comunitario','MARCO 500m','Macroplaza 600m','Vida social intensa'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3098, fotos:[] },
+  { id:'aldea_6', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #06', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.78 · 24', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock'], cercanos:['Alberca en el patio','MARCO 500m','Macroplaza 600m','Restaurantes 50m'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3100, fotos:[] },
+  { id:'aldea_7', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #07', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.86 · 17', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Vista al patio'], cercanos:['Vista panorámica al patio','MARCO 500m','Macroplaza 600m','Bares Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3100, fotos:[] },
+  { id:'aldea_8', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #08', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.82 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','Cocina comunal','Smart TV'], cercanos:['Piso alto con vista','MARCO 500m','Macroplaza 600m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3101, fotos:[] },
+  { id:'aldea_9', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #09', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.80 · 7', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca','MARCO 500m','Macroplaza 600m','Cafés y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3098, fotos:[] },
+  { id:'aldea_10', complejo:'aldea', nombre:'Barrio Inn Hostal/Suite', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.90 · 4', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock','Terraza privada'], cercanos:['Terraza exclusiva','MARCO 500m','Macroplaza 600m','Barrio Antiguo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3099, fotos:[] },
 
   // ── SAN JERÓNIMO (Zona Residencial Monterrey) ──
   { id:'sanjeronimo_1', complejo:'sanjeronimo', nombre:'San Jerónimo 101', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.85 · 72', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Zona residencial segura','Supermercados 5 min','Restaurantes San Jerónimo 5 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3698, fotos:[] },
@@ -2088,13 +2093,27 @@ function comprimirImagenBlob(file, maxW, quality){
   });
 }
 
+// ── Migración: renombra registros viejos "Aldea" → "Hostal" ──
+function migrarNombres(lista, esComplejo){
+  return lista.map(item => {
+    let n = item.nombre || '';
+    // Complejo principal
+    if(esComplejo && n === 'Aldea') n = 'Barrio Inn Hostal';
+    // Unidades: "Barrio inn Aldea/..." → "Barrio Inn Hostal/..."
+    n = n.replace(/Barrio\s+inn\s+Aldea\//gi, 'Barrio Inn Hostal/');
+    // Dirección
+    let d = (item.direccion || '').replace(/Fonda\s*&\s*Aldea/gi, 'Fonda & Hostal');
+    return {...item, nombre: n, direccion: d};
+  });
+}
+
 async function initApp(){
   const [{ data: props }, { data: cmpls }] = await Promise.all([
     sb.from('propiedades').select('*'),
     sb.from('complejos').select('*'),
   ]);
-  if(props && props.length)  propiedades = props;
-  if(cmpls && cmpls.length)  complejos   = cmpls;
+  if(props && props.length)  propiedades = migrarNombres(props, false);
+  if(cmpls && cmpls.length)  complejos   = migrarNombres(cmpls, true);
   renderizarComplejos();
   await initMarquee();
 }
@@ -2133,6 +2152,7 @@ function renderizarComplejos(){
       </div>
       <div class="complejo-body">
         <div class="complejo-units"><span class="complejo-units-dot"></span>${unidadesReales} unidades disponibles</div>
+        ${c.descripcion ? `<p class="complejo-desc">${c.descripcion}</p>` : ''}
         <div class="complejo-tags">${tagsHTML}</div>
       </div>
     </div>`;
@@ -2752,6 +2772,7 @@ function editarComplejo(idx){
   document.getElementById('dc-direccion').value = c.direccion;
   document.getElementById('dc-unidades').value  = c.unidades;
   document.getElementById('dc-tags').value      = (c.tags||[]).join(', ');
+  document.getElementById('dc-descripcion').value = c.descripcion || '';
   document.getElementById('dash-complejo-form-title').textContent = 'Editando: ' + c.nombre;
   abrirFormComplejo();
   document.getElementById('dash-complejo-form-panel').scrollIntoView({behavior:'smooth'});
@@ -2763,6 +2784,7 @@ async function guardarComplejo(){
   const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
   const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
   const dir = document.getElementById('dc-direccion').value.trim();
+  const descripcion = document.getElementById('dc-descripcion').value.trim();
 
   let targetId;
   if(editingComplejo){
@@ -2772,11 +2794,12 @@ async function guardarComplejo(){
       complejos[idx].direccion = dir;
       complejos[idx].unidades = unidades;
       complejos[idx].tags = tags;
+      complejos[idx].descripcion = descripcion;
       targetId = complejos[idx].id;
     }
   } else {
     const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
-    complejos.push({ id, nombre, direccion:dir, unidades, tags, foto:'' });
+    complejos.push({ id, nombre, direccion:dir, unidades, tags, descripcion, foto:'' });
     targetId = id;
   }
 
