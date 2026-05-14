@@ -6,7 +6,7 @@
 <title>Barrio Inn — Hospedaje boutique en Monterrey · Barrio Antiguo</title>
 
 <!-- SEO -->
-<meta name="description" content="Hospedaje boutique en Monterrey. 30 unidades en 6 complejos del Barrio Antiguo, Centro Histórico, San Pedro y zonas residenciales. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb · SuperAnfitrión."/>
+<meta name="description" content="Hospedaje boutique en Monterrey. 25 unidades en 5 complejos del Barrio Antiguo, Centro Histórico y San Pedro. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb · SuperAnfitrión."/>
 <meta name="keywords" content="hospedaje Monterrey, hostal Barrio Antiguo, Airbnb Monterrey, suites Centro Histórico, Barrio Inn, hospedaje boutique, Monterrey Nuevo León, smart lock, factura CFDI"/>
 <meta name="author" content="Barrio Inn"/>
 <meta name="robots" content="index, follow"/>
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="es_MX"/>
 <meta property="og:site_name" content="Barrio Inn"/>
 <meta property="og:title" content="Barrio Inn — Hospedaje boutique en Monterrey"/>
-<meta property="og:description" content="30 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb."/>
+<meta property="og:description" content="25 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb."/>
 <meta property="og:url" content="https://barrioinn.com/"/>
 <meta property="og:image" content="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80"/>
 <meta property="og:image:width" content="1200"/>
@@ -27,7 +27,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Barrio Inn — Hospedaje boutique en Monterrey"/>
-<meta name="twitter:description" content="30 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps. 4.82★ en Airbnb."/>
+<meta name="twitter:description" content="25 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps. 4.82★ en Airbnb."/>
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80"/>
 
 <!-- Favicon (SVG inline — marca: B verde sobre negro) -->
@@ -52,7 +52,7 @@
   "@type": "LodgingBusiness",
   "@id": "https://barrioinn.com/#business",
   "name": "Barrio Inn",
-  "description": "Hospedaje boutique en Monterrey. 30 unidades en 6 complejos del Barrio Antiguo, Centro Histórico y zonas residenciales.",
+  "description": "Hospedaje boutique en Monterrey. 25 unidades en 5 complejos del Barrio Antiguo, Centro Histórico y San Pedro.",
   "url": "https://barrioinn.com/",
   "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80",
   "telephone": "+528110645136",
@@ -438,17 +438,18 @@ section{padding:100px 48px}
 .complejo-desc{font-size:13.5px;color:var(--gray-600);line-height:1.68;margin-bottom:.75rem}
 
 /* Card destacada (primer complejo) — layout horizontal: foto + contenido */
-.complejo-card--featured{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr;align-items:stretch}
-.complejo-card--featured .complejo-img-wrap{height:auto;min-height:440px}
-.complejo-card--featured .complejo-body{display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2.75rem}
-.complejo-card--featured .complejo-units{font-size:13.5px;margin-bottom:.9rem}
-.complejo-card--featured .complejo-desc{font-size:15px;line-height:1.7;margin-bottom:1.1rem}
+.complejo-card--featured{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch;max-height:440px}
+.complejo-card--featured .complejo-img-wrap{height:100%;min-height:unset}
+.complejo-card--featured .complejo-img{object-position:center 30%}
+.complejo-card--featured .complejo-body{display:flex;flex-direction:column;justify-content:center;padding:2.25rem 2.75rem;overflow:hidden}
+.complejo-card--featured .complejo-units{font-size:13.5px;margin-bottom:.8rem}
+.complejo-card--featured .complejo-desc{font-size:14.5px;line-height:1.65;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 /* En la destacada el nombre va en el cuerpo, no sobre la foto */
 .complejo-card--featured .complejo-overlay{justify-content:flex-end}
 .complejo-card--featured .complejo-overlay > div:first-child{display:none}
-.complejo-feat-head{margin-bottom:1.1rem}
-.complejo-feat-name{font-family:'Instrument Serif',serif;font-size:1.85rem;font-weight:400;color:var(--black);line-height:1.12;letter-spacing:-.01em}
-.complejo-feat-addr{font-size:13px;color:var(--gray-400);margin-top:.35rem}
+.complejo-feat-head{margin-bottom:.85rem}
+.complejo-feat-name{font-family:'Instrument Serif',serif;font-size:1.6rem;font-weight:400;color:var(--black);line-height:1.12;letter-spacing:-.01em}
+.complejo-feat-addr{font-size:12.5px;color:var(--gray-400);margin-top:.3rem}
 /* Badge "Destacado" sobre la foto */
 .complejo-badge{
   position:absolute;top:1rem;left:1rem;z-index:3;
@@ -1347,7 +1348,7 @@ body.detail-active .nav-logo-mark{}
       <div>
         <div class="section-eyebrow">Nuestras propiedades</div>
         <h2 class="section-title">Elige donde vivir</h2>
-        <p class="section-sub">Seis instalaciones con excelente ubicación.</p>
+        <p class="section-sub">Cinco instalaciones con excelente ubicación.</p>
       </div>
       <a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);color:var(--black);padding:.7rem 1.5rem;border-radius:var(--r-pill);font-size:13.5px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--black)'" onmouseout="this.style.borderColor='var(--gray-200)'">Ver todos →</a>
     </div>
@@ -1511,7 +1512,7 @@ body.detail-active .nav-logo-mark{}
           <div class="quienes-stat-label">Como SuperAnfitrión en Airbnb — reconocimiento a la consistencia y calidad</div>
         </div>
         <div class="quienes-stat-card">
-          <div class="quienes-stat-num">6 complejos</div>
+          <div class="quienes-stat-num">5 complejos</div>
           <div class="quienes-stat-label">En el corazón del centro histórico de Monterrey, Nuevo León</div>
         </div>
       </div>
