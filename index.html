@@ -3,13 +3,99 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Barrio Inn — Hostelería · Monterrey</title>
+<title>Barrio Inn — Hospedaje boutique en Monterrey · Barrio Antiguo</title>
+
+<!-- SEO -->
+<meta name="description" content="Hospedaje boutique en Monterrey. 30 unidades en 6 complejos del Barrio Antiguo, Centro Histórico, San Pedro y zonas residenciales. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb · SuperAnfitrión."/>
+<meta name="keywords" content="hospedaje Monterrey, hostal Barrio Antiguo, Airbnb Monterrey, suites Centro Histórico, Barrio Inn, hospedaje boutique, Monterrey Nuevo León, smart lock, factura CFDI"/>
+<meta name="author" content="Barrio Inn"/>
+<meta name="robots" content="index, follow"/>
+<meta name="theme-color" content="#111111"/>
+<link rel="canonical" href="https://barrioinn.com/"/>
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="es_MX"/>
+<meta property="og:site_name" content="Barrio Inn"/>
+<meta property="og:title" content="Barrio Inn — Hospedaje boutique en Monterrey"/>
+<meta property="og:description" content="30 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps, factura CFDI. 4.82★ en Airbnb."/>
+<meta property="og:url" content="https://barrioinn.com/"/>
+<meta property="og:image" content="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Barrio Inn — Hospedaje boutique en Monterrey"/>
+<meta name="twitter:description" content="30 unidades en el corazón de Monterrey. Smart Lock 24h, WiFi 100+ Mbps. 4.82★ en Airbnb."/>
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80"/>
+
+<!-- Favicon (SVG inline — marca: B verde sobre negro) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23111'/%3E%3Ctext x='50' y='72' font-family='serif' font-size='66' font-style='italic' fill='%237dc49a' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E"/>
+
+<!-- Preconnect a CDNs cr&iacute;ticas -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://zwbvugshnjenrysqallo.supabase.co"/>
+
+<!-- Preload del hero (mejora LCP) -->
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=80" fetchpriority="high"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<!-- Datos estructurados Schema.org (LodgingBusiness) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "@id": "https://barrioinn.com/#business",
+  "name": "Barrio Inn",
+  "description": "Hospedaje boutique en Monterrey. 30 unidades en 6 complejos del Barrio Antiguo, Centro Histórico y zonas residenciales.",
+  "url": "https://barrioinn.com/",
+  "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80",
+  "telephone": "+528110645136",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Barrio Antiguo",
+    "addressLocality": "Monterrey",
+    "addressRegion": "Nuevo León",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 25.6697,
+    "longitude": -100.3108
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.82",
+    "reviewCount": "250",
+    "bestRating": "5"
+  },
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "WiFi 100+ Mbps", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Smart Lock 24h", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Smart TV", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Mini Split", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Café de cortesía", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Factura CFDI", "value": true}
+  ],
+  "checkinTime": "15:00",
+  "checkoutTime": "11:00",
+  "sameAs": [
+    "https://www.instagram.com/barrioinn",
+    "https://www.facebook.com/Barrio-Inn-61553063681506",
+    "https://www.airbnb.mx"
+  ]
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:80px}
+section[id]{scroll-margin-top:80px}
 body{font-family:'Outfit',sans-serif;background:#fff;color:#111;overflow-x:hidden}
 
 :root{
@@ -210,12 +296,12 @@ section{padding:100px 48px}
 .section-sub{font-size:16px;color:var(--gray-600);line-height:1.72;max-width:520px;font-weight:400}
 
 /* ── STATEMENT SECTION ── */
-.statement{background:#fff;padding:80px 48px}
+.statement{background:#fff;padding:48px 48px 56px}
 .statement-inner{max-width:1240px;margin:0 auto;text-align:center}
 .statement-text{
   font-family:'Instrument Serif',serif;
-  font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;line-height:1.35;
-  color:var(--black);letter-spacing:-.015em;max-width:860px;margin:0 auto 3rem;
+  font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;line-height:1.28;
+  color:var(--black);letter-spacing:-.015em;max-width:860px;margin:0 auto 2.25rem;
 }
 .statement-text em{font-style:italic;color:var(--gray-400)}
 .statement-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
@@ -271,18 +357,18 @@ section{padding:100px 48px}
 .mvv-card:hover{background:rgba(255,255,255,.06)}
 .mvv-num{
   font-family:'Instrument Serif',serif;font-size:3rem;font-weight:400;
-  color:rgba(255,255,255,.06);line-height:1;position:absolute;top:1.5rem;right:2rem;
+  color:rgba(255,255,255,.16);line-height:1;position:absolute;top:1.5rem;right:2rem;
 }
-.mvv-icon{font-size:28px;margin-bottom:1.25rem}
+.mvv-icon{font-size:28px;margin-bottom:1.25rem;color:#fff}
 .mvv-label{
   font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(255,255,255,.3);font-weight:600;margin-bottom:.75rem;
+  color:rgba(255,255,255,.45);font-weight:600;margin-bottom:.75rem;
 }
 .mvv-title{
   font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;
   color:#fff;margin-bottom:.75rem;line-height:1.2;
 }
-.mvv-text{font-size:14px;color:rgba(255,255,255,.45);line-height:1.75}
+.mvv-text{font-size:14px;color:rgba(255,255,255,.6);line-height:1.75}
 
 /* Valores */
 .valores-title{
@@ -293,9 +379,9 @@ section{padding:100px 48px}
 .valores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;margin-top:1rem}
 .valor-item{background:rgba(255,255,255,.02);padding:1.75rem 1.5rem;text-align:center;transition:background .2s}
 .valor-item:hover{background:rgba(255,255,255,.06)}
-.valor-icon{font-size:24px;margin-bottom:.75rem}
+.valor-icon{font-size:24px;margin-bottom:.75rem;color:#fff}
 .valor-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:.35rem}
-.valor-desc{font-size:13px;color:rgba(255,255,255,.38);line-height:1.6}
+.valor-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6}
 
 /* ── WHY ── */
 .why{background:var(--gray-50);padding:100px 48px}
@@ -315,7 +401,7 @@ section{padding:100px 48px}
 /* ── PROPIEDADES ── */
 .propiedades{background:#fff;padding:80px 48px}
 .props-header-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
-.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.props-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
 .complejo-card{cursor:pointer;
   background:#fff;border-radius:var(--r-xl);overflow:hidden;
   border:1px solid var(--gray-200);cursor:pointer;
@@ -333,8 +419,8 @@ section{padding:100px 48px}
   position:absolute;bottom:0;left:0;right:0;z-index:2;
   padding:1.1rem 1.25rem;display:flex;align-items:flex-end;justify-content:space-between;
 }
-.complejo-name{font-family:'Instrument Serif',serif;font-size:1.15rem;font-weight:400;color:#fff;line-height:1.15}
-.complejo-addr{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:2px}
+.complejo-name{font-family:'Instrument Serif',serif;font-size:1.25rem;font-weight:400;color:#fff;line-height:1.15}
+.complejo-addr{font-size:12.5px;color:rgba(255,255,255,.72);margin-top:3px}
 .complejo-view-btn{
   background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
   color:var(--black);font-size:12px;font-weight:700;
@@ -349,7 +435,30 @@ section{padding:100px 48px}
 }
 .complejo-units-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .complejo-tags{display:flex;flex-wrap:wrap;gap:5px}
-.complejo-desc{font-size:13px;color:var(--gray-600);line-height:1.65;margin-bottom:.75rem}
+.complejo-desc{font-size:13.5px;color:var(--gray-600);line-height:1.68;margin-bottom:.75rem}
+
+/* Card destacada (primer complejo) — layout horizontal: foto + contenido */
+.complejo-card--featured{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr;align-items:stretch}
+.complejo-card--featured .complejo-img-wrap{height:auto;min-height:440px}
+.complejo-card--featured .complejo-body{display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2.75rem}
+.complejo-card--featured .complejo-units{font-size:13.5px;margin-bottom:.9rem}
+.complejo-card--featured .complejo-desc{font-size:15px;line-height:1.7;margin-bottom:1.1rem}
+/* En la destacada el nombre va en el cuerpo, no sobre la foto */
+.complejo-card--featured .complejo-overlay{justify-content:flex-end}
+.complejo-card--featured .complejo-overlay > div:first-child{display:none}
+.complejo-feat-head{margin-bottom:1.1rem}
+.complejo-feat-name{font-family:'Instrument Serif',serif;font-size:1.85rem;font-weight:400;color:var(--black);line-height:1.12;letter-spacing:-.01em}
+.complejo-feat-addr{font-size:13px;color:var(--gray-400);margin-top:.35rem}
+/* Badge "Destacado" sobre la foto */
+.complejo-badge{
+  position:absolute;top:1rem;left:1rem;z-index:3;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  color:var(--black);font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.4rem .85rem;border-radius:var(--r-pill);
+  display:inline-flex;align-items:center;gap:5px;
+}
+.complejo-badge i{color:var(--green);font-size:10px}
 
 /* Unidades drill-down */
 .unidades-header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
@@ -758,7 +867,7 @@ a.prop-address:hover{color:var(--black)}
 
 /* ── AMENIDADES ── */
 .amenidades{background:var(--gray-50);padding:100px 48px}
-.amenidades-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1px;background:var(--gray-200);border-radius:var(--r-xl);overflow:hidden;margin-top:3.5rem}
+.amenidades-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-200);border-radius:var(--r-xl);overflow:hidden;margin-top:3.5rem}
 .amenidad-item{
   background:#fff;padding:1.75rem 1.25rem;
   display:flex;flex-direction:column;align-items:center;text-align:center;gap:.65rem;
@@ -861,8 +970,8 @@ a.prop-address:hover{color:var(--black)}
 .marquee-item-ph{width:100%;height:100%;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;font-size:36px;opacity:.4}
 
 /* ── MAPA ── */
-.mapa-section{background:var(--black);padding:0 0 80px;overflow:hidden}
-.mapa-header{padding:0 48px 2rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1240px;margin:0 auto}
+.mapa-section{background:var(--black);padding:72px 0 80px;overflow:hidden}
+.mapa-header{padding:0 48px 2.5rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1240px;margin:0 auto}
 .mapa-header .section-eyebrow{color:rgba(255,255,255,.3)}
 .mapa-header .section-title{color:#fff;margin-bottom:.25rem}
 .mapa-header .section-sub{color:rgba(255,255,255,.45);max-width:400px}
@@ -1023,10 +1132,12 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
 @media(max-width:1024px){
   nav{padding:0 32px}
   section{padding:80px 32px}
-  .statement{padding:60px 32px}
+  .amenidades-grid{grid-template-columns:repeat(3,1fr)}
+  .statement{padding:40px 32px 44px}
   .quienes{padding:80px 32px}
   .cta-section{padding:48px 32px}
   .marquee-header{padding:0 32px 2rem}
+  .mapa-section{padding:56px 0 64px}
   .mapa-header{padding:0 32px 2rem}
   footer{padding:3rem 32px 2rem}
   #dashboard{padding:5rem 32px}
@@ -1048,14 +1159,19 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
   .hamburger{display:flex}
   .mobile-menu{padding:1.5rem 24px 2rem}
   section{padding:64px 24px}
-  .statement{padding:48px 24px}
+  .statement{padding:32px 24px 36px}
   .quienes{padding:64px 24px}
   .cta-section{padding:32px 24px}
   .marquee-header{padding:0 24px 1.5rem}
+  .mapa-section{padding:44px 0 52px}
   .mapa-header{padding:0 24px 1.5rem}
   footer{padding:2.5rem 24px 2rem}
   #dashboard{padding:4rem 24px}
   .props-grid{grid-template-columns:1fr;gap:1.25rem}
+  .complejo-card--featured{grid-template-columns:1fr}
+  .complejo-card--featured .complejo-img-wrap{min-height:300px}
+  .complejo-card--featured .complejo-body{padding:1.5rem 1.5rem 1.75rem}
+  .complejo-card--featured .complejo-feat-name{font-size:1.4rem}
   .stats-bar{flex-wrap:wrap}
   .stat-item{border-right:none;border-bottom:1px solid var(--gray-200);padding:1rem 2rem;min-width:50%}
   .stat-item:nth-child(odd){border-right:1px solid var(--gray-200)}
@@ -1111,16 +1227,21 @@ footer{background:var(--black);padding:4rem 48px 2.5rem;color:rgba(255,255,255,.
 .anim-scale.vis{opacity:1;transform:scale(1)}
 /* Stagger children */
 .stagger-children > *{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
-.stagger-children.vis > *:nth-child(1){transition-delay:.05s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(2){transition-delay:.1s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(3){transition-delay:.15s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(4){transition-delay:.2s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(5){transition-delay:.25s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(6){transition-delay:.3s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(7){transition-delay:.35s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(8){transition-delay:.4s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(9){transition-delay:.45s;opacity:1;transform:translateY(0)}
-.stagger-children.vis > *:nth-child(10){transition-delay:.5s;opacity:1;transform:translateY(0)}
+/* TODOS los hijos se vuelven visibles (sin importar cuántos haya) */
+.stagger-children.vis > *{opacity:1;transform:translateY(0)}
+/* El nth-child solo escalona el delay de entrada */
+.stagger-children.vis > *:nth-child(1){transition-delay:.05s}
+.stagger-children.vis > *:nth-child(2){transition-delay:.1s}
+.stagger-children.vis > *:nth-child(3){transition-delay:.15s}
+.stagger-children.vis > *:nth-child(4){transition-delay:.2s}
+.stagger-children.vis > *:nth-child(5){transition-delay:.25s}
+.stagger-children.vis > *:nth-child(6){transition-delay:.3s}
+.stagger-children.vis > *:nth-child(7){transition-delay:.35s}
+.stagger-children.vis > *:nth-child(8){transition-delay:.4s}
+.stagger-children.vis > *:nth-child(9){transition-delay:.45s}
+.stagger-children.vis > *:nth-child(10){transition-delay:.5s}
+.stagger-children.vis > *:nth-child(11){transition-delay:.55s}
+.stagger-children.vis > *:nth-child(12){transition-delay:.6s}
 /* Hero entrance */
 @keyframes heroSlideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 .hero-content > *{animation:heroSlideUp .8s ease forwards;opacity:0}
@@ -1185,7 +1306,7 @@ body.detail-active .nav-logo-mark{}
   <div class="hero-content">
     <div class="hero-eyebrow">Seguridad · Turismo · Recuerdos</div>
     <h1>Hospedaje en<br>Monterrey,<br><em>Barrio Inn.</em></h1>
-    <p class="hero-sub">Tenemos un excelente servicio al cliente, comida tipica deliciosa y el mejor ambiente para tu estancia</p>
+    <p class="hero-sub">Tenemos un excelente servicio al cliente y el mejor ambiente para tu estancia</p>
     <div class="hero-btns">
       <a href="#propiedades" class="btn-hero-primary">
         Ver propiedades
@@ -1202,7 +1323,7 @@ body.detail-active .nav-logo-mark{}
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat-item">
-    <span class="stat-num">4+</span>
+    <span class="stat-num" id="statUnidades">—</span>
     <span class="stat-label">Propiedades</span>
   </div>
   <div class="stat-item">
@@ -1278,10 +1399,10 @@ body.detail-active .nav-logo-mark{}
     <div class="detail-layout">
       <div class="detail-content">
         <!-- Tabs -->
-        <div class="detail-tabs" id="detailTabs">
-          <button class="detail-tab active" data-tab="overview" onclick="switchDetailTab('overview')">Descripción</button>
-          <button class="detail-tab" data-tab="services" onclick="switchDetailTab('services')">Servicios</button>
-          <button class="detail-tab" data-tab="access" onclick="switchDetailTab('access')">Acceso</button>
+        <div class="detail-tabs" id="detailTabs" role="tablist">
+          <button class="detail-tab active" data-tab="overview" onclick="switchDetailTab('overview')" role="tab" aria-selected="true">Descripción</button>
+          <button class="detail-tab" data-tab="services" onclick="switchDetailTab('services')" role="tab" aria-selected="false">Servicios</button>
+          <button class="detail-tab" data-tab="access" onclick="switchDetailTab('access')" role="tab" aria-selected="false">Acceso</button>
         </div>
 
         <!-- Tab: Overview -->
@@ -1355,13 +1476,14 @@ body.detail-active .nav-logo-mark{}
       <span class="statement-tag"><i class="fa-solid fa-pump-soap"></i> Amenidades de baño</span>
       <span class="statement-tag"><i class="fa-solid fa-utensils"></i> Cocina comunal</span>
       <span class="statement-tag"><i class="fa-solid fa-bed"></i> Ropa de cama incluida</span>
-      <span class="statement-tag"><i class="fa-solid fa-paw"></i> Pet-friendly (select)</span>
-      <span class="statement-tag"><i class="fa-solid fa-square-parking"></i> Estacionamiento cercano</span>
+      <span class="statement-tag"><i class="fa-solid fa-square-parking"></i> Estacionamiento $ externo cercano</span>
       <span class="statement-tag"><i class="fa-solid fa-person-swimming"></i> Alberca (select)</span>
       <span class="statement-tag"><i class="fa-solid fa-location-dot"></i> Macroplaza 600m</span>
       <span class="statement-tag"><i class="fa-solid fa-palette"></i> MARCO 500m</span>
       <span class="statement-tag"><i class="fa-solid fa-utensils"></i> Restaurantes al paso</span>
       <span class="statement-tag"><i class="fa-solid fa-lock"></i> Acceso controlado</span>
+      <span class="statement-tag"><i class="fa-solid fa-utensils"></i> Restaurante / Casa Club </span>
+
     </div>
   </div>
 </div>
@@ -1610,11 +1732,13 @@ body.detail-active .nav-logo-mark{}
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-tv"></i></div><p class="amenidad-name">Smart TV</p><p class="amenidad-desc">Netflix, Disney+</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-lock"></i></div><p class="amenidad-name">Smart Lock</p><p class="amenidad-desc">Acceso 24 horas</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-mug-hot"></i></div><p class="amenidad-name">Café cortesía</p><p class="amenidad-desc">Incluido siempre</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-cookie-bite"></i></div><p class="amenidad-name">Snacks</p><p class="amenidad-desc">Cortesía de bienvenida</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-utensils"></i></div><p class="amenidad-name">Cocina comunal</p><p class="amenidad-desc">Disponible para huéspedes</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-pump-soap"></i></div><p class="amenidad-name">Amenidades baño</p><p class="amenidad-desc">Shampoo, jabón, gel</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-file-invoice"></i></div><p class="amenidad-name">Factura CFDI</p><p class="amenidad-desc">Para viajes de negocio</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-shield-halved"></i></div><p class="amenidad-name">Cámaras HD</p><p class="amenidad-desc">Seguridad 24/7</p></div>
       <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-bed"></i></div><p class="amenidad-name">Ropa de cama</p><p class="amenidad-desc">Incluida y limpia</p></div>
+      <div class="amenidad-item"><div class="amenidad-icon"><i class="fa-solid fa-shower"></i></div><p class="amenidad-name">Agua caliente</p><p class="amenidad-desc">Boiler en todas las unidades</p></div>
     </div>
     <div style="margin-top:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:#fff;border-radius:var(--r-xl);padding:1.5rem 2rem;border:1px solid var(--gray-200)">
       <div>
@@ -1628,7 +1752,7 @@ body.detail-active .nav-logo-mark{}
       </div>
       <div style="width:1px;height:48px;background:var(--gray-200)"></div>
       <div>
-        <p style="font-size:13px;color:var(--gray-600);max-width:320px;line-height:1.65">Instrucciones de acceso enviadas el día de tu llegada vía WhatsApp. Sin recepción, sin filas.</p>
+        <p style="font-size:13px;color:var(--gray-600);max-width:320px;line-height:1.65">Instrucciones de acceso enviadas el día de tu llegada vía App o Airbnb. Sin recepción, sin filas.</p>
       </div>
     </div>
   </div>
@@ -1646,46 +1770,46 @@ body.detail-active .nav-logo-mark{}
       </div>
       <div class="faq-list">
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Cómo funciona el acceso con smart lock?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
-          <div class="faq-a">No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por WhatsApp el día de tu llegada a las 2 PM. El acceso es completamente autónomo, disponible las 24 horas.</div>
+          <div class="faq-a">No hay recepción. Una vez confirmada tu reserva, recibirás un código numérico único por Airbnb el día de tu llegada a las 2 PM. El acceso es completamente autónomo, disponible las 24 horas.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Cuáles son los horarios de check-in y check-out?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
           <div class="faq-a">El check-in es a partir de las 3:00 PM y el check-out antes de las 11:00 AM. No realizamos early check-in ni late check-out sin reserva adicional.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Ofrecen factura fiscal?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
-          <div class="faq-a">Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por WhatsApp. Las facturas se generan días después de terminar la estancia.</div>
+          <div class="faq-a">Sí, podemos emitir factura fiscal (CFDI). Solicítala al momento de reservar enviando tus datos fiscales por correo enviado en Airbnb. Las facturas se generan días después de terminar la estancia.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Hay estacionamiento?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
           <div class="faq-a">No contamos con estacionamiento propio. Sin embargo, hay opciones de estacionamiento público en la zona a pocos metros de las propiedades.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Puedo hacer check-in anticipado?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
           <div class="faq-a">El check-in anticipado no está disponible actualmente. Nuestro sistema de limpieza y preparación de habitaciones necesita el tiempo completo entre huéspedes para garantizar la mejor experiencia.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">
             ¿Se permiten mascotas?
             <div class="faq-icon"><i class="fa-solid fa-plus" style="font-size:12px"></i></div>
           </div>
-          <div class="faq-a">El Loft Pirineos es pet-friendly. Las demás propiedades no permiten mascotas por políticas de convivencia. Consulta al momento de reservar.</div>
+          <div class="faq-a">No, no somos pet-friendly. Las propiedades no permiten mascotas por políticas de convivencia.</div>
         </div>
       </div>
     </div>
@@ -1775,7 +1899,7 @@ body.detail-active .nav-logo-mark{}
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
+      <p>© <span id="footerYear">2026</span> Barrio Inn — Hostelería. Monterrey, Nuevo León, México.</p>
       <p>Turismo consciente desde el Barrio <i class="fa-solid fa-house-chimney"></i></p>
     </div>
   </div>
@@ -1851,7 +1975,7 @@ body.detail-active .nav-logo-mark{}
       </div>
 
       <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
-        <button class="dash-btn danger" onclick="resetearDatos()"><i class="fa-solid fa-rotate-left"></i> Restaurar datos originales</button>
+        <button class="dash-btn ghost" onclick="resetearDatos()"><i class="fa-solid fa-rotate"></i> Recargar desde base de datos</button>
         <button class="dash-btn ghost" onclick="cerrarDashboard()"><i class="fa-solid fa-xmark"></i> Cerrar panel</button>
       </div>
     </div>
@@ -1948,9 +2072,9 @@ body.detail-active .nav-logo-mark{}
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
   <div class="lightbox-inner" id="lightboxInner">
-    <button class="lightbox-close" onclick="closeLightbox()">×</button>
-    <button class="lightbox-nav prev" onclick="lightboxNav(-1)">‹</button>
-    <button class="lightbox-nav next" onclick="lightboxNav(1)">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar galería">×</button>
+    <button class="lightbox-nav prev" onclick="lightboxNav(-1)" aria-label="Foto anterior">‹</button>
+    <button class="lightbox-nav next" onclick="lightboxNav(1)" aria-label="Foto siguiente">›</button>
     <img class="lightbox-img" id="lightboxImg" src="" alt="" style="display:none"/>
     <div class="lightbox-img-placeholder" id="lightboxPlaceholder">
       <span style="font-size:48px"><i class="fa-solid fa-image" style="color:rgba(255,255,255,.3)"></i></span>
@@ -1966,6 +2090,45 @@ body.detail-active .nav-logo-mark{}
   <span class="wa-label">Reservar</span>
 </a>
 
+<!-- MODAL: WhatsApp fuera de horario -->
+<div id="waOffhoursModal" class="wa-modal" onclick="if(event.target===this)cerrarModalFueraHorario()" style="display:none">
+  <div class="wa-modal-inner">
+    <button class="wa-modal-close" onclick="cerrarModalFueraHorario()" aria-label="Cerrar">×</button>
+    <div class="wa-modal-icon"><i class="fa-regular fa-clock"></i></div>
+    <h3 class="wa-modal-title">Por el momento no estamos disponibles</h3>
+    <p class="wa-modal-sub">Nuestro equipo atiende WhatsApp <strong>lunes a viernes de 11:00 a 18:00 hrs</strong> (hora Monterrey).</p>
+    <p class="wa-modal-sub" style="margin-top:1rem">Pero puedes reservar al instante en cualquiera de nuestras plataformas — están abiertas 24/7:</p>
+    <div class="wa-modal-actions">
+      <a href="https://www.airbnb.mx/s/Monterrey/homes?query=Barrio%20Inn%20Monterrey" target="_blank" rel="noopener" class="wa-modal-btn wa-modal-btn-primary">
+        <i class="fa-brands fa-airbnb"></i> Reservar en Airbnb
+      </a>
+      <button class="wa-modal-btn wa-modal-btn-secondary" onclick="dejarMensajeWa()">
+        <i class="fa-brands fa-whatsapp"></i> Dejar mensaje de todas formas
+      </button>
+    </div>
+    <p class="wa-modal-foot">También nos puedes encontrar en Booking, Expedia y Belong.</p>
+  </div>
+</div>
+
+<style>
+.wa-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;animation:waFadeIn .25s ease}
+@keyframes waFadeIn{from{opacity:0}to{opacity:1}}
+.wa-modal-inner{background:#fff;border-radius:var(--r-xl);padding:2.5rem 2rem 2rem;max-width:440px;width:100%;text-align:center;position:relative;box-shadow:var(--shadow-lg);animation:waSlideUp .3s cubic-bezier(.16,1,.3,1)}
+@keyframes waSlideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.wa-modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;background:var(--gray-100);color:var(--gray-600);border-radius:50%;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.wa-modal-close:hover{background:var(--gray-200);color:var(--black)}
+.wa-modal-icon{width:64px;height:64px;margin:0 auto 1.2rem;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:26px}
+.wa-modal-title{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:var(--black);margin-bottom:.8rem;letter-spacing:-.01em}
+.wa-modal-sub{font-size:14.5px;color:var(--gray-600);line-height:1.6}
+.wa-modal-actions{display:flex;flex-direction:column;gap:.6rem;margin-top:1.6rem}
+.wa-modal-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:.85rem 1.4rem;border-radius:var(--r-pill);font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .22s;font-family:inherit}
+.wa-modal-btn-primary{background:#FF385C;color:#fff}
+.wa-modal-btn-primary:hover{background:#e0314f;transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,56,92,.3)}
+.wa-modal-btn-secondary{background:transparent;color:var(--gray-600);border:1.5px solid var(--gray-200)}
+.wa-modal-btn-secondary:hover{border-color:var(--gray-400);color:var(--black)}
+.wa-modal-foot{font-size:12px;color:var(--gray-400);margin-top:1.2rem;letter-spacing:.01em}
+</style>
+
 <script>
 // ═══════════════════════════════════════════════
 // DATOS Y PERSISTENCIA
@@ -1974,84 +2137,9 @@ body.detail-active .nav-logo-mark{}
 const COMPLEJOS_DEFAULT = [
   { id:'abasolo',     nombre:'Abasolo',      direccion:'José Abasolo, Barrio Antiguo',          unidades:10, tags:['Smart Lock','WiFi','Centro Histórico'],       foto:'', descripcion:'Suites minimalistas en el corazón del Barrio Antiguo, a pasos del Museo MARCO, la Macroplaza y 10 minutos caminando del Parque Fundidora. Climatizadas, con internet de alta velocidad, agua caliente y servicio de facturación.' },
   { id:'morelos',     nombre:'Morelos',      direccion:'Calle Morelos, Centro Histórico',        unidades:10, tags:['Bar en la puerta','Bares & restaurantes','Macroplaza 600m'], foto:'', descripcion:'Lugar privado con excelentes espacios en las suites, ideal para los amantes de la amplitud. Perfecto para quienes buscan privacidad y comodidad en una ubicación inmejorable en el corazón del Barrio Antiguo.' },
-  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Pet-friendly','Loft tipo estudio','Vista skyline'],   foto:'', descripcion:'Departamentos dobles, individuales, recámaras compartidas y lofts recién amueblados y equipados con todo nuevo. Excelente opción para profesionistas y estudiantes del Tecnológico de Monterrey a precios accesibles. Contamos con personal administrativo viviendo en el edificio para que nunca te falte nada, en un ambiente seguro y agradable.' },
+  { id:'roma',        nombre:'Roma',         direccion:'Pirineos 1012, Roma Sur',                unidades:10, tags:['Loft tipo estudio','Vista skyline'],   foto:'', descripcion:'Departamentos dobles, individuales, recámaras compartidas y lofts recién amueblados y equipados con todo nuevo. Excelente opción para profesionistas y estudiantes del Tecnológico de Monterrey a precios accesibles. Contamos con personal administrativo viviendo en el edificio para que nunca te falte nada, en un ambiente seguro y agradable.' },
   { id:'aldea',       nombre:'Barrio Inn Hostal',        direccion:'Fonda & Hostal, Centro Histórico',        unidades:10, tags:['Alberca','Cocina comunal','MARCO 500m'],         foto:'', descripcion:'Aldea y Fonda Morelos es un hostal donde puedes encontrar todo en un mismo lugar: área de alberca, cocina, servicio de restaurante-bar y ambiente para conectar con otros viajeros. Contamos con baños completos compartidos —4 de mujeres y 3 de hombres— además de 2 suites con baño propio para quienes prefieren más privacidad.' },
-  { id:'sanjeronimo', nombre:'San Jerónimo', direccion:'San Jerónimo, Monterrey',                unidades:10, tags:['Zona residencial','Acceso controlado','Estacionamiento'], foto:'', descripcion:'Suite privada en la exclusiva zona de San Jerónimo, con baño privado, Smart TV, frigobar, microondas, cafetera y estacionamiento gratuito. Torre de 26 habitaciones con elevador, área de coworking y acceso totalmente autónomo mediante chapa digital. Ideal para viajeros de negocios o placer que buscan comodidad, privacidad y flexibilidad.' },
   { id:'padremier',   nombre:'Padre Mier',   direccion:'Padre Mier, Centro Histórico',           unidades:10, tags:['Barrio Antiguo','Macroplaza 300m','MARCO 400m'],   foto:'', descripcion:'Suites en el corazón del Barrio Antiguo con habitaciones individuales, matrimoniales y suites con baño privado. Acceso automatizado con chapa digital, cocineta compartida, Smart TV, internet de alta velocidad y servicio de facturación. A 500m del Museo MARCO, 600m de la Macroplaza y 10 minutos del Parque Fundidora.' },
-];
-
-const PROPIEDADES_DEFAULT = [
-  // ── ABASOLO (Barrio Antiguo) ──
-  { id:'abasolo_1', complejo:'abasolo', nombre:'Abasolo 101', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.83 · 103', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Bares y restaurantes al paso'], belong:'', airbnb:'https://www.airbnb.mx/rooms/865916915126616151', expedia:'', lat:25.6697, lng:-100.3108, fotos:[] },
-  { id:'abasolo_2', complejo:'abasolo', nombre:'Abasolo 102', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.80 · 88', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Bares al paso','Parroquia del Roble 200m'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3108, fotos:[] },
-  { id:'abasolo_3', complejo:'abasolo', nombre:'Abasolo 103', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.85 · 67', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Calle Morelos 3 min'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3109, fotos:[] },
-  { id:'abasolo_4', complejo:'abasolo', nombre:'Abasolo 201', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.78 · 52', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Galería de Arte 100m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3108, fotos:[] },
-  { id:'abasolo_5', complejo:'abasolo', nombre:'Abasolo 202', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.82 · 44', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Cafetería artesanal 80m','Bares al paso'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3109, fotos:[] },
-  { id:'abasolo_6', complejo:'abasolo', nombre:'Abasolo 203', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.79 · 38', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Tiendas y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6696, lng:-100.3108, fotos:[] },
-  { id:'abasolo_7', complejo:'abasolo', nombre:'Abasolo 301', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.86 · 29', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista al patio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Restaurantes 50m','Barrio histórico'], belong:'', airbnb:'', expedia:'', lat:25.6697, lng:-100.3110, fotos:[] },
-  { id:'abasolo_8', complejo:'abasolo', nombre:'Abasolo 302', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.81 · 21', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Bar La Fauna 100m','Cafés de especialidad'], belong:'', airbnb:'', expedia:'', lat:25.6698, lng:-100.3110, fotos:[] },
-  { id:'abasolo_9', complejo:'abasolo', nombre:'Abasolo 303', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.77 · 15', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','Mercado Barrio 200m','Restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6696, lng:-100.3110, fotos:[] },
-  { id:'abasolo_10', complejo:'abasolo', nombre:'Abasolo Estudio', badge:'Barrio Antiguo', direccion:'José Abasolo, Barrio Antiguo, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=José+Abasolo+Barrio+Antiguo+Monterrey+NL', rating:'4.84 · 9', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Kitchenette','Escritorio'], cercanos:['Macroplaza 600m','Museo MARCO 500m','7-Eleven 50m','Bares al paso'], belong:'', airbnb:'', expedia:'', lat:25.6699, lng:-100.3108, fotos:[] },
-
-  // ── MORELOS (Centro Histórico) ──
-  { id:'morelos_1', complejo:'morelos', nombre:'Morelos 101', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.82 · 130', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart TV','Microondas','Frigobar'], cercanos:['Bares y restaurantes en la puerta','Macroplaza 600m','Museo MARCO 500m','Calle Peatonal 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/957511127263086841', expedia:'', lat:25.6690, lng:-100.3096, fotos:[] },
-  { id:'morelos_2', complejo:'morelos', nombre:'Morelos 102', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.80 · 98', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Bares al paso','Macroplaza 600m','Museo MARCO 500m','Vida nocturna'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3096, fotos:[] },
-  { id:'morelos_3', complejo:'morelos', nombre:'Morelos 103', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.84 · 77', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Restaurantes en la puerta','Macroplaza 600m','Galería 100m','Café artesanal'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3097, fotos:[] },
-  { id:'morelos_4', complejo:'morelos', nombre:'Morelos 201', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.79 · 65', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Vida nocturna al paso','Macroplaza 600m','Museo MARCO 500m','Tacos 24h'], belong:'', airbnb:'', expedia:'', lat:25.6689, lng:-100.3096, fotos:[] },
-  { id:'morelos_5', complejo:'morelos', nombre:'Morelos 202', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.83 · 54', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Bares Barrio Antiguo','Macroplaza 600m','Museo MARCO 500m','Restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3095, fotos:[] },
-  { id:'morelos_6', complejo:'morelos', nombre:'Morelos 203', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.81 · 43', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Calle Morelos principal','Macroplaza 600m','Museo MARCO 500m','Bares 50m'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3095, fotos:[] },
-  { id:'morelos_7', complejo:'morelos', nombre:'Morelos 301', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.86 · 31', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista a la calle'], cercanos:['Vista Barrio Antiguo','Macroplaza 600m','Museo MARCO 500m','Todo al paso'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3097, fotos:[] },
-  { id:'morelos_8', complejo:'morelos', nombre:'Morelos 302', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.78 · 22', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Bares en la planta baja','Macroplaza 600m','Museo MARCO 500m','7-Eleven 200m'], belong:'', airbnb:'', expedia:'', lat:25.6689, lng:-100.3097, fotos:[] },
-  { id:'morelos_9', complejo:'morelos', nombre:'Morelos 303', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.82 · 14', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Calle Morelos','Macroplaza 600m','Museo MARCO 500m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3096, fotos:[] },
-  { id:'morelos_10', complejo:'morelos', nombre:'Morelos Loft', badge:'Centro Histórico', direccion:'Calle Morelos, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Calle+Morelos+Centro+Histórico+Monterrey+NL', rating:'4.85 · 8', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Kitchenette','Escritorio'], cercanos:['Barrio Antiguo al paso','Macroplaza 600m','Museo MARCO 500m','Bares 30m'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3098, fotos:[] },
-
-  // ── ROMA (Roma Sur / San Pedro) ──
-  { id:'roma_1', complejo:'roma', nombre:'Roma 101', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.88 · 42', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Walking closet','Kitchenette','Pet-friendly'], cercanos:['Zona residencial tranquila','Vista skyline Monterrey','Restaurantes San Pedro 5 min','Centros comerciales 10 min'], belong:'https://admin.belongmx.com/property/af77293b-6117-495a-ad66-dace6fcb0e78', airbnb:'', expedia:'', lat:25.6419, lng:-100.3297, fotos:[] },
-  { id:'roma_2', complejo:'roma', nombre:'Roma 102', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.85 · 38', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 200 Mbps','Smart TV'], cercanos:['Zona residencial','Vista skyline','Restaurantes 5 min','San Pedro centro 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6419, lng:-100.3298, fotos:[] },
-  { id:'roma_3', complejo:'roma', nombre:'Roma 103', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.83 · 29', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 200 Mbps','Escritorio','Pet-friendly'], cercanos:['Colonia tranquila','Parque 300m','Restaurantes Vasconcelos 10 min','Galerías 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3297, fotos:[] },
-  { id:'roma_4', complejo:'roma', nombre:'Roma 201', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.87 · 24', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Mini Split','WiFi 200 Mbps','Kitchenette'], cercanos:['Vista skyline Monterrey','Zona residencial','Cafés especiales 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6418, lng:-100.3297, fotos:[] },
-  { id:'roma_5', complejo:'roma', nombre:'Roma 202', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.84 · 19', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 200 Mbps','Smart TV','Pet-friendly'], cercanos:['Parque del Barrio 400m','Restaurantes 5 min','Vasconcelos 10 min','Centro San Pedro 12 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3298, fotos:[] },
-  { id:'roma_6', complejo:'roma', nombre:'Roma 203', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.86 · 14', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 200 Mbps','Escritorio'], cercanos:['Zona residencial segura','Vista sierra','Cafés 5 min','San Pedro 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6419, lng:-100.3299, fotos:[] },
-  { id:'roma_7', complejo:'roma', nombre:'Roma 301', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.89 · 11', precio:'', telefono:'8110645136', tags:['Loft tipo estudio','Baño privado','Smart Lock','WiFi 200 Mbps','Vista panorámica'], cercanos:['Vista skyline Monterrey','Silencio residencial','Restaurantes 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6421, lng:-100.3297, fotos:[] },
-  { id:'roma_8', complejo:'roma', nombre:'Roma 302', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.82 · 8', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 200 Mbps','Smart TV','Pet-friendly'], cercanos:['Colonia Roma Sur','Vista sierra','Cafés especiales 5 min','Galerías 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6418, lng:-100.3298, fotos:[] },
-  { id:'roma_9', complejo:'roma', nombre:'Roma 303', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.85 · 5', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 200 Mbps','Escritorio'], cercanos:['Zona residencial tranquila','Vista panorámica','Restaurantes 5 min','San Pedro centro 12 min'], belong:'', airbnb:'', expedia:'', lat:25.6420, lng:-100.3299, fotos:[] },
-  { id:'roma_10', complejo:'roma', nombre:'Roma Penthouse', badge:'Roma Sur', direccion:'Pirineos 1012, Roma Sur, San Pedro Garza García', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Pirineos+1012+Roma+Sur+San+Pedro+Garza+García+NL', rating:'4.92 · 3', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 200 Mbps','Terraza','Vista 360°','Pet-friendly'], cercanos:['Vista skyline Monterrey y sierra','Zona exclusiva San Pedro','Restaurantes 5 min','Centros comerciales 10 min'], belong:'', airbnb:'', expedia:'', lat:25.6421, lng:-100.3298, fotos:[] },
-
-  // ── ALDEA (Centro Histórico) ──
-  { id:'aldea_1', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #01', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.81 · 64', precio:'', telefono:'8110645136', tags:['Cama individual','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Restaurantes en la puerta','Museo MARCO 500m','Macroplaza 600m','7-Eleven 100m'], belong:'', airbnb:'https://www.airbnb.mx/rooms/1376405838885906661', expedia:'', lat:25.6692, lng:-100.3099, fotos:[] },
-  { id:'aldea_2', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #02', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.79 · 58', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','WiFi 100 Mbps','Smart TV'], cercanos:['MARCO 500m','Macroplaza 600m','Restaurantes al paso','Barrio Antiguo 5 min'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3100, fotos:[] },
-  { id:'aldea_3', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #03', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.83 · 47', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','Cocina comunal','Smart Lock'], cercanos:['Vista al patio con alberca','MARCO 500m','Macroplaza 600m','Cafés artesanales'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3099, fotos:[] },
-  { id:'aldea_4', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #04', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca privada','MARCO 500m','Macroplaza 600m','Restaurantes Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3099, fotos:[] },
-  { id:'aldea_5', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #05', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño compartido','Alberca','Cocina comunal','Smart TV'], cercanos:['Patio comunitario','MARCO 500m','Macroplaza 600m','Vida social intensa'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3098, fotos:[] },
-  { id:'aldea_6', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #06', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.78 · 24', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock'], cercanos:['Alberca en el patio','MARCO 500m','Macroplaza 600m','Restaurantes 50m'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3100, fotos:[] },
-  { id:'aldea_7', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #07', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.86 · 17', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Vista al patio'], cercanos:['Vista panorámica al patio','MARCO 500m','Macroplaza 600m','Bares Barrio'], belong:'', airbnb:'', expedia:'', lat:25.6691, lng:-100.3100, fotos:[] },
-  { id:'aldea_8', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #08', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.82 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Alberca','Cocina comunal','Smart TV'], cercanos:['Piso alto con vista','MARCO 500m','Macroplaza 600m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6692, lng:-100.3101, fotos:[] },
-  { id:'aldea_9', complejo:'aldea', nombre:'Barrio Inn Hostal/Habitación #09', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.80 · 7', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Alberca','WiFi 100 Mbps','Escritorio'], cercanos:['Acceso alberca','MARCO 500m','Macroplaza 600m','Cafés y galerías'], belong:'', airbnb:'', expedia:'', lat:25.6693, lng:-100.3098, fotos:[] },
-  { id:'aldea_10', complejo:'aldea', nombre:'Barrio Inn Hostal/Suite', badge:'Centro Histórico', direccion:'Fonda & Hostal, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Fonda+Hostal+Centro+Histórico+Monterrey+NL', rating:'4.90 · 4', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Alberca','WiFi 100 Mbps','Smart Lock','Terraza privada'], cercanos:['Terraza exclusiva','MARCO 500m','Macroplaza 600m','Barrio Antiguo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6690, lng:-100.3099, fotos:[] },
-
-  // ── SAN JERÓNIMO (Zona Residencial Monterrey) ──
-  { id:'sanjeronimo_1', complejo:'sanjeronimo', nombre:'San Jerónimo 101', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.85 · 72', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Zona residencial segura','Supermercados 5 min','Restaurantes San Jerónimo 5 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3698, fotos:[] },
-  { id:'sanjeronimo_2', complejo:'sanjeronimo', nombre:'San Jerónimo 102', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.82 · 65', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Colonia tranquila','Supermercados 5 min','Plazas comerciales 8 min','Monterrey centro 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3699, fotos:[] },
-  { id:'sanjeronimo_3', complejo:'sanjeronimo', nombre:'San Jerónimo 103', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.87 · 54', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Escritorio'], cercanos:['Área residencial','Parque 300m','Restaurantes 5 min','Acceso controlado'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3698, fotos:[] },
-  { id:'sanjeronimo_4', complejo:'sanjeronimo', nombre:'San Jerónimo 201', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.83 · 46', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Vista a la sierra','Supermercados 5 min','Plazas 8 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6511, lng:-100.3698, fotos:[] },
-  { id:'sanjeronimo_5', complejo:'sanjeronimo', nombre:'San Jerónimo 202', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.80 · 39', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Zona residencial privada','Parque cercano','Restaurantes 5 min','Acceso controlado'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3700, fotos:[] },
-  { id:'sanjeronimo_6', complejo:'sanjeronimo', nombre:'San Jerónimo 203', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.84 · 31', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Escritorio'], cercanos:['Colonia San Jerónimo','Supermercados 5 min','Plazas comerciales 8 min','Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6512, lng:-100.3700, fotos:[] },
-  { id:'sanjeronimo_7', complejo:'sanjeronimo', nombre:'San Jerónimo 301', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.88 · 22', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Vista a la sierra'], cercanos:['Vista sierra Madre','Zona tranquila','Restaurantes 5 min','Plazas 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6514, lng:-100.3698, fotos:[] },
-  { id:'sanjeronimo_8', complejo:'sanjeronimo', nombre:'San Jerónimo 302', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.81 · 15', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV'], cercanos:['Área residencial privada','Parque 200m','Supermercados 5 min','Centro Monterrey 15 min'], belong:'', airbnb:'', expedia:'', lat:25.6511, lng:-100.3700, fotos:[] },
-  { id:'sanjeronimo_9', complejo:'sanjeronimo', nombre:'San Jerónimo 303', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.86 · 9', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Estacionamiento','WiFi 200 Mbps','Mini Split'], cercanos:['Vista panorámica','Zona residencial segura','Restaurantes 5 min','Plazas comerciales 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6513, lng:-100.3697, fotos:[] },
-  { id:'sanjeronimo_10', complejo:'sanjeronimo', nombre:'San Jerónimo Suite', badge:'Zona Residencial', direccion:'San Jerónimo, Monterrey, NL', direccionUrl:'https://www.google.com/maps/search/?api=1&query=San+Jerónimo+Monterrey+NL', rating:'4.91 · 5', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Estacionamiento','WiFi 200 Mbps','Smart TV','Terraza privada'], cercanos:['Vista sierra y ciudad','Zona exclusiva','Restaurantes 5 min','Plazas premium 8 min'], belong:'', airbnb:'', expedia:'', lat:25.6514, lng:-100.3699, fotos:[] },
-
-  // ── PADRE MIER (Centro Histórico) ──
-  { id:'padremier_1', complejo:'padremier', nombre:'Padre Mier 101', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.84 · 81', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','Museo MARCO 400m','Palacio de Gobierno 200m','Restaurantes al paso'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3085, fotos:[] },
-  { id:'padremier_2', complejo:'padremier', nombre:'Padre Mier 102', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.81 · 73', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Catedral Metropolitana 400m','Bares y restaurantes'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3086, fotos:[] },
-  { id:'padremier_3', complejo:'padremier', nombre:'Padre Mier 103', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.86 · 62', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Vida cultural intensa','Todo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3085, fotos:[] },
-  { id:'padremier_4', complejo:'padremier', nombre:'Padre Mier 201', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.79 · 53', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Frigobar'], cercanos:['Macroplaza 300m','MARCO 400m','Museos y galerías al paso','Restaurantes históricos'], belong:'', airbnb:'', expedia:'', lat:25.6702, lng:-100.3085, fotos:[] },
-  { id:'padremier_5', complejo:'padremier', nombre:'Padre Mier 202', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.83 · 44', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Mini Split','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Calle Peatonal 100m','Cafés históricos'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3087, fotos:[] },
-  { id:'padremier_6', complejo:'padremier', nombre:'Padre Mier 203', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.80 · 36', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Smart Lock','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Barrio Antiguo 5 min','Todo el centro a pie'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3086, fotos:[] },
-  { id:'padremier_7', complejo:'padremier', nombre:'Padre Mier 301', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.87 · 27', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Mini Split','WiFi 100 Mbps','Vista a la Macroplaza'], cercanos:['Vista a la Macroplaza','MARCO 400m','Palacio Municipal 300m','Todo a pie'], belong:'', airbnb:'', expedia:'', lat:25.6702, lng:-100.3086, fotos:[] },
-  { id:'padremier_8', complejo:'padremier', nombre:'Padre Mier 302', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.82 · 18', precio:'', telefono:'8110645136', tags:['Cama Queen','Baño privado','Smart Lock','WiFi 100 Mbps','Smart TV'], cercanos:['Macroplaza 300m','MARCO 400m','Zona histórica','Restaurantes premium'], belong:'', airbnb:'', expedia:'', lat:25.6705, lng:-100.3085, fotos:[] },
-  { id:'padremier_9', complejo:'padremier', nombre:'Padre Mier 303', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.85 · 11', precio:'', telefono:'8110645136', tags:['Cama matrimonial','Baño privado','Mini Split','WiFi 100 Mbps','Escritorio'], cercanos:['Macroplaza 300m','MARCO 400m','Museos 5 min','Galerías de arte al paso'], belong:'', airbnb:'', expedia:'', lat:25.6703, lng:-100.3084, fotos:[] },
-  { id:'padremier_10', complejo:'padremier', nombre:'Padre Mier Suite', badge:'Centro Histórico', direccion:'Padre Mier, Centro Histórico, Monterrey', direccionUrl:'https://www.google.com/maps/search/?api=1&query=Padre+Mier+Centro+Histórico+Monterrey+NL', rating:'4.93 · 6', precio:'', telefono:'8110645136', tags:['Cama King','Baño privado','Smart Lock','WiFi 100 Mbps','Vista panorámica','Frigobar'], cercanos:['Vista Macroplaza y sierra','Centro histórico a pie','MARCO 400m','Mejor ubicación del centro'], belong:'', airbnb:'', expedia:'', lat:25.6704, lng:-100.3084, fotos:[] },
 ];
 
 // ─── SUPABASE ───
@@ -2059,20 +2147,16 @@ const SUPABASE_URL = 'https://zwbvugshnjenrysqallo.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YnZ1Z3NobmplbnJ5c3FhbGxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTAzOTIsImV4cCI6MjA5MzQ2NjM5Mn0.DhMoZFuwvfI5aqNq5p73S-uypWI7KG0BeLv8kSWJqLk';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function cargarLS(){ return JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT)); }
-async function guardarLS(){
-  await sb.from('propiedades').upsert(propiedades.map(p => ({...p})));
-}
-function cargarComplejos(){ return JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT)); }
-async function guardarComplejos(){
-  await sb.from('complejos').upsert(complejos.map(c => ({...c})));
-}
 
 async function uploadFoto(file, folder){
   const ext  = file.name.split('.').pop() || 'jpg';
   const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
   const { error } = await sb.storage.from('fotos').upload(path, file, { upsert: true });
-  if(error){ console.error('Upload error', error); return null; }
+  if(error){
+    console.error('Upload error', error);
+    alert('Error subiendo imagen: ' + (error.message || error.error || 'desconocido'));
+    return null;
+  }
   return sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
 }
 
@@ -2107,25 +2191,122 @@ function migrarNombres(lista, esComplejo){
   });
 }
 
-async function initApp(){
-  const [{ data: props }, { data: cmpls }] = await Promise.all([
-    sb.from('propiedades').select('*'),
-    sb.from('complejos').select('*'),
-  ]);
-  if(props && props.length)  propiedades = migrarNombres(props, false);
-  if(cmpls && cmpls.length){
-    // Rellenar descripcion desde COMPLEJOS_DEFAULT si Supabase no la tiene
-    const merged = migrarNombres(cmpls, true).map(c => {
-      if(!c.descripcion){
-        const def = COMPLEJOS_DEFAULT.find(d => d.id === c.id);
-        if(def && def.descripcion) c.descripcion = def.descripcion;
-      }
-      return c;
-    });
-    complejos = merged;
+// ═══════════════════════════════════════════════
+// UTILIDADES
+// ═══════════════════════════════════════════════
+
+// Escapa HTML para prevenir XSS almacenado. Cualquier dato que venga
+// de la DB y se inserte vía innerHTML DEBE pasar por aquí.
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+// Valida que una URL sea http(s) o data:image — evita javascript: en src/href.
+// Percent-encoda solo los chars que podrían romper un atributo HTML
+// (comillas, < >). NO toca '&' para no romper query params al usar la
+// URL como property JS (img.src = ...). Devuelve '' si la URL no es válida.
+function safeUrl(u){
+  const s = String(u == null ? '' : u).trim();
+  if(!/^(https?:|data:image\/)/i.test(s)) return '';
+  return s.replace(/"/g,'%22').replace(/'/g,'%27').replace(/</g,'%3C').replace(/>/g,'%3E');
+}
+
+// Horario de oficina: lun-vie 11:00-18:00 hora de Monterrey (CST, UTC-6 sin DST)
+function esHorarioOficina(){
+  const now = new Date();
+  // Convertir a hora de Monterrey independientemente de la zona del navegador
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const mty = new Date(utc - 6 * 3600000);
+  const day = mty.getDay();   // 0=Dom, 1=Lun, ..., 6=Sab
+  const hour = mty.getHours();
+  return day >= 1 && day <= 5 && hour >= 11 && hour < 18;
+}
+
+// Filtra tags inconsistentes con el tipo de cama del nombre.
+// Ej.: si nombre dice "cama individual", oculta tags "Cama matrimonial/Queen/King/doble".
+function filtrarTagsCoherentes(nombre, tags){
+  if(!tags || !tags.length) return [];
+  const lower = (nombre || '').toLowerCase();
+  const tiposCama = ['individual','matrimonial','queen','king','doble'];
+  const tipoEnNombre = tiposCama.find(t => lower.includes(t));
+  if(!tipoEnNombre) return tags; // el nombre no menciona tipo de cama → no filtramos
+  return tags.filter(t => {
+    const tL = t.toLowerCase();
+    // Si el tag menciona un tipo de cama, debe coincidir con el del nombre
+    const tipoEnTag = tiposCama.find(tc => tL.includes(tc));
+    if(!tipoEnTag) return true; // tag no habla de cama → conservar
+    return tipoEnTag === tipoEnNombre;
+  });
+}
+
+// URL pendiente de WhatsApp por si el usuario quiere dejar mensaje de todas formas
+let waPendingUrl = null;
+
+// Intercepta clicks a WhatsApp fuera del horario de oficina
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href*="wa.me/"]');
+  if(!a) return;
+  if(esHorarioOficina()) return; // dentro de horario → dejar pasar
+  e.preventDefault();
+  waPendingUrl = a.href;
+  document.getElementById('waOffhoursModal').style.display = 'flex';
+}, true);
+
+function cerrarModalFueraHorario(){
+  document.getElementById('waOffhoursModal').style.display = 'none';
+  waPendingUrl = null;
+}
+
+function dejarMensajeWa(){
+  // El usuario decide enviar el mensaje aunque sepa que tardarán en responder
+  if(waPendingUrl) window.open(waPendingUrl, '_blank', 'noopener');
+  cerrarModalFueraHorario();
+}
+
+// Cerrar con tecla Escape
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && document.getElementById('waOffhoursModal').style.display === 'flex'){
+    cerrarModalFueraHorario();
   }
-  renderizarComplejos();
-  await initMarquee();
+});
+
+async function initApp(){
+  try {
+    const [propsRes, cmplsRes] = await Promise.all([
+      sb.from('propiedades').select('*'),
+      sb.from('complejos').select('*'),
+    ]);
+    if(propsRes.error) throw propsRes.error;
+    if(cmplsRes.error) throw cmplsRes.error;
+    const props = propsRes.data, cmpls = cmplsRes.data;
+    if(props && props.length)  propiedades = migrarNombres(props, false);
+    if(cmpls && cmpls.length){
+      // Rellenar descripcion desde COMPLEJOS_DEFAULT si Supabase no la tiene
+      complejos = migrarNombres(cmpls, true).map(c => {
+        if(!c.descripcion){
+          const def = COMPLEJOS_DEFAULT.find(d => d.id === c.id);
+          if(def && def.descripcion) c.descripcion = def.descripcion;
+        }
+        return c;
+      });
+    }
+    renderizarComplejos();
+    initMap();
+    await initMarquee();
+  } catch(err){
+    console.error('Error cargando datos:', err);
+    const grid = document.getElementById('complejosGrid');
+    if(grid){
+      grid.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--gray-400)">' +
+        '<p style="font-size:1.5rem;margin-bottom:.5rem"><i class="fa-solid fa-triangle-exclamation"></i></p>' +
+        '<p>No pudimos cargar las propiedades. Revisa tu conexión e intenta refrescar.</p></div>';
+    }
+  }
 }
 
 async function initMarquee(){
@@ -2134,39 +2315,68 @@ async function initMarquee(){
   renderMarqueeData(galeria);
 }
 
-let propiedades = cargarLS();
-let complejos   = cargarComplejos();
+let propiedades = [];
+let complejos   = [];
 let complejoActivo = null;
 
 // ═══════════════════════════════════════════════
 // VISTA COMPLEJOS
 // ═══════════════════════════════════════════════
+// Para cambiar la card destacada y el orden: edita esta lista.
+// El complejo destacado es el PRIMERO de ORDEN_COMPLEJOS.
+// Los IDs que no estén aquí se muestran después, en orden de la DB.
+const ORDEN_COMPLEJOS = ['aldea', 'abasolo', 'morelos', 'roma', 'padremier'];
+
+function ordenarComplejos(lista){
+  return [...lista].sort((a, b) => {
+    let ia = ORDEN_COMPLEJOS.indexOf(a.id);
+    let ib = ORDEN_COMPLEJOS.indexOf(b.id);
+    if(ia === -1) ia = 999;
+    if(ib === -1) ib = 999;
+    return ia - ib;
+  });
+}
+
 function renderizarComplejos(){
   const grid = document.getElementById('complejosGrid');
-  grid.innerHTML = complejos.map(c => {
+  grid.innerHTML = ordenarComplejos(complejos).map((c, i) => {
     const unidadesReales = propiedades.filter(p => p.complejo === c.id).length || c.unidades;
-    const tagsHTML = (c.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
-    const imgHTML = c.foto
-      ? `<img class="complejo-img" src="${c.foto}" alt="${c.nombre}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=complejo-placeholder><span class=ph-icon></span><span class=ph-label>${c.nombre}</span></div>'"/>`
-      : `<div class="complejo-placeholder"><span class="ph-icon"><i class="fa-solid fa-building"></i></span><span class="ph-label">${c.nombre}</span></div>`;
-    return `<div class="complejo-card" onclick="abrirComplejo('${c.id}')">
+    const nombre = esc(c.nombre);
+    const tagsHTML = (c.tags||[]).map(t=>`<span class="prop-tag">${esc(t)}</span>`).join('');
+    const fotoUrl = safeUrl(c.foto);
+    const isFeatured = i === 0;
+    const featured = isFeatured ? ' complejo-card--featured' : '';
+    const badgeHTML = isFeatured ? '<span class="complejo-badge"><i class="fa-solid fa-star"></i> Destacado</span>' : '';
+    const featHead = isFeatured
+      ? `<div class="complejo-feat-head"><div class="complejo-feat-name">${nombre}</div><div class="complejo-feat-addr">${esc(c.direccion)}</div></div>`
+      : '';
+    const imgHTML = fotoUrl
+      ? `<img class="complejo-img" src="${fotoUrl}" alt="${nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="complejo-placeholder" style="display:none"><span class="ph-icon"><i class="fa-solid fa-building"></i></span><span class="ph-label">${nombre}</span></div>`
+      : `<div class="complejo-placeholder"><span class="ph-icon"><i class="fa-solid fa-building"></i></span><span class="ph-label">${nombre}</span></div>`;
+    return `<div class="complejo-card${featured}" onclick="abrirComplejo('${esc(c.id)}')">
       <div class="complejo-img-wrap">
+        ${badgeHTML}
         ${imgHTML}
         <div class="complejo-overlay">
           <div>
-            <div class="complejo-name">${c.nombre}</div>
-            <div class="complejo-addr">${c.direccion}</div>
+            <div class="complejo-name">${nombre}</div>
+            <div class="complejo-addr">${esc(c.direccion)}</div>
           </div>
           <div class="complejo-view-btn">Ver →</div>
         </div>
       </div>
       <div class="complejo-body">
+        ${featHead}
         <div class="complejo-units"><span class="complejo-units-dot"></span>${unidadesReales} unidades disponibles</div>
-        ${c.descripcion ? `<p class="complejo-desc">${c.descripcion}</p>` : ''}
+        ${c.descripcion ? `<p class="complejo-desc">${esc(c.descripcion)}</p>` : ''}
         <div class="complejo-tags">${tagsHTML}</div>
       </div>
     </div>`;
   }).join('');
+
+  // Stats bar dinámico — total de unidades reales
+  const statEl = document.getElementById('statUnidades');
+  if(statEl) statEl.textContent = propiedades.length || complejos.length || '—';
 }
 
 function abrirComplejo(id){
@@ -2190,14 +2400,15 @@ function abrirComplejo(id){
     return;
   }
   grid.innerHTML = props.map(p => {
-    const foto = (p.fotos && p.fotos.length) ? p.fotos[0] : '';
-    const isUrl = foto && (foto.startsWith('http') || foto.startsWith('data:'));
-    const imgHTML = isUrl
-      ? '<div class="cup-unit-img-wrap"><img class="cup-unit-img" src="' + foto + '" alt="' + p.nombre + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=cup-unit-img-ph><i class=fa-solid fa-house style=font-size:2rem></i></div>\'"/></div>'
+    const nombre = esc(p.nombre);
+    const id = esc(p.id);
+    const fotoUrl = (p.fotos && p.fotos.length) ? safeUrl(p.fotos[0]) : '';
+    const imgHTML = fotoUrl
+      ? '<div class="cup-unit-img-wrap"><img class="cup-unit-img" src="' + fotoUrl + '" alt="' + nombre + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="cup-unit-img-ph" style="display:none"><i class="fa-solid fa-house" style="font-size:2rem"></i></div></div>'
       : '<div class="cup-unit-img-wrap"><div class="cup-unit-img-ph"><i class="fa-solid fa-house" style="font-size:2rem"></i></div></div>';
-    return '<div class="cup-unit-card" onclick="abrirUnidad(\'' + p.id + '\')">' +
+    return '<div class="cup-unit-card" onclick="abrirUnidad(\'' + id + '\')">' +
       imgHTML +
-      '<div class="cup-unit-overlay"><div><div class="cup-unit-name">' + p.nombre + '</div><div class="cup-unit-addr">' + (p.direccion || '') + '</div></div><button class="cup-unit-view-btn" onclick="event.stopPropagation();abrirUnidad(\'' + p.id + '\')">Ver →</button></div></div>';
+      '<div class="cup-unit-overlay"><div><div class="cup-unit-name">' + nombre + '</div><div class="cup-unit-addr">' + esc(p.direccion || '') + '</div></div><button class="cup-unit-view-btn" onclick="event.stopPropagation();abrirUnidad(\'' + id + '\')">Ver →</button></div></div>';
   }).join('');
 }
 
@@ -2293,10 +2504,10 @@ function abrirUnidad(propId){
   // Stats — ocultar en detalle de unidad (no aplica)
   document.getElementById('detailStatsRow').innerHTML = '';
 
-  // Tags como pills simples
-  const tags = p.tags || [];
+  // Tags como pills simples — filtradas para que coincidan con el tipo de cama del nombre
+  const tags = filtrarTagsCoherentes(p.nombre, p.tags || []);
   document.getElementById('detailSpacesPreview').innerHTML = tags.length
-    ? `<div style="display:flex;flex-wrap:wrap;gap:8px">${tags.map(t => `<span style="background:var(--gray-100);border:1px solid var(--gray-200);color:var(--black);font-size:13.5px;font-weight:500;padding:.45rem 1.1rem;border-radius:var(--r-pill)">${t}</span>`).join('')}</div>`
+    ? `<div style="display:flex;flex-wrap:wrap;gap:8px">${tags.map(t => `<span style="background:var(--gray-100);border:1px solid var(--gray-200);color:var(--black);font-size:13.5px;font-weight:500;padding:.45rem 1.1rem;border-radius:var(--r-pill)">${esc(t)}</span>`).join('')}</div>`
     : '<p style="color:var(--gray-400);font-size:14px">Sin características registradas.</p>';
 
   // Services
@@ -2306,6 +2517,7 @@ function abrirUnidad(propId){
     {icon:'<i class="fa-solid fa-tv iso-e"></i>',name:'Smart TV'},
     {icon:'<i class="fa-solid fa-snowflake iso-e"></i>',name:'Mini Split A/C'},
     {icon:'<i class="fa-solid fa-mug-hot iso-e"></i>',name:'Café de cortesía'},
+    {icon:'<i class="fa-solid fa-cookie-bite iso-e"></i>',name:'Snacks de bienvenida'},
     {icon:'<i class="fa-solid fa-shield-halved iso-e"></i>',name:'Seguridad 24/7'},
     {icon:'<i class="fa-solid fa-pump-soap iso-e"></i>',name:'Amenidades de baño'},
     {icon:'<i class="fa-solid fa-bed iso-e"></i>',name:'Ropa de cama incluida'},
@@ -2319,20 +2531,26 @@ function abrirUnidad(propId){
   if(p.direccionUrl){
     document.getElementById('detailMapTitle').textContent = p.nombre;
     document.getElementById('detailMapSub').textContent = p.direccion || '';
-    document.getElementById('detailMapLinks').innerHTML = '<a href="' + p.direccionUrl + '" target="_blank" class="detail-map-addr-link"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i></a>';
+    const dirUrl = safeUrl(p.direccionUrl);
+    document.getElementById('detailMapLinks').innerHTML = dirUrl
+      ? '<a href="' + dirUrl + '" target="_blank" rel="noopener" class="detail-map-addr-link"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i></a>'
+      : '';
     document.getElementById('detailMap').innerHTML = '<iframe src="https://maps.google.com/maps?q=' + encodeURIComponent(p.direccion||'Barrio Antiguo Monterrey') + '&z=16&output=embed" allowfullscreen loading="lazy"></iframe>';
   }
 
   // Booking buttons
   const bookingBtns = document.getElementById('detailBookingBtns');
   const waMsg = encodeURIComponent('Hola, vi en barrioinn.com la unidad ' + p.nombre + ' (' + (p.direccion||'') + ') y me gustaría reservarla. ¿Tienen disponibilidad?');
-  const waLink = 'https://wa.me/52' + (p.telefono||'8110645136') + '?text=' + waMsg;
+  const telDigits = String(p.telefono||'8110645136').replace(/\D/g,'') || '8110645136';
+  const waLink = 'https://wa.me/52' + telDigits + '?text=' + waMsg;
+  const belongUrl = safeUrl(p.belong);
+  const airbnbUrl = safeUrl(p.airbnb);
+  const dirUrl2 = safeUrl(p.direccionUrl);
   let bbHTML = '';
-  if(p.belong) bbHTML += '<a href="' + p.belong + '" target="_blank" class="bb-airbnb" style="grid-column:1/-1;background:linear-gradient(135deg,#A31635,#C4203F)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7z"/></svg> Reservar en Belong</a>';
-  if(p.airbnb) bbHTML += '<a href="' + p.airbnb + '" target="_blank" class="bb-airbnb"><i class="fa-brands fa-airbnb" style="font-size:16px"></i> Airbnb</a>';
-  bbHTML += '<a href="' + waLink + '" target="_blank" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
-  if(p.direccionUrl) bbHTML += '<a href="' + p.direccionUrl + '" target="_blank" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
-  bbHTML += '<a href="tel:52' + (p.telefono||'8110645136') + '" class="bb-tel"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar</a>';
+  if(belongUrl) bbHTML += '<a href="' + belongUrl + '" target="_blank" rel="noopener" class="bb-airbnb" style="grid-column:1/-1;background:linear-gradient(135deg,#A31635,#C4203F)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7z"/></svg> Reservar en Belong</a>';
+  if(airbnbUrl) bbHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="bb-airbnb"><i class="fa-brands fa-airbnb" style="font-size:16px"></i> Airbnb</a>';
+  bbHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
+  if(dirUrl2) bbHTML += '<a href="' + dirUrl2 + '" target="_blank" rel="noopener" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
   bookingBtns.innerHTML = bbHTML;
 
   // Otras unidades del mismo complejo
@@ -2343,59 +2561,6 @@ function abrirUnidad(propId){
 }
 
 
-// Detail gallery
-function renderDetailGallery(c){
-  const gallery = document.getElementById('detailGallery');
-  const props = propiedades.filter(p => p.complejo === c.id);
-  let allFotos = [];
-  props.forEach(p => { if(p.fotos) allFotos = allFotos.concat(p.fotos); });
-  allFotos = allFotos.filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
-
-  const ph = (big) => '<div class="gallery-ph">' + (big ? '<i class="fa-solid fa-building"></i>' : '<i class="fa-solid fa-house"></i>') + '</div>';
-
-  if(allFotos.length === 0){
-    gallery.innerHTML = '<div class="detail-gallery-main">' + ph(true) + '</div>' +
-      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
-      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
-      '<div class="detail-gallery-thumb">' + ph(false) + '</div>' +
-      '<div class="detail-gallery-thumb">' + ph(false) + '</div>';
-  } else {
-    function imgTag(src, cls, alt){
-      const el = document.createElement('div');
-      el.className = cls;
-      const img = document.createElement('img');
-      img.src = src; img.alt = alt; img.loading = 'lazy';
-      img.onerror = function(){ this.parentElement.innerHTML = ph(cls.includes('main')); };
-      el.appendChild(img);
-      return el;
-    }
-    gallery.innerHTML = '';
-    // Main image
-    gallery.appendChild(imgTag(allFotos[0], 'detail-gallery-main', c.nombre));
-    // Thumbnails
-    for(let i = 1; i < 5; i++){
-      if(allFotos[i]){
-        const thumb = imgTag(allFotos[i], 'detail-gallery-thumb', c.nombre + ' ' + (i+1));
-        if(i === 4 && allFotos.length > 5){
-          const badge = document.createElement('div');
-          badge.className = 'detail-gallery-count';
-          badge.textContent = '+' + (allFotos.length - 5) + ' fotos';
-          thumb.appendChild(badge);
-        }
-        gallery.appendChild(thumb);
-      } else {
-        const d = document.createElement('div');
-        d.className = 'detail-gallery-thumb';
-        d.innerHTML = ph(false);
-        gallery.appendChild(d);
-      }
-    }
-  }
-  gallery._fotos = allFotos;
-  // Mobile swipeable carousel
-  renderMobileGallery(allFotos, c.nombre);
-}
-
 function openDetailGallery(){
   const gallery = document.getElementById('detailGallery');
   const fotos = gallery._fotos || [];
@@ -2404,33 +2569,16 @@ function openDetailGallery(){
 
 // Tab switching
 function switchDetailTab(tabId){
-  document.querySelectorAll('.detail-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+  document.querySelectorAll('.detail-tab').forEach(t => {
+    const isActive = t.dataset.tab === tabId;
+    t.classList.toggle('active', isActive);
+    t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
   document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
   const content = document.getElementById('tab-' + tabId);
   if(content) content.classList.add('active');
 }
 
-// Detail map - Google Maps iframe
-let detailLeafletMap = null; // kept for compatibility
-
-function renderDetailMap(c, props){
-  const mapEl = document.getElementById('detailMap');
-  const propsWithCoords = props.filter(p => p.lat && p.lng);
-  if(!propsWithCoords.length){ mapEl.innerHTML = ''; return; }
-
-  const centerLat = propsWithCoords.reduce((s,p) => s + p.lat, 0) / propsWithCoords.length;
-  const centerLng = propsWithCoords.reduce((s,p) => s + p.lng, 0) / propsWithCoords.length;
-
-  mapEl.innerHTML = '<iframe src="https://maps.google.com/maps?q=' + centerLat + ',' + centerLng + '&z=17&output=embed&t=m" allowfullscreen loading="lazy"></iframe>';
-
-  document.getElementById('detailMapTitle').textContent = c.direccion;
-  document.getElementById('detailMapSub').textContent = c.direccion;
-
-  const gmapUrl = 'https://www.google.com/maps/search/?api=1&query=' + centerLat + ',' + centerLng;
-  document.getElementById('detailMapLinks').innerHTML = '<a href="' + gmapUrl + '" target="_blank" class="detail-map-addr-link" title="Abrir en Google Maps"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i></a><a href="' + gmapUrl + '" target="_blank" class="detail-map-addr-link" title="Direcciones"><i class="fa-solid fa-compass" style="font-size:11px"></i></a>';
-}
-
-// (renderOtherComplejos removed - now showing properties of same complex at bottom)
 
 function renderizarPropiedadesDeComplejo(complejoId){
   const grid  = document.getElementById('propsGrid');
@@ -2441,22 +2589,21 @@ function renderizarPropiedadesDeComplejo(complejoId){
     return;
   }
   grid.innerHTML = props.map(p => {
-    const fotos = (p.fotos || []).filter(f => f && (f.startsWith('http') || f.startsWith('data:')));
+    const id = esc(p.id);
+    const nombre = esc(p.nombre);
+    const fotos = (p.fotos || []).map(safeUrl).filter(Boolean);
     // Build slides
     const slidesHTML = fotos.length
-      ? fotos.map((f,i) => `<div class="carousel-slide"><img src="${f}" alt="${p.nombre} ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/></div>`).join('')
+      ? fotos.map((f,i) => `<div class="carousel-slide"><img src="${f}" alt="${nombre} ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/></div>`).join('')
       : `<div class="carousel-slide"><div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div></div></div>`;
-    // Build dots (max 5) — removed from cards, dots only in unit detail
-    const dotsHTML = '';
     return `<div class="prop-scroll-card" style="cursor:pointer">
-      <div class="carousel" id="car-psc-${p.id}" style="position:absolute;inset:0;overflow:hidden" data-idx="0" onclick="abrirUnidad('${p.id}')">
+      <div class="carousel" id="car-psc-${id}" style="position:absolute;inset:0;overflow:hidden" data-idx="0" onclick="abrirUnidad('${id}')">
         <div class="carousel-track" style="display:flex;height:100%;transition:transform .3s ease">${slidesHTML}</div>
-        ${fotos.length > 1 ? `<button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)">‹</button><button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)">›</button>` : ''}
-        ${dotsHTML}
+        ${fotos.length > 1 ? `<button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)" aria-label="Foto anterior">‹</button><button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)" aria-label="Foto siguiente">›</button>` : ''}
       </div>
       <div class="prop-scroll-card-overlay" style="z-index:6">
-        <div><div class="prop-scroll-card-name">${p.nombre}</div><div class="prop-scroll-card-addr">${p.direccion || ''}</div></div>
-        <div class="prop-scroll-card-view" onclick="abrirUnidad('${p.id}')">Ver →</div>
+        <div><div class="prop-scroll-card-name">${nombre}</div><div class="prop-scroll-card-addr">${esc(p.direccion || '')}</div></div>
+        <div class="prop-scroll-card-view" onclick="abrirUnidad('${id}')">Ver →</div>
       </div>
     </div>`;
   }).join('');
@@ -2466,72 +2613,6 @@ function renderizarPropiedadesDeComplejo(complejoId){
 // ═══════════════════════════════════════════════
 // RENDER PROPIEDADES
 // ═══════════════════════════════════════════════
-function renderizarPropiedades(){
-  renderizarComplejos();
-}
-
-function generarCardHTML(p){
-  const fotosHTML = (() => {
-    const fotos = p.fotos && p.fotos.length ? p.fotos : [];
-    if(!fotos.length) return `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon"><i class="fa-solid fa-house"></i></span><span class="ph-label">Sin fotos aún</span></div></div>`;
-    return fotos.map((f, i) => {
-      const isUrl = f.startsWith('http') || f.startsWith('data:');
-      if(isUrl){
-        return `<div class="carousel-slide"><img src="${f}" alt="${p.nombre} ${i+1}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=slide-placeholder><span class=ph-icon><i class=fa-solid fa-house></i></span></div>'"/></div>`;
-      }
-      return `<div class="carousel-slide"><div class="slide-placeholder"><span class="ph-icon"><i class="fa-solid fa-house"></i></span><span class="ph-label">${f}</span></div></div>`;
-    }).join('');
-  })();
-  const dotsHTML = (() => {
-    const n = (p.fotos && p.fotos.length) ? Math.min(p.fotos.length, 5) : 1;
-    return Array.from({length:n},(_,i)=>`<div class="carousel-dot${i===0?' active':''}" onclick="goToSlide(this,${i});event.stopPropagation()"></div>`).join('');
-  })();
-  const ratingHTML = p.rating ? `<div class="prop-rating">${p.rating}</div>` : '';
-  const badgeHTML  = p.badge  ? `<div class="prop-badge">${p.badge}</div>`   : '';
-  const tagsHTML   = (p.tags||[]).map(t=>`<span class="prop-tag">${t}</span>`).join('');
-  const cercanosHTML = (p.cercanos||[]).map(c=>`<div class="prop-highlight">${c}</div>`).join('');
-
-  const waMsg = encodeURIComponent(`Hola, vi en barrioinn.com la propiedad ${p.nombre} (${p.direccion}) y me gustaría rentarla. ¿Tienen disponibilidad?`);
-  const telLink = p.telefono ? `tel:52${p.telefono}` : '#';
-  const waLink  = `https://wa.me/52${p.telefono||'8110645136'}?text=${waMsg}`;
-
-  const belongBtn = p.belong ? `
-    <a href="${p.belong}" target="_blank" class="book-btn belong-primary">
-      <span class="belong-label"><i class="fa-solid fa-house"></i> Reservar en Belong <span class="belong-badge">Directo</span></span>
-      <span style="font-size:18px">→</span>
-    </a>` : '';
-
-  const rows2 = [
-    p.airbnb   ? `<a href="${p.airbnb}" target="_blank" class="book-btn airbnb"><span class="book-btn-icon"><i class="fa-brands fa-airbnb"></i></span>Airbnb</a>` : '',
-    `<a href="${waLink}" target="_blank" class="book-btn whatsapp"><span class="book-btn-icon"><i class="fa-brands fa-whatsapp"></i></span>WhatsApp</a>`,
-    p.expedia  ? `<a href="${p.expedia}" target="_blank" class="book-btn expedia"><span class="book-btn-icon"><i class="fa-solid fa-plane"></i></span>Expedia</a>` : '',
-    p.direccionUrl ? `<a href="${p.direccionUrl}" target="_blank" class="book-btn maps"><span class="book-btn-icon"><i class="fa-solid fa-location-dot"></i></span>Maps</a>` : '',
-    `<a href="${telLink}" class="book-btn tel"><span class="book-btn-icon"><i class="fa-solid fa-phone"></i></span>Llamar</a>`,
-  ].filter(Boolean).join('');
-
-  return `<div class="prop-card" id="prop-${p.id}" data-prop="${p.id}">
-    <div class="carousel" id="car-${p.id}">
-      <div class="carousel-track">${fotosHTML}</div>
-      <button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()">‹</button>
-      <button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()">›</button>
-      <div class="carousel-dots">${dotsHTML}</div>
-      ${badgeHTML}${ratingHTML}
-    </div>
-    <div class="prop-body">
-      <h3 class="prop-title">${p.nombre}</h3>
-      ${p.direccionUrl
-        ? `<a href="${p.direccionUrl}" target="_blank" class="prop-address">${p.direccion}</a>`
-        : `<p class="prop-address">${p.direccion}</p>`}
-      <div class="prop-tags">${tagsHTML}</div>
-      ${cercanosHTML ? `<div class="prop-highlights"><div class="prop-highlights-title">Cerca de ti</div><div class="prop-highlights-list">${cercanosHTML}</div></div>` : ''}
-      <div class="prop-actions">
-        ${belongBtn}
-        <div class="prop-actions-row">${rows2}</div>
-      </div>
-    </div>
-  </div>`;
-}
-
 // ═══════════════════════════════════════════════
 // CARRUSEL
 // ═══════════════════════════════════════════════
@@ -2628,14 +2709,15 @@ function renderMobileGallery(fotos, complejo){
   wrap.style.display = 'block';
   document.getElementById('detailGallery').classList.add('has-mobile');
 
-  const validFotos = (fotos||[]).filter(f => f && (f.startsWith('http')||f.startsWith('data:')));
+  const validFotos = (fotos||[]).map(safeUrl).filter(Boolean);
 
   if(!validFotos.length){
     wrap.innerHTML = '<div class="mobile-gallery"><div class="mobile-gallery-track"><div class="mobile-gallery-slide"><div class="gallery-ph"><i class="fa-solid fa-building"></i></div></div></div></div>';
     return;
   }
 
-  const slides = validFotos.map((f,i) => `<div class="mobile-gallery-slide" data-idx="${i}"><img src="${f}" alt="${complejo} ${i+1}" loading="lazy"/></div>`).join('');
+  const altBase = esc(complejo);
+  const slides = validFotos.map((f,i) => `<div class="mobile-gallery-slide" data-idx="${i}"><img src="${f}" alt="${altBase} ${i+1}" loading="lazy"/></div>`).join('');
   const nDots = Math.min(validFotos.length, 10);
   const dotsHTML = nDots > 1 ? `<div class="mobile-gallery-dots" id="mobileGalleryDots">${Array.from({length:nDots},(_,i)=>`<div class="mobile-gallery-dot${i===0?' active':''}"></div>`).join('')}</div>` : '';
   wrap.innerHTML = `
@@ -2700,8 +2782,15 @@ function renderMobileGallery(fotos, complejo){
 function toggleFaq(btn){
   const item = btn.parentElement;
   const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if(!isOpen) item.classList.add('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    const q = i.querySelector('.faq-q');
+    if(q) q.setAttribute('aria-expanded', 'false');
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
 }
 
 // ═══════════════════════════════════════════════
@@ -2739,7 +2828,7 @@ let editingComplejo = null;
 function abrirAdmin(){
   const pass = prompt('Contraseña:');
   if(!pass) return;
-  if(pass !== 'pepegarza445768'){ alert('Contraseña incorrecta.'); return; }
+  if(pass !== 'pepegarza2722'){ alert('Contraseña incorrecta.'); return; }
   document.getElementById('dashboard').classList.add('visible');
   document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
   renderDashComplejos();
@@ -2756,17 +2845,19 @@ function renderDashComplejos(){
   if(!complejos.length){ list.innerHTML = '<p class="dash-empty">Sin complejos registrados.</p>'; return; }
   list.innerHTML = complejos.map((c,i) => {
     const unidades = propiedades.filter(p => p.complejo === c.id).length;
+    const id = esc(c.id);
+    const fotoUrl = safeUrl(c.foto);
     return `<div class="dash-prop-item">
-      <div class="dash-prop-thumb">${c.foto ? `<img src="${c.foto}" onerror="this.style.display='none';this.parentElement.textContent='🏨'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
+      <div class="dash-prop-thumb">${fotoUrl ? `<img src="${fotoUrl}" onerror="this.style.display='none';this.parentElement.textContent='🏨'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
       <div class="dash-prop-info">
-        <div class="dash-prop-name">${c.nombre}</div>
-        <div class="dash-prop-addr">${c.direccion}</div>
-        <div class="dash-prop-meta">${unidades} unidades · ${(c.tags||[]).join(', ')}</div>
+        <div class="dash-prop-name">${esc(c.nombre)}</div>
+        <div class="dash-prop-addr">${esc(c.direccion)}</div>
+        <div class="dash-prop-meta">${unidades} unidades · ${esc((c.tags||[]).join(', '))}</div>
       </div>
       <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
-        <button class="dash-btn edit" onclick="abrirUnidadesComplejo('${c.id}')"><i class="fa-solid fa-house"></i> Unidades</button>
+        <button class="dash-btn edit" onclick="abrirUnidadesComplejo('${id}')"><i class="fa-solid fa-house"></i> Unidades</button>
         <button class="dash-btn edit" onclick="editarComplejo(${i})"><i class="fa-solid fa-pen"></i> Editar</button>
-        <button class="dash-btn danger" onclick="eliminarComplejo('${c.id}')"><i class="fa-solid fa-xmark"></i></button>
+        <button class="dash-btn danger" onclick="eliminarComplejo('${id}')"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>`;
   }).join('');
@@ -2791,42 +2882,59 @@ function editarComplejo(idx){
 async function guardarComplejo(){
   const nombre = document.getElementById('dc-nombre').value.trim();
   if(!nombre){ alert('El nombre es obligatorio.'); return; }
-  const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-  const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
-  const dir = document.getElementById('dc-direccion').value.trim();
-  const descripcion = document.getElementById('dc-descripcion').value.trim();
 
-  let targetId;
-  if(editingComplejo){
-    const idx = complejos.findIndex(c => c.id === editingComplejo);
-    if(idx > -1){
-      complejos[idx].nombre = nombre;
-      complejos[idx].direccion = dir;
-      complejos[idx].unidades = unidades;
-      complejos[idx].tags = tags;
-      complejos[idx].descripcion = descripcion;
-      targetId = complejos[idx].id;
+  // Deshabilitar botones para evitar doble submit
+  const btns = document.querySelectorAll('#dash-complejo-form-panel .dash-actions button');
+  btns.forEach(b => b.disabled = true);
+
+  try {
+    const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
+    const dir = document.getElementById('dc-direccion').value.trim();
+    const descripcion = document.getElementById('dc-descripcion').value.trim();
+
+    let targetId;
+    if(editingComplejo){
+      const idx = complejos.findIndex(c => c.id === editingComplejo);
+      if(idx > -1){
+        complejos[idx].nombre = nombre;
+        complejos[idx].direccion = dir;
+        complejos[idx].unidades = unidades;
+        complejos[idx].tags = tags;
+        complejos[idx].descripcion = descripcion;
+        targetId = complejos[idx].id;
+      }
+    } else {
+      const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+      if(!id){ alert('El nombre no genera un ID válido. Usa al menos una letra o número.'); return; }
+      if(complejos.some(c => c.id === id)){ alert('Ya existe un complejo con ese nombre.'); return; }
+      complejos.push({ id, nombre, direccion:dir, unidades, tags, descripcion, foto:'' });
+      targetId = id;
     }
-  } else {
-    const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
-    complejos.push({ id, nombre, direccion:dir, unidades, tags, descripcion, foto:'' });
-    targetId = id;
-  }
 
-  const fileInput = document.getElementById('dc-foto-input');
-  if(fileInput && fileInput.files && fileInput.files[0]){
-    const btn = document.getElementById('dc-foto-input');
-    const url = await uploadFoto(fileInput.files[0], 'complejos');
-    if(url){ const c = complejos.find(x => x.id === targetId); if(c) c.foto = url; }
+    const fileInput = document.getElementById('dc-foto-input');
+    if(fileInput && fileInput.files && fileInput.files[0]){
+      const url = await uploadFoto(fileInput.files[0], 'complejos');
+      if(url){ const c = complejos.find(x => x.id === targetId); if(c) c.foto = url; }
+    }
+    const target = complejos.find(c => c.id === targetId);
+    const { error } = await sb.from('complejos').upsert(target);
+    if(error){ alert('Error guardando complejo: ' + error.message); return; }
+    renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
+  } finally {
+    btns.forEach(b => b.disabled = false);
   }
-  guardarComplejos(); renderDashComplejos(); renderizarComplejos(); cerrarFormComplejo();
 }
 
-function eliminarComplejo(id){
+async function eliminarComplejo(id){
   if(!confirm('¿Eliminar complejo y TODAS sus unidades?')) return;
+  const r1 = await sb.from('propiedades').delete().eq('complejo', id);
+  if(r1.error){ alert('Error eliminando unidades: ' + r1.error.message); return; }
+  const r2 = await sb.from('complejos').delete().eq('id', id);
+  if(r2.error){ alert('Error eliminando complejo: ' + r2.error.message); return; }
   complejos = complejos.filter(c => c.id !== id);
   propiedades = propiedades.filter(p => p.complejo !== id);
-  guardarComplejos(); guardarLS(); renderDashComplejos(); renderizarComplejos();
+  renderDashComplejos(); renderizarComplejos();
 }
 
 // ─── DRILL-DOWN UNIDADES ───
@@ -2852,21 +2960,21 @@ function renderDashProps(){
   const props = cId ? propiedades.filter(p => p.complejo === cId) : propiedades;
   if(!props.length){ list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo.</p>'; return; }
   list.innerHTML = props.map(p => {
-    const thumb = p.fotos && p.fotos.length
-      ? (p.fotos[0].startsWith('http') || p.fotos[0].startsWith('data:')
-        ? `<img src="${p.fotos[0]}" onerror="this.style.display='none';this.parentElement.textContent='🏠'"/>`
-        : '<i class="fa-solid fa-house"></i>')
+    const id = esc(p.id);
+    const fotoUrl = (p.fotos && p.fotos.length) ? safeUrl(p.fotos[0]) : '';
+    const thumb = fotoUrl
+      ? `<img src="${fotoUrl}" onerror="this.style.display='none';this.parentElement.textContent='🏠'"/>`
       : '<i class="fa-solid fa-house"></i>';
     return `<div class="dash-prop-item">
       <div class="dash-prop-thumb">${thumb}</div>
       <div class="dash-prop-info">
-        <div class="dash-prop-name">${p.nombre}</div>
-        <div class="dash-prop-addr">${p.direccion||''}</div>
-        <div class="dash-prop-meta">${(p.tags||[]).slice(0,3).join(' · ')}</div>
+        <div class="dash-prop-name">${esc(p.nombre)}</div>
+        <div class="dash-prop-addr">${esc(p.direccion||'')}</div>
+        <div class="dash-prop-meta">${esc((p.tags||[]).slice(0,3).join(' · '))}</div>
       </div>
       <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
-        <button class="dash-btn edit" onclick="editarPropiedad('${p.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
-        <button class="dash-btn danger" onclick="eliminarPropiedad('${p.id}')"><i class="fa-solid fa-xmark"></i></button>
+        <button class="dash-btn edit" onclick="editarPropiedad('${id}')"><i class="fa-solid fa-pen"></i> Editar</button>
+        <button class="dash-btn danger" onclick="eliminarPropiedad('${id}')"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>`;
   }).join('');
@@ -2948,79 +3056,95 @@ function limpiarPreviewFotos(){
   if(input) input.value = '';
 }
 
-function comprimirImagen(file, maxW, quality, cb){
-  const img = new Image();
-  const url = URL.createObjectURL(file);
-  img.onload = function(){
-    URL.revokeObjectURL(url);
-    const canvas = document.createElement('canvas');
-    let w = img.width, h = img.height;
-    if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
-    canvas.width = w; canvas.height = h;
-    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-    cb(canvas.toDataURL('image/jpeg', quality));
-  };
-  img.onerror = function(){ URL.revokeObjectURL(url); cb(null); };
-  img.src = url;
-}
-
 async function guardarPropiedad(){
   const nombre = document.getElementById('dash-nombre').value.trim();
   if(!nombre){ alert('El nombre es obligatorio.'); return; }
 
-  const tags     = document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-  const cercanos = document.getElementById('dash-cercanos').value.split(',').map(t=>t.trim()).filter(Boolean);
-  const lat = parseFloat(document.getElementById('dash-lat').value) || null;
-  const lng = parseFloat(document.getElementById('dash-lng').value) || null;
+  // Validaciones de formato
+  const urlFields = [
+    ['dash-direccion-url', 'Link de Google Maps'],
+    ['dash-belong', 'Link de Belong'],
+    ['dash-airbnb', 'Link de Airbnb'],
+    ['dash-expedia', 'Link de Expedia'],
+  ];
+  for(const [fieldId, label] of urlFields){
+    const val = document.getElementById(fieldId).value.trim();
+    if(val && !/^https?:\/\//i.test(val)){
+      alert(label + ' debe empezar con http:// o https://');
+      return;
+    }
+  }
+  const tel = document.getElementById('dash-telefono').value.trim();
+  if(tel && !/^\d{10}$/.test(tel)){
+    alert('El teléfono debe tener exactamente 10 dígitos (sin lada de país).');
+    return;
+  }
 
-  const data = {
-    id: editingId || (nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') + '_' + Date.now()),
-    complejo: complejoActivo ? complejoActivo.id : 'sin_complejo',
-    nombre,
-    badge:        document.getElementById('dash-badge').value.trim(),
-    direccion:    document.getElementById('dash-direccion').value.trim(),
-    direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
-    rating:       document.getElementById('dash-rating').value.trim(),
-    precio:       '',
-    telefono:     document.getElementById('dash-telefono').value.trim(),
-    tags, cercanos,
-    belong:  document.getElementById('dash-belong').value.trim(),
-    airbnb:  document.getElementById('dash-airbnb').value.trim(),
-    expedia: document.getElementById('dash-expedia').value.trim(),
-    lat, lng,
-    fotos: editingId ? (propiedades.find(p=>p.id===editingId)||{fotos:[]}).fotos : [],
-  };
+  const btn = document.getElementById('dash-save-btn');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  let savedOk = false;
 
-  const fotosInput = document.getElementById('fotos');
-  const files = Array.from(fotosInput.files || []).slice(0, 5);
+  try {
+    const tags     = document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const cercanos = document.getElementById('dash-cercanos').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const lat = parseFloat(document.getElementById('dash-lat').value) || null;
+    const lng = parseFloat(document.getElementById('dash-lng').value) || null;
 
-  if(files.length){
-    const btn = document.getElementById('dash-save-btn');
-    btn.textContent = 'Cargando fotos...';
-    btn.disabled = true;
-    const urls = await Promise.all(files.map(async (file) => {
-      const blob = await comprimirImagenBlob(file, 1200, 0.75);
-      if(!blob) return null;
-      const f = new File([blob], file.name, { type: 'image/jpeg' });
-      return uploadFoto(f, 'propiedades');
-    }));
-    data.fotos = urls.filter(Boolean);
+    const data = {
+      id: editingId || (nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') + '_' + Date.now()),
+      complejo: complejoActivo ? complejoActivo.id : 'sin_complejo',
+      nombre,
+      badge:        document.getElementById('dash-badge').value.trim(),
+      direccion:    document.getElementById('dash-direccion').value.trim(),
+      direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
+      rating:       document.getElementById('dash-rating').value.trim(),
+      precio:       '',
+      telefono:     document.getElementById('dash-telefono').value.trim(),
+      tags, cercanos,
+      belong:  document.getElementById('dash-belong').value.trim(),
+      airbnb:  document.getElementById('dash-airbnb').value.trim(),
+      expedia: document.getElementById('dash-expedia').value.trim(),
+      lat, lng,
+      fotos: editingId ? (propiedades.find(p=>p.id===editingId)||{fotos:[]}).fotos : [],
+    };
+
+    const fotosInput = document.getElementById('fotos');
+    const files = Array.from(fotosInput.files || []).slice(0, 5);
+
+    if(files.length){
+      btn.textContent = 'Cargando fotos...';
+      const urls = await Promise.all(files.map(async (file) => {
+        const blob = await comprimirImagenBlob(file, 1200, 0.75);
+        if(!blob) return null;
+        const f = new File([blob], file.name, { type: 'image/jpeg' });
+        return uploadFoto(f, 'propiedades');
+      }));
+      data.fotos = urls.filter(Boolean);
+    }
+
+    btn.textContent = 'Guardando...';
+    await persistirPropiedad(data);
+    savedOk = true; // persistirPropiedad llamó limpiarFormulario, no tocamos el texto
+  } finally {
     btn.disabled = false;
-    btn.textContent = '＋ Agregar unidad';
-    persistirPropiedad(data);
-  } else {
-    persistirPropiedad(data);
+    // Solo restaurar el texto si el guardado falló (sino limpiarFormulario ya lo puso bien)
+    if(!savedOk) btn.textContent = originalText;
   }
 }
 
-function persistirPropiedad(data){
+async function persistirPropiedad(data){
+  const { error } = await sb.from('propiedades').upsert(data);
+  if(error){
+    alert('Error guardando: ' + error.message);
+    throw error;
+  }
   if(editingId){
     const idx = propiedades.findIndex(p => p.id === editingId);
     if(idx > -1) propiedades[idx] = data;
   } else {
     propiedades.push(data);
   }
-  guardarLS();
   limpiarFormulario();
   renderDashProps();
   if(complejoActivo) renderizarPropiedadesDeComplejo(complejoActivo.id);
@@ -3028,22 +3152,22 @@ function persistirPropiedad(data){
   actualizarMapa();
 }
 
-function eliminarPropiedad(id){
+async function eliminarPropiedad(id){
   if(!confirm('¿Eliminar esta propiedad?')) return;
+  const { error } = await sb.from('propiedades').delete().eq('id', id);
+  if(error){ alert('Error al eliminar: ' + error.message); return; }
   propiedades = propiedades.filter(p => p.id !== id);
-  guardarLS();
   renderDashProps();
   if(complejoActivo) renderizarPropiedadesDeComplejo(complejoActivo.id);
   renderizarComplejos();
   actualizarMapa();
 }
 
-function resetearDatos(){
-  if(!confirm('¿Restaurar datos originales? Se perderán todos los cambios.')) return;
-  propiedades = JSON.parse(JSON.stringify(PROPIEDADES_DEFAULT));
-  complejos   = JSON.parse(JSON.stringify(COMPLEJOS_DEFAULT));
-  guardarLS(); guardarComplejos();
-  renderizarComplejos(); renderizarPropiedades(); renderDashComplejos(); actualizarMapa();
+async function resetearDatos(){
+  if(!confirm('¿Recargar datos desde la base de datos? Se descartarán los cambios sin guardar.')) return;
+  await initApp();
+  renderDashComplejos();
+  actualizarMapa();
 }
 
 // ─── FOTOS PREVIEW ───
@@ -3059,18 +3183,27 @@ document.getElementById('galeriaInput').addEventListener('change', async functio
   const preview = document.getElementById('galeria-preview');
   preview.textContent = `Subiendo ${this.files.length} foto(s)...`;
   const files = Array.from(this.files);
-  await Promise.all(files.map(async file => {
+  const results = await Promise.all(files.map(async file => {
     const url = await uploadFoto(file, 'galeria');
-    if(url) await sb.from('galeria').insert({ src: url, nombre: file.name });
+    if(!url) return { ok:false, name:file.name };
+    const { error } = await sb.from('galeria').insert({ src: url, nombre: file.name });
+    return { ok: !error, name: file.name, err: error };
   }));
-  preview.textContent = `✔ ${files.length} foto(s) subidas`;
+  const ok = results.filter(r => r.ok).length;
+  const fail = results.length - ok;
+  preview.textContent = fail
+    ? `✔ ${ok} subidas, ⚠ ${fail} fallaron`
+    : `✔ ${ok} foto(s) subidas`;
+  this.value = ''; // permite re-subir el mismo archivo
   renderGaleriaAdmin();
   initMarquee();
 });
 
 // ─── GALERÍA ───
 async function eliminarFotoGaleria(id){
-  await sb.from('galeria').delete().eq('id', id);
+  if(!confirm('¿Eliminar esta foto?')) return;
+  const { error } = await sb.from('galeria').delete().eq('id', id);
+  if(error){ alert('Error al eliminar foto: ' + error.message); return; }
   renderGaleriaAdmin();
   initMarquee();
 }
@@ -3081,11 +3214,16 @@ async function renderGaleriaAdmin(){
     grid.innerHTML = '<p class="dash-gallery-empty">Sin fotos aún. Sube imágenes del Barrio Antiguo para el marquee.</p>';
     return;
   }
-  grid.innerHTML = galeria.map(f => `
+  grid.innerHTML = galeria.map(f => {
+    const src = safeUrl(f.src);
+    const idNum = Number(f.id);
+    if(!src || !Number.isFinite(idNum)) return '';
+    return `
     <div class="dash-gallery-item">
-      <img src="${f.src}" alt="${f.nombre}" loading="lazy"/>
-      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${f.id})" title="Eliminar">×</button>
-    </div>`).join('');
+      <img src="${src}" alt="${esc(f.nombre)}" loading="lazy"/>
+      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${idNum})" title="Eliminar">×</button>
+    </div>`;
+  }).join('');
 }
 
 // ═══════════════════════════════════════════════
@@ -3101,13 +3239,12 @@ function renderMarqueeData(galeria){
     return;
   }
 
-  const html = [...galeria, ...galeria, ...galeria].map(f => `
-    <div class="marquee-item"><img src="${f.src}" loading="lazy"/></div>
-  `).join('');
+  const html = [...galeria, ...galeria, ...galeria].map(f => {
+    const src = safeUrl(f.src);
+    return src ? `<div class="marquee-item"><img src="${src}" loading="lazy" alt=""/></div>` : '';
+  }).join('');
   renderMarqueeTrack(track, galeria, html);
 }
-
-function renderMarquee(){ initMarquee(); }
 
 function renderMarqueeTrack(track, galeria, html){
   track.innerHTML = html;
@@ -3150,11 +3287,8 @@ function renderMarqueeTrack(track, galeria, html){
 }
 
 // ═══════════════════════════════════════════════
-// MAPA LEAFLET
+// MAPA (Google Maps iframe)
 // ═══════════════════════════════════════════════
-let leafletMap = null;
-let mapMarkers = [];
-
 function initMap(){
   const mapEl = document.getElementById('map');
   if(!mapEl) return;
@@ -3176,9 +3310,33 @@ function actualizarMapa(){
 // INIT
 // ═══════════════════════════════════════════════
 initApp();
-window.addEventListener('load', initMarquee);
+
+// Año dinámico en footer
+(function(){
+  var y = document.getElementById('footerYear');
+  if(y) y.textContent = new Date().getFullYear();
+})();
+
+// Navbar: si estás en una vista de detalle/complejo, sal del modo antes de hacer scroll
+(function(){
+  function handler(e){
+    var hash = this.getAttribute('href');
+    if(!hash || hash.charAt(0) !== '#' || hash.length < 2) return;
+    var inDetail = document.body.classList.contains('detail-active') ||
+                   document.body.classList.contains('complejo-units-active');
+    if(!inDetail) return; // scroll-behavior:smooth ya se encarga
+    e.preventDefault();
+    document.body.classList.remove('detail-active','complejo-units-active');
+    complejoActivo = null;
+    setTimeout(function(){
+      var el = document.querySelector(hash);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 60);
+  }
+  document.querySelectorAll('nav a[href^="#"], .mobile-menu a[href^="#"]')
+    .forEach(function(a){ a.addEventListener('click', handler); });
+})();
 </script>
-<script>initMap();</script>
 
 
 <script>
