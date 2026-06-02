@@ -607,6 +607,15 @@ body.detail-active .detail-back-fixed{display:inline-flex}
 .detail-booking-btns .bb-whatsapp:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(37,211,102,.3)}
 .detail-booking-btns .bb-maps{background:#fff;color:var(--black)}
 .detail-booking-btns .bb-maps:hover{background:var(--gray-100);transform:translateY(-2px)}
+.detail-booking-btns .bb-reservar{
+  background:#fff;color:#111;
+  font-size:14px !important;font-weight:800 !important;
+  padding:.95rem 1rem !important;border-radius:12px;
+  letter-spacing:.015em;
+  box-shadow:0 0 0 2px rgba(255,255,255,.2),0 4px 16px rgba(255,255,255,.1);
+  transition:all .22s;
+}
+.detail-booking-btns .bb-reservar:hover{background:#f0f0f0;transform:translateY(-2px);box-shadow:0 0 0 2px rgba(255,255,255,.3),0 8px 24px rgba(255,255,255,.2)}
 .detail-booking-btns .bb-tel{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
 .detail-booking-btns .bb-tel:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
 
@@ -2371,6 +2380,7 @@ function renderizarComplejos(){
         <div class="complejo-units"><span class="complejo-units-dot"></span>${unidadesReales} unidades disponibles</div>
         ${c.descripcion ? `<p class="complejo-desc">${esc(c.descripcion)}</p>` : ''}
         <div class="complejo-tags">${tagsHTML}</div>
+        ${c.id === 'morelos' ? `<div style="margin-top:1rem"><a href="/morelos" style="display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:all .22s" onmouseover="this.style.background='#333';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#111';this.style.transform='none'" onclick="event.stopPropagation()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Reservar ahora</a></div>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -2552,6 +2562,7 @@ function abrirUnidad(propId){
   if(airbnbUrl) bbHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="bb-airbnb"><i class="fa-brands fa-airbnb" style="font-size:16px"></i> Airbnb</a>';
   bbHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="bb-whatsapp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L0 24l6.335-1.652A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.61l-.386-.23-3.767.983.998-3.648-.252-.4A9.78 9.78 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg> WhatsApp</a>';
   if(dirUrl2) bbHTML += '<a href="' + dirUrl2 + '" target="_blank" rel="noopener" class="bb-maps"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>';
+  if(p.complejo === 'morelos') bbHTML += '<a href="/morelos" target="_blank" rel="noopener" class="bb-reservar" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 🗓 Reservar ahora — Morelos</a>';
   bookingBtns.innerHTML = bbHTML;
 
   // Otras unidades del mismo complejo
