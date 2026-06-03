@@ -817,12 +817,19 @@ async function guardarUnidad(){
       complejo: complejoActivo?.id||'sin_complejo',
       nombre: titulo,
       badge:  document.getElementById('mu-numero').value.trim(),
-      tipo:   document.getElementById('mu-tipo').value,
-      piso:   document.getElementById('mu-piso').value,
-      tags:   [...muTags],
+      direccion: complejoActivo?.direccion||'',
+      direccionUrl: '',
+      rating: '',
+      precio: '',
       telefono: document.getElementById('mu-whatsapp').value.trim().replace(/^52/,'').slice(0,10),
+      tags:   [...muTags],
+      cercanos: [],
+      belong,
+      airbnb,
+      expedia,
+      lat: null,
+      lng: null,
       fotos: fotosFinales,
-      airbnb, belong, expedia,
     };
 
     btn.textContent='Guardando...';
