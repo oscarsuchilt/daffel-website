@@ -691,18 +691,43 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 /* Properties horizontal scroll */
 .detail-others-row{display:flex;align-items:center;justify-content:space-between;margin:3.5rem 0 1.5rem;flex-wrap:wrap;gap:1rem}
 .detail-others-title{font-family:'Instrument Serif',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--black)}
-.detail-props-scroll-wrap{overflow-x:auto;overflow-y:hidden;padding:0 48px 80px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent}
-.detail-props-scroll-wrap::-webkit-scrollbar{height:6px}
-.detail-props-scroll-wrap::-webkit-scrollbar-track{background:transparent}
-.detail-props-scroll-wrap::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:3px}
-.detail-props-scroll{display:flex;gap:1.25rem;width:max-content;padding-bottom:8px}
-.prop-scroll-card{width:320px;height:380px;flex-shrink:0;border-radius:var(--r-xl);overflow:hidden;position:relative;cursor:pointer;transition:transform .3s,box-shadow .3s}
-.prop-scroll-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-.prop-scroll-card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
-.prop-scroll-card:hover .prop-scroll-card-img{transform:scale(1.04)}
-.prop-scroll-card-ph{width:100%;height:100%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gray-400)}
-.prop-scroll-card-ph .iso-icon-wrap{width:60px;height:60px;font-size:30px;border-radius:14px}
-.prop-scroll-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);pointer-events:none}
+.units-grid-wrap{padding:0 48px 80px;max-width:1240px;margin:0 auto}
+.units-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+@media(max-width:900px){.units-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.units-grid-wrap{padding:0 20px 60px}}
+
+/* Unit card */
+.unit-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .3s,transform .3s}
+.unit-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.unit-card-gallery{position:relative;height:260px;overflow:hidden;background:var(--gray-100)}
+.unit-card-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.unit-card:hover .unit-card-gallery img{transform:scale(1.04)}
+.unit-card-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--gray-400);font-size:2.5rem}
+/* Carousel inside card */
+.unit-carousel{position:relative;height:100%}
+.unit-carousel-track{display:flex;height:100%;transition:transform .35s ease}
+.unit-carousel-slide{min-width:100%;height:100%;flex-shrink:0}
+.unit-carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.unit-carousel-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:all .2s}
+.unit-carousel-btn:hover{background:#fff;transform:translateY(-50%) scale(1.1)}
+.unit-carousel-btn.prev{left:10px}
+.unit-carousel-btn.next{right:10px}
+.unit-carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5}
+.unit-carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;border:none;padding:0}
+.unit-carousel-dot.active{background:#fff;width:18px;border-radius:3px}
+/* Card body */
+.unit-card-body{padding:1.25rem 1.5rem 0}
+.unit-card-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);background:var(--gray-100);border:1px solid var(--gray-200);padding:.25rem .75rem;border-radius:var(--r-pill);margin-bottom:.75rem}
+.unit-card-name{font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;color:var(--black);margin-bottom:.5rem;letter-spacing:-.01em}
+.unit-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.1rem}
+.unit-card-tag{font-size:12px;color:var(--gray-600);background:#fff;border:1px solid var(--gray-200);padding:.25rem .7rem;border-radius:var(--r-pill)}
+/* Card footer */
+.unit-card-footer{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--gray-200);margin-top:.5rem}
+.unit-card-btn{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;font-size:13px;font-weight:700;cursor:pointer;border:none;background:#fff;font-family:'Outfit',sans-serif;transition:background .2s;text-decoration:none;color:#111}
+.unit-card-btn:hover{background:var(--gray-50)}
+.unit-card-btn.reservar{background:#111;color:#fff}
+.unit-card-btn.reservar:hover{background:#333}
+.unit-card-btn + .unit-card-btn{border-left:1px solid var(--gray-200)}
 .prop-scroll-card-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:1.25rem;display:flex;align-items:flex-end;justify-content:space-between}
 .prop-scroll-card-name{font-family:'Instrument Serif',serif;font-size:1.15rem;font-weight:400;color:#fff;line-height:1.15}
 .prop-scroll-card-addr{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:3px}
@@ -1399,9 +1424,9 @@ body.detail-active .nav-logo-mark{}
       <h2 class="detail-others-title" id="detailPropsTitle">Propiedades en este complejo</h2>
     </div>
   </div>
-  <div class="detail-props-scroll-wrap">
-    <div class="detail-props-scroll" id="propsGrid">
-      <!-- Rendered by JS - clean FlowSpace-style cards -->
+  <div class="units-grid-wrap">
+    <div class="units-grid" id="propsGrid">
+      <!-- Rendered by JS -->
     </div>
   </div>
 </section>
@@ -2313,8 +2338,8 @@ function abrirUnidad(propId){
     {icon:'<i class="fa-solid fa-bed iso-e"></i>',name:'Ropa de cama incluida'},
     {icon:'<i class="fa-solid fa-file-invoice iso-e"></i>',name:'Factura CFDI'},
   ];
-  document.getElementById('detailServicesGrid').innerHTML = services.map(s =>
-    `<div class="detail-service-item"><div class="svc-icon-wrap"><span class="iso-e">${s.icon}</span></div>${s.name}</div>`
+  document.getElementById('detailServicesGrid').innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:8px">${services.map(s =>
+    `<span style="font-size:13px;font-weight:500;color:var(--black);background:var(--gray-100);border:1px solid var(--gray-200);padding:.4rem 1rem;border-radius:100px">${s.name}</span>`).join('')}</div>`
   ).join('');
 
   // Map
@@ -2372,33 +2397,78 @@ function switchDetailTab(tabId){
 
 
 function renderizarPropiedadesDeComplejo(complejoId){
-  const grid  = document.getElementById('propsGrid');
+  const grid = document.getElementById('propsGrid');
   const props = propiedades.filter(p => p.complejo === complejoId);
 
   if(!props.length){
-    grid.innerHTML = '<div style="padding:3rem 2rem;color:var(--gray-400);text-align:center;width:300px"><p style="font-size:2rem;margin-bottom:.5rem"><i class="fa-solid fa-hammer"></i></p><p style="font-size:14px">Sin unidades registradas</p></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--gray-400)"><i class="fa-solid fa-hammer" style="font-size:2rem;margin-bottom:.5rem;display:block"></i><p>Sin unidades registradas</p></div>';
     return;
   }
+
   grid.innerHTML = props.map(p => {
     const id = esc(p.id);
     const nombre = esc(p.nombre);
     const fotos = (p.fotos || []).map(safeUrl).filter(Boolean);
-    // Build slides
-    const slidesHTML = fotos.length
-      ? fotos.map((f,i) => `<div class="carousel-slide"><img src="${f}" alt="${nombre} ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/></div>`).join('')
-      : `<div class="carousel-slide"><div class="prop-scroll-card-ph"><div class="iso-icon-wrap" style="width:60px;height:60px;font-size:30px;border-radius:14px"><i class="fa-solid fa-house iso-e"></i></div></div></div>`;
-    return `<div class="prop-scroll-card" style="cursor:pointer">
-      <div class="carousel" id="car-psc-${id}" style="position:absolute;inset:0;overflow:hidden" data-idx="0" onclick="abrirUnidad('${id}')">
-        <div class="carousel-track" style="display:flex;height:100%;transition:transform .3s ease">${slidesHTML}</div>
-        ${fotos.length > 1 ? `<button class="carousel-btn prev" onclick="moverCarrusel(this,-1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)" aria-label="Foto anterior">‹</button><button class="carousel-btn next" onclick="moverCarrusel(this,1);event.stopPropagation()" style="top:50%;transform:translateY(-50%)" aria-label="Foto siguiente">›</button>` : ''}
+    const tags = (p.tags || []).slice(0, 6);
+    const badge = esc(p.badge || p.tipo || '');
+
+    // Reservar URL: morelos → /morelos, sino airbnb, sino whatsapp
+    const reservarUrl = p.complejo === 'morelos'
+      ? '/morelos'
+      : (safeUrl(p.airbnb) || ('https://wa.me/52' + (p.telefono||'8110645136') + '?text=' + encodeURIComponent('Hola, me interesa ' + p.nombre)));
+
+    // Gallery
+    let galleryHTML;
+    if(fotos.length === 0){
+      galleryHTML = `<div class="unit-card-ph"><i class="fa-solid fa-bed"></i></div>`;
+    } else if(fotos.length === 1){
+      galleryHTML = `<img src="${fotos[0]}" alt="${nombre}" loading="lazy"/>`;
+    } else {
+      const slides = fotos.map((f,i) => `<div class="unit-carousel-slide"><img src="${f}" alt="${nombre} ${i+1}" loading="lazy"/></div>`).join('');
+      const dots = fotos.map((_,i) => `<button class="unit-carousel-dot${i===0?' active':''}" onclick="ucDot(this,${i});event.stopPropagation()"></button>`).join('');
+      galleryHTML = `
+        <div class="unit-carousel" id="uc-${id}" data-idx="0">
+          <div class="unit-carousel-track">${slides}</div>
+          <button class="unit-carousel-btn prev" onclick="ucMove('${id}',-1);event.stopPropagation()">‹</button>
+          <button class="unit-carousel-btn next" onclick="ucMove('${id}',1);event.stopPropagation()">›</button>
+          <div class="unit-carousel-dots">${dots}</div>
+        </div>`;
+    }
+
+    return `<div class="unit-card">
+      <div class="unit-card-gallery">${galleryHTML}</div>
+      <div class="unit-card-body">
+        ${badge ? `<div class="unit-card-badge">${badge}</div>` : ''}
+        <div class="unit-card-name">${nombre}</div>
+        ${tags.length ? `<div class="unit-card-tags">${tags.map(t=>`<span class="unit-card-tag">${esc(t)}</span>`).join('')}</div>` : ''}
       </div>
-      <div class="prop-scroll-card-overlay" style="z-index:6">
-        <div><div class="prop-scroll-card-name">${nombre}</div><div class="prop-scroll-card-addr">${esc(p.direccion || '')}</div></div>
-        <div class="prop-scroll-card-view" onclick="abrirUnidad('${id}')">Ver →</div>
+      <div class="unit-card-footer">
+        <button class="unit-card-btn" onclick="abrirUnidad('${id}')">Ver detalle <span>→</span></button>
+        <a href="${esc(reservarUrl)}" target="_blank" class="unit-card-btn reservar" onclick="event.stopPropagation()">Reservar ahora <span>↗</span></a>
       </div>
     </div>`;
   }).join('');
-  iniciarCarruseles();
+}
+
+// Unit carousel controls
+function ucMove(id, dir){
+  const uc = document.getElementById('uc-' + id);
+  if(!uc) return;
+  const track = uc.querySelector('.unit-carousel-track');
+  const slides = track.querySelectorAll('.unit-carousel-slide');
+  let idx = parseInt(uc.dataset.idx || 0);
+  idx = (idx + dir + slides.length) % slides.length;
+  uc.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  uc.querySelectorAll('.unit-carousel-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+}
+function ucDot(btn, idx){
+  const uc = btn.closest('.unit-carousel');
+  if(!uc) return;
+  const track = uc.querySelector('.unit-carousel-track');
+  uc.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  uc.querySelectorAll('.unit-carousel-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
 }
 
 // ═══════════════════════════════════════════════
