@@ -3,170 +3,198 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Barrio Inn — Panel de Administración</title>
+<title>Barrio Inn — Administrador</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23111'/%3E%3Ctext x='50' y='72' font-family='serif' font-size='66' font-style='italic' fill='%237dc49a' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Outfit',sans-serif;background:#0d0d0d;color:#fafaf7;overflow-x:hidden;min-height:100vh}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:#f7f7f5;color:#111;min-height:100vh}
 
 :root{
-  --black:#111111;
-  --white:#ffffff;
-  --gray-50:#fafafa;
-  --gray-100:#f5f5f5;
-  --gray-200:#e8e8e8;
-  --gray-400:#9a9a9a;
-  --gray-600:#555555;
-  --green:#2d6a4f;
-  --green-dark:#1b4332;
-  --r-sm:10px;
-  --r-md:18px;
-  --r-lg:24px;
-  --r-xl:36px;
-  --r-pill:100px;
-  --shadow-sm:0 1px 8px rgba(0,0,0,.06);
-  --shadow-md:0 4px 24px rgba(0,0,0,.09);
-  --shadow-lg:0 16px 56px rgba(0,0,0,.13);
+  --black:#111;--white:#fff;
+  --gray-50:#fafafa;--gray-100:#f2f2f0;--gray-200:#e5e5e2;--gray-300:#d0d0cc;
+  --gray-400:#9a9a94;--gray-600:#555;
+  --green:#1a6648;--green-light:#e8f5ef;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;--r-pill:100px;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.1);--shadow-lg:0 12px 40px rgba(0,0,0,.15);
 }
 
 /* ── LOGIN ── */
-#loginScreen{
-  position:fixed;inset:0;background:#0d0d0d;
-  display:flex;align-items:center;justify-content:center;
-  z-index:9999;padding:2rem;
-}
-.login-card{
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--r-xl);padding:3rem 2.5rem;
-  width:100%;max-width:420px;text-align:center;
-}
-.login-logo{
-  width:56px;height:56px;background:rgba(125,196,154,.15);border:1px solid rgba(125,196,154,.3);
-  border-radius:14px;display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1.5rem;
-  font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:28px;font-weight:700;
-}
-.login-title{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:#fff;margin-bottom:.35rem}
-.login-sub{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:2rem}
-.login-field{position:relative;margin-bottom:1rem}
-.login-input{
-  width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--r-md);padding:.85rem 1.25rem;
-  color:#fafaf7;font-family:'Outfit',sans-serif;font-size:15px;
-  transition:border-color .2s,background .2s;
-}
-.login-input:focus{outline:none;border-color:rgba(125,196,154,.6);background:rgba(255,255,255,.09)}
-.login-input::placeholder{color:rgba(255,255,255,.18)}
-.login-btn{
-  width:100%;background:#7dc49a;color:#fff;
-  border:none;border-radius:var(--r-pill);padding:.9rem;
-  font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;
-  cursor:pointer;transition:all .22s;margin-top:.5rem;
-}
-.login-btn:hover{background:#6ab389;transform:translateY(-1px);box-shadow:0 6px 20px rgba(125,196,154,.35)}
-.login-error{font-size:13px;color:#FF9A9A;margin-top:.75rem;min-height:20px}
+#loginScreen{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:9999;padding:2rem}
+.login-card{width:100%;max-width:380px;text-align:center}
+.login-logo{width:56px;height:56px;background:#111;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:26px}
+.login-title{font-family:'Instrument Serif',serif;font-size:1.9rem;font-weight:400;color:#111;margin-bottom:.3rem}
+.login-sub{font-size:13px;color:var(--gray-400);margin-bottom:2rem}
+.login-input{width:100%;border:1.5px solid var(--gray-200);border-radius:var(--r-md);padding:.85rem 1.1rem;font-family:'Outfit',sans-serif;font-size:15px;color:#111;background:#fff;transition:border-color .2s;outline:none;margin-bottom:.75rem}
+.login-input:focus{border-color:#111}
+.login-btn{width:100%;background:#111;color:#fff;border:none;border-radius:var(--r-pill);padding:.9rem;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.login-btn:hover{background:#333}
+.login-error{font-size:13px;color:#c0392b;margin-top:.75rem;min-height:18px}
 
 /* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:0 48px;height:64px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(13,13,13,.97);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo-mark{
-  width:32px;height:32px;background:rgba(125,196,154,.15);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:17px;
-}
-.nav-logo-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.025em}
-.nav-logo-badge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(125,196,154,.7);background:rgba(125,196,154,.1);border:1px solid rgba(125,196,154,.2);padding:.2rem .7rem;border-radius:var(--r-pill)}
-.nav-right{display:flex;align-items:center;gap:.75rem}
-.nav-back-btn{
-  display:inline-flex;align-items:center;gap:7px;
-  color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;
-  padding:.5rem 1rem;border-radius:var(--r-pill);
-  border:1px solid rgba(255,255,255,.1);
-  transition:all .2s;
-}
-.nav-back-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
-.nav-logout{
-  background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);
-  padding:.5rem 1rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;
-  transition:all .2s;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:6px;
-}
-.nav-logout:hover{background:rgba(255,107,107,.22)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:#fff;border-bottom:1px solid var(--gray-200);display:none;align-items:center;justify-content:space-between;padding:0 2rem}
+nav.visible{display:flex}
+.nav-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.nav-brand-mark{width:28px;height:28px;background:#111;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:14px}
+.nav-brand-name{font-size:15px;font-weight:700;color:#111}
+.nav-brand-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:var(--green-light);padding:.15rem .6rem;border-radius:var(--r-pill)}
+.nav-actions{display:flex;align-items:center;gap:.5rem}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:.4rem .9rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-600);font-family:'Outfit',sans-serif;transition:all .2s;text-decoration:none}
+.nav-btn:hover{border-color:#111;color:#111}
+.nav-btn.danger{color:#c0392b;border-color:#f5c6c2}
+.nav-btn.danger:hover{background:#fdf2f0}
 
-/* ── MAIN ── */
-#mainContent{display:none;padding-top:64px}
-#mainContent.visible{display:block}
+/* ── LAYOUT ── */
+#app{display:none;padding-top:56px;min-height:100vh}
+#app.visible{display:block}
 
-/* ── DASHBOARD ── */
-.dash-wrapper{max-width:960px;margin:0 auto;padding:3rem 48px 80px}
-.dash-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07)}
-.dash-title{font-family:'Instrument Serif',serif;font-size:2.2rem;font-weight:400;color:#fff;margin-bottom:.35rem;letter-spacing:-.02em}
-.dash-subtitle{font-size:13px;color:rgba(255,255,255,.32);letter-spacing:.02em}
-.dash-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-lg);padding:2rem;margin-bottom:2rem}
-.dash-panel-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7dc49a;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:8px}
-.dash-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.dash-field{display:flex;flex-direction:column;gap:.4rem}
-.dash-field.full{grid-column:1/-1}
-.dash-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.1em;text-transform:uppercase}
-.dash-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-sm);padding:.65rem 1rem;color:#fafaf7;font-family:'Outfit',sans-serif;font-size:14px;transition:border-color .2s,background .2s;width:100%}
-.dash-input:focus{outline:none;border-color:rgba(125,196,154,.6);background:rgba(255,255,255,.09)}
-.dash-input::placeholder{color:rgba(255,255,255,.16)}
-.dash-file-area{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.12);border-radius:var(--r-sm);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
-.dash-file-area:hover{border-color:rgba(125,196,154,.45);background:rgba(125,196,154,.05)}
-.dash-file-input{display:none}
-.dash-file-label{font-size:13px;color:rgba(255,255,255,.38);cursor:pointer;pointer-events:none}
-.dash-file-label strong{color:#7dc49a}
-.dash-preview{font-size:12px;color:#7dc49a;margin-top:.5rem;min-height:16px}
-.fotos-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid rgba(125,196,154,.4);flex-shrink:0}
-.fotos-thumb-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
-.fotos-thumb-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#e53e3e;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
-#fotos-drop-area{min-height:100px;display:flex;align-items:center;justify-content:center}
-.dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
-.dash-btn{padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:6px}
-.dash-btn.primary{background:var(--green);color:#fff}
-.dash-btn.primary:hover{background:var(--green-dark);transform:translateY(-1px)}
-.dash-btn.ghost{background:rgba(255,255,255,.07);color:#fafaf7;border:1px solid rgba(255,255,255,.1)}
-.dash-btn.ghost:hover{background:rgba(255,255,255,.12)}
-.dash-btn.danger{background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);padding:.5rem 1rem;font-size:12px}
-.dash-btn.danger:hover{background:rgba(255,107,107,.22)}
-.dash-btn.edit{background:rgba(125,196,154,.12);color:#7dc49a;border:1px solid rgba(125,196,154,.28);padding:.5rem 1rem;font-size:12px}
-.dash-btn.edit:hover{background:rgba(125,196,154,.25)}
-.dash-editing-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(125,196,154,.18);border:1px solid rgba(125,196,154,.35);color:#7dc49a;font-size:11px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);margin-bottom:1rem;letter-spacing:.06em}
-.dash-props-list{display:flex;flex-direction:column;gap:.75rem}
-.dash-prop-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-md);padding:1rem 1.25rem;transition:background .2s}
-.dash-prop-item:hover{background:rgba(255,255,255,.06)}
-.dash-prop-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
-.dash-prop-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.dash-prop-info{flex:1;min-width:0}
-.dash-prop-name{font-weight:600;font-size:15px;color:#fafaf7}
-.dash-prop-addr{font-size:12px;color:rgba(255,255,255,.32);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dash-prop-meta{font-size:11px;color:rgba(255,255,255,.22);margin-top:3px}
-.dash-empty{text-align:center;padding:2rem;color:rgba(255,255,255,.26);font-size:14px}
-.dash-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.75rem;margin-top:1rem}
-.dash-gallery-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
-.dash-gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
-.dash-gallery-del{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,60,60,.85);color:#fff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
-.dash-gallery-item:hover .dash-gallery-del{opacity:1}
-.dash-gallery-empty{font-size:13px;color:rgba(255,255,255,.28);padding:1rem 0}
-.unidades-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);color:#fafaf7;font-size:13px;font-weight:600;padding:.6rem 1.25rem;border-radius:var(--r-pill);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif}
-.unidades-back:hover{background:rgba(255,255,255,.12)}
+/* ── VIEWS ── */
+.view{display:none}
+.view.active{display:block}
 
-@media(max-width:768px){
-  nav{padding:0 20px}
-  .dash-wrapper{padding:2rem 20px 60px}
-  .dash-form-grid{grid-template-columns:1fr}
-  .dash-field.full{grid-column:auto}
+/* ── PAGE HEADER ── */
+.page-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--gray-200);background:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.page-title{font-family:'Instrument Serif',serif;font-size:1.6rem;font-weight:400;color:#111;letter-spacing:-.02em}
+.page-sub{font-size:13px;color:var(--gray-400);margin-top:.2rem}
+.page-breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-400);margin-bottom:.35rem}
+.page-breadcrumb a{color:var(--gray-400);text-decoration:none;cursor:pointer;transition:color .15s}
+.page-breadcrumb a:hover{color:#111}
+.page-breadcrumb .sep{color:var(--gray-300)}
+
+/* ── BTN ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:.55rem 1.2rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .2s;text-decoration:none;white-space:nowrap}
+.btn-primary{background:#111;color:#fff}
+.btn-primary:hover{background:#333}
+.btn-ghost{background:#fff;color:#111;border:1.5px solid var(--gray-200)}
+.btn-ghost:hover{border-color:#111}
+.btn-danger{background:#fdf2f0;color:#c0392b;border:1.5px solid #f5c6c2}
+.btn-danger:hover{background:#fae5e2}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#155538}
+.btn-sm{padding:.35rem .85rem;font-size:12px}
+
+/* ── LIST VIEW ── */
+.list-container{max-width:900px;margin:0 auto;padding:1.5rem 2rem 4rem}
+.list-section-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);margin:1.5rem 0 .75rem}
+
+/* ── COMPLEJO CARD ── */
+.complejo-item{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-lg);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.6rem;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.complejo-item:hover{border-color:#111;box-shadow:var(--shadow-sm)}
+.complejo-thumb{width:48px;height:48px;border-radius:var(--r-md);background:var(--gray-100);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--gray-300)}
+.complejo-thumb img{width:100%;height:100%;object-fit:cover}
+.complejo-info{flex:1;min-width:0}
+.complejo-name{font-size:15px;font-weight:600;color:#111}
+.complejo-meta{font-size:12px;color:var(--gray-400);margin-top:2px}
+.complejo-actions{display:flex;gap:.4rem;flex-shrink:0}
+
+/* Drag handle */
+.drag-handle{width:20px;color:var(--gray-300);cursor:grab;flex-shrink:0;font-size:14px;display:flex;align-items:center;justify-content:center}
+.drag-handle:active{cursor:grabbing}
+.dragging{opacity:.4}
+.drag-over{border-color:var(--green)!important;background:var(--green-light)!important}
+
+/* ── UNIDAD CARD ── */
+.unidad-item{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-lg);padding:.85rem 1.1rem;display:flex;align-items:center;gap:.85rem;margin-bottom:.5rem;cursor:default;transition:border-color .2s}
+.unidad-item:hover{border-color:var(--gray-300)}
+.unidad-thumb{width:44px;height:44px;border-radius:var(--r-sm);background:var(--gray-100);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gray-300)}
+.unidad-thumb img{width:100%;height:100%;object-fit:cover}
+.unidad-info{flex:1;min-width:0}
+.unidad-name{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.unidad-meta{font-size:11.5px;color:var(--gray-400);margin-top:1px}
+.unidad-actions{display:flex;gap:.4rem;flex-shrink:0}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:500;display:none;align-items:flex-end;justify-content:center;padding:0}
+.modal-overlay.open{display:flex}
+@media(min-width:640px){.modal-overlay{align-items:center;padding:1.5rem}}
+.modal{background:#fff;border-radius:var(--r-xl) var(--r-xl) 0 0;width:100%;max-width:680px;max-height:92vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.16,1,.3,1)}
+@media(min-width:640px){.modal{border-radius:var(--r-xl)}}
+@keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.5rem 0;position:sticky;top:0;background:#fff;z-index:2;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.modal-title{font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;color:#111}
+.modal-close{width:32px;height:32px;border-radius:50%;background:var(--gray-100);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--gray-600);transition:background .2s}
+.modal-close:hover{background:var(--gray-200)}
+.modal-body{padding:1.25rem 1.5rem 2rem}
+
+/* ── FORM FIELDS ── */
+.field-section{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);margin:1.5rem 0 .75rem;padding-bottom:.5rem;border-bottom:1px solid var(--gray-200)}
+.field-section:first-child{margin-top:0}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.field-grid.cols-1{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:600;color:var(--gray-600);letter-spacing:.06em;text-transform:uppercase}
+.field-hint{font-size:11px;color:var(--gray-400);margin-top:2px}
+input[type=text],input[type=url],input[type=tel],input[type=number],select,textarea{
+  width:100%;border:1.5px solid var(--gray-200);border-radius:var(--r-md);
+  padding:.65rem .9rem;font-family:'Outfit',sans-serif;font-size:14px;color:#111;
+  background:#fff;transition:border-color .2s;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:#111}
+textarea{resize:vertical;min-height:80px}
+select{cursor:pointer}
+
+/* ── TAGS INPUT ── */
+.tags-wrap{border:1.5px solid var(--gray-200);border-radius:var(--r-md);padding:.5rem .6rem;min-height:44px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;cursor:text;transition:border-color .2s}
+.tags-wrap:focus-within{border-color:#111}
+.tag-pill{display:inline-flex;align-items:center;gap:5px;background:#111;color:#fff;font-size:12px;font-weight:500;padding:.28rem .65rem;border-radius:var(--r-pill)}
+.tag-pill button{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:14px;line-height:1;padding:0;display:flex;align-items:center}
+.tag-pill button:hover{color:#fff}
+.tags-input{border:none;outline:none;font-family:'Outfit',sans-serif;font-size:13px;color:#111;background:transparent;min-width:80px;flex:1;padding:.2rem .2rem}
+.tags-input::placeholder{color:var(--gray-300)}
+
+/* ── PLATAFORMAS ── */
+.plataforma-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.plataforma-nombre{width:110px;flex-shrink:0}
+.plataforma-url{flex:1}
+.plataforma-del{width:32px;height:32px;flex-shrink:0;border-radius:var(--r-sm);background:var(--gray-100);border:none;cursor:pointer;font-size:14px;color:var(--gray-400);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.plataforma-del:hover{background:#fdf2f0;color:#c0392b}
+
+/* ── FOTOS ── */
+.fotos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.6rem;margin-bottom:.75rem}
+.foto-item{position:relative;aspect-ratio:4/3;border-radius:var(--r-md);overflow:hidden;background:var(--gray-100);border:1.5px solid var(--gray-200)}
+.foto-item img{width:100%;height:100%;object-fit:cover;display:block}
+.foto-badge{position:absolute;top:5px;left:5px;background:#111;color:#fff;font-size:9px;font-weight:700;padding:.15rem .5rem;border-radius:var(--r-pill);letter-spacing:.05em}
+.foto-controls{position:absolute;top:5px;right:5px;display:none;gap:3px}
+.foto-item:hover .foto-controls{display:flex}
+.foto-ctrl-btn{width:24px;height:24px;border-radius:6px;border:none;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.foto-ctrl-btn.move{background:rgba(255,255,255,.9);color:#111}
+.foto-ctrl-btn.move:hover{background:#fff}
+.foto-ctrl-btn.del{background:rgba(220,50,50,.85);color:#fff}
+.foto-ctrl-btn.del:hover{background:#dc3232}
+.foto-upload-area{border:1.5px dashed var(--gray-300);border-radius:var(--r-md);padding:1.25rem;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
+.foto-upload-area:hover{border-color:#111;background:var(--gray-50)}
+.foto-upload-label{font-size:13px;color:var(--gray-400);pointer-events:none}
+.foto-upload-label strong{color:#111}
+
+/* ── MODAL FOOTER ── */
+.modal-footer{display:flex;justify-content:flex-end;gap:.6rem;padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--gray-200);position:sticky;bottom:0;background:#fff;z-index:2}
+
+/* ── EMPTY ── */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--gray-400)}
+.empty-state .empty-icon{font-size:2rem;margin-bottom:.75rem;opacity:.4}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;font-size:13px;font-weight:500;padding:.6rem 1.25rem;border-radius:var(--r-pill);z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── GALERÍA MARQUEE ── */
+.galeria-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.6rem;margin-top:.75rem}
+.galeria-item{position:relative;aspect-ratio:3/2;border-radius:var(--r-md);overflow:hidden;background:var(--gray-100);border:1.5px solid var(--gray-200)}
+.galeria-item img{width:100%;height:100%;object-fit:cover;display:block}
+.galeria-del{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:6px;background:rgba(220,50,50,.85);color:#fff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.galeria-item:hover .galeria-del{opacity:1}
+
+@media(max-width:600px){
+  .field-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .list-container{padding:1rem 1rem 4rem}
+  .page-header{padding:1.25rem 1rem 1rem}
+  nav{padding:0 1rem}
 }
 </style>
 </head>
@@ -176,619 +204,759 @@ nav{
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-logo">B</div>
-    <h1 class="login-title">Panel Admin</h1>
+    <h1 class="login-title">Administrador</h1>
     <p class="login-sub">Barrio Inn · Acceso restringido</p>
-    <div class="login-field">
-      <input class="login-input" type="password" id="passInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')intentarLogin()"/>
-    </div>
-    <button class="login-btn" onclick="intentarLogin()"><i class="fa-solid fa-unlock"></i> Entrar</button>
+    <input class="login-input" type="password" id="passInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Entrar</button>
     <p class="login-error" id="loginError"></p>
   </div>
 </div>
 
-<!-- NAV (visible tras login) -->
-<nav id="adminNav" style="display:none">
-  <a href="/" class="nav-logo">
-    <div class="nav-logo-mark">B</div>
-    <span class="nav-logo-name">Barrio Inn</span>
-    <span class="nav-logo-badge">Admin</span>
+<!-- NAV -->
+<nav id="adminNav">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-mark">B</div>
+    <span class="nav-brand-name">Barrio Inn</span>
+    <span class="nav-brand-badge">Admin</span>
   </a>
-  <div class="nav-right">
-    <a href="/" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i> Ver sitio</a>
-    <button class="nav-logout" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+  <div class="nav-actions">
+    <a href="/" class="nav-btn">← Ver sitio</a>
+    <button class="nav-btn danger" onclick="logout()">Salir</button>
   </div>
 </nav>
 
-<!-- CONTENIDO PRINCIPAL -->
-<div id="mainContent">
-  <div class="dash-wrapper">
-    <div class="dash-header">
-      <div class="dash-title">Panel de Administración</div>
-      <p class="dash-subtitle">Barrio Inn · Gestión de complejos, unidades y galería</p>
+<!-- APP -->
+<div id="app">
+
+  <!-- VIEW: COMPLEJOS -->
+  <div class="view active" id="view-complejos">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Complejos</div>
+        <div class="page-sub">Gestiona tus propiedades y unidades</div>
+      </div>
+      <button class="btn btn-primary" onclick="abrirModalComplejo()">+ Agregar complejo</button>
     </div>
+    <div class="list-container">
+      <div class="list-section-title">Complejos — arrastra para reordenar</div>
+      <div id="complejosList"></div>
 
-    <!-- VISTA PRINCIPAL: COMPLEJOS -->
-    <div id="dash-view-complejos">
-      <div class="dash-panel">
-        <div class="dash-panel-title">
-          <i class="fa-solid fa-building"></i> Complejos
-          <button class="dash-btn primary" style="font-size:12px;padding:.45rem 1rem;margin-left:auto" onclick="abrirFormComplejo()">＋ Agregar complejo</button>
-        </div>
-        <div class="dash-props-list" id="dashComplejosList">
-          <p class="dash-empty"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</p>
-        </div>
+      <div class="list-section-title" style="margin-top:2.5rem">Galería marquee</div>
+      <p style="font-size:13px;color:var(--gray-400);margin-bottom:.75rem">Fotos que aparecen en el carrusel del sitio.</p>
+      <div class="foto-upload-area" onclick="document.getElementById('galeriaInput').click()" style="margin-bottom:.75rem">
+        <div class="foto-upload-label"><strong>📷 Subir fotos del Barrio</strong><br/>JPG, PNG, WebP</div>
       </div>
-
-      <div class="dash-panel" id="dash-complejo-form-panel" style="display:none">
-        <div class="dash-panel-title" id="dash-complejo-form-title"><i class="fa-solid fa-pen"></i> Editar complejo</div>
-        <div class="dash-form-grid">
-          <div class="dash-field">
-            <label class="dash-label">Nombre del complejo *</label>
-            <input class="dash-input" id="dc-nombre" type="text" placeholder="Abasolo"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Dirección</label>
-            <input class="dash-input" id="dc-direccion" type="text" placeholder="José Abasolo, Barrio Antiguo"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Número de unidades (referencia)</label>
-            <input class="dash-input" id="dc-unidades" type="number" placeholder="6"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Tags (separadas por coma)</label>
-            <input class="dash-input" id="dc-tags" type="text" placeholder="Smart Lock, WiFi, Centro Histórico"/>
-          </div>
-          <div class="dash-field full">
-            <label class="dash-label">Descripción del complejo</label>
-            <textarea class="dash-input" id="dc-descripcion" rows="3" placeholder="Describe la ubicación, ambiente y lo que hace especial a este complejo..." style="resize:vertical;min-height:80px"></textarea>
-          </div>
-          <div class="dash-field full">
-            <label class="dash-label">Foto del complejo (portada)</label>
-            <div class="dash-file-area" onclick="document.getElementById('dc-foto-input').click()">
-              <label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imagen</strong><br/>JPG, PNG, WebP</label>
-            </div>
-            <input type="file" id="dc-foto-input" class="dash-file-input" accept="image/*"/>
-            <p class="dash-preview" id="dc-foto-preview"></p>
-          </div>
-        </div>
-        <div class="dash-actions">
-          <button class="dash-btn primary" onclick="guardarComplejo()"><i class="fa-solid fa-check"></i> Guardar complejo</button>
-          <button class="dash-btn ghost" onclick="cerrarFormComplejo()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
-        </div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title"><i class="fa-solid fa-images"></i> Galería Turística · Marquee</div>
-        <p style="font-size:12px;color:rgba(255,255,255,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel del sitio.</p>
-        <div class="dash-file-area" onclick="document.getElementById('galeriaInput').click()">
-          <label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Subir fotos de Monterrey</strong><br/>JPG, PNG, WebP · Sin límite de archivos</label>
-        </div>
-        <input type="file" id="galeriaInput" class="dash-file-input" multiple accept="image/*"/>
-        <p class="dash-preview" id="galeria-preview"></p>
-        <div class="dash-gallery-grid" id="galeriaGrid">
-          <p class="dash-gallery-empty">Sin fotos aún.</p>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
-        <button class="dash-btn ghost" onclick="resetearDatos()"><i class="fa-solid fa-rotate"></i> Recargar desde base de datos</button>
-      </div>
+      <input type="file" id="galeriaInput" style="display:none" multiple accept="image/*"/>
+      <p id="galeriaMensaje" style="font-size:12px;color:var(--green);min-height:16px;margin-bottom:.5rem"></p>
+      <div class="galeria-grid" id="galeriaGrid"></div>
     </div>
+  </div>
 
-    <!-- VISTA DRILL-DOWN: UNIDADES -->
-    <div id="dash-view-unidades" style="display:none">
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap">
-        <button class="unidades-back" onclick="dashVolverComplejos()">← Volver a complejos</button>
-        <div>
-          <div class="dash-panel-title" style="margin:0;border:none;padding:0" id="dash-unidades-titulo">Complejo</div>
-          <p style="font-size:12px;color:rgba(255,255,255,.32);margin-top:2px" id="dash-unidades-sub"></p>
+  <!-- VIEW: UNIDADES -->
+  <div class="view" id="view-unidades">
+    <div class="page-header">
+      <div>
+        <div class="page-breadcrumb">
+          <a onclick="volverComplejos()">Complejos</a>
+          <span class="sep">›</span>
+          <span id="breadComplejo">Complejo</span>
         </div>
+        <div class="page-title" id="unidadesTitle">Unidades</div>
+        <div class="page-sub" id="unidadesSub"></div>
       </div>
+      <button class="btn btn-primary" onclick="abrirModalUnidad()">+ Agregar unidad</button>
+    </div>
+    <div class="list-container">
+      <div class="list-section-title">Unidades — arrastra para reordenar</div>
+      <div id="unidadesList"></div>
+    </div>
+  </div>
 
-      <div class="dash-panel">
-        <div class="dash-panel-title"><i class="fa-solid fa-house"></i> Unidades en este complejo</div>
-        <div class="dash-props-list" id="dashPropsList">
-          <p class="dash-empty">Cargando...</p>
+</div><!-- /app -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL: COMPLEJO -->
+<div class="modal-overlay" id="modalComplejo">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalComplejoTitle">Agregar complejo</div>
+      <button class="modal-close" onclick="cerrarModal('modalComplejo')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-section">Información básica</div>
+      <div class="field-grid">
+        <div class="field">
+          <label>Nombre *</label>
+          <input type="text" id="mc-nombre" placeholder="Morelos"/>
         </div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title" id="dash-form-title"><i class="fa-solid fa-plus"></i> Agregar nueva unidad</div>
-        <div id="dash-editing-badge" style="display:none" class="dash-editing-badge"><i class="fa-solid fa-pen"></i> Modo edición activo</div>
-        <div class="dash-form-grid">
-          <div class="dash-field">
-            <label class="dash-label">Nombre de la unidad *</label>
-            <input class="dash-input" id="dash-nombre" type="text" placeholder="Habitación 101"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Badge (zona)</label>
-            <input class="dash-input" id="dash-badge" type="text" placeholder="Barrio Antiguo"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Dirección (texto visible)</label>
-            <input class="dash-input" id="dash-direccion" type="text" placeholder="Calle Morelos, Centro Histórico"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Link Google Maps</label>
-            <input class="dash-input" id="dash-direccion-url" type="url" placeholder="https://maps.app.goo.gl/..."/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Rating (ej. 4.82 · 130)</label>
-            <input class="dash-input" id="dash-rating" type="text" placeholder="4.82 · 130"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Teléfono (10 dígitos, sin lada)</label>
-            <input class="dash-input" id="dash-telefono" type="tel" maxlength="10" placeholder="8110645136" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
-          </div>
-          <div class="dash-field full">
-            <label class="dash-label">Tags (separados por comas)</label>
-            <input class="dash-input" id="dash-tags" type="text" placeholder="Cama King, Baño privado, Smart Lock, WiFi"/>
-          </div>
-          <div class="dash-field full">
-            <label class="dash-label">Lugares cercanos (separados por comas)</label>
-            <input class="dash-input" id="dash-cercanos" type="text" placeholder="Macroplaza a 600m, MARCO 500m"/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Link Belong</label>
-            <input class="dash-input" id="dash-belong" type="url" placeholder="https://belongmx.com/..."/>
-          </div>
-          <div class="dash-field">
-            <label class="dash-label">Link Airbnb</label>
-            <input class="dash-input" id="dash-airbnb" type="url" placeholder="https://airbnb.mx/rooms/..."/>
-          </div>
-          <div class="dash-field full">
-            <label class="dash-label">Link Expedia</label>
-            <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
-          </div>
-          <input type="hidden" id="dash-lat" value=""/>
-          <input type="hidden" id="dash-lng" value=""/>
-          <div class="dash-field full">
-            <label class="dash-label">Fotos (máximo 5 imágenes)</label>
-            <div class="dash-file-area" id="fotos-drop-area" onclick="document.getElementById('fotos').click()">
-              <div id="fotos-preview-grid" style="display:none;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:4px"></div>
-              <div id="fotos-placeholder"><label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imágenes</strong><br/>JPG, PNG, WebP · Máximo 5 archivos</label></div>
-            </div>
-            <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*" onchange="mostrarPreviews(this)"/>
-            <p class="dash-preview" id="fotos-preview"></p>
+        <div class="field">
+          <label>Dirección</label>
+          <input type="text" id="mc-direccion" placeholder="Calle Morelos 1091, Centro Histórico"/>
+        </div>
+        <div class="field">
+          <label>Unidades (referencia)</label>
+          <input type="number" id="mc-unidades" placeholder="10"/>
+        </div>
+        <div class="field">
+          <label>Tags <span style="font-weight:400;text-transform:none;letter-spacing:0">(Enter para agregar)</span></label>
+          <div class="tags-wrap" id="mc-tags-wrap" onclick="this.querySelector('.tags-input').focus()">
+            <input class="tags-input" id="mc-tags-input" placeholder="Ej: Smart Lock..."/>
           </div>
         </div>
-        <div class="dash-actions">
-          <button class="dash-btn primary" id="dash-save-btn" onclick="guardarPropiedad()">＋ Agregar unidad</button>
-          <button class="dash-btn ghost" onclick="limpiarFormulario()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+        <div class="field full">
+          <label>Descripción</label>
+          <textarea id="mc-descripcion" placeholder="Describe el complejo..."></textarea>
+        </div>
+        <div class="field full">
+          <label>Foto de portada</label>
+          <div class="foto-upload-area" onclick="document.getElementById('mc-foto-input').click()">
+            <div class="foto-upload-label"><strong>📷 Seleccionar imagen</strong><br/>JPG, PNG, WebP</div>
+          </div>
+          <input type="file" id="mc-foto-input" style="display:none" accept="image/*"/>
+          <p id="mc-foto-preview" style="font-size:12px;color:var(--green);margin-top:4px;min-height:16px"></p>
         </div>
       </div>
     </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modalComplejo')">Cancelar</button>
+      <button class="btn btn-primary" id="mc-save-btn" onclick="guardarComplejo()">Guardar complejo</button>
+    </div>
+  </div>
+</div>
 
+<!-- MODAL: UNIDAD -->
+<div class="modal-overlay" id="modalUnidad">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalUnidadTitle">Agregar suite</div>
+      <button class="modal-close" onclick="cerrarModal('modalUnidad')">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="field-section">Información básica</div>
+      <div class="field-grid">
+        <div class="field">
+          <label>Número</label>
+          <input type="text" id="mu-numero" placeholder="101"/>
+        </div>
+        <div class="field">
+          <label>Título</label>
+          <input type="text" id="mu-titulo" placeholder="Suite 101"/>
+        </div>
+        <div class="field">
+          <label>Tipo</label>
+          <select id="mu-tipo">
+            <option value="">— Seleccionar —</option>
+            <option value="king">King Size</option>
+            <option value="matrimonial">Matrimonial</option>
+            <option value="individual">Individual</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Piso</label>
+          <select id="mu-piso">
+            <option value="1">Piso 1</option>
+            <option value="2">Piso 2</option>
+            <option value="3">Piso 3</option>
+            <option value="cowork">Cowork</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Descripción</label>
+          <textarea id="mu-descripcion" placeholder="Suite privada en piso 1..."></textarea>
+        </div>
+        <div class="field full">
+          <label>Tags <span style="font-weight:400;text-transform:none;letter-spacing:0">(Enter para agregar)</span></label>
+          <div class="tags-wrap" id="mu-tags-wrap" onclick="this.querySelector('.tags-input').focus()">
+            <input class="tags-input" id="mu-tags-input" placeholder="Ej: Smart TV..."/>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-section">Contacto y reserva</div>
+      <div class="field-grid">
+        <div class="field full">
+          <label>WhatsApp</label>
+          <input type="tel" id="mu-whatsapp" placeholder="528110645136"/>
+          <div class="field-hint">Número completo con lada de país (52...)</div>
+        </div>
+      </div>
+      <div style="margin-top:.75rem">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.5rem">
+          Links de reserva <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">— si hay 2+ aparece popup al reservar</span>
+        </div>
+        <div id="plataformasContainer"></div>
+        <button class="btn btn-ghost btn-sm" onclick="agregarPlataforma()" style="margin-top:.4rem">+ Agregar plataforma</button>
+      </div>
+
+      <div class="field-section" style="margin-top:1.5rem">Fotos <span id="fotosCount" style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;color:var(--gray-400)"></span></div>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:.75rem">← → para mover · × para eliminar · La 1ª es portada</p>
+      <div class="fotos-grid" id="fotosGrid"></div>
+      <div class="foto-upload-area" onclick="document.getElementById('fotosInput').click()">
+        <div class="foto-upload-label">📷 <strong>Subir fotos</strong> — arrastra o clic · JPG, PNG, WebP</div>
+      </div>
+      <input type="file" id="fotosInput" style="display:none" multiple accept="image/*"/>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modalUnidad')">Cancelar</button>
+      <button class="btn btn-primary" id="mu-save-btn" onclick="guardarUnidad()">Guardar</button>
+    </div>
   </div>
 </div>
 
 <script>
-// ─── LOGIN ───
+// ─── CONFIG ───
 const PASS = 'pepegarza2722';
-
-function intentarLogin(){
-  const val = document.getElementById('passInput').value;
-  const err = document.getElementById('loginError');
-  if(!val){ err.textContent = 'Ingresa la contraseña.'; return; }
-  if(val !== PASS){ err.textContent = 'Contraseña incorrecta.'; document.getElementById('passInput').value = ''; return; }
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminNav').style.display = 'flex';
-  document.getElementById('mainContent').classList.add('visible');
-  initAdminApp();
-}
-
-function cerrarSesion(){
-  location.reload();
-}
-
-// ─── SUPABASE ───
 const SUPABASE_URL = 'https://zwbvugshnjenrysqallo.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YnZ1Z3NobmplbnJ5c3FhbGxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTAzOTIsImV4cCI6MjA5MzQ2NjM5Mn0.DhMoZFuwvfI5aqNq5p73S-uypWI7KG0BeLv8kSWJqLk';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// ─── STATE ───
+let complejos = [];
 let propiedades = [];
-let complejos   = [];
 let complejoActivo = null;
-let editingId      = null;
-let editingComplejo = null;
+let editandoComplejoId = null;
+let editandoUnidadId = null;
+let muFotos = []; // {url, file?, isNew}
+let mcTags = [];
+let muTags = [];
+let plataformas = []; // [{nombre, url}]
 
-// ─── UTILIDADES ───
-function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
-function safeUrl(u){ const s=String(u==null?'':u).trim(); if(!/^(https?:|data:image\/)/i.test(s)) return ''; return s.replace(/"/g,'%22').replace(/'/g,'%27').replace(/</g,'%3C').replace(/>/g,'%3E'); }
+// ─── UTILS ───
+function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function safeUrl(u){ const s=String(u??'').trim(); return /^https?:\/\//i.test(s)?s:''; }
 
-function migrarNombres(lista, esComplejo){
-  return lista.map(item => {
-    let n = item.nombre || '';
-    if(esComplejo && n === 'Aldea') n = 'Barrio Inn Hostal';
-    n = n.replace(/Barrio\s+inn\s+Aldea\//gi, 'Barrio Inn Hostal/');
-    let d = (item.direccion || '').replace(/Fonda\s*&\s*Aldea/gi, 'Fonda & Hostal');
-    return {...item, nombre: n, direccion: d};
-  });
+function toast(msg, dur=2500){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
 }
 
-async function uploadFoto(file, folder){
-  const ext  = file.name.split('.').pop() || 'jpg';
-  const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-  const { error } = await sb.storage.from('fotos').upload(path, file, { upsert: true });
-  if(error){ alert('Error subiendo imagen: ' + (error.message || 'desconocido')); return null; }
-  return sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function comprimirImagenBlob(file, maxW, quality){
-  return new Promise(resolve => {
-    const img = new Image(), url = URL.createObjectURL(file);
-    img.onload = function(){
-      URL.revokeObjectURL(url);
-      const canvas = document.createElement('canvas');
-      let w = img.width, h = img.height;
-      if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      canvas.toBlob(resolve, 'image/jpeg', quality);
-    };
-    img.onerror = function(){ URL.revokeObjectURL(url); resolve(null); };
-    img.src = url;
-  });
+function cerrarModal(id){
+  document.getElementById(id).classList.remove('open');
 }
+
+// ─── LOGIN ───
+function login(){
+  const val = document.getElementById('passInput').value;
+  const err = document.getElementById('loginError');
+  if(!val){ err.textContent='Ingresa la contraseña.'; return; }
+  if(val !== PASS){ err.textContent='Contraseña incorrecta.'; document.getElementById('passInput').value=''; return; }
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminNav').classList.add('visible');
+  document.getElementById('app').classList.add('visible');
+  initApp();
+}
+function logout(){ location.reload(); }
+document.addEventListener('keydown', e=>{
+  if(document.getElementById('loginScreen').style.display!=='none' && e.key==='Enter') login();
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
+  }
+});
 
 // ─── INIT ───
-async function initAdminApp(){
+async function initApp(){
   try {
-    const [propsRes, cmplsRes] = await Promise.all([
-      sb.from('propiedades').select('*'),
+    const [r1,r2] = await Promise.all([
       sb.from('complejos').select('*'),
+      sb.from('propiedades').select('*'),
     ]);
-    if(propsRes.error) throw propsRes.error;
-    if(cmplsRes.error) throw cmplsRes.error;
-    if(propsRes.data) propiedades = migrarNombres(propsRes.data, false);
-    if(cmplsRes.data) complejos   = migrarNombres(cmplsRes.data, true);
-    renderDashComplejos();
-    renderGaleriaAdmin();
-  } catch(err){
-    console.error('Error cargando datos:', err);
-    document.getElementById('dashComplejosList').innerHTML = '<p class="dash-empty">⚠ Error conectando con la base de datos. Revisa tu conexión.</p>';
+    complejos   = (r1.data||[]).map(migrar);
+    propiedades = (r2.data||[]).map(migrar);
+    renderComplejos();
+    renderGaleria();
+  } catch(e){
+    toast('⚠ Error conectando con la base de datos');
+    console.error(e);
   }
 }
 
-// ─── COMPLEJOS ───
-function renderDashComplejos(){
-  const list = document.getElementById('dashComplejosList');
-  if(!complejos.length){ list.innerHTML = '<p class="dash-empty">Sin complejos registrados.</p>'; return; }
-  list.innerHTML = complejos.map((c,i) => {
-    const unidades = propiedades.filter(p => p.complejo === c.id).length;
-    const id = esc(c.id);
-    const fotoUrl = safeUrl(c.foto);
-    return `<div class="dash-prop-item">
-      <div class="dash-prop-thumb">${fotoUrl ? `<img src="${fotoUrl}" onerror="this.style.display='none'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
-      <div class="dash-prop-info">
-        <div class="dash-prop-name">${esc(c.nombre)}</div>
-        <div class="dash-prop-addr">${esc(c.direccion)}</div>
-        <div class="dash-prop-meta">${unidades} unidades · ${esc((c.tags||[]).join(', '))}</div>
+function migrar(item){
+  let n = item.nombre||'';
+  if(n==='Aldea') n='Barrio Inn Hostal';
+  n = n.replace(/Barrio\s+inn\s+Aldea\//gi,'Barrio Inn Hostal/');
+  return {...item, nombre:n};
+}
+
+// ─── COMPLEJOS RENDER ───
+const ORDEN_DEFAULT = ['aldea','abasolo','morelos','roma','padremier'];
+function ordenarComplejos(lista){
+  return [...lista].sort((a,b)=>{
+    let ia=ORDEN_DEFAULT.indexOf(a.id), ib=ORDEN_DEFAULT.indexOf(b.id);
+    if(ia<0) ia=999; if(ib<0) ib=999;
+    // Prefer saved order if present
+    if(a._orden!=null && b._orden!=null) return a._orden-b._orden;
+    return ia-ib;
+  });
+}
+
+function renderComplejos(){
+  const list = document.getElementById('complejosList');
+  const ordered = ordenarComplejos(complejos);
+  if(!ordered.length){
+    list.innerHTML='<div class="empty-state"><div class="empty-icon">🏨</div><p>Sin complejos aún.</p></div>';
+    return;
+  }
+  list.innerHTML = ordered.map((c,i)=>{
+    const units = propiedades.filter(p=>p.complejo===c.id).length;
+    const foto = safeUrl(c.foto);
+    return `<div class="complejo-item" draggable="true" data-id="${esc(c.id)}"
+      ondragstart="dragStart(event,'complejo')" ondragover="dragOver(event)" ondrop="dropItem(event,'complejo')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)">
+      <div class="drag-handle">⠿</div>
+      <div class="complejo-thumb">${foto?`<img src="${foto}" loading="lazy"/>`:'🏨'}</div>
+      <div class="complejo-info">
+        <div class="complejo-name">${esc(c.nombre)}</div>
+        <div class="complejo-meta">${units} unidades · ${esc(c.direccion||'')}</div>
       </div>
-      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
-        <button class="dash-btn edit" onclick="abrirUnidadesComplejo('${id}')"><i class="fa-solid fa-house"></i> Unidades</button>
-        <button class="dash-btn edit" onclick="editarComplejo(${i})"><i class="fa-solid fa-pen"></i> Editar</button>
-        <button class="dash-btn danger" onclick="eliminarComplejo('${id}')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="complejo-actions">
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();abrirUnidades('${esc(c.id)}')">Unidades</button>
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editarComplejo('${esc(c.id)}')">Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();eliminarComplejo('${esc(c.id)}')">×</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function abrirFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display='block'; }
-function cerrarFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display='none'; editingComplejo=null; }
+// ─── DRAG & DROP ───
+let dragSrcId = null, dragType = null;
 
-function editarComplejo(idx){
-  const c = complejos[idx];
-  editingComplejo = c.id;
-  document.getElementById('dc-nombre').value    = c.nombre;
-  document.getElementById('dc-direccion').value = c.direccion;
-  document.getElementById('dc-unidades').value  = c.unidades;
-  document.getElementById('dc-tags').value      = (c.tags||[]).join(', ');
-  document.getElementById('dc-descripcion').value = c.descripcion || '';
-  document.getElementById('dash-complejo-form-title').innerHTML = '<i class="fa-solid fa-pen"></i> Editando: ' + c.nombre;
-  abrirFormComplejo();
-  document.getElementById('dash-complejo-form-panel').scrollIntoView({behavior:'smooth'});
+function dragStart(e, type){
+  dragSrcId = e.currentTarget.dataset.id;
+  dragType = type;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed='move';
+}
+function dragOver(e){
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function dragEnd(e){ e.currentTarget.classList.remove('dragging'); }
+
+function dropItem(e, type){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  const targetId = e.currentTarget.dataset.id;
+  if(!targetId || targetId===dragSrcId || type!==dragType) return;
+
+  if(type==='complejo'){
+    const srcIdx = complejos.findIndex(c=>c.id===dragSrcId);
+    const tgtIdx = complejos.findIndex(c=>c.id===targetId);
+    if(srcIdx<0||tgtIdx<0) return;
+    const [moved] = complejos.splice(srcIdx,1);
+    complejos.splice(tgtIdx,0,moved);
+    complejos.forEach((c,i)=>c._orden=i);
+    renderComplejos();
+    // Persist orden
+    complejos.forEach(c=>sb.from('complejos').update({_orden:c._orden}).eq('id',c.id).then(()=>{}));
+  } else {
+    const cId = complejoActivo?.id;
+    const props = propiedades.filter(p=>p.complejo===cId);
+    const srcIdx = props.findIndex(p=>p.id===dragSrcId);
+    const tgtIdx = props.findIndex(p=>p.id===targetId);
+    if(srcIdx<0||tgtIdx<0) return;
+    // Reorder in main array
+    const srcGlobal = propiedades.findIndex(p=>p.id===dragSrcId);
+    const tgtGlobal = propiedades.findIndex(p=>p.id===targetId);
+    const [moved] = propiedades.splice(srcGlobal,1);
+    propiedades.splice(tgtGlobal,0,moved);
+    renderUnidades();
+  }
+}
+
+// ─── MODAL COMPLEJO ───
+function abrirModalComplejo(){
+  editandoComplejoId = null;
+  mcTags = [];
+  document.getElementById('mc-nombre').value='';
+  document.getElementById('mc-direccion').value='';
+  document.getElementById('mc-unidades').value='';
+  document.getElementById('mc-descripcion').value='';
+  document.getElementById('mc-foto-preview').textContent='';
+  document.getElementById('mc-foto-input').value='';
+  document.getElementById('modalComplejoTitle').textContent='Agregar complejo';
+  renderMcTags();
+  document.getElementById('modalComplejo').classList.add('open');
+}
+
+function editarComplejo(id){
+  const c = complejos.find(x=>x.id===id);
+  if(!c) return;
+  editandoComplejoId = id;
+  mcTags = [...(c.tags||[])];
+  document.getElementById('mc-nombre').value = c.nombre||'';
+  document.getElementById('mc-direccion').value = c.direccion||'';
+  document.getElementById('mc-unidades').value = c.unidades||'';
+  document.getElementById('mc-descripcion').value = c.descripcion||'';
+  document.getElementById('mc-foto-preview').textContent = c.foto?'✔ Foto actual guardada':'';
+  document.getElementById('mc-foto-input').value='';
+  document.getElementById('modalComplejoTitle').textContent='Editar complejo';
+  renderMcTags();
+  document.getElementById('modalComplejo').classList.add('open');
 }
 
 async function guardarComplejo(){
-  const nombre = document.getElementById('dc-nombre').value.trim();
+  const nombre = document.getElementById('mc-nombre').value.trim();
   if(!nombre){ alert('El nombre es obligatorio.'); return; }
-  const btns = document.querySelectorAll('#dash-complejo-form-panel .dash-actions button');
-  btns.forEach(b => b.disabled = true);
+  const btn = document.getElementById('mc-save-btn');
+  btn.disabled=true; btn.textContent='Guardando...';
   try {
-    const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-    const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
-    const dir = document.getElementById('dc-direccion').value.trim();
-    const descripcion = document.getElementById('dc-descripcion').value.trim();
-    let targetId;
-    if(editingComplejo){
-      const idx = complejos.findIndex(c => c.id === editingComplejo);
-      if(idx > -1){ complejos[idx] = {...complejos[idx], nombre, direccion:dir, unidades, tags, descripcion}; targetId = complejos[idx].id; }
-    } else {
-      const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
-      if(!id){ alert('Nombre inválido.'); return; }
-      if(complejos.some(c => c.id === id)){ alert('Ya existe un complejo con ese nombre.'); return; }
-      complejos.push({ id, nombre, direccion:dir, unidades, tags, descripcion, foto:'' });
-      targetId = id;
+    const tags = [...mcTags];
+    const dir = document.getElementById('mc-direccion').value.trim();
+    const unidades = parseInt(document.getElementById('mc-unidades').value)||0;
+    const descripcion = document.getElementById('mc-descripcion').value.trim();
+
+    let id = editandoComplejoId || nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+    if(!editandoComplejoId && complejos.some(c=>c.id===id)){ alert('Ya existe un complejo con ese nombre.'); return; }
+
+    let foto = editandoComplejoId ? (complejos.find(c=>c.id===editandoComplejoId)?.foto||'') : '';
+    const fileInput = document.getElementById('mc-foto-input');
+    if(fileInput.files[0]){
+      const url = await uploadFile(fileInput.files[0],'complejos');
+      if(url) foto=url;
     }
-    const fileInput = document.getElementById('dc-foto-input');
-    if(fileInput && fileInput.files && fileInput.files[0]){
-      const url = await uploadFoto(fileInput.files[0], 'complejos');
-      if(url){ const c = complejos.find(x => x.id === targetId); if(c) c.foto = url; }
-    }
-    const target = complejos.find(c => c.id === targetId);
-    const { error } = await sb.from('complejos').upsert(target);
-    if(error){ alert('Error guardando: ' + error.message); return; }
-    renderDashComplejos();
-    cerrarFormComplejo();
+
+    const data = {id, nombre, direccion:dir, unidades, tags, descripcion, foto};
+    const {error} = await sb.from('complejos').upsert(data);
+    if(error){ alert('Error: '+error.message); return; }
+
+    if(editandoComplejoId){ const i=complejos.findIndex(c=>c.id===editandoComplejoId); if(i>-1) complejos[i]={...complejos[i],...data}; }
+    else complejos.push(data);
+
+    renderComplejos();
+    cerrarModal('modalComplejo');
+    toast('✓ Complejo guardado');
   } finally {
-    btns.forEach(b => b.disabled = false);
+    btn.disabled=false; btn.textContent='Guardar complejo';
   }
 }
 
 async function eliminarComplejo(id){
-  if(!confirm('¿Eliminar complejo y TODAS sus unidades?')) return;
-  const r1 = await sb.from('propiedades').delete().eq('complejo', id);
-  if(r1.error){ alert('Error eliminando unidades: ' + r1.error.message); return; }
-  const r2 = await sb.from('complejos').delete().eq('id', id);
-  if(r2.error){ alert('Error eliminando complejo: ' + r2.error.message); return; }
-  complejos = complejos.filter(c => c.id !== id);
-  propiedades = propiedades.filter(p => p.complejo !== id);
-  renderDashComplejos();
+  if(!confirm('¿Eliminar este complejo y TODAS sus unidades?')) return;
+  const r1 = await sb.from('propiedades').delete().eq('complejo',id);
+  if(r1.error){ alert('Error: '+r1.error.message); return; }
+  const r2 = await sb.from('complejos').delete().eq('id',id);
+  if(r2.error){ alert('Error: '+r2.error.message); return; }
+  complejos = complejos.filter(c=>c.id!==id);
+  propiedades = propiedades.filter(p=>p.complejo!==id);
+  renderComplejos();
+  toast('Complejo eliminado');
 }
 
-// ─── DRILL-DOWN UNIDADES ───
-function abrirUnidadesComplejo(complejoId){
-  complejoActivo = complejos.find(c => c.id === complejoId);
-  document.getElementById('dash-view-complejos').style.display = 'none';
-  document.getElementById('dash-view-unidades').style.display  = 'block';
-  document.getElementById('dash-unidades-titulo').textContent   = complejoActivo ? complejoActivo.nombre : '';
-  document.getElementById('dash-unidades-sub').textContent      = complejoActivo ? complejoActivo.direccion : '';
-  renderDashProps();
+// Tags mc
+function renderMcTags(){
+  const wrap = document.getElementById('mc-tags-wrap');
+  wrap.querySelectorAll('.tag-pill').forEach(t=>t.remove());
+  const input = document.getElementById('mc-tags-input');
+  mcTags.forEach((tag,i)=>{
+    const pill = document.createElement('div');
+    pill.className='tag-pill';
+    pill.innerHTML=`${esc(tag)}<button onclick="mcRemoveTag(${i})" type="button">×</button>`;
+    wrap.insertBefore(pill, input);
+  });
+}
+function mcRemoveTag(i){ mcTags.splice(i,1); renderMcTags(); }
+document.getElementById('mc-tags-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter'||e.key===','){ e.preventDefault(); const v=e.target.value.trim().replace(/,$/,''); if(v){ mcTags.push(v); e.target.value=''; renderMcTags(); } }
+  if(e.key==='Backspace'&&!e.target.value&&mcTags.length){ mcTags.pop(); renderMcTags(); }
+});
+document.getElementById('mc-foto-input').addEventListener('change',function(){
+  document.getElementById('mc-foto-preview').textContent = this.files[0]?`✔ ${this.files[0].name}`:'';
+});
+
+// ─── UNIDADES ───
+function abrirUnidades(id){
+  complejoActivo = complejos.find(c=>c.id===id);
+  document.getElementById('breadComplejo').textContent = complejoActivo?.nombre||'';
+  document.getElementById('unidadesTitle').textContent = complejoActivo?.nombre||'';
+  document.getElementById('unidadesSub').textContent = complejoActivo?.direccion||'';
+  showView('view-unidades');
+  renderUnidades();
 }
 
-function dashVolverComplejos(){
-  complejoActivo = null;
-  document.getElementById('dash-view-unidades').style.display  = 'none';
-  document.getElementById('dash-view-complejos').style.display = 'block';
-  limpiarFormulario();
+function volverComplejos(){
+  complejoActivo=null;
+  showView('view-complejos');
 }
 
-function renderDashProps(){
-  const list  = document.getElementById('dashPropsList');
-  const cId   = complejoActivo ? complejoActivo.id : null;
-  const props = cId ? propiedades.filter(p => p.complejo === cId) : propiedades;
-  if(!props.length){ list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo.</p>'; return; }
-  list.innerHTML = props.map(p => {
-    const id = esc(p.id);
-    const fotoUrl = (p.fotos && p.fotos.length) ? safeUrl(p.fotos[0]) : '';
-    const thumb = fotoUrl ? `<img src="${fotoUrl}" onerror="this.style.display='none'"/>` : '<i class="fa-solid fa-house"></i>';
-    return `<div class="dash-prop-item">
-      <div class="dash-prop-thumb">${thumb}</div>
-      <div class="dash-prop-info">
-        <div class="dash-prop-name">${esc(p.nombre)}</div>
-        <div class="dash-prop-addr">${esc(p.direccion||'')}</div>
-        <div class="dash-prop-meta">${esc((p.tags||[]).slice(0,3).join(' · '))}</div>
+function renderUnidades(){
+  const list = document.getElementById('unidadesList');
+  const props = propiedades.filter(p=>p.complejo===complejoActivo?.id);
+  if(!props.length){
+    list.innerHTML='<div class="empty-state"><div class="empty-icon">🛏</div><p>Sin unidades en este complejo.</p></div>';
+    return;
+  }
+  list.innerHTML = props.map(p=>{
+    const foto = (p.fotos&&p.fotos.length) ? safeUrl(p.fotos[0]) : '';
+    const tipo = p.tipo ? ` · ${p.tipo}` : '';
+    const piso = p.piso ? ` · Piso ${p.piso}` : '';
+    return `<div class="unidad-item" draggable="true" data-id="${esc(p.id)}"
+      ondragstart="dragStart(event,'unidad')" ondragover="dragOver(event)" ondrop="dropItem(event,'unidad')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)">
+      <div class="drag-handle">⠿</div>
+      <div class="unidad-thumb">${foto?`<img src="${foto}" loading="lazy"/>`:'🛏'}</div>
+      <div class="unidad-info">
+        <div class="unidad-name">${esc(p.nombre||p.nombre)}</div>
+        <div class="unidad-meta">${esc(p.direccion||'')}${tipo}${piso}</div>
       </div>
-      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
-        <button class="dash-btn edit" onclick="editarPropiedad('${id}')"><i class="fa-solid fa-pen"></i> Editar</button>
-        <button class="dash-btn danger" onclick="eliminarPropiedad('${id}')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="unidad-actions">
+        <button class="btn btn-ghost btn-sm" onclick="editarUnidad('${esc(p.id)}')">Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarUnidad('${esc(p.id)}')">×</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function editarPropiedad(id){
-  const p = propiedades.find(x => x.id === id);
+// ─── MODAL UNIDAD ───
+function abrirModalUnidad(id){
+  editandoUnidadId = null;
+  muFotos=[];muTags=[];plataformas=[];
+  ['mu-numero','mu-titulo','mu-descripcion','mu-whatsapp'].forEach(f=>document.getElementById(f).value='');
+  document.getElementById('mu-tipo').value='';
+  document.getElementById('mu-piso').value='1';
+  document.getElementById('modalUnidadTitle').textContent='Agregar suite';
+  document.getElementById('mu-save-btn').textContent='Guardar';
+  renderMuTags();renderFotos();renderPlataformas();
+  document.getElementById('modalUnidad').classList.add('open');
+}
+
+function editarUnidad(id){
+  const p = propiedades.find(x=>x.id===id);
   if(!p) return;
-  editingId = id;
-  document.getElementById('dash-nombre').value        = p.nombre;
-  document.getElementById('dash-badge').value         = p.badge || '';
-  document.getElementById('dash-direccion').value     = p.direccion || '';
-  document.getElementById('dash-direccion-url').value = p.direccionUrl || '';
-  document.getElementById('dash-rating').value        = p.rating || '';
-  document.getElementById('dash-telefono').value      = p.telefono || '';
-  document.getElementById('dash-tags').value          = (p.tags||[]).join(', ');
-  document.getElementById('dash-cercanos').value      = (p.cercanos||[]).join(', ');
-  document.getElementById('dash-belong').value        = p.belong || '';
-  document.getElementById('dash-airbnb').value        = p.airbnb || '';
-  document.getElementById('dash-expedia').value       = p.expedia || '';
-  document.getElementById('dash-lat').value           = p.lat || '';
-  document.getElementById('dash-lng').value           = p.lng || '';
-  document.getElementById('dash-form-title').innerHTML  = '<i class="fa-solid fa-pen"></i> Editando: ' + p.nombre;
-  document.getElementById('dash-save-btn').textContent  = 'Guardar cambios';
-  document.getElementById('dash-editing-badge').style.display = 'flex';
-  document.getElementById('dash-save-btn').scrollIntoView({behavior:'smooth',block:'center'});
+  editandoUnidadId = id;
+  muTags = [...(p.tags||[])];
+  muFotos = (p.fotos||[]).map(url=>({url, isNew:false}));
+  // Plataformas: reconstruir desde campos guardados
+  plataformas=[];
+  if(p.airbnb) plataformas.push({nombre:'Airbnb', url:p.airbnb});
+  if(p.belong) plataformas.push({nombre:'Belong', url:p.belong});
+  if(p.expedia) plataformas.push({nombre:'Expedia', url:p.expedia});
+  // extra plataformas si hay
+  if(p.plataformas) plataformas = p.plataformas;
+
+  document.getElementById('mu-numero').value = p.numero||p.badge||'';
+  document.getElementById('mu-titulo').value = p.nombre||'';
+  document.getElementById('mu-tipo').value = p.tipo||'';
+  document.getElementById('mu-piso').value = p.piso||'1';
+  document.getElementById('mu-descripcion').value = p.descripcion||p.desc||'';
+  document.getElementById('mu-whatsapp').value = p.whatsapp||(p.telefono?'52'+p.telefono:'')||'';
+  document.getElementById('modalUnidadTitle').textContent='Editar suite';
+  document.getElementById('mu-save-btn').textContent='Guardar';
+  renderMuTags();renderFotos();renderPlataformas();
+  document.getElementById('modalUnidad').classList.add('open');
 }
 
-function limpiarFormulario(){
-  editingId = null;
-  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating',
-   'dash-telefono','dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
-    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-  limpiarPreviewFotos();
-  document.getElementById('dash-form-title').innerHTML = '<i class="fa-solid fa-plus"></i> Agregar nueva unidad';
-  document.getElementById('dash-save-btn').textContent = '＋ Agregar unidad';
-  document.getElementById('dash-editing-badge').style.display = 'none';
-}
+async function guardarUnidad(){
+  const titulo = document.getElementById('mu-titulo').value.trim();
+  if(!titulo){ alert('El título es obligatorio.'); return; }
+  const btn = document.getElementById('mu-save-btn');
+  btn.disabled=true; btn.textContent='Guardando...';
+  try {
+    // Upload new photos
+    const fotosFinales = [];
+    for(const f of muFotos){
+      if(f.isNew && f.file){
+        btn.textContent='Subiendo fotos...';
+        const blob = await comprimir(f.file,1200,.78);
+        const file = new File([blob],f.file.name,{type:'image/jpeg'});
+        const url = await uploadFile(file,'propiedades');
+        if(url) fotosFinales.push(url);
+      } else if(!f.isNew){
+        fotosFinales.push(f.url);
+      }
+    }
 
-function mostrarPreviews(input){
-  const files = Array.from(input.files).slice(0, 5);
-  const grid = document.getElementById('fotos-preview-grid');
-  const placeholder = document.getElementById('fotos-placeholder');
-  grid.innerHTML = '';
-  if(!files.length){ grid.style.display='none'; placeholder.style.display='block'; return; }
-  placeholder.style.display = 'none';
-  grid.style.display = 'flex';
-  files.forEach((file, i) => {
-    const url = URL.createObjectURL(file);
-    const wrap = document.createElement('div');
-    wrap.className = 'fotos-thumb-wrap';
-    const img = document.createElement('img');
-    img.src = url; img.className = 'fotos-thumb';
-    const del = document.createElement('button');
-    del.className = 'fotos-thumb-del'; del.textContent = '×';
-    del.onclick = function(e){
-      e.stopPropagation();
-      const dt = new DataTransfer();
-      Array.from(input.files).forEach((f, j) => { if(j !== i) dt.items.add(f); });
-      input.files = dt.files;
-      mostrarPreviews(input);
+    // Build plataformas map
+    const airbnb  = plataformas.find(p=>p.nombre.toLowerCase()==='airbnb')?.url||'';
+    const belong  = plataformas.find(p=>p.nombre.toLowerCase()==='belong')?.url||'';
+    const expedia = plataformas.find(p=>p.nombre.toLowerCase()==='expedia')?.url||'';
+
+    const data = {
+      id: editandoUnidadId || (titulo.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')+'_'+Date.now()),
+      complejo: complejoActivo?.id||'sin_complejo',
+      nombre: titulo,
+      badge:  document.getElementById('mu-numero').value.trim(),
+      numero: document.getElementById('mu-numero').value.trim(),
+      tipo:   document.getElementById('mu-tipo').value,
+      piso:   document.getElementById('mu-piso').value,
+      descripcion: document.getElementById('mu-descripcion').value.trim(),
+      desc:        document.getElementById('mu-descripcion').value.trim(),
+      tags:   [...muTags],
+      whatsapp: document.getElementById('mu-whatsapp').value.trim(),
+      telefono: document.getElementById('mu-whatsapp').value.trim().replace(/^52/,'').slice(0,10),
+      fotos: fotosFinales,
+      plataformas: plataformas.map(p=>({nombre:p.nombre,url:p.url})),
+      airbnb, belong, expedia,
     };
-    wrap.appendChild(img); wrap.appendChild(del);
-    grid.appendChild(wrap);
+
+    btn.textContent='Guardando...';
+    const {error} = await sb.from('propiedades').upsert(data);
+    if(error){ alert('Error: '+error.message); return; }
+
+    if(editandoUnidadId){ const i=propiedades.findIndex(p=>p.id===editandoUnidadId); if(i>-1) propiedades[i]={...propiedades[i],...data}; }
+    else propiedades.push(data);
+
+    renderUnidades();
+    cerrarModal('modalUnidad');
+    toast('✓ Suite guardada');
+  } finally {
+    btn.disabled=false; btn.textContent='Guardar';
+  }
+}
+
+async function eliminarUnidad(id){
+  if(!confirm('¿Eliminar esta unidad?')) return;
+  const {error} = await sb.from('propiedades').delete().eq('id',id);
+  if(error){ alert('Error: '+error.message); return; }
+  propiedades = propiedades.filter(p=>p.id!==id);
+  renderUnidades();
+  toast('Unidad eliminada');
+}
+
+// Tags mu
+function renderMuTags(){
+  const wrap = document.getElementById('mu-tags-wrap');
+  wrap.querySelectorAll('.tag-pill').forEach(t=>t.remove());
+  const input = document.getElementById('mu-tags-input');
+  muTags.forEach((tag,i)=>{
+    const pill=document.createElement('div');
+    pill.className='tag-pill';
+    pill.innerHTML=`${esc(tag)}<button onclick="muRemoveTag(${i})" type="button">×</button>`;
+    wrap.insertBefore(pill,input);
+  });
+}
+function muRemoveTag(i){ muTags.splice(i,1); renderMuTags(); }
+document.getElementById('mu-tags-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===','){ e.preventDefault(); const v=e.target.value.trim().replace(/,$/,''); if(v){ muTags.push(v); e.target.value=''; renderMuTags(); } }
+  if(e.key==='Backspace'&&!e.target.value&&muTags.length){ muTags.pop(); renderMuTags(); }
+});
+
+// Plataformas
+function renderPlataformas(){
+  const c = document.getElementById('plataformasContainer');
+  c.innerHTML = plataformas.map((p,i)=>`
+    <div class="plataforma-row">
+      <input class="plataforma-nombre" type="text" placeholder="Airbnb" value="${esc(p.nombre)}" oninput="plataformas[${i}].nombre=this.value"/>
+      <input class="plataforma-url" type="url" placeholder="https://airbnb.mx/rooms/..." value="${esc(p.url)}" oninput="plataformas[${i}].url=this.value"/>
+      <button class="plataforma-del" onclick="quitarPlataforma(${i})">×</button>
+    </div>`).join('');
+}
+function agregarPlataforma(){ plataformas.push({nombre:'',url:''}); renderPlataformas(); }
+function quitarPlataforma(i){ plataformas.splice(i,1); renderPlataformas(); }
+
+// Fotos
+function renderFotos(){
+  const grid = document.getElementById('fotosGrid');
+  document.getElementById('fotosCount').textContent = muFotos.length ? `(${muFotos.length})` : '';
+  if(!muFotos.length){ grid.innerHTML=''; return; }
+  grid.innerHTML = muFotos.map((f,i)=>`
+    <div class="foto-item">
+      <img src="${esc(f.url)}" loading="lazy"/>
+      ${i===0?'<div class="foto-badge">PORTADA</div>':''}
+      <div class="foto-controls">
+        ${i>0?`<button class="foto-ctrl-btn move" onclick="moverFoto(${i},-1)" title="Mover izquierda">←</button>`:''}
+        ${i<muFotos.length-1?`<button class="foto-ctrl-btn move" onclick="moverFoto(${i},1)" title="Mover derecha">→</button>`:''}
+        <button class="foto-ctrl-btn del" onclick="eliminarFoto(${i})" title="Eliminar">×</button>
+      </div>
+    </div>`).join('');
+}
+function moverFoto(i,dir){
+  const ni=i+dir;
+  if(ni<0||ni>=muFotos.length) return;
+  [muFotos[i],muFotos[ni]]=[muFotos[ni],muFotos[i]];
+  renderFotos();
+}
+function eliminarFoto(i){ muFotos.splice(i,1); renderFotos(); }
+
+document.getElementById('fotosInput').addEventListener('change',async function(){
+  const files=Array.from(this.files);
+  for(const file of files){
+    const url=URL.createObjectURL(file);
+    muFotos.push({url,file,isNew:true});
+  }
+  renderFotos();
+  this.value='';
+});
+
+// ─── GALERÍA ───
+async function renderGaleria(){
+  const {data:galeria} = await sb.from('galeria').select('*').order('id');
+  const grid = document.getElementById('galeriaGrid');
+  if(!galeria||!galeria.length){
+    grid.innerHTML='<p style="font-size:13px;color:var(--gray-400)">Sin fotos aún.</p>';
+    return;
+  }
+  grid.innerHTML = galeria.map(f=>{
+    const src=safeUrl(f.src); const idN=Number(f.id);
+    if(!src||!isFinite(idN)) return '';
+    return `<div class="galeria-item"><img src="${src}" loading="lazy"/><button class="galeria-del" onclick="eliminarGaleria(${idN})">×</button></div>`;
+  }).join('');
+}
+
+document.getElementById('galeriaInput').addEventListener('change',async function(){
+  if(!this.files.length) return;
+  const msg=document.getElementById('galeriaMensaje');
+  msg.textContent=`Subiendo ${this.files.length} foto(s)...`;
+  let ok=0,fail=0;
+  for(const file of Array.from(this.files)){
+    const url=await uploadFile(file,'galeria');
+    if(!url){fail++;continue;}
+    const {error}=await sb.from('galeria').insert({src:url,nombre:file.name});
+    if(error) fail++; else ok++;
+  }
+  msg.textContent=fail?`✔ ${ok} subidas, ⚠ ${fail} fallaron`:`✔ ${ok} foto(s) subidas`;
+  this.value='';
+  renderGaleria();
+});
+
+async function eliminarGaleria(id){
+  if(!confirm('¿Eliminar esta foto?')) return;
+  const {error}=await sb.from('galeria').delete().eq('id',id);
+  if(error){alert('Error: '+error.message);return;}
+  renderGaleria();
+}
+
+// ─── UPLOAD & COMPRESS ───
+async function uploadFile(file, folder){
+  const ext=file.name.split('.').pop()||'jpg';
+  const path=`${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const {error}=await sb.storage.from('fotos').upload(path,file,{upsert:true});
+  if(error){console.error(error);return null;}
+  return sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
+}
+
+function comprimir(file,maxW,quality){
+  return new Promise(resolve=>{
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      const c=document.createElement('canvas');
+      let w=img.width,h=img.height;
+      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+      c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      c.toBlob(resolve,'image/jpeg',quality);
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);resolve(null);};
+    img.src=url;
   });
 }
 
-function limpiarPreviewFotos(){
-  const grid = document.getElementById('fotos-preview-grid');
-  const placeholder = document.getElementById('fotos-placeholder');
-  if(grid){ grid.innerHTML = ''; grid.style.display = 'none'; }
-  if(placeholder) placeholder.style.display = 'block';
-  const input = document.getElementById('fotos');
-  if(input) input.value = '';
-}
-
-async function guardarPropiedad(){
-  const nombre = document.getElementById('dash-nombre').value.trim();
-  if(!nombre){ alert('El nombre es obligatorio.'); return; }
-  const urlFields = [
-    ['dash-direccion-url','Link de Google Maps'],
-    ['dash-belong','Link de Belong'],
-    ['dash-airbnb','Link de Airbnb'],
-    ['dash-expedia','Link de Expedia'],
-  ];
-  for(const [fieldId, label] of urlFields){
-    const val = document.getElementById(fieldId).value.trim();
-    if(val && !/^https?:\/\//i.test(val)){ alert(label + ' debe empezar con http:// o https://'); return; }
-  }
-  const tel = document.getElementById('dash-telefono').value.trim();
-  if(tel && !/^\d{10}$/.test(tel)){ alert('El teléfono debe tener exactamente 10 dígitos.'); return; }
-
-  const btn = document.getElementById('dash-save-btn');
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  let savedOk = false;
-  try {
-    const tags     = document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-    const cercanos = document.getElementById('dash-cercanos').value.split(',').map(t=>t.trim()).filter(Boolean);
-    const lat = parseFloat(document.getElementById('dash-lat').value) || null;
-    const lng = parseFloat(document.getElementById('dash-lng').value) || null;
-    const data = {
-      id: editingId || (nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') + '_' + Date.now()),
-      complejo: complejoActivo ? complejoActivo.id : 'sin_complejo',
-      nombre,
-      badge:        document.getElementById('dash-badge').value.trim(),
-      direccion:    document.getElementById('dash-direccion').value.trim(),
-      direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
-      rating:       document.getElementById('dash-rating').value.trim(),
-      precio:       '',
-      telefono:     document.getElementById('dash-telefono').value.trim(),
-      tags, cercanos,
-      belong:  document.getElementById('dash-belong').value.trim(),
-      airbnb:  document.getElementById('dash-airbnb').value.trim(),
-      expedia: document.getElementById('dash-expedia').value.trim(),
-      lat, lng,
-      fotos: editingId ? (propiedades.find(p=>p.id===editingId)||{fotos:[]}).fotos : [],
-    };
-    const fotosInput = document.getElementById('fotos');
-    const files = Array.from(fotosInput.files || []).slice(0, 5);
-    if(files.length){
-      btn.textContent = 'Cargando fotos...';
-      const urls = await Promise.all(files.map(async (file) => {
-        const blob = await comprimirImagenBlob(file, 1200, 0.75);
-        if(!blob) return null;
-        const f = new File([blob], file.name, { type: 'image/jpeg' });
-        return uploadFoto(f, 'propiedades');
-      }));
-      data.fotos = urls.filter(Boolean);
-    }
-    btn.textContent = 'Guardando...';
-    const { error } = await sb.from('propiedades').upsert(data);
-    if(error){ alert('Error guardando: ' + error.message); throw error; }
-    if(editingId){ const idx = propiedades.findIndex(p => p.id === editingId); if(idx > -1) propiedades[idx] = data; }
-    else propiedades.push(data);
-    limpiarFormulario();
-    renderDashProps();
-    savedOk = true;
-  } finally {
-    btn.disabled = false;
-    if(!savedOk) btn.textContent = originalText;
-  }
-}
-
-async function eliminarPropiedad(id){
-  if(!confirm('¿Eliminar esta unidad?')) return;
-  const { error } = await sb.from('propiedades').delete().eq('id', id);
-  if(error){ alert('Error al eliminar: ' + error.message); return; }
-  propiedades = propiedades.filter(p => p.id !== id);
-  renderDashProps();
-}
-
-async function resetearDatos(){
-  if(!confirm('¿Recargar datos desde la base de datos?')) return;
-  await initAdminApp();
-}
-
-// ─── GALERÍA ───
-document.addEventListener('DOMContentLoaded', () => {
-  const galeriaInput = document.getElementById('galeriaInput');
-  if(galeriaInput){
-    galeriaInput.addEventListener('change', async function(){
-      if(!this.files.length) return;
-      const preview = document.getElementById('galeria-preview');
-      preview.textContent = `Subiendo ${this.files.length} foto(s)...`;
-      const files = Array.from(this.files);
-      const results = await Promise.all(files.map(async file => {
-        const url = await uploadFoto(file, 'galeria');
-        if(!url) return { ok:false, name:file.name };
-        const { error } = await sb.from('galeria').insert({ src: url, nombre: file.name });
-        return { ok: !error, name: file.name };
-      }));
-      const ok = results.filter(r => r.ok).length;
-      const fail = results.length - ok;
-      preview.textContent = fail ? `✔ ${ok} subidas, ⚠ ${fail} fallaron` : `✔ ${ok} foto(s) subidas`;
-      this.value = '';
-      renderGaleriaAdmin();
-    });
-  }
-  const dcFotoInput = document.getElementById('dc-foto-input');
-  if(dcFotoInput){
-    dcFotoInput.addEventListener('change', function(){
-      document.getElementById('dc-foto-preview').textContent = this.files[0] ? `✔ ${this.files[0].name}` : '';
-    });
-  }
-});
-
-async function eliminarFotoGaleria(id){
-  if(!confirm('¿Eliminar esta foto?')) return;
-  const { error } = await sb.from('galeria').delete().eq('id', id);
-  if(error){ alert('Error al eliminar foto: ' + error.message); return; }
-  renderGaleriaAdmin();
-}
-
-async function renderGaleriaAdmin(){
-  const grid = document.getElementById('galeriaGrid');
-  const { data: galeria } = await sb.from('galeria').select('*').order('id');
-  if(!galeria || !galeria.length){
-    grid.innerHTML = '<p class="dash-gallery-empty">Sin fotos aún. Sube imágenes del Barrio Antiguo para el marquee.</p>';
-    return;
-  }
-  grid.innerHTML = galeria.map(f => {
-    const src = safeUrl(f.src);
-    const idNum = Number(f.id);
-    if(!src || !Number.isFinite(idNum)) return '';
-    return `<div class="dash-gallery-item">
-      <img src="${src}" alt="${esc(f.nombre)}" loading="lazy"/>
-      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${idNum})" title="Eliminar">×</button>
-    </div>`;
-  }).join('');
-}
-
-// Enter en login
-document.addEventListener('keydown', e => {
-  const loginScreen = document.getElementById('loginScreen');
-  if(loginScreen.style.display !== 'none' && e.key === 'Enter') intentarLogin();
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',e=>{
+    if(e.target===overlay) overlay.classList.remove('open');
+  });
 });
 </script>
 </body>
