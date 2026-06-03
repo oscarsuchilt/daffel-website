@@ -1386,11 +1386,12 @@ body.detail-active .nav-logo-mark{}
 <!-- ═══════════ COMPLEJO UNITS PAGE (intermediate) ═══════════ -->
 <button class="cup-back-fixed" onclick="volverComplejos()">← Volver</button>
 <section class="complejo-units-page" id="complejoUnitsPage">
-  <div class="container">
-    <h2 class="cup-units-title" id="cupUnitsTitle" style="text-align:center;margin-bottom:2rem"></h2>
+  <button class="cup-back-fixed" id="cupBackBtn" onclick="volverComplejos()">← Volver</button>
+  <div style="max-width:1240px;margin:0 auto;padding:100px 48px 2rem">
+    <h2 class="cup-units-title" id="cupUnitsTitle" style="font-family:'Instrument Serif',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.02em;margin-bottom:2.5rem"></h2>
   </div>
-  <div class="cup-units-scroll-wrap" id="cupUnitsScrollWrap" style="padding:0 48px 40px">
-    <div class="cup-units-grid" id="cupUnitsGrid"></div>
+  <div style="max-width:1240px;margin:0 auto;padding:0 48px 80px">
+    <div class="units-grid" id="cupUnitsGrid"></div>
   </div>
 </section>
 
@@ -2257,26 +2258,76 @@ function abrirComplejo(id){
   const c = complejoActivo;
   const props = propiedades.filter(p => p.complejo === id);
 
-  // Solo título
   document.getElementById('cupUnitsTitle').textContent = 'Propiedades en ' + c.nombre;
 
-  // Render unit cards
   const grid = document.getElementById('cupUnitsGrid');
   if(!props.length){
-    grid.innerHTML = '<div style="padding:3rem 2rem;color:var(--gray-400);text-align:center;grid-column:1/-1"><p style="font-size:2rem;margin-bottom:.5rem"><i class="fa-solid fa-hammer"></i></p><p>Sin unidades registradas aún</p></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--gray-400)"><i class="fa-solid fa-hammer" style="font-size:2rem;display:block;margin-bottom:.5rem"></i><p>Sin unidades registradas aún</p></div>';
     return;
   }
+
   grid.innerHTML = props.map(p => {
+    const pid = esc(p.id);
     const nombre = esc(p.nombre);
-    const id = esc(p.id);
-    const fotoUrl = (p.fotos && p.fotos.length) ? safeUrl(p.fotos[0]) : '';
-    const imgHTML = fotoUrl
-      ? '<div class="cup-unit-img-wrap"><img class="cup-unit-img" src="' + fotoUrl + '" alt="' + nombre + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="cup-unit-img-ph" style="display:none"><i class="fa-solid fa-house" style="font-size:2rem"></i></div></div>'
-      : '<div class="cup-unit-img-wrap"><div class="cup-unit-img-ph"><i class="fa-solid fa-house" style="font-size:2rem"></i></div></div>';
-    return '<div class="cup-unit-card" onclick="abrirUnidad(\'' + id + '\')">' +
-      imgHTML +
-      '<div class="cup-unit-overlay"><div><div class="cup-unit-name">' + nombre + '</div><div class="cup-unit-addr">' + esc(p.direccion || '') + '</div></div><button class="cup-unit-view-btn" onclick="event.stopPropagation();abrirUnidad(\'' + id + '\')">Ver →</button></div></div>';
+    const fotos = (p.fotos || []).map(safeUrl).filter(Boolean);
+    const tags = (p.tags || []).slice(0, 6);
+    const badge = esc(p.badge || '');
+
+    // Reservar URL
+    let reservarUrl = '';
+    if(p.plataformas && p.plataformas.length) reservarUrl = safeUrl(p.plataformas[0].url);
+    if(!reservarUrl) reservarUrl = safeUrl(p.airbnb);
+    if(!reservarUrl) reservarUrl = safeUrl(p.belong);
+    if(!reservarUrl) reservarUrl = safeUrl(p.expedia);
+
+    // Gallery
+    let galleryHTML;
+    if(!fotos.length){
+      galleryHTML = '<div class="unit-card-ph"><i class="fa-solid fa-bed"></i></div>';
+    } else if(fotos.length === 1){
+      galleryHTML = '<img src="' + fotos[0] + '" alt="' + nombre + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/>';
+    } else {
+      const slides = fotos.map((f,i) => '<div class="unit-carousel-slide"><img src="' + f + '" alt="' + nombre + ' ' + (i+1) + '" loading="lazy"/></div>').join('');
+      const dots = fotos.map((_,i) => '<button class="unit-carousel-dot' + (i===0?' active':'') + '" onclick="ucDot(this,' + i + ');event.stopPropagation()"></button>').join('');
+      galleryHTML = '<div class="unit-carousel" id="uc-cup-' + pid + '" data-idx="0">' +
+        '<div class="unit-carousel-track">' + slides + '</div>' +
+        '<button class="unit-carousel-btn prev" onclick="ucMoveCup(\'' + pid + '\',-1);event.stopPropagation()">‹</button>' +
+        '<button class="unit-carousel-btn next" onclick="ucMoveCup(\'' + pid + '\',1);event.stopPropagation()">›</button>' +
+        '<div class="unit-carousel-dots">' + dots + '</div>' +
+        '</div>';
+    }
+
+    const reservarBtn = reservarUrl
+      ? '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="unit-reservar-btn" onclick="event.stopPropagation()">' +
+        '<span class="unit-reservar-label"><i class="fa-solid fa-calendar-check"></i> Reservar ahora</span>' +
+        '<span class="unit-reservar-arrow">↗</span></a>'
+      : '';
+
+    return '<div class="unit-card">' +
+      '<div class="unit-card-gallery">' + galleryHTML + '</div>' +
+      '<div class="unit-card-body">' +
+        (badge ? '<div class="unit-card-badge">' + badge + '</div>' : '') +
+        '<div class="unit-card-name">' + nombre + '</div>' +
+        (tags.length ? '<div class="unit-card-tags">' + tags.map(t => '<span class="unit-card-tag">' + esc(t) + '</span>').join('') + '</div>' : '') +
+      '</div>' +
+      '<div class="unit-card-footer">' +
+        '<button class="unit-ver-btn" onclick="abrirUnidad(\'' + pid + '\')"><i class="fa-solid fa-eye"></i> Ver detalle</button>' +
+        reservarBtn +
+      '</div>' +
+    '</div>';
   }).join('');
+}
+
+function ucMoveCup(id, dir){
+  const uc = document.getElementById('uc-cup-' + id);
+  if(!uc) return;
+  const track = uc.querySelector('.unit-carousel-track');
+  const slides = track.querySelectorAll('.unit-carousel-slide');
+  let idx = parseInt(uc.dataset.idx || 0);
+  idx = (idx + dir + slides.length) % slides.length;
+  uc.dataset.idx = idx;
+  track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+  uc.querySelectorAll('.unit-carousel-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
 }
 
 function volverAComplejo(){
