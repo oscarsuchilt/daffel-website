@@ -514,8 +514,7 @@ function renderComplejos(){
   list.innerHTML = ordered.map((c,i)=>{
     const units = propiedades.filter(p=>p.complejo===c.id).length;
     const foto = safeUrl(c.foto);
-    return `<div class="complejo-item" draggable="true" data-id="${esc(c.id)}"
-      ondragstart="dragStart(event,'complejo')" ondragover="dragOver(event)" ondrop="dropItem(event,'complejo')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)">
+    return `<div class="complejo-item" draggable="true" data-id="${esc(c.id)}">
       <div class="drag-handle">⠿</div>
       <div class="complejo-thumb">${foto?`<img src="${foto}" loading="lazy"/>`:'🏨'}</div>
       <div class="complejo-info">
@@ -523,59 +522,88 @@ function renderComplejos(){
         <div class="complejo-meta">${units} unidades · ${esc(c.direccion||'')}</div>
       </div>
       <div class="complejo-actions">
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();abrirUnidades('${esc(c.id)}')">Unidades</button>
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editarComplejo('${esc(c.id)}')">Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();eliminarComplejo('${esc(c.id)}')">×</button>
+        <button class="btn btn-ghost btn-sm" data-action="unidades" data-id="${esc(c.id)}">Unidades</button>
+        <button class="btn btn-ghost btn-sm" data-action="editar" data-id="${esc(c.id)}">Editar</button>
+        <button class="btn btn-danger btn-sm" data-action="eliminar" data-id="${esc(c.id)}">×</button>
       </div>
     </div>`;
   }).join('');
+  initDragList('complejosList','complejo');
 }
 
 // ─── DRAG & DROP ───
-let dragSrcId = null, dragType = null;
+// ─── DRAG & DROP via event delegation ───
+let dragSrcId = null;
 
-function dragStart(e, type){
-  dragSrcId = e.currentTarget.dataset.id;
-  dragType = type;
-  e.currentTarget.classList.add('dragging');
-  e.dataTransfer.effectAllowed='move';
-}
-function dragOver(e){
-  e.preventDefault();
-  e.currentTarget.classList.add('drag-over');
-}
-function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
-function dragEnd(e){ e.currentTarget.classList.remove('dragging'); }
+function initDragList(listId, type){
+  const list = document.getElementById(listId);
+  if(!list) return;
 
-function dropItem(e, type){
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  const targetId = e.currentTarget.dataset.id;
-  if(!targetId || targetId===dragSrcId || type!==dragType) return;
+  // Clicks (buttons)
+  list.onclick = function(e){
+    const btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    e.stopPropagation();
+    const action = btn.dataset.action;
+    const id = btn.dataset.id;
+    if(type==='complejo'){
+      if(action==='unidades') abrirUnidades(id);
+      else if(action==='editar') editarComplejo(id);
+      else if(action==='eliminar') eliminarComplejo(id);
+    } else {
+      if(action==='editar') editarUnidad(id);
+      else if(action==='eliminar') eliminarUnidad(id);
+    }
+  };
 
-  if(type==='complejo'){
-    const srcIdx = complejos.findIndex(c=>c.id===dragSrcId);
-    const tgtIdx = complejos.findIndex(c=>c.id===targetId);
-    if(srcIdx<0||tgtIdx<0) return;
-    const [moved] = complejos.splice(srcIdx,1);
-    complejos.splice(tgtIdx,0,moved);
-    complejos.forEach((c,i)=>c._orden=i);
-    renderComplejos();
-    // Persist orden
-    complejos.forEach(c=>sb.from('complejos').update({_orden:c._orden}).eq('id',c.id).then(()=>{}));
-  } else {
-    const cId = complejoActivo?.id;
-    const props = propiedades.filter(p=>p.complejo===cId);
-    const srcIdx = props.findIndex(p=>p.id===dragSrcId);
-    const tgtIdx = props.findIndex(p=>p.id===targetId);
-    if(srcIdx<0||tgtIdx<0) return;
-    // Reorder in main array
-    const srcGlobal = propiedades.findIndex(p=>p.id===dragSrcId);
-    const tgtGlobal = propiedades.findIndex(p=>p.id===targetId);
-    const [moved] = propiedades.splice(srcGlobal,1);
-    propiedades.splice(tgtGlobal,0,moved);
-    renderUnidades();
-  }
+  // Drag events
+  list.addEventListener('dragstart', e=>{
+    const item = e.target.closest('[draggable]');
+    if(!item) return;
+    dragSrcId = item.dataset.id;
+    setTimeout(()=>item.classList.add('dragging'),0);
+    e.dataTransfer.effectAllowed='move';
+  });
+  list.addEventListener('dragend', e=>{
+    list.querySelectorAll('.dragging,.drag-over').forEach(el=>{
+      el.classList.remove('dragging','drag-over');
+    });
+  });
+  list.addEventListener('dragover', e=>{
+    e.preventDefault();
+    const item = e.target.closest('[draggable]');
+    if(item && item.dataset.id !== dragSrcId){
+      list.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+      item.classList.add('drag-over');
+    }
+  });
+  list.addEventListener('dragleave', e=>{
+    const item = e.target.closest('[draggable]');
+    if(item) item.classList.remove('drag-over');
+  });
+  list.addEventListener('drop', e=>{
+    e.preventDefault();
+    const item = e.target.closest('[draggable]');
+    if(!item) return;
+    const targetId = item.dataset.id;
+    item.classList.remove('drag-over');
+    if(!targetId || targetId===dragSrcId) return;
+
+    if(type==='complejo'){
+      const si=complejos.findIndex(c=>c.id===dragSrcId);
+      const ti=complejos.findIndex(c=>c.id===targetId);
+      if(si<0||ti<0) return;
+      const [m]=complejos.splice(si,1); complejos.splice(ti,0,m);
+      renderComplejos();
+    } else {
+      const si=propiedades.findIndex(p=>p.id===dragSrcId);
+      const ti=propiedades.findIndex(p=>p.id===targetId);
+      if(si<0||ti<0) return;
+      const [m]=propiedades.splice(si,1); propiedades.splice(ti,0,m);
+      renderUnidades();
+    }
+    dragSrcId=null;
+  });
 }
 
 // ─── MODAL COMPLEJO ───
@@ -704,20 +732,20 @@ function renderUnidades(){
     const foto = (p.fotos&&p.fotos.length) ? safeUrl(p.fotos[0]) : '';
     const tipo = p.tipo ? ` · ${p.tipo}` : '';
     const piso = p.piso ? ` · Piso ${p.piso}` : '';
-    return `<div class="unidad-item" draggable="true" data-id="${esc(p.id)}"
-      ondragstart="dragStart(event,'unidad')" ondragover="dragOver(event)" ondrop="dropItem(event,'unidad')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)">
+    return `<div class="unidad-item" draggable="true" data-id="${esc(p.id)}">
       <div class="drag-handle">⠿</div>
       <div class="unidad-thumb">${foto?`<img src="${foto}" loading="lazy"/>`:'🛏'}</div>
       <div class="unidad-info">
-        <div class="unidad-name">${esc(p.nombre||p.nombre)}</div>
+        <div class="unidad-name">${esc(p.nombre)}</div>
         <div class="unidad-meta">${esc(p.direccion||'')}${tipo}${piso}</div>
       </div>
       <div class="unidad-actions">
-        <button class="btn btn-ghost btn-sm" onclick="editarUnidad('${esc(p.id)}')">Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="eliminarUnidad('${esc(p.id)}')">×</button>
+        <button class="btn btn-ghost btn-sm" data-action="editar" data-id="${esc(p.id)}">Editar</button>
+        <button class="btn btn-danger btn-sm" data-action="eliminar" data-id="${esc(p.id)}">×</button>
       </div>
     </div>`;
   }).join('');
+  initDragList('unidadesList','unidad');
 }
 
 // ─── MODAL UNIDAD ───
@@ -751,7 +779,7 @@ function editarUnidad(id){
   document.getElementById('mu-titulo').value = p.nombre||'';
   document.getElementById('mu-tipo').value = p.tipo||'';
   document.getElementById('mu-piso').value = p.piso||'1';
-  document.getElementById('mu-descripcion').value = p.descripcion||p.desc||'';
+  document.getElementById('mu-descripcion').value = '';
   document.getElementById('mu-whatsapp').value = p.whatsapp||(p.telefono?'52'+p.telefono:'')||'';
   document.getElementById('modalUnidadTitle').textContent='Editar suite';
   document.getElementById('mu-save-btn').textContent='Guardar';
@@ -789,15 +817,11 @@ async function guardarUnidad(){
       complejo: complejoActivo?.id||'sin_complejo',
       nombre: titulo,
       badge:  document.getElementById('mu-numero').value.trim(),
-      numero: document.getElementById('mu-numero').value.trim(),
       tipo:   document.getElementById('mu-tipo').value,
       piso:   document.getElementById('mu-piso').value,
-      descripcion: document.getElementById('mu-descripcion').value.trim(),
       tags:   [...muTags],
-      whatsapp: document.getElementById('mu-whatsapp').value.trim(),
       telefono: document.getElementById('mu-whatsapp').value.trim().replace(/^52/,'').slice(0,10),
       fotos: fotosFinales,
-      plataformas: plataformas.map(p=>({nombre:p.nombre,url:p.url})),
       airbnb, belong, expedia,
     };
 
