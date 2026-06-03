@@ -2142,8 +2142,8 @@ document.addEventListener('keydown', function(e){
 async function initApp(){
   try {
     const [propsRes, cmplsRes] = await Promise.all([
-      sb.from('propiedades').select('*'),
-      sb.from('complejos').select('*'),
+      sb.from('propiedades').select('*').order('_orden', {ascending:true, nullsFirst:false}),
+      sb.from('complejos').select('*').order('_orden', {ascending:true, nullsFirst:false}),
     ]);
     if(propsRes.error) throw propsRes.error;
     if(cmplsRes.error) throw cmplsRes.error;
@@ -2319,19 +2319,20 @@ function abrirComplejo(id){
     // Make gallery clickable to open lightbox
     const galleryClickable = galleryHTML.replace('<div class="unit-carousel"', '<div class="unit-carousel" onclick="if(!event.target.closest(\'.unit-carousel-btn\')&&!event.target.closest(\'.unit-carousel-dot\')){openLightbox(' + JSON.stringify(fotos) + ',parseInt(this.dataset.idx||0))}" style="cursor:zoom-in"');
 
-    return '<div class="unit-card">' +
-      '<div class="unit-card-gallery" onclick="openLightbox(' + fotosJSON + ',0)" style="cursor:pointer">' + galleryHTML + '</div>' +
-      '<div class="unit-card-body">' +
-        (badge ? '<div class="unit-card-badge">' + badge + '</div>' : '') +
-        '<div class="unit-card-name-row">' +
-          '<div class="unit-card-name">' + nombre + '</div>' +
-          '<button class="unit-ver-inline" onclick="abrirUnidad(\'' + pid + '\')">Ver detalle →</button>' +
-        '</div>' +
-        (tags.length ? '<div class="unit-card-tags">' + tags.map(t => '<span class="unit-card-tag">' + esc(t) + '</span>').join('') + '</div>' : '') +
-      '</div>' +
-      '<div class="unit-card-footer">' + bookingHTML + '</div>' +
-    '</div>';
-  }).join('');
+    return `<div class="unit-card">
+      <div class="unit-card-gallery" onclick="openLightbox(${fotosJSON},0)" style="cursor:pointer">${galleryHTML}</div>
+      <div class="unit-card-body">
+        ${badge ? `<div class="unit-card-badge">${badge}</div>` : ''}
+        <div class="unit-card-name-row">
+          <div class="unit-card-name">${nombre}</div>
+          <button class="unit-ver-inline" onclick="abrirUnidad('${pid}')">Ver detalle →</button>
+        </div>
+        ${tags.length ? `<div class="unit-card-tags">${tags.map(t=>`<span class="unit-card-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+      </div>
+      <div class="unit-card-footer">
+        ${bookingHTML}
+      </div>
+    </div>`  }).join('');
 }
 
 function ucMoveCup(id, dir){
@@ -2538,20 +2539,20 @@ function renderizarPropiedadesDeComplejo(complejoId){
     const fotosJSON = JSON.stringify(fotos);
     let galleryHTML;
     if(!fotos.length){
-      galleryHTML = '<div class="unit-card-ph"><i class="fa-solid fa-bed"></i></div>';
+      galleryHTML = `<div class="unit-card-ph"><i class="fa-solid fa-bed"></i></div>`;
     } else if(fotos.length === 1){
-      galleryHTML = '<img class="unit-single-img" src="' + fotos[0] + '" alt="' + nombre + '" loading="lazy"/>';
+      galleryHTML = `<img class="unit-single-img" src="${fotos[0]}" alt="${nombre}" loading="lazy"/>`;
     } else if(fotos.length === 2){
-      galleryHTML = '<div class="unit-collage" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr">' +
-        '<div class="unit-collage-main" style="grid-row:auto"><img src="' + fotos[0] + '" alt="' + nombre + '" loading="lazy"/></div>' +
-        '<div class="unit-collage-thumb"><img src="' + fotos[1] + '" alt="' + nombre + ' 2" loading="lazy"/>' +
-          '<div class="unit-collage-count">2 fotos</div></div>' +
-        '</div>';
+      galleryHTML = `<div class="unit-collage" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr">
+        <div class="unit-collage-main" style="grid-row:auto"><img src="${fotos[0]}" alt="${nombre}" loading="lazy"/></div>
+        <div class="unit-collage-thumb"><img src="${fotos[1]}" alt="${nombre} 2" loading="lazy"/>
+          <div class="unit-collage-count">2 fotos</div></div>
+        </div>`;
     } else {
-      galleryHTML = '<div class="unit-collage">' +
-        '<div class="unit-collage-main"><img src="' + fotos[0] + '" alt="' + nombre + '" loading="lazy"/></div>' +
-        '<div class="unit-collage-thumb"><img src="' + fotos[1] + '" alt="' + nombre + ' 2" loading="lazy"/></div>' +
-        '<div class="unit-collage-thumb"><img src="' + fotos[2] + '" alt="' + nombre + ' 3" loading="lazy"/>' +
-          '<div class="unit-collage-count">1 / ' + fotos.length + '</div></div>' +
-        '</div>';
+      galleryHTML = `<div class="unit-collage">
+        <div class="unit-collage-main"><img src="${fotos[0]}" alt="${nombre}" loading="lazy"/></div>
+        <div class="unit-collage-thumb"><img src="${fotos[1]}" alt="${nombre} 2" loading="lazy"/></div>
+        <div class="unit-collage-thumb"><img src="${fotos[2]}" alt="${nombre} 3" loading="lazy"/>
+          <div class="unit-collage-count">1 / ${fotos.length}</div></div>
+        </div>`;
     }
