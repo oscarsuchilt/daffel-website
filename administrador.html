@@ -148,17 +148,20 @@ select{cursor:pointer}
 .tags-input::placeholder{color:var(--gray-300)}
 
 /* ── PLATAFORMAS ── */
-.plataforma-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
-.plataforma-nombre{width:110px;flex-shrink:0}
-.plataforma-url{flex:1}
+.plataforma-row{display:grid;grid-template-columns:80px 1fr 32px;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.plataforma-nombre{min-width:0}
+.plataforma-url{min-width:0}
 .plataforma-del{width:32px;height:32px;flex-shrink:0;border-radius:var(--r-sm);background:var(--gray-100);border:none;cursor:pointer;font-size:14px;color:var(--gray-400);display:flex;align-items:center;justify-content:center;transition:all .2s}
 .plataforma-del:hover{background:#fdf2f0;color:#c0392b}
 
 /* ── FOTOS ── */
 .fotos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.6rem;margin-bottom:.75rem}
-.foto-item{position:relative;aspect-ratio:4/3;border-radius:var(--r-md);overflow:hidden;background:var(--gray-100);border:1.5px solid var(--gray-200)}
-.foto-item img{width:100%;height:100%;object-fit:cover;display:block}
-.foto-badge{position:absolute;top:5px;left:5px;background:#111;color:#fff;font-size:9px;font-weight:700;padding:.15rem .5rem;border-radius:var(--r-pill);letter-spacing:.05em}
+.foto-item{position:relative;aspect-ratio:4/3;border-radius:var(--r-md);overflow:hidden;background:var(--gray-100);border:1.5px solid var(--gray-200);cursor:grab;transition:opacity .2s,border-color .2s,transform .15s;user-select:none}
+.foto-item:active{cursor:grabbing}
+.foto-item img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.foto-item.dragging{opacity:.35;transform:scale(.96)}
+.foto-item.drag-over{border-color:var(--green);border-width:2.5px;background:var(--green-light)}
+.foto-badge{position:absolute;top:5px;left:5px;background:#111;color:#fff;font-size:9px;font-weight:700;padding:.15rem .5rem;border-radius:var(--r-pill);letter-spacing:.05em;pointer-events:none}
 .foto-controls{position:absolute;top:5px;right:5px;display:none;gap:3px}
 .foto-item:hover .foto-controls{display:flex}
 .foto-ctrl-btn{width:24px;height:24px;border-radius:6px;border:none;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .15s}
@@ -854,21 +857,50 @@ function agregarPlataforma(){ plataformas.push({nombre:'',url:''}); renderPlataf
 function quitarPlataforma(i){ plataformas.splice(i,1); renderPlataformas(); }
 
 // Fotos
+let fotoDragSrc = null;
+
 function renderFotos(){
   const grid = document.getElementById('fotosGrid');
   document.getElementById('fotosCount').textContent = muFotos.length ? `(${muFotos.length})` : '';
   if(!muFotos.length){ grid.innerHTML=''; return; }
   grid.innerHTML = muFotos.map((f,i)=>`
-    <div class="foto-item">
+    <div class="foto-item" draggable="true" data-idx="${i}"
+      ondragstart="fotoDragStart(event,${i})"
+      ondragover="fotoDragOver(event)"
+      ondragleave="fotoDragLeave(event)"
+      ondrop="fotoDrop(event,${i})"
+      ondragend="fotoDragEnd(event)">
       <img src="${esc(f.url)}" loading="lazy"/>
       ${i===0?'<div class="foto-badge">PORTADA</div>':''}
       <div class="foto-controls">
-        ${i>0?`<button class="foto-ctrl-btn move" onclick="moverFoto(${i},-1)" title="Mover izquierda">←</button>`:''}
-        ${i<muFotos.length-1?`<button class="foto-ctrl-btn move" onclick="moverFoto(${i},1)" title="Mover derecha">→</button>`:''}
-        <button class="foto-ctrl-btn del" onclick="eliminarFoto(${i})" title="Eliminar">×</button>
+        ${i>0?`<button class="foto-ctrl-btn move" onclick="event.stopPropagation();moverFoto(${i},-1)" title="Mover izquierda">←</button>`:''}
+        ${i<muFotos.length-1?`<button class="foto-ctrl-btn move" onclick="event.stopPropagation();moverFoto(${i},1)" title="Mover derecha">→</button>`:''}
+        <button class="foto-ctrl-btn del" onclick="event.stopPropagation();eliminarFoto(${i})" title="Eliminar">×</button>
       </div>
     </div>`).join('');
 }
+
+function fotoDragStart(e, i){
+  fotoDragSrc = i;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function fotoDragOver(e){
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+function fotoDragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function fotoDragEnd(e){ e.currentTarget.classList.remove('dragging'); }
+function fotoDrop(e, targetIdx){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if(fotoDragSrc === null || fotoDragSrc === targetIdx) return;
+  const [moved] = muFotos.splice(fotoDragSrc, 1);
+  muFotos.splice(targetIdx, 0, moved);
+  fotoDragSrc = null;
+  renderFotos();
+}
+
 function moverFoto(i,dir){
   const ni=i+dir;
   if(ni<0||ni>=muFotos.length) return;
