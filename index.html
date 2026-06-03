@@ -744,6 +744,17 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .unit-reservar-label{position:relative;z-index:1;display:flex;align-items:center;gap:8px}
 .unit-reservar-arrow{position:relative;z-index:1;font-size:16px;transition:transform .2s}
 .unit-reservar-btn:hover .unit-reservar-arrow{transform:translate(2px,-2px)}
+.card-booking-btns{display:flex;flex-direction:column;gap:.5rem;width:100%}
+.card-booking-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem}
+.card-book-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.55rem .5rem;border-radius:var(--r-sm);font-size:12px;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.card-book-btn.airbnb{background:#FF5A5F;color:#fff}
+.card-book-btn.airbnb:hover{background:#e04a4f;transform:translateY(-1px)}
+.card-book-btn.wa{background:#25D366;color:#fff}
+.card-book-btn.wa:hover{background:#1da851;transform:translateY(-1px)}
+.card-book-btn.maps{background:#111;color:#fff}
+.card-book-btn.maps:hover{background:#333;transform:translateY(-1px)}
+.card-book-btn.morelos{background:var(--gray-100);color:var(--black);border:1px solid var(--gray-200)}
+.card-book-btn.morelos:hover{background:var(--gray-200)}
 .units-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
 @media(max-width:900px){.units-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.units-grid-wrap{padding:0 20px 60px}}
@@ -1472,15 +1483,6 @@ body.detail-active .nav-logo-mark{}
       </div>
     </div>
 
-    <!-- Properties of this complex - HORIZONTAL SCROLL -->
-    <div class="detail-others-row">
-      <h2 class="detail-others-title" id="detailPropsTitle">Propiedades en este complejo</h2>
-    </div>
-  </div>
-  <div class="units-grid-wrap">
-    <div class="units-grid" id="propsGrid">
-      <!-- Rendered by JS -->
-    </div>
   </div>
 </section>
 
@@ -2288,7 +2290,8 @@ function abrirComplejo(id){
       galleryHTML = '<img src="' + fotos[0] + '" alt="' + nombre + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"/>';
     } else {
       const slides = fotos.map((f,i) => '<div class="unit-carousel-slide"><img src="' + f + '" alt="' + nombre + ' ' + (i+1) + '" loading="lazy"/></div>').join('');
-      const dots = fotos.map((_,i) => '<button class="unit-carousel-dot' + (i===0?' active':'') + '" onclick="ucDot(this,' + i + ');event.stopPropagation()"></button>').join('');
+      const maxDots = Math.min(fotos.length, 5);
+      const dots = fotos.slice(0, maxDots).map((_,i) => '<button class="unit-carousel-dot' + (i===0?' active':'') + '" onclick="ucDot(this,' + i + ');event.stopPropagation()"></button>').join('');
       galleryHTML = '<div class="unit-carousel" id="uc-cup-' + pid + '" data-idx="0">' +
         '<div class="unit-carousel-track">' + slides + '</div>' +
         '<button class="unit-carousel-btn prev" onclick="ucMoveCup(\'' + pid + '\',-1);event.stopPropagation()">‹</button>' +
@@ -2297,11 +2300,23 @@ function abrirComplejo(id){
         '</div>';
     }
 
-    const reservarBtn = reservarUrl
-      ? '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="unit-reservar-btn" onclick="event.stopPropagation()">' +
-        '<span class="unit-reservar-label"><i class="fa-solid fa-calendar-check"></i> Reservar ahora</span>' +
-        '<span class="unit-reservar-arrow">↗</span></a>'
-      : '';
+    // Build all booking buttons
+    const telDigits = String(p.telefono||'8110645136').replace(/\D/g,'') || '8110645136';
+    const waMsg = encodeURIComponent('Hola, vi en barrioinn.com la suite ' + p.nombre + ' y me gustaría reservarla. ¿Tienen disponibilidad?');
+    const waLink = 'https://wa.me/52' + telDigits + '?text=' + waMsg;
+    const airbnbUrl = safeUrl(p.airbnb);
+    const belongUrl = safeUrl(p.belong);
+    const dirUrl = safeUrl(p.direccionUrl);
+    const isMorelos = p.complejo === 'morelos';
+
+    let bookingHTML = '<div class="card-booking-btns">';
+    if(reservarUrl) bookingHTML += '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="unit-reservar-btn" onclick="event.stopPropagation()"><span class="unit-reservar-label"><i class="fa-solid fa-calendar-check"></i> Reservar ahora</span><span class="unit-reservar-arrow">↗</span></a>';
+    bookingHTML += '<div class="card-booking-row">';
+    if(airbnbUrl) bookingHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="card-book-btn airbnb" onclick="event.stopPropagation()"><i class="fa-brands fa-airbnb"></i> Airbnb</a>';
+    bookingHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="card-book-btn wa" onclick="event.stopPropagation()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>';
+    if(dirUrl) bookingHTML += '<a href="' + dirUrl + '" target="_blank" rel="noopener" class="card-book-btn maps" onclick="event.stopPropagation()"><i class="fa-solid fa-location-dot"></i> Maps</a>';
+    if(isMorelos) bookingHTML += '<a href="/morelos" target="_blank" rel="noopener" class="card-book-btn morelos" onclick="event.stopPropagation()" style="grid-column:1/-1"><i class="fa-solid fa-calendar"></i> Ver disponibilidad en Morelos</a>';
+    bookingHTML += '</div></div>';
 
     return '<div class="unit-card">' +
       '<div class="unit-card-gallery">' + galleryHTML + '</div>' +
@@ -2312,7 +2327,7 @@ function abrirComplejo(id){
       '</div>' +
       '<div class="unit-card-footer">' +
         '<button class="unit-ver-btn" onclick="abrirUnidad(\'' + pid + '\')"><i class="fa-solid fa-eye"></i> Ver detalle</button>' +
-        reservarBtn +
+        bookingHTML +
       '</div>' +
     '</div>';
   }).join('');
@@ -2472,9 +2487,6 @@ function abrirUnidad(propId){
   bookingBtns.innerHTML = bbHTML;
 
   // Otras unidades del mismo complejo
-  document.getElementById('detailPropsTitle').textContent = 'Más unidades en ' + (complejoActivo ? complejoActivo.nombre : 'este complejo');
-  renderizarPropiedadesDeComplejo(p.complejo);
-
   switchDetailTab('overview');
 }
 
