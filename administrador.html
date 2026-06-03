@@ -388,11 +388,17 @@ select{cursor:pointer}
         </div>
       </div>
       <div style="margin-top:.75rem">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.5rem">
-          Links de reserva <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">— si hay 2+ aparece popup al reservar</span>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.35rem">
+          Link de reserva principal <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">— este activa el botón "Reservar ahora"</span>
+        </div>
+        <div class="field" style="margin-bottom:.75rem">
+          <input type="url" id="mu-reserva-principal" placeholder="https://airbnb.com/rooms/... o el link que prefieras" style="border:2px solid #111;border-radius:12px;padding:.75rem 1rem;font-size:14px"/>
+        </div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.35rem">
+          Links adicionales <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">— opcionales</span>
         </div>
         <div id="plataformasContainer"></div>
-        <button class="btn btn-ghost btn-sm" onclick="agregarPlataforma()" style="margin-top:.4rem">+ Agregar plataforma</button>
+        <button class="btn btn-ghost btn-sm" onclick="agregarPlataforma()" style="margin-top:.4rem">+ Agregar plataforma adicional</button>
       </div>
 
       <div class="field-section" style="margin-top:1.5rem">Fotos <span id="fotosCount" style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;color:var(--gray-400)"></span></div>
@@ -763,7 +769,7 @@ function renderUnidades(){
 function abrirModalUnidad(id){
   editandoUnidadId = null;
   muFotos=[];muTags=[];plataformas=[];
-  ['mu-numero','mu-titulo','mu-descripcion','mu-whatsapp'].forEach(f=>document.getElementById(f).value='');
+  ['mu-numero','mu-titulo','mu-descripcion','mu-whatsapp','mu-reserva-principal'].forEach(f=>document.getElementById(f).value='');
   document.getElementById('mu-tipo').value='';
   document.getElementById('mu-piso').value='1';
   document.getElementById('modalUnidadTitle').textContent='Agregar suite';
@@ -792,6 +798,9 @@ function editarUnidad(id){
   document.getElementById('mu-piso').value = p.piso||'1';
   document.getElementById('mu-descripcion').value = '';
   document.getElementById('mu-whatsapp').value = p.whatsapp||(p.telefono?'52'+p.telefono:'')||'';
+  // Load reserva principal
+  const principalUrl = (p.plataformas&&p.plataformas.length) ? p.plataformas[0].url : (p.airbnb||p.belong||p.expedia||'');
+  document.getElementById('mu-reserva-principal').value = principalUrl;
   document.getElementById('modalUnidadTitle').textContent='Editar suite';
   document.getElementById('mu-save-btn').textContent='Guardar';
   renderMuTags();renderFotos();renderPlataformas();
@@ -822,6 +831,11 @@ async function guardarUnidad(){
     const airbnb  = plataformas.find(p=>p.nombre.toLowerCase()==='airbnb')?.url||'';
     const belong  = plataformas.find(p=>p.nombre.toLowerCase()==='belong')?.url||'';
     const expedia = plataformas.find(p=>p.nombre.toLowerCase()==='expedia')?.url||'';
+    const reservaPrincipal = document.getElementById('mu-reserva-principal').value.trim();
+    // Build full plataformas array with principal first
+    const todasPlataformas = reservaPrincipal
+      ? [{nombre:'Reservar', url:reservaPrincipal}, ...plataformas.filter(p=>p.url&&p.url!==reservaPrincipal)]
+      : plataformas;
 
     const data = {
       id: editandoUnidadId || (titulo.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')+'_'+Date.now()),
@@ -841,6 +855,7 @@ async function guardarUnidad(){
       lat: null,
       lng: null,
       fotos: fotosFinales,
+      plataformas: todasPlataformas,
     };
 
     btn.textContent='Guardando...';
