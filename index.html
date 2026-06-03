@@ -712,12 +712,12 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .unit-collage-count{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);color:#fff;font-size:11px;font-weight:700;padding:.2rem .55rem;border-radius:100px;pointer-events:none}
 .unit-card-body{padding:1.25rem 1.5rem 1rem;flex:1}
 .unit-card-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);background:var(--gray-100);border:1px solid var(--gray-200);padding:.25rem .75rem;border-radius:var(--r-pill);margin-bottom:.75rem}
-.unit-card-name{font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;color:var(--black);margin-bottom:.6rem;letter-spacing:-.01em;line-height:1.2}
+.unit-card-name{font-family:'Instrument Serif',serif;font-size:clamp(1rem,3.5vw,1.35rem);font-weight:400;color:var(--black);margin-bottom:.5rem;letter-spacing:-.01em;line-height:1.2}
 .unit-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.5rem}
 .unit-card-tag{font-size:12px;color:var(--gray-600);background:#fff;border:1px solid var(--gray-200);padding:.25rem .7rem;border-radius:var(--r-pill)}
 /* Footer */
 .unit-card-footer{padding:.75rem 1.25rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;border-top:1px solid var(--gray-100)}
-.unit-card-name-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.5rem}
+.unit-card-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
 .unit-ver-inline{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-pill);cursor:pointer;font-size:12px;color:#111;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap;flex-shrink:0;padding:.35rem .9rem;transition:all .2s}
 .unit-ver-inline:hover{border-color:#111;background:var(--gray-50)}
 /* RESERVAR — el botón más sexy */
@@ -741,25 +741,17 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .unit-reservar-label{position:relative;z-index:1;display:flex;align-items:center;gap:8px}
 .unit-reservar-arrow{position:relative;z-index:1;font-size:16px;transition:transform .2s}
 .unit-reservar-btn:hover .unit-reservar-arrow{transform:translate(2px,-2px)}
-.card-booking-btns{width:100%}
-.card-booking-row{display:grid;grid-template-columns:1fr auto auto auto;gap:.4rem;align-items:center}
-.card-book-reservar{flex:1;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-radius:10px;background:#111;color:#fff;text-decoration:none;font-size:13px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .25s;gap:6px;white-space:nowrap}
-.card-book-reservar:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.card-book-btn{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:5px;padding:.7rem .75rem;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
-.card-book-btn.airbnb{background:#FF5A5F;color:#fff}
-.card-book-btn.airbnb:hover{background:#e04a4f;transform:translateY(-2px)}
-.card-book-btn.wa{background:#25D366;color:#fff}
-.card-book-btn.wa:hover{background:#1da851;transform:translateY(-2px)}
-.card-book-btn.maps{background:var(--gray-100);color:var(--black);border:1.5px solid var(--gray-200)}
-.card-book-btn.maps:hover{background:var(--gray-200);transform:translateY(-2px)}
-.units-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
-@media(max-width:900px){.units-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.units-grid-wrap{padding:0 20px 60px}}
-
-/* Unit card */
-.unit-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .3s,transform .3s}
-.unit-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
-/* Card body */
+.card-booking-btns{width:100%;display:flex;flex-direction:column;gap:.5rem}
+.card-book-reservar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.1rem;border-radius:12px;background:#111;color:#fff;text-decoration:none;font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .25s;width:100%}
+.card-book-reservar:hover{background:#333;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.card-book-icons{display:flex;gap:.4rem}
+.card-book-icon{flex:1;height:42px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:18px;text-decoration:none;border:none;cursor:pointer;transition:all .2s}
+.card-book-icon.airbnb{background:#FF5A5F;color:#fff}
+.card-book-icon.airbnb:hover{background:#e04a4f}
+.card-book-icon.wa{background:#25D366;color:#fff}
+.card-book-icon.wa:hover{background:#1da851}
+.card-book-icon.maps{background:var(--gray-100);color:var(--black);border:1.5px solid var(--gray-200)}
+.card-book-icon.maps:hover{background:var(--gray-200)}
 .unit-card-body{padding:1.25rem 1.5rem 0}
 .unit-card-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);background:var(--gray-100);border:1px solid var(--gray-200);padding:.25rem .75rem;border-radius:var(--r-pill);margin-bottom:.75rem}
 .unit-card-name{font-family:'Instrument Serif',serif;font-size:1.4rem;font-weight:400;color:var(--black);margin-bottom:.5rem;letter-spacing:-.01em}
@@ -2294,11 +2286,14 @@ function abrirComplejo(id){
     const dirUrl = safeUrl(p.direccionUrl);
     const isMorelos = p.complejo === 'morelos';
 
-    let bookingHTML = '<div class="card-booking-btns"><div class="card-booking-row">';
-    if(reservarUrl) bookingHTML += '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="unit-reservar-btn card-book-reservar" onclick="event.stopPropagation()"><i class="fa-solid fa-calendar-check"></i> Reservar ahora</a>';
-    if(airbnbUrl) bookingHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="card-book-btn airbnb" onclick="event.stopPropagation()"><i class="fa-brands fa-airbnb"></i> Airbnb</a>';
-    bookingHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="card-book-btn wa" onclick="event.stopPropagation()"><i class="fa-brands fa-whatsapp"></i> WA</a>';
-    if(dirUrl) bookingHTML += '<a href="' + dirUrl + '" target="_blank" rel="noopener" class="card-book-btn maps" onclick="event.stopPropagation()"><i class="fa-solid fa-location-dot"></i> Maps</a>';
+    // Row 1: Reservar ahora full width (if available)
+    // Row 2: Airbnb + WA + Maps icons
+    let bookingHTML = '<div class="card-booking-btns">';
+    if(reservarUrl) bookingHTML += '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="card-book-reservar" onclick="event.stopPropagation()"><span><i class="fa-solid fa-calendar-check"></i> Reservar ahora</span><span>↗</span></a>';
+    bookingHTML += '<div class="card-book-icons">';
+    if(airbnbUrl) bookingHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="card-book-icon airbnb" onclick="event.stopPropagation()"><i class="fa-brands fa-airbnb"></i></a>';
+    bookingHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="card-book-icon wa" onclick="event.stopPropagation()"><i class="fa-brands fa-whatsapp"></i></a>';
+    if(dirUrl) bookingHTML += '<a href="' + dirUrl + '" target="_blank" rel="noopener" class="card-book-icon maps" onclick="event.stopPropagation()"><i class="fa-solid fa-location-dot"></i></a>';
     bookingHTML += '</div></div>';
 
     // Make gallery clickable to open lightbox
