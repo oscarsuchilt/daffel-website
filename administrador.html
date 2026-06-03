@@ -472,8 +472,8 @@ document.addEventListener('keydown', e=>{
 async function initApp(){
   try {
     const [r1,r2] = await Promise.all([
-      sb.from('complejos').select('*'),
-      sb.from('propiedades').select('*'),
+      sb.from('complejos').select('*').order('_orden', {ascending:true}),
+      sb.from('propiedades').select('*').order('_orden', {ascending:true}),
     ]);
     complejos   = (r1.data||[]).map(migrar);
     propiedades = (r2.data||[]).map(migrar);
@@ -594,13 +594,24 @@ function initDragList(listId, type){
       const ti=complejos.findIndex(c=>c.id===targetId);
       if(si<0||ti<0) return;
       const [m]=complejos.splice(si,1); complejos.splice(ti,0,m);
+      // Persist order
+      complejos.forEach((c,i)=>{ c._orden=i; sb.from('complejos').update({_orden:i}).eq('id',c.id).then(()=>{}); });
       renderComplejos();
+      toast('✓ Orden guardado');
     } else {
-      const si=propiedades.findIndex(p=>p.id===dragSrcId);
-      const ti=propiedades.findIndex(p=>p.id===targetId);
+      const cId = complejoActivo?.id;
+      const allProps = propiedades.filter(p=>p.complejo===cId);
+      const si=allProps.findIndex(p=>p.id===dragSrcId);
+      const ti=allProps.findIndex(p=>p.id===targetId);
       if(si<0||ti<0) return;
-      const [m]=propiedades.splice(si,1); propiedades.splice(ti,0,m);
+      // Reorder in main propiedades array
+      const siG=propiedades.findIndex(p=>p.id===dragSrcId);
+      const tiG=propiedades.findIndex(p=>p.id===targetId);
+      const [m]=propiedades.splice(siG,1); propiedades.splice(tiG,0,m);
+      // Persist order for this complejo's props
+      propiedades.filter(p=>p.complejo===cId).forEach((p,i)=>{ p._orden=i; sb.from('propiedades').update({_orden:i}).eq('id',p.id).then(()=>{}); });
       renderUnidades();
+      toast('✓ Orden guardado');
     }
     dragSrcId=null;
   });
