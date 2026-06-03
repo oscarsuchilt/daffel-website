@@ -313,6 +313,10 @@ select{cursor:pointer}
           <textarea id="mc-descripcion" placeholder="Describe el complejo..."></textarea>
         </div>
         <div class="field full">
+          <label>Link de reserva <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">— activa el botón "Reservar ahora" en la card</span></label>
+          <input type="url" id="mc-reserva" placeholder="https://www.barrioinn.com/morelos o cualquier link"/>
+        </div>
+        <div class="field full">
           <label>Foto de portada</label>
           <div class="foto-upload-area" onclick="document.getElementById('mc-foto-input').click()">
             <div class="foto-upload-label"><strong>📷 Seleccionar imagen</strong><br/>JPG, PNG, WebP</div>
@@ -631,6 +635,7 @@ function abrirModalComplejo(){
   document.getElementById('mc-direccion').value='';
   document.getElementById('mc-unidades').value='';
   document.getElementById('mc-descripcion').value='';
+  document.getElementById('mc-reserva').value='';
   document.getElementById('mc-foto-preview').textContent='';
   document.getElementById('mc-foto-input').value='';
   document.getElementById('modalComplejoTitle').textContent='Agregar complejo';
@@ -647,6 +652,7 @@ function editarComplejo(id){
   document.getElementById('mc-direccion').value = c.direccion||'';
   document.getElementById('mc-unidades').value = c.unidades||'';
   document.getElementById('mc-descripcion').value = c.descripcion||'';
+  document.getElementById('mc-reserva').value = c.reserva||'';
   document.getElementById('mc-foto-preview').textContent = c.foto?'✔ Foto actual guardada':'';
   document.getElementById('mc-foto-input').value='';
   document.getElementById('modalComplejoTitle').textContent='Editar complejo';
@@ -664,6 +670,7 @@ async function guardarComplejo(){
     const dir = document.getElementById('mc-direccion').value.trim();
     const unidades = parseInt(document.getElementById('mc-unidades').value)||0;
     const descripcion = document.getElementById('mc-descripcion').value.trim();
+    const reserva = document.getElementById('mc-reserva').value.trim();
 
     let id = editandoComplejoId || nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
     if(!editandoComplejoId && complejos.some(c=>c.id===id)){ alert('Ya existe un complejo con ese nombre.'); return; }
@@ -675,7 +682,7 @@ async function guardarComplejo(){
       if(url) foto=url;
     }
 
-    const data = {id, nombre, direccion:dir, unidades, tags, descripcion, foto};
+    const data = {id, nombre, direccion:dir, unidades, tags, descripcion, foto, reserva};
     const {error} = await sb.from('complejos').upsert(data);
     if(error){ alert('Error: '+error.message); return; }
 
