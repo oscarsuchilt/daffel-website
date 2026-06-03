@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Barrio Inn — Panel de Administración</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23111'/%3E%3Ctext x='50' y='72' font-family='serif' font-size='66' font-style='italic' fill='%237dc49a' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:#0d0d0d;color:#fafaf7;overflow-x:hidden;min-height:100vh}
+
+:root{
+  --black:#111111;
+  --white:#ffffff;
+  --gray-50:#fafafa;
+  --gray-100:#f5f5f5;
+  --gray-200:#e8e8e8;
+  --gray-400:#9a9a9a;
+  --gray-600:#555555;
+  --green:#2d6a4f;
+  --green-dark:#1b4332;
+  --r-sm:10px;
+  --r-md:18px;
+  --r-lg:24px;
+  --r-xl:36px;
+  --r-pill:100px;
+  --shadow-sm:0 1px 8px rgba(0,0,0,.06);
+  --shadow-md:0 4px 24px rgba(0,0,0,.09);
+  --shadow-lg:0 16px 56px rgba(0,0,0,.13);
+}
+
+/* ── LOGIN ── */
+#loginScreen{
+  position:fixed;inset:0;background:#0d0d0d;
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;padding:2rem;
+}
+.login-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r-xl);padding:3rem 2.5rem;
+  width:100%;max-width:420px;text-align:center;
+}
+.login-logo{
+  width:56px;height:56px;background:rgba(125,196,154,.15);border:1px solid rgba(125,196,154,.3);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:28px;font-weight:700;
+}
+.login-title{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:#fff;margin-bottom:.35rem}
+.login-sub{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:2rem}
+.login-field{position:relative;margin-bottom:1rem}
+.login-input{
+  width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-md);padding:.85rem 1.25rem;
+  color:#fafaf7;font-family:'Outfit',sans-serif;font-size:15px;
+  transition:border-color .2s,background .2s;
+}
+.login-input:focus{outline:none;border-color:rgba(125,196,154,.6);background:rgba(255,255,255,.09)}
+.login-input::placeholder{color:rgba(255,255,255,.18)}
+.login-btn{
+  width:100%;background:#7dc49a;color:#fff;
+  border:none;border-radius:var(--r-pill);padding:.9rem;
+  font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .22s;margin-top:.5rem;
+}
+.login-btn:hover{background:#6ab389;transform:translateY(-1px);box-shadow:0 6px 20px rgba(125,196,154,.35)}
+.login-error{font-size:13px;color:#FF9A9A;margin-top:.75rem;min-height:20px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:0 48px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(13,13,13,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-mark{
+  width:32px;height:32px;background:rgba(125,196,154,.15);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Instrument Serif',serif;font-style:italic;color:#7dc49a;font-size:17px;
+}
+.nav-logo-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.025em}
+.nav-logo-badge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(125,196,154,.7);background:rgba(125,196,154,.1);border:1px solid rgba(125,196,154,.2);padding:.2rem .7rem;border-radius:var(--r-pill)}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-back-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;
+  padding:.5rem 1rem;border-radius:var(--r-pill);
+  border:1px solid rgba(255,255,255,.1);
+  transition:all .2s;
+}
+.nav-back-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.nav-logout{
+  background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);
+  padding:.5rem 1rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .2s;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:6px;
+}
+.nav-logout:hover{background:rgba(255,107,107,.22)}
+
+/* ── MAIN ── */
+#mainContent{display:none;padding-top:64px}
+#mainContent.visible{display:block}
+
+/* ── DASHBOARD ── */
+.dash-wrapper{max-width:960px;margin:0 auto;padding:3rem 48px 80px}
+.dash-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.dash-title{font-family:'Instrument Serif',serif;font-size:2.2rem;font-weight:400;color:#fff;margin-bottom:.35rem;letter-spacing:-.02em}
+.dash-subtitle{font-size:13px;color:rgba(255,255,255,.32);letter-spacing:.02em}
+.dash-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-lg);padding:2rem;margin-bottom:2rem}
+.dash-panel-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7dc49a;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:8px}
+.dash-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.dash-field{display:flex;flex-direction:column;gap:.4rem}
+.dash-field.full{grid-column:1/-1}
+.dash-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.1em;text-transform:uppercase}
+.dash-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-sm);padding:.65rem 1rem;color:#fafaf7;font-family:'Outfit',sans-serif;font-size:14px;transition:border-color .2s,background .2s;width:100%}
+.dash-input:focus{outline:none;border-color:rgba(125,196,154,.6);background:rgba(255,255,255,.09)}
+.dash-input::placeholder{color:rgba(255,255,255,.16)}
+.dash-file-area{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.12);border-radius:var(--r-sm);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.dash-file-area:hover{border-color:rgba(125,196,154,.45);background:rgba(125,196,154,.05)}
+.dash-file-input{display:none}
+.dash-file-label{font-size:13px;color:rgba(255,255,255,.38);cursor:pointer;pointer-events:none}
+.dash-file-label strong{color:#7dc49a}
+.dash-preview{font-size:12px;color:#7dc49a;margin-top:.5rem;min-height:16px}
+.fotos-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid rgba(125,196,154,.4);flex-shrink:0}
+.fotos-thumb-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
+.fotos-thumb-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#e53e3e;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
+#fotos-drop-area{min-height:100px;display:flex;align-items:center;justify-content:center}
+.dash-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
+.dash-btn{padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.dash-btn.primary{background:var(--green);color:#fff}
+.dash-btn.primary:hover{background:var(--green-dark);transform:translateY(-1px)}
+.dash-btn.ghost{background:rgba(255,255,255,.07);color:#fafaf7;border:1px solid rgba(255,255,255,.1)}
+.dash-btn.ghost:hover{background:rgba(255,255,255,.12)}
+.dash-btn.danger{background:rgba(255,107,107,.1);color:#FF9A9A;border:1px solid rgba(255,107,107,.18);padding:.5rem 1rem;font-size:12px}
+.dash-btn.danger:hover{background:rgba(255,107,107,.22)}
+.dash-btn.edit{background:rgba(125,196,154,.12);color:#7dc49a;border:1px solid rgba(125,196,154,.28);padding:.5rem 1rem;font-size:12px}
+.dash-btn.edit:hover{background:rgba(125,196,154,.25)}
+.dash-editing-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(125,196,154,.18);border:1px solid rgba(125,196,154,.35);color:#7dc49a;font-size:11px;font-weight:600;padding:.3rem .8rem;border-radius:var(--r-pill);margin-bottom:1rem;letter-spacing:.06em}
+.dash-props-list{display:flex;flex-direction:column;gap:.75rem}
+.dash-prop-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-md);padding:1rem 1.25rem;transition:background .2s}
+.dash-prop-item:hover{background:rgba(255,255,255,.06)}
+.dash-prop-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
+.dash-prop-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.dash-prop-info{flex:1;min-width:0}
+.dash-prop-name{font-weight:600;font-size:15px;color:#fafaf7}
+.dash-prop-addr{font-size:12px;color:rgba(255,255,255,.32);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-prop-meta{font-size:11px;color:rgba(255,255,255,.22);margin-top:3px}
+.dash-empty{text-align:center;padding:2rem;color:rgba(255,255,255,.26);font-size:14px}
+.dash-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.75rem;margin-top:1rem}
+.dash-gallery-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.dash-gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+.dash-gallery-del{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,60,60,.85);color:#fff;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.dash-gallery-item:hover .dash-gallery-del{opacity:1}
+.dash-gallery-empty{font-size:13px;color:rgba(255,255,255,.28);padding:1rem 0}
+.unidades-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);color:#fafaf7;font-size:13px;font-weight:600;padding:.6rem 1.25rem;border-radius:var(--r-pill);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.unidades-back:hover{background:rgba(255,255,255,.12)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .dash-wrapper{padding:2rem 20px 60px}
+  .dash-form-grid{grid-template-columns:1fr}
+  .dash-field.full{grid-column:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">B</div>
+    <h1 class="login-title">Panel Admin</h1>
+    <p class="login-sub">Barrio Inn · Acceso restringido</p>
+    <div class="login-field">
+      <input class="login-input" type="password" id="passInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')intentarLogin()"/>
+    </div>
+    <button class="login-btn" onclick="intentarLogin()"><i class="fa-solid fa-unlock"></i> Entrar</button>
+    <p class="login-error" id="loginError"></p>
+  </div>
+</div>
+
+<!-- NAV (visible tras login) -->
+<nav id="adminNav" style="display:none">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <span class="nav-logo-name">Barrio Inn</span>
+    <span class="nav-logo-badge">Admin</span>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i> Ver sitio</a>
+    <button class="nav-logout" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+  </div>
+</nav>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div id="mainContent">
+  <div class="dash-wrapper">
+    <div class="dash-header">
+      <div class="dash-title">Panel de Administración</div>
+      <p class="dash-subtitle">Barrio Inn · Gestión de complejos, unidades y galería</p>
+    </div>
+
+    <!-- VISTA PRINCIPAL: COMPLEJOS -->
+    <div id="dash-view-complejos">
+      <div class="dash-panel">
+        <div class="dash-panel-title">
+          <i class="fa-solid fa-building"></i> Complejos
+          <button class="dash-btn primary" style="font-size:12px;padding:.45rem 1rem;margin-left:auto" onclick="abrirFormComplejo()">＋ Agregar complejo</button>
+        </div>
+        <div class="dash-props-list" id="dashComplejosList">
+          <p class="dash-empty"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</p>
+        </div>
+      </div>
+
+      <div class="dash-panel" id="dash-complejo-form-panel" style="display:none">
+        <div class="dash-panel-title" id="dash-complejo-form-title"><i class="fa-solid fa-pen"></i> Editar complejo</div>
+        <div class="dash-form-grid">
+          <div class="dash-field">
+            <label class="dash-label">Nombre del complejo *</label>
+            <input class="dash-input" id="dc-nombre" type="text" placeholder="Abasolo"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Dirección</label>
+            <input class="dash-input" id="dc-direccion" type="text" placeholder="José Abasolo, Barrio Antiguo"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Número de unidades (referencia)</label>
+            <input class="dash-input" id="dc-unidades" type="number" placeholder="6"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Tags (separadas por coma)</label>
+            <input class="dash-input" id="dc-tags" type="text" placeholder="Smart Lock, WiFi, Centro Histórico"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Descripción del complejo</label>
+            <textarea class="dash-input" id="dc-descripcion" rows="3" placeholder="Describe la ubicación, ambiente y lo que hace especial a este complejo..." style="resize:vertical;min-height:80px"></textarea>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Foto del complejo (portada)</label>
+            <div class="dash-file-area" onclick="document.getElementById('dc-foto-input').click()">
+              <label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imagen</strong><br/>JPG, PNG, WebP</label>
+            </div>
+            <input type="file" id="dc-foto-input" class="dash-file-input" accept="image/*"/>
+            <p class="dash-preview" id="dc-foto-preview"></p>
+          </div>
+        </div>
+        <div class="dash-actions">
+          <button class="dash-btn primary" onclick="guardarComplejo()"><i class="fa-solid fa-check"></i> Guardar complejo</button>
+          <button class="dash-btn ghost" onclick="cerrarFormComplejo()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+        </div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title"><i class="fa-solid fa-images"></i> Galería Turística · Marquee</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.38);margin-bottom:1rem">Las fotos que subas aquí aparecerán en el carrusel del sitio.</p>
+        <div class="dash-file-area" onclick="document.getElementById('galeriaInput').click()">
+          <label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Subir fotos de Monterrey</strong><br/>JPG, PNG, WebP · Sin límite de archivos</label>
+        </div>
+        <input type="file" id="galeriaInput" class="dash-file-input" multiple accept="image/*"/>
+        <p class="dash-preview" id="galeria-preview"></p>
+        <div class="dash-gallery-grid" id="galeriaGrid">
+          <p class="dash-gallery-empty">Sin fotos aún.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="dash-btn ghost" onclick="resetearDatos()"><i class="fa-solid fa-rotate"></i> Recargar desde base de datos</button>
+      </div>
+    </div>
+
+    <!-- VISTA DRILL-DOWN: UNIDADES -->
+    <div id="dash-view-unidades" style="display:none">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap">
+        <button class="unidades-back" onclick="dashVolverComplejos()">← Volver a complejos</button>
+        <div>
+          <div class="dash-panel-title" style="margin:0;border:none;padding:0" id="dash-unidades-titulo">Complejo</div>
+          <p style="font-size:12px;color:rgba(255,255,255,.32);margin-top:2px" id="dash-unidades-sub"></p>
+        </div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title"><i class="fa-solid fa-house"></i> Unidades en este complejo</div>
+        <div class="dash-props-list" id="dashPropsList">
+          <p class="dash-empty">Cargando...</p>
+        </div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title" id="dash-form-title"><i class="fa-solid fa-plus"></i> Agregar nueva unidad</div>
+        <div id="dash-editing-badge" style="display:none" class="dash-editing-badge"><i class="fa-solid fa-pen"></i> Modo edición activo</div>
+        <div class="dash-form-grid">
+          <div class="dash-field">
+            <label class="dash-label">Nombre de la unidad *</label>
+            <input class="dash-input" id="dash-nombre" type="text" placeholder="Habitación 101"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Badge (zona)</label>
+            <input class="dash-input" id="dash-badge" type="text" placeholder="Barrio Antiguo"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Dirección (texto visible)</label>
+            <input class="dash-input" id="dash-direccion" type="text" placeholder="Calle Morelos, Centro Histórico"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Google Maps</label>
+            <input class="dash-input" id="dash-direccion-url" type="url" placeholder="https://maps.app.goo.gl/..."/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Rating (ej. 4.82 · 130)</label>
+            <input class="dash-input" id="dash-rating" type="text" placeholder="4.82 · 130"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Teléfono (10 dígitos, sin lada)</label>
+            <input class="dash-input" id="dash-telefono" type="tel" maxlength="10" placeholder="8110645136" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Tags (separados por comas)</label>
+            <input class="dash-input" id="dash-tags" type="text" placeholder="Cama King, Baño privado, Smart Lock, WiFi"/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Lugares cercanos (separados por comas)</label>
+            <input class="dash-input" id="dash-cercanos" type="text" placeholder="Macroplaza a 600m, MARCO 500m"/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Belong</label>
+            <input class="dash-input" id="dash-belong" type="url" placeholder="https://belongmx.com/..."/>
+          </div>
+          <div class="dash-field">
+            <label class="dash-label">Link Airbnb</label>
+            <input class="dash-input" id="dash-airbnb" type="url" placeholder="https://airbnb.mx/rooms/..."/>
+          </div>
+          <div class="dash-field full">
+            <label class="dash-label">Link Expedia</label>
+            <input class="dash-input" id="dash-expedia" type="url" placeholder="https://expedia.com/..."/>
+          </div>
+          <input type="hidden" id="dash-lat" value=""/>
+          <input type="hidden" id="dash-lng" value=""/>
+          <div class="dash-field full">
+            <label class="dash-label">Fotos (máximo 5 imágenes)</label>
+            <div class="dash-file-area" id="fotos-drop-area" onclick="document.getElementById('fotos').click()">
+              <div id="fotos-preview-grid" style="display:none;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:4px"></div>
+              <div id="fotos-placeholder"><label class="dash-file-label"><strong><i class="fa-solid fa-camera"></i> Seleccionar imágenes</strong><br/>JPG, PNG, WebP · Máximo 5 archivos</label></div>
+            </div>
+            <input type="file" id="fotos" class="dash-file-input" multiple accept="image/*" onchange="mostrarPreviews(this)"/>
+            <p class="dash-preview" id="fotos-preview"></p>
+          </div>
+        </div>
+        <div class="dash-actions">
+          <button class="dash-btn primary" id="dash-save-btn" onclick="guardarPropiedad()">＋ Agregar unidad</button>
+          <button class="dash-btn ghost" onclick="limpiarFormulario()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── LOGIN ───
+const PASS = 'pepegarza2722';
+
+function intentarLogin(){
+  const val = document.getElementById('passInput').value;
+  const err = document.getElementById('loginError');
+  if(!val){ err.textContent = 'Ingresa la contraseña.'; return; }
+  if(val !== PASS){ err.textContent = 'Contraseña incorrecta.'; document.getElementById('passInput').value = ''; return; }
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminNav').style.display = 'flex';
+  document.getElementById('mainContent').classList.add('visible');
+  initAdminApp();
+}
+
+function cerrarSesion(){
+  location.reload();
+}
+
+// ─── SUPABASE ───
+const SUPABASE_URL = 'https://zwbvugshnjenrysqallo.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YnZ1Z3NobmplbnJ5c3FhbGxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTAzOTIsImV4cCI6MjA5MzQ2NjM5Mn0.DhMoZFuwvfI5aqNq5p73S-uypWI7KG0BeLv8kSWJqLk';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let propiedades = [];
+let complejos   = [];
+let complejoActivo = null;
+let editingId      = null;
+let editingComplejo = null;
+
+// ─── UTILIDADES ───
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function safeUrl(u){ const s=String(u==null?'':u).trim(); if(!/^(https?:|data:image\/)/i.test(s)) return ''; return s.replace(/"/g,'%22').replace(/'/g,'%27').replace(/</g,'%3C').replace(/>/g,'%3E'); }
+
+function migrarNombres(lista, esComplejo){
+  return lista.map(item => {
+    let n = item.nombre || '';
+    if(esComplejo && n === 'Aldea') n = 'Barrio Inn Hostal';
+    n = n.replace(/Barrio\s+inn\s+Aldea\//gi, 'Barrio Inn Hostal/');
+    let d = (item.direccion || '').replace(/Fonda\s*&\s*Aldea/gi, 'Fonda & Hostal');
+    return {...item, nombre: n, direccion: d};
+  });
+}
+
+async function uploadFoto(file, folder){
+  const ext  = file.name.split('.').pop() || 'jpg';
+  const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const { error } = await sb.storage.from('fotos').upload(path, file, { upsert: true });
+  if(error){ alert('Error subiendo imagen: ' + (error.message || 'desconocido')); return null; }
+  return sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
+}
+
+function comprimirImagenBlob(file, maxW, quality){
+  return new Promise(resolve => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = function(){
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height;
+      if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      canvas.toBlob(resolve, 'image/jpeg', quality);
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+// ─── INIT ───
+async function initAdminApp(){
+  try {
+    const [propsRes, cmplsRes] = await Promise.all([
+      sb.from('propiedades').select('*'),
+      sb.from('complejos').select('*'),
+    ]);
+    if(propsRes.error) throw propsRes.error;
+    if(cmplsRes.error) throw cmplsRes.error;
+    if(propsRes.data) propiedades = migrarNombres(propsRes.data, false);
+    if(cmplsRes.data) complejos   = migrarNombres(cmplsRes.data, true);
+    renderDashComplejos();
+    renderGaleriaAdmin();
+  } catch(err){
+    console.error('Error cargando datos:', err);
+    document.getElementById('dashComplejosList').innerHTML = '<p class="dash-empty">⚠ Error conectando con la base de datos. Revisa tu conexión.</p>';
+  }
+}
+
+// ─── COMPLEJOS ───
+function renderDashComplejos(){
+  const list = document.getElementById('dashComplejosList');
+  if(!complejos.length){ list.innerHTML = '<p class="dash-empty">Sin complejos registrados.</p>'; return; }
+  list.innerHTML = complejos.map((c,i) => {
+    const unidades = propiedades.filter(p => p.complejo === c.id).length;
+    const id = esc(c.id);
+    const fotoUrl = safeUrl(c.foto);
+    return `<div class="dash-prop-item">
+      <div class="dash-prop-thumb">${fotoUrl ? `<img src="${fotoUrl}" onerror="this.style.display='none'"/>` : '<i class="fa-solid fa-building"></i>'}</div>
+      <div class="dash-prop-info">
+        <div class="dash-prop-name">${esc(c.nombre)}</div>
+        <div class="dash-prop-addr">${esc(c.direccion)}</div>
+        <div class="dash-prop-meta">${unidades} unidades · ${esc((c.tags||[]).join(', '))}</div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
+        <button class="dash-btn edit" onclick="abrirUnidadesComplejo('${id}')"><i class="fa-solid fa-house"></i> Unidades</button>
+        <button class="dash-btn edit" onclick="editarComplejo(${i})"><i class="fa-solid fa-pen"></i> Editar</button>
+        <button class="dash-btn danger" onclick="eliminarComplejo('${id}')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function abrirFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display='block'; }
+function cerrarFormComplejo(){ document.getElementById('dash-complejo-form-panel').style.display='none'; editingComplejo=null; }
+
+function editarComplejo(idx){
+  const c = complejos[idx];
+  editingComplejo = c.id;
+  document.getElementById('dc-nombre').value    = c.nombre;
+  document.getElementById('dc-direccion').value = c.direccion;
+  document.getElementById('dc-unidades').value  = c.unidades;
+  document.getElementById('dc-tags').value      = (c.tags||[]).join(', ');
+  document.getElementById('dc-descripcion').value = c.descripcion || '';
+  document.getElementById('dash-complejo-form-title').innerHTML = '<i class="fa-solid fa-pen"></i> Editando: ' + c.nombre;
+  abrirFormComplejo();
+  document.getElementById('dash-complejo-form-panel').scrollIntoView({behavior:'smooth'});
+}
+
+async function guardarComplejo(){
+  const nombre = document.getElementById('dc-nombre').value.trim();
+  if(!nombre){ alert('El nombre es obligatorio.'); return; }
+  const btns = document.querySelectorAll('#dash-complejo-form-panel .dash-actions button');
+  btns.forEach(b => b.disabled = true);
+  try {
+    const tags = document.getElementById('dc-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const unidades = parseInt(document.getElementById('dc-unidades').value) || 0;
+    const dir = document.getElementById('dc-direccion').value.trim();
+    const descripcion = document.getElementById('dc-descripcion').value.trim();
+    let targetId;
+    if(editingComplejo){
+      const idx = complejos.findIndex(c => c.id === editingComplejo);
+      if(idx > -1){ complejos[idx] = {...complejos[idx], nombre, direccion:dir, unidades, tags, descripcion}; targetId = complejos[idx].id; }
+    } else {
+      const id = nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+      if(!id){ alert('Nombre inválido.'); return; }
+      if(complejos.some(c => c.id === id)){ alert('Ya existe un complejo con ese nombre.'); return; }
+      complejos.push({ id, nombre, direccion:dir, unidades, tags, descripcion, foto:'' });
+      targetId = id;
+    }
+    const fileInput = document.getElementById('dc-foto-input');
+    if(fileInput && fileInput.files && fileInput.files[0]){
+      const url = await uploadFoto(fileInput.files[0], 'complejos');
+      if(url){ const c = complejos.find(x => x.id === targetId); if(c) c.foto = url; }
+    }
+    const target = complejos.find(c => c.id === targetId);
+    const { error } = await sb.from('complejos').upsert(target);
+    if(error){ alert('Error guardando: ' + error.message); return; }
+    renderDashComplejos();
+    cerrarFormComplejo();
+  } finally {
+    btns.forEach(b => b.disabled = false);
+  }
+}
+
+async function eliminarComplejo(id){
+  if(!confirm('¿Eliminar complejo y TODAS sus unidades?')) return;
+  const r1 = await sb.from('propiedades').delete().eq('complejo', id);
+  if(r1.error){ alert('Error eliminando unidades: ' + r1.error.message); return; }
+  const r2 = await sb.from('complejos').delete().eq('id', id);
+  if(r2.error){ alert('Error eliminando complejo: ' + r2.error.message); return; }
+  complejos = complejos.filter(c => c.id !== id);
+  propiedades = propiedades.filter(p => p.complejo !== id);
+  renderDashComplejos();
+}
+
+// ─── DRILL-DOWN UNIDADES ───
+function abrirUnidadesComplejo(complejoId){
+  complejoActivo = complejos.find(c => c.id === complejoId);
+  document.getElementById('dash-view-complejos').style.display = 'none';
+  document.getElementById('dash-view-unidades').style.display  = 'block';
+  document.getElementById('dash-unidades-titulo').textContent   = complejoActivo ? complejoActivo.nombre : '';
+  document.getElementById('dash-unidades-sub').textContent      = complejoActivo ? complejoActivo.direccion : '';
+  renderDashProps();
+}
+
+function dashVolverComplejos(){
+  complejoActivo = null;
+  document.getElementById('dash-view-unidades').style.display  = 'none';
+  document.getElementById('dash-view-complejos').style.display = 'block';
+  limpiarFormulario();
+}
+
+function renderDashProps(){
+  const list  = document.getElementById('dashPropsList');
+  const cId   = complejoActivo ? complejoActivo.id : null;
+  const props = cId ? propiedades.filter(p => p.complejo === cId) : propiedades;
+  if(!props.length){ list.innerHTML = '<p class="dash-empty">Sin unidades en este complejo.</p>'; return; }
+  list.innerHTML = props.map(p => {
+    const id = esc(p.id);
+    const fotoUrl = (p.fotos && p.fotos.length) ? safeUrl(p.fotos[0]) : '';
+    const thumb = fotoUrl ? `<img src="${fotoUrl}" onerror="this.style.display='none'"/>` : '<i class="fa-solid fa-house"></i>';
+    return `<div class="dash-prop-item">
+      <div class="dash-prop-thumb">${thumb}</div>
+      <div class="dash-prop-info">
+        <div class="dash-prop-name">${esc(p.nombre)}</div>
+        <div class="dash-prop-addr">${esc(p.direccion||'')}</div>
+        <div class="dash-prop-meta">${esc((p.tags||[]).slice(0,3).join(' · '))}</div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap">
+        <button class="dash-btn edit" onclick="editarPropiedad('${id}')"><i class="fa-solid fa-pen"></i> Editar</button>
+        <button class="dash-btn danger" onclick="eliminarPropiedad('${id}')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editarPropiedad(id){
+  const p = propiedades.find(x => x.id === id);
+  if(!p) return;
+  editingId = id;
+  document.getElementById('dash-nombre').value        = p.nombre;
+  document.getElementById('dash-badge').value         = p.badge || '';
+  document.getElementById('dash-direccion').value     = p.direccion || '';
+  document.getElementById('dash-direccion-url').value = p.direccionUrl || '';
+  document.getElementById('dash-rating').value        = p.rating || '';
+  document.getElementById('dash-telefono').value      = p.telefono || '';
+  document.getElementById('dash-tags').value          = (p.tags||[]).join(', ');
+  document.getElementById('dash-cercanos').value      = (p.cercanos||[]).join(', ');
+  document.getElementById('dash-belong').value        = p.belong || '';
+  document.getElementById('dash-airbnb').value        = p.airbnb || '';
+  document.getElementById('dash-expedia').value       = p.expedia || '';
+  document.getElementById('dash-lat').value           = p.lat || '';
+  document.getElementById('dash-lng').value           = p.lng || '';
+  document.getElementById('dash-form-title').innerHTML  = '<i class="fa-solid fa-pen"></i> Editando: ' + p.nombre;
+  document.getElementById('dash-save-btn').textContent  = 'Guardar cambios';
+  document.getElementById('dash-editing-badge').style.display = 'flex';
+  document.getElementById('dash-save-btn').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function limpiarFormulario(){
+  editingId = null;
+  ['dash-nombre','dash-badge','dash-direccion','dash-direccion-url','dash-rating',
+   'dash-telefono','dash-tags','dash-cercanos','dash-belong','dash-airbnb','dash-expedia','dash-lat','dash-lng']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  limpiarPreviewFotos();
+  document.getElementById('dash-form-title').innerHTML = '<i class="fa-solid fa-plus"></i> Agregar nueva unidad';
+  document.getElementById('dash-save-btn').textContent = '＋ Agregar unidad';
+  document.getElementById('dash-editing-badge').style.display = 'none';
+}
+
+function mostrarPreviews(input){
+  const files = Array.from(input.files).slice(0, 5);
+  const grid = document.getElementById('fotos-preview-grid');
+  const placeholder = document.getElementById('fotos-placeholder');
+  grid.innerHTML = '';
+  if(!files.length){ grid.style.display='none'; placeholder.style.display='block'; return; }
+  placeholder.style.display = 'none';
+  grid.style.display = 'flex';
+  files.forEach((file, i) => {
+    const url = URL.createObjectURL(file);
+    const wrap = document.createElement('div');
+    wrap.className = 'fotos-thumb-wrap';
+    const img = document.createElement('img');
+    img.src = url; img.className = 'fotos-thumb';
+    const del = document.createElement('button');
+    del.className = 'fotos-thumb-del'; del.textContent = '×';
+    del.onclick = function(e){
+      e.stopPropagation();
+      const dt = new DataTransfer();
+      Array.from(input.files).forEach((f, j) => { if(j !== i) dt.items.add(f); });
+      input.files = dt.files;
+      mostrarPreviews(input);
+    };
+    wrap.appendChild(img); wrap.appendChild(del);
+    grid.appendChild(wrap);
+  });
+}
+
+function limpiarPreviewFotos(){
+  const grid = document.getElementById('fotos-preview-grid');
+  const placeholder = document.getElementById('fotos-placeholder');
+  if(grid){ grid.innerHTML = ''; grid.style.display = 'none'; }
+  if(placeholder) placeholder.style.display = 'block';
+  const input = document.getElementById('fotos');
+  if(input) input.value = '';
+}
+
+async function guardarPropiedad(){
+  const nombre = document.getElementById('dash-nombre').value.trim();
+  if(!nombre){ alert('El nombre es obligatorio.'); return; }
+  const urlFields = [
+    ['dash-direccion-url','Link de Google Maps'],
+    ['dash-belong','Link de Belong'],
+    ['dash-airbnb','Link de Airbnb'],
+    ['dash-expedia','Link de Expedia'],
+  ];
+  for(const [fieldId, label] of urlFields){
+    const val = document.getElementById(fieldId).value.trim();
+    if(val && !/^https?:\/\//i.test(val)){ alert(label + ' debe empezar con http:// o https://'); return; }
+  }
+  const tel = document.getElementById('dash-telefono').value.trim();
+  if(tel && !/^\d{10}$/.test(tel)){ alert('El teléfono debe tener exactamente 10 dígitos.'); return; }
+
+  const btn = document.getElementById('dash-save-btn');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  let savedOk = false;
+  try {
+    const tags     = document.getElementById('dash-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const cercanos = document.getElementById('dash-cercanos').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const lat = parseFloat(document.getElementById('dash-lat').value) || null;
+    const lng = parseFloat(document.getElementById('dash-lng').value) || null;
+    const data = {
+      id: editingId || (nombre.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') + '_' + Date.now()),
+      complejo: complejoActivo ? complejoActivo.id : 'sin_complejo',
+      nombre,
+      badge:        document.getElementById('dash-badge').value.trim(),
+      direccion:    document.getElementById('dash-direccion').value.trim(),
+      direccionUrl: document.getElementById('dash-direccion-url').value.trim(),
+      rating:       document.getElementById('dash-rating').value.trim(),
+      precio:       '',
+      telefono:     document.getElementById('dash-telefono').value.trim(),
+      tags, cercanos,
+      belong:  document.getElementById('dash-belong').value.trim(),
+      airbnb:  document.getElementById('dash-airbnb').value.trim(),
+      expedia: document.getElementById('dash-expedia').value.trim(),
+      lat, lng,
+      fotos: editingId ? (propiedades.find(p=>p.id===editingId)||{fotos:[]}).fotos : [],
+    };
+    const fotosInput = document.getElementById('fotos');
+    const files = Array.from(fotosInput.files || []).slice(0, 5);
+    if(files.length){
+      btn.textContent = 'Cargando fotos...';
+      const urls = await Promise.all(files.map(async (file) => {
+        const blob = await comprimirImagenBlob(file, 1200, 0.75);
+        if(!blob) return null;
+        const f = new File([blob], file.name, { type: 'image/jpeg' });
+        return uploadFoto(f, 'propiedades');
+      }));
+      data.fotos = urls.filter(Boolean);
+    }
+    btn.textContent = 'Guardando...';
+    const { error } = await sb.from('propiedades').upsert(data);
+    if(error){ alert('Error guardando: ' + error.message); throw error; }
+    if(editingId){ const idx = propiedades.findIndex(p => p.id === editingId); if(idx > -1) propiedades[idx] = data; }
+    else propiedades.push(data);
+    limpiarFormulario();
+    renderDashProps();
+    savedOk = true;
+  } finally {
+    btn.disabled = false;
+    if(!savedOk) btn.textContent = originalText;
+  }
+}
+
+async function eliminarPropiedad(id){
+  if(!confirm('¿Eliminar esta unidad?')) return;
+  const { error } = await sb.from('propiedades').delete().eq('id', id);
+  if(error){ alert('Error al eliminar: ' + error.message); return; }
+  propiedades = propiedades.filter(p => p.id !== id);
+  renderDashProps();
+}
+
+async function resetearDatos(){
+  if(!confirm('¿Recargar datos desde la base de datos?')) return;
+  await initAdminApp();
+}
+
+// ─── GALERÍA ───
+document.addEventListener('DOMContentLoaded', () => {
+  const galeriaInput = document.getElementById('galeriaInput');
+  if(galeriaInput){
+    galeriaInput.addEventListener('change', async function(){
+      if(!this.files.length) return;
+      const preview = document.getElementById('galeria-preview');
+      preview.textContent = `Subiendo ${this.files.length} foto(s)...`;
+      const files = Array.from(this.files);
+      const results = await Promise.all(files.map(async file => {
+        const url = await uploadFoto(file, 'galeria');
+        if(!url) return { ok:false, name:file.name };
+        const { error } = await sb.from('galeria').insert({ src: url, nombre: file.name });
+        return { ok: !error, name: file.name };
+      }));
+      const ok = results.filter(r => r.ok).length;
+      const fail = results.length - ok;
+      preview.textContent = fail ? `✔ ${ok} subidas, ⚠ ${fail} fallaron` : `✔ ${ok} foto(s) subidas`;
+      this.value = '';
+      renderGaleriaAdmin();
+    });
+  }
+  const dcFotoInput = document.getElementById('dc-foto-input');
+  if(dcFotoInput){
+    dcFotoInput.addEventListener('change', function(){
+      document.getElementById('dc-foto-preview').textContent = this.files[0] ? `✔ ${this.files[0].name}` : '';
+    });
+  }
+});
+
+async function eliminarFotoGaleria(id){
+  if(!confirm('¿Eliminar esta foto?')) return;
+  const { error } = await sb.from('galeria').delete().eq('id', id);
+  if(error){ alert('Error al eliminar foto: ' + error.message); return; }
+  renderGaleriaAdmin();
+}
+
+async function renderGaleriaAdmin(){
+  const grid = document.getElementById('galeriaGrid');
+  const { data: galeria } = await sb.from('galeria').select('*').order('id');
+  if(!galeria || !galeria.length){
+    grid.innerHTML = '<p class="dash-gallery-empty">Sin fotos aún. Sube imágenes del Barrio Antiguo para el marquee.</p>';
+    return;
+  }
+  grid.innerHTML = galeria.map(f => {
+    const src = safeUrl(f.src);
+    const idNum = Number(f.id);
+    if(!src || !Number.isFinite(idNum)) return '';
+    return `<div class="dash-gallery-item">
+      <img src="${src}" alt="${esc(f.nombre)}" loading="lazy"/>
+      <button class="dash-gallery-del" onclick="eliminarFotoGaleria(${idNum})" title="Eliminar">×</button>
+    </div>`;
+  }).join('');
+}
+
+// Enter en login
+document.addEventListener('keydown', e => {
+  const loginScreen = document.getElementById('loginScreen');
+  if(loginScreen.style.display !== 'none' && e.key === 'Enter') intentarLogin();
+});
+</script>
+</body>
+</html>
