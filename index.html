@@ -741,11 +741,11 @@ body.complejo-units-active .cup-back-fixed{display:inline-flex}
 .unit-reservar-label{position:relative;z-index:1;display:flex;align-items:center;gap:8px}
 .unit-reservar-arrow{position:relative;z-index:1;font-size:16px;transition:transform .2s}
 .unit-reservar-btn:hover .unit-reservar-arrow{transform:translate(2px,-2px)}
-.card-booking-btns{width:100%;display:flex;flex-direction:column;gap:.5rem}
-.card-book-reservar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.1rem;border-radius:12px;background:#111;color:#fff;text-decoration:none;font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .25s;width:100%}
-.card-book-reservar:hover{background:#333;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.card-book-icons{display:flex;gap:.4rem}
-.card-book-icon{flex:1;height:42px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:18px;text-decoration:none;border:none;cursor:pointer;transition:all .2s}
+.card-booking-btns{width:100%}
+.card-book-icons{display:flex;gap:.4rem;align-items:stretch}
+.card-book-reservar{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:.75rem .5rem;border-radius:10px;background:#111;color:#fff;text-decoration:none;font-size:13px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .25s;white-space:nowrap;min-width:0}
+.card-book-reservar:hover{background:#333;transform:translateY(-1px)}
+.card-book-icon{width:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:18px;text-decoration:none;border:none;cursor:pointer;transition:all .2s}
 .card-book-icon.airbnb{background:#FF5A5F;color:#fff}
 .card-book-icon.airbnb:hover{background:#e04a4f}
 .card-book-icon.wa{background:#25D366;color:#fff}
@@ -2286,11 +2286,8 @@ function abrirComplejo(id){
     const dirUrl = safeUrl(p.direccionUrl);
     const isMorelos = p.complejo === 'morelos';
 
-    // Row 1: Reservar ahora full width (if available)
-    // Row 2: Airbnb + WA + Maps icons
-    let bookingHTML = '<div class="card-booking-btns">';
-    if(reservarUrl) bookingHTML += '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="card-book-reservar" onclick="event.stopPropagation()"><span><i class="fa-solid fa-calendar-check"></i> Reservar ahora</span><span>↗</span></a>';
-    bookingHTML += '<div class="card-book-icons">';
+    let bookingHTML = '<div class="card-booking-btns"><div class="card-book-icons">';
+    if(reservarUrl) bookingHTML += '<a href="' + esc(reservarUrl) + '" target="_blank" rel="noopener" class="card-book-reservar" onclick="event.stopPropagation()"><i class="fa-solid fa-calendar-check"></i> Reservar ahora</a>';
     if(airbnbUrl) bookingHTML += '<a href="' + airbnbUrl + '" target="_blank" rel="noopener" class="card-book-icon airbnb" onclick="event.stopPropagation()"><i class="fa-brands fa-airbnb"></i></a>';
     bookingHTML += '<a href="' + waLink + '" target="_blank" rel="noopener" class="card-book-icon wa" onclick="event.stopPropagation()"><i class="fa-brands fa-whatsapp"></i></a>';
     if(dirUrl) bookingHTML += '<a href="' + dirUrl + '" target="_blank" rel="noopener" class="card-book-icon maps" onclick="event.stopPropagation()"><i class="fa-solid fa-location-dot"></i></a>';
