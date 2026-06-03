@@ -2142,8 +2142,8 @@ document.addEventListener('keydown', function(e){
 async function initApp(){
   try {
     const [propsRes, cmplsRes] = await Promise.all([
-      sb.from('propiedades').select('*').order('_orden', {ascending:true, nullsFirst:false}),
-      sb.from('complejos').select('*').order('_orden', {ascending:true, nullsFirst:false}),
+      sb.from('propiedades').select('*'),
+      sb.from('complejos').select('*'),
     ]);
     if(propsRes.error) throw propsRes.error;
     if(cmplsRes.error) throw cmplsRes.error;
