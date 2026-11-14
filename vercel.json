@@ -1,6 +1,17 @@
 {
   "rewrites": [
     { "source": "/morelos", "destination": "/morelos.html" },
-    { "source": "/administrador", "destination": "/administrador.html" }
+    { "source": "/administrador", "destination": "/administrador.html" },
+    { "source": "/bandeja", "destination": "/bandeja.html" }
+  ],
+  "functions": {
+    "api/whatsapp.js": { "maxDuration": 60 },
+    "api/bandeja.js": { "maxDuration": 20 }
+  },
+  "headers": [
+    {
+      "source": "/bandeja",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Barrio Inn — Bandeja WhatsApp</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23111'/%3E%3Ctext x='50' y='72' font-family='serif' font-size='66' font-style='italic' fill='%237dc49a' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#111;--g50:#fafafa;--g100:#f2f2f0;--g200:#e5e5e2;--g300:#d0d0cc;--g400:#9a9a94;--g600:#555;--green:#1a6648;--green-l:#e8f5ef;--mint:#7dc49a;--red:#c0392b;--red-l:#fdf2f0;--amber:#b7791f;--amber-l:#fdf6e7}
+html,body{height:100%}
+body{font-family:'Outfit',sans-serif;background:#f7f7f5;color:#111}
+button,textarea,input{font-family:inherit}
+
+/* LOGIN */
+#login{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;padding:2rem;z-index:50}
+.login-card{width:100%;max-width:360px;text-align:center}
+.logo{width:56px;height:56px;background:#111;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'Instrument Serif',serif;font-style:italic;color:var(--mint);font-size:26px}
+.login-card h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.8rem}
+.login-card p{font-size:13px;color:var(--g400);margin:.3rem 0 1.75rem}
+.inp{width:100%;border:1.5px solid var(--g200);border-radius:12px;padding:.8rem 1rem;font-size:15px;outline:none}
+.inp:focus{border-color:#111}
+.btn{border:none;border-radius:100px;padding:.6rem 1.2rem;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-dark{background:#111;color:#fff}.btn-dark:hover{background:#333}
+.btn-ghost{background:#fff;border:1.5px solid var(--g200);color:#111}.btn-ghost:hover{border-color:#111}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#155538}
+.btn-full{width:100%;margin-top:.75rem;padding:.85rem}
+.err{color:var(--red);font-size:13px;min-height:18px;margin-top:.6rem}
+
+/* LAYOUT */
+#app{display:none;height:100vh;flex-direction:column}
+#app.on{display:flex}
+header{height:56px;background:#fff;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:15px}
+.brand .mk{width:28px;height:28px;background:#111;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;color:var(--mint);font-size:14px}
+.pill{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .6rem;border-radius:100px}
+.pill-green{background:var(--green-l);color:var(--green)}
+.pill-gray{background:var(--g100);color:var(--g600)}
+.pill-red{background:var(--red-l);color:var(--red)}
+.pill-amber{background:var(--amber-l);color:var(--amber)}
+.main{flex:1;display:grid;grid-template-columns:340px 1fr;min-height:0}
+
+/* LISTA */
+.lista{background:#fff;border-right:1px solid var(--g200);overflow-y:auto}
+.filtros{display:flex;gap:.4rem;padding:.85rem 1rem;border-bottom:1px solid var(--g100);position:sticky;top:0;background:#fff;z-index:1}
+.f{font-size:12px;font-weight:600;padding:.35rem .8rem;border-radius:100px;border:1.5px solid var(--g200);background:#fff;cursor:pointer;color:var(--g600)}
+.f.on{background:#111;color:#fff;border-color:#111}
+.item{padding:.85rem 1rem;border-bottom:1px solid var(--g100);cursor:pointer;display:flex;gap:.75rem;align-items:flex-start}
+.item:hover{background:var(--g50)}
+.item.sel{background:var(--g100)}
+.av{width:40px;height:40px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:17px;flex-shrink:0;color:var(--g600)}
+.item.urg .av{background:var(--red-l);color:var(--red)}
+.it-body{flex:1;min-width:0}
+.it-top{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline}
+.it-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it-time{font-size:11px;color:var(--g400);flex-shrink:0}
+.it-prev{font-size:12.5px;color:var(--g600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:.15rem 0 .35rem}
+.it-tags{display:flex;gap:.3rem;flex-wrap:wrap;align-items:center}
+.badge{background:var(--green);color:#fff;font-size:10.5px;font-weight:700;border-radius:100px;padding:.05rem .45rem;margin-left:auto}
+.vacio{padding:3rem 1.5rem;text-align:center;color:var(--g400);font-size:14px}
+
+/* CHAT */
+.chat{display:flex;flex-direction:column;min-height:0;background:#f7f7f5}
+.chat-head{background:#fff;border-bottom:1px solid var(--g200);padding:.75rem 1.25rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.back{display:none;background:none;border:none;font-size:20px;cursor:pointer;padding:0 .4rem 0 0}
+.ch-info{flex:1;min-width:0}
+.ch-name{font-weight:700;font-size:15px}
+.ch-sub{font-size:12px;color:var(--g400)}
+.ch-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+.alerta{margin:.75rem 1.25rem 0;background:var(--red-l);border:1px solid #f5c6c2;color:var(--red);border-radius:12px;padding:.65rem .9rem;font-size:13px;display:flex;justify-content:space-between;gap:.75rem;align-items:center}
+.alerta.normal{background:var(--amber-l);border-color:#f3dfb4;color:var(--amber)}
+.msgs{flex:1;overflow-y:auto;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.b{max-width:78%;padding:.55rem .8rem;border-radius:14px;font-size:14px;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.b a{color:inherit;text-decoration:underline;word-break:break-all}
+.b .who{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.6;margin-bottom:.15rem}
+.b .t{font-size:10.5px;opacity:.5;margin-top:.2rem;text-align:right}
+.b.cliente{background:#fff;align-self:flex-start;border-bottom-left-radius:4px}
+.b.bot{background:#111;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.b.humano{background:var(--green);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.b.sistema{background:transparent;box-shadow:none;align-self:center;font-size:12px;color:var(--g400);text-align:center;max-width:90%}
+.composer{background:#fff;border-top:1px solid var(--g200);padding:.75rem 1rem;display:flex;gap:.6rem;align-items:flex-end}
+.composer textarea{flex:1;border:1.5px solid var(--g200);border-radius:14px;padding:.65rem .9rem;font-size:14px;resize:none;max-height:140px;outline:none}
+.composer textarea:focus{border-color:#111}
+.hint{font-size:11.5px;color:var(--g400);padding:0 1.25rem .6rem;background:#fff}
+.placeholder{flex:1;display:flex;align-items:center;justify-content:center;color:var(--g400);font-size:14px;text-align:center;padding:2rem}
+
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .chat{display:none}
+  .main.abierto .lista{display:none}
+  .main.abierto .chat{display:flex}
+  .back{display:block}
+  .b{max-width:88%}
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="login-card">
+    <div class="logo">B</div>
+    <h1>Bandeja WhatsApp</h1>
+    <p>Barrio Inn · Solo equipo</p>
+    <input class="inp" type="password" id="tok" placeholder="Clave de acceso" autocomplete="current-password"/>
+    <button class="btn btn-dark btn-full" id="entrar">Entrar</button>
+    <p class="err" id="loginErr"></p>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="brand"><div class="mk">B</div>Barrio Inn <span class="pill pill-green" id="estadoBot">Bot</span></div>
+    <button class="btn btn-ghost" id="salir">Salir</button>
+  </header>
+  <div class="main" id="main">
+    <aside class="lista">
+      <div class="filtros">
+        <button class="f on" data-f="todos">Todos</button>
+        <button class="f" data-f="atender">Por atender</button>
+        <button class="f" data-f="humano">Con humano</button>
+      </div>
+      <div id="lista"></div>
+    </aside>
+    <section class="chat" id="chat">
+      <div class="placeholder">Elige una conversación</div>
+    </section>
+  </div>
+</div>
+
+<script>
+// ─── Estado ───
+let TOKEN = '';
+let chats = [];
+let actual = null;
+let filtro = 'todos';
+let timer = null;
+let firma = '';
+
+try { TOKEN = sessionStorage.getItem('bi_bandeja') || ''; } catch(e) {}
+
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function linkify(s){ return esc(s).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
+function hora(iso){
+  if(!iso) return '';
+  const d = new Date(iso), hoy = new Date();
+  return d.toDateString() === hoy.toDateString()
+    ? d.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'})
+    : d.toLocaleDateString('es-MX', {day:'numeric', month:'short'}) + ' ' + d.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+}
+function tel(wa){ return '+' + wa; }
+function botPausado(c){
+  if(c.modo !== 'humano') return false;
+  return !c.pausado_hasta || new Date(c.pausado_hasta) > new Date();
+}
+
+async function api(path, opts = {}){
+  const r = await fetch(path, { ...opts, headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', ...(opts.headers||{}) } });
+  const data = await r.json().catch(() => ({}));
+  if(r.status === 401){ salir(); throw new Error('Sesión expirada'); }
+  if(!r.ok) throw new Error(data.error || ('Error ' + r.status));
+  return data;
+}
+
+// ─── Login ───
+async function entrar(){
+  TOKEN = $('tok').value.trim() || TOKEN;
+  if(!TOKEN){ $('loginErr').textContent = 'Escribe la clave.'; return; }
+  try {
+    const d = await api('/api/bandeja');
+    try { sessionStorage.setItem('bi_bandeja', TOKEN); } catch(e) {}
+    $('login').style.display = 'none';
+    $('app').classList.add('on');
+    pintarEstado(d.config);
+    chats = d.chats || [];
+    pintarLista();
+    timer = setInterval(refrescar, 8000);
+  } catch(e){
+    $('loginErr').textContent = e.message === 'Sesión expirada' ? 'Clave incorrecta.' : e.message;
+  }
+}
+function salir(){
+  try { sessionStorage.removeItem('bi_bandeja'); } catch(e) {}
+  TOKEN = ''; clearInterval(timer);
+  $('app').classList.remove('on'); $('login').style.display = 'flex';
+}
+$('entrar').onclick = entrar;
+$('tok').onkeydown = e => { if(e.key === 'Enter') entrar(); };
+$('salir').onclick = salir;
+if(TOKEN) entrar();
+
+function pintarEstado(cfg){
+  const el = $('estadoBot');
+  if(!cfg) return;
+  if(!cfg.botActivo){ el.textContent = 'Bot apagado'; el.className = 'pill pill-gray'; }
+  else { el.textContent = cfg.horario === 'fuera_de_oficina' ? 'Bot fuera de oficina' : 'Bot 24/7'; el.className = 'pill pill-green'; }
+}
+
+// ─── Lista ───
+document.querySelectorAll('.f').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.f').forEach(x => x.classList.remove('on'));
+  b.classList.add('on'); filtro = b.dataset.f; pintarLista();
+});
+
+function pintarLista(){
+  let lista = chats;
+  if(filtro === 'atender') lista = chats.filter(c => c.necesita_humano);
+  if(filtro === 'humano') lista = chats.filter(botPausado);
+  lista = [...lista].sort((a,b) => (b.necesita_humano && b.urgencia==='urgente') - (a.necesita_humano && a.urgencia==='urgente') || (b.ultimo_mensaje_at||'').localeCompare(a.ultimo_mensaje_at||''));
+  if(!lista.length){ $('lista').innerHTML = '<div class="vacio">Sin conversaciones aquí.</div>'; return; }
+  $('lista').innerHTML = lista.map(c => {
+    const nombre = c.nombre || tel(c.wa_id);
+    const urg = c.necesita_humano && c.urgencia === 'urgente';
+    const tags = [];
+    if(c.necesita_humano) tags.push(urg ? '<span class="pill pill-red">Urgente</span>' : '<span class="pill pill-amber">Por atender</span>');
+    tags.push(botPausado(c) ? '<span class="pill pill-gray">Humano</span>' : '<span class="pill pill-green">Bot</span>');
+    return `<div class="item${actual===c.wa_id?' sel':''}${urg?' urg':''}" data-id="${esc(c.wa_id)}">
+      <div class="av">${esc(nombre.trim().charAt(0).toUpperCase() || '#')}</div>
+      <div class="it-body">
+        <div class="it-top"><span class="it-name">${esc(nombre)}</span><span class="it-time">${hora(c.ultimo_mensaje_at)}</span></div>
+        <div class="it-prev">${esc(c.ultimo_mensaje || '')}</div>
+        <div class="it-tags">${tags.join('')}${c.no_leidos ? `<span class="badge">${Number(c.no_leidos)}</span>` : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  $('lista').querySelectorAll('.item').forEach(el => el.onclick = () => abrir(el.dataset.id));
+}
+
+// ─── Chat ───
+async function abrir(wa_id){
+  actual = wa_id;
+  $('main').classList.add('abierto');
+  pintarLista();
+  await cargarChat(true);
+}
+
+async function cargarChat(scroll){
+  if(!actual) return;
+  const id = actual;
+  const d = await api('/api/bandeja?chat=' + encodeURIComponent(id));
+  if(actual !== id) return;
+  const c = d.chat || { wa_id: id };
+  const ult = (d.mensajes||[]).slice(-1)[0];
+  const nuevaFirma = [id, ult && ult.id, (d.mensajes||[]).length, c.modo, c.pausado_hasta, c.necesita_humano].join('|');
+  if(!scroll && nuevaFirma === firma) return; // nada cambió: no re-pintar (no perder el foco al escribir)
+  firma = nuevaFirma;
+  const idx = chats.findIndex(x => x.wa_id === id);
+  if(idx > -1) chats[idx] = { ...chats[idx], ...c, no_leidos: 0 };
+  const pausado = botPausado(c);
+  const msgsEl = document.querySelector('.msgs');
+  const cerca = msgsEl ? (msgsEl.scrollHeight - msgsEl.scrollTop - msgsEl.clientHeight < 80) : true;
+  const borrador = $('txt') ? $('txt').value : '';
+  const teniaFoco = document.activeElement && document.activeElement.id === 'txt';
+
+  const etiquetaRol = { cliente: 'Cliente', bot: 'Bot IA', humano: 'Equipo', sistema: '' };
+  $('chat').innerHTML = `
+    <div class="chat-head">
+      <button class="back" id="back">←</button>
+      <div class="ch-info">
+        <div class="ch-name">${esc(c.nombre || tel(id))}</div>
+        <div class="ch-sub">${esc(tel(id))} · ${pausado ? (c.pausado_hasta ? 'Bot pausado hasta ' + hora(c.pausado_hasta) : 'Bot pausado') : 'Bot respondiendo'}</div>
+      </div>
+      <div class="ch-actions">
+        <a class="btn btn-ghost" href="https://wa.me/${esc(id)}" target="_blank" rel="noopener" style="text-decoration:none">Abrir en WhatsApp</a>
+        ${pausado
+          ? '<button class="btn btn-green" id="modoBtn" data-m="bot">Reactivar bot</button>'
+          : '<button class="btn btn-dark" id="modoBtn" data-m="humano">Tomar chat (pausar bot)</button>'}
+      </div>
+    </div>
+    ${c.necesita_humano ? `<div class="alerta ${c.urgencia==='urgente'?'':'normal'}"><span><b>${c.urgencia==='urgente'?'Urgente':'Por atender'}:</b> ${esc(c.motivo_escalado || 'El bot pidió ayuda')}</span><button class="btn btn-ghost" id="resueltoBtn">Marcar resuelto</button></div>` : ''}
+    <div class="msgs">${(d.mensajes||[]).map(m => `<div class="b ${esc(m.rol)}">${etiquetaRol[m.rol] ? `<div class="who">${etiquetaRol[m.rol]}</div>` : ''}${linkify(m.texto || '['+(m.tipo||'mensaje')+']')}<div class="t">${hora(m.creado_at)}</div></div>`).join('') || '<div class="vacio">Sin mensajes.</div>'}</div>
+    <div class="composer"><textarea id="txt" rows="1" placeholder="Escribe como equipo de Barrio Inn…"></textarea><button class="btn btn-dark" id="enviar">Enviar</button></div>
+    <div class="hint">Al enviar, el bot se pausa en este chat. WhatsApp solo deja escribir libremente dentro de 24 h del último mensaje del cliente.</div>`;
+
+  $('txt').value = borrador;
+  if(teniaFoco) $('txt').focus();
+  const nuevo = document.querySelector('.msgs');
+  if(scroll || cerca) nuevo.scrollTop = nuevo.scrollHeight;
+  $('back').onclick = () => { actual = null; $('main').classList.remove('abierto'); pintarLista(); };
+  $('modoBtn').onclick = async e => { await accion({ accion: 'modo', wa_id: id, modo: e.target.dataset.m }); };
+  if($('resueltoBtn')) $('resueltoBtn').onclick = async () => { await accion({ accion: 'resuelto', wa_id: id }); };
+  $('enviar').onclick = enviar;
+  $('txt').onkeydown = e => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); enviar(); } };
+  $('txt').oninput = function(){ this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 140) + 'px'; };
+  pintarLista();
+}
+
+async function accion(body){
+  try { await api('/api/bandeja', { method: 'POST', body: JSON.stringify(body) }); await cargarChat(false); }
+  catch(e){ alert(e.message); }
+}
+
+async function enviar(){
+  const t = $('txt').value.trim();
+  if(!t || !actual) return;
+  $('enviar').disabled = true;
+  try {
+    await api('/api/bandeja', { method: 'POST', body: JSON.stringify({ accion: 'responder', wa_id: actual, texto: t }) });
+    $('txt').value = '';
+    await cargarChat(true);
+  } catch(e){ alert(e.message); }
+  finally { if($('enviar')) $('enviar').disabled = false; }
+}
+
+async function refrescar(){
+  try {
+    const d = await api('/api/bandeja');
+    chats = d.chats || [];
+    pintarEstado(d.config);
+    pintarLista();
+    if(actual) await cargarChat(false);
+  } catch(e){ console.warn(e.message); }
+}
+</script>
+</body>
+</html>
