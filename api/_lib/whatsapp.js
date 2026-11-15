@@ -14,8 +14,16 @@ function base() {
       };
 }
 
+// WhatsApp entrega los celulares de México como 521XXXXXXXXXX (con un "1" de más),
+// pero para ENVIAR exige 52XXXXXXXXXX. Sin esto, los mensajes a México fallan.
+export function normalizarNumero(to) {
+  const n = String(to || '').replace(/\D/g, '');
+  return /^521\d{10}$/.test(n) ? '52' + n.slice(3) : n;
+}
+
 async function post(body) {
   const { url, headers } = base();
+  if (body.to) body = { ...body, to: normalizarNumero(body.to) };
   const res = await fetch(url, {
     method: 'POST',
     headers: { ...headers, 'Content-Type': 'application/json' },
